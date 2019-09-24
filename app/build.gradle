@@ -31,4 +31,5 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${uniqueVersion.kotlinStdlibJdk7Version}"
     api "com.android.support:appcompat-v7:${uniqueVersion.supportLibVersion}"
+    api project(":library")
 }

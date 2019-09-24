@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#ffffff"
+    tools:context=".DevToolsActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+
+        <ImageView
+            android:id="@+id/mDevToolsBtBack"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            android:padding="5dp"
+            android:src="@drawable/devtools_icon_back" />
+
+        <TextView
+            android:id="@+id/mForumSimpleToolBarTvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="5dp"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="10"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="开发者工具"
+            android:textColor="#000000"
+            android:textSize="17dp" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/devtools_divider_line" />
+
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:id="@+id/mForumSimpleToolBarTvHttpLog"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="10"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:background="@color/devtools_light_blue"
+        android:text="网络日志"
+        android:textColor="@color/devtools_white"
+        android:textSize="17dp" />
+
+
+</LinearLayout>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="devtools_divider_line">#e5e5e5</color>
+    <color name="devtools_black">#333333</color>
+    <color name="devtools_light_blue">#88ccff</color>
+    <color name="devtools_white">#ffffff</color>
+</resources>
