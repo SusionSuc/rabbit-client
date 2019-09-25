@@ -8,8 +8,6 @@ import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 import android.util.Log
-import android.support.v4.content.ContextCompat.startActivity
-
 
 
 /**
@@ -18,9 +16,6 @@ import android.support.v4.content.ContextCompat.startActivity
  * open dev tools floating window need request permission
  */
 object FloatingViewPermissionHelper {
-
-    private var mDialog: Dialog? = null
-
 
     /**
      * check permission is ok?
@@ -124,24 +119,11 @@ object FloatingViewPermissionHelper {
     /**
      * show confirm dialog
      */
-    private fun showConfirmDialog(context: Context, result: OnConfirmResult) {
-        showConfirmDialog(
-            context,
-            "您的手机没有授予悬浮窗权限，请开启后再试",
-            result
-        )
-    }
-
-    /**
-     * show confirm dialog
-     */
-    private fun showConfirmDialog(context: Context, message: String, result: OnConfirmResult) {
-        if (mDialog != null && mDialog!!.isShowing) {
-            mDialog!!.dismiss()
-        }
-
-        mDialog = AlertDialog.Builder(context).setCancelable(true).setTitle("")
-            .setMessage(message)
+    fun showConfirmDialog(context: Context, result: OnConfirmResult) {
+        val dialog = AlertDialog.Builder(context)
+            .setCancelable(true)
+            .setTitle("")
+            .setMessage("应用的悬浮窗权限还没有打开,请打开权限后再尝试!")
             .setPositiveButton(
                 "现在去开启"
             ) { dialog, which ->
@@ -153,10 +135,11 @@ object FloatingViewPermissionHelper {
                 result.confirmResult(false)
                 dialog.dismiss()
             }.create()
-        mDialog!!.show()
+
+        dialog.show()
     }
 
-    private interface OnConfirmResult {
+    interface OnConfirmResult {
         fun confirmResult(confirm: Boolean)
     }
 
@@ -207,7 +190,8 @@ object FloatingViewPermissionHelper {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 try {
                     val clazz = Settings::class.java
-                    val canDrawOverlays = clazz.getDeclaredMethod("canDrawOverlays", Context::class.java)
+                    val canDrawOverlays =
+                        clazz.getDeclaredMethod("canDrawOverlays", Context::class.java)
                     result = canDrawOverlays.invoke(null, context) as Boolean
                 } catch (e: Exception) {
                     Log.getStackTraceString(e)

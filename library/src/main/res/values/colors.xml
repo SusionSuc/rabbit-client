@@ -5,4 +5,11 @@
     <color name="devtools_black">#333333</color>
     <color name="devtools_light_blue">#88ccff</color>
     <color name="devtools_white">#ffffff</color>
+
+
+    <color name="devtools_material_dark">#aec4c7</color>
+    <color name="devtools_material_promary">#e0f7fa</color>
+
+
+
 </resources>

@@ -8,10 +8,12 @@ import android.view.*
 import android.view.animation.LinearInterpolator
 import android.widget.FrameLayout
 import android.widget.Toast
+import com.susion.devtools.DevTools
 import com.susion.devtools.DevToolsActivity
 import com.susion.devtools.R
 import com.susion.devtools.utils.DevToolsUiUtils
 import kotlinx.android.synthetic.main.dev_tools_view_floating.view.*
+import kotlin.math.abs
 
 /**
  * susionwang at 2019-09-23
@@ -21,7 +23,7 @@ class FloatingView(context: Context) : FrameLayout(context) {
     private var mAnimator: ValueAnimator? = null /* the animation of the float view*/
     private var mXInScreen: Float = 0.toFloat() /* the x position in screen */
     private var mYInScreen: Float = 0.toFloat() /* the y position in screen*/
-    private var isShow = false
+    var isShow = false
 
     private val mWindowManager: WindowManager by lazy {
         context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
@@ -37,7 +39,13 @@ class FloatingView(context: Context) : FrameLayout(context) {
             LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         isClickable = true
         mDevToolsFloatingIv.setOnClickListener {
-            DevToolsActivity.start(context)
+            if (DevTools.isInDevToolsPage) {
+                DevTools.quickFinishAllDevToolsPage()
+                DevTools.isInDevToolsPage = false
+            } else {
+                DevTools.isInDevToolsPage = true
+                DevToolsActivity.start(context)
+            }
         }
     }
 
@@ -67,7 +75,10 @@ class FloatingView(context: Context) : FrameLayout(context) {
             Toast.makeText(context, "悬浮窗已经打开", Toast.LENGTH_SHORT).show()
             return
         }
+
         isShow = true
+        DevTools.setDevToolsOpenStatus(isShow)
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             mParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
         } else {
@@ -86,6 +97,7 @@ class FloatingView(context: Context) : FrameLayout(context) {
 
     fun hide() {
         isShow = false
+        DevTools.setDevToolsOpenStatus(isShow)
         mWindowManager.removeView(this)
     }
 
@@ -110,7 +122,7 @@ class FloatingView(context: Context) : FrameLayout(context) {
         } else {
             0f
         }
-        val time = Math.abs(start - end).toLong() * 800 / (screenWidth ?: 0)
+        val time = abs(start - end).toLong() * 800 / (screenWidth ?: 0)
         mAnimator = ValueAnimator.ofFloat(start, end).setDuration(time)
         mAnimator?.interpolator = LinearInterpolator()
         mAnimator?.addUpdateListener { animation ->

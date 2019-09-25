@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+    tools:parentTag="RelativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="45dp">
+
+    <ImageView
+        android:id="@+id/mDevToolsToolsBarIvBack"
+        android:layout_centerVertical="true"
+        android:src="@drawable/devtools_icon_back"
+        android:layout_marginStart="15dp"
+        android:padding="5dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"/>
+
+    <TextView
+        android:layout_marginStart="5dp"
+        android:id="@+id/mDevToolsToolsBarTvTitle"
+        android:layout_centerInParent="true"
+        android:textSize="17dp"
+        android:maxLines="10"
+        android:ellipsize="end"
+        android:textStyle="bold"
+        android:textColor="@color/devtools_black"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:gravity="center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"/>
+
+</merge>

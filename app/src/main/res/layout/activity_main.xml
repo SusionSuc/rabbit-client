@@ -5,41 +5,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#ffffff"
     tools:context=".MainActivity">
 
-
-    <View
-        android:layout_marginTop="10dp"
-        android:background="@color/devtools_divider_graye5"
+    <com.susion.devtools.base.view.DevToolsActionBar
+        android:id="@+id/mDevToolsTestMainActionBar"
         android:layout_width="match_parent"
-        android:layout_height="1px"/>
+        android:layout_height="45dp"/>
+
+
     <TextView
+        android:layout_marginStart="15dp"
         android:id="@+id/mDevToolsTestTvOpen"
-        android:textColor="@color/devtools_black"
-        android:textSize="18dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:gravity="center"
-        android:text="打开 DevTools " />
+        android:gravity="left|center_vertical"
+        android:text="打开 DevTools "
+        android:textColor="@color/devtools_black"
+        android:textSize="18dp" />
 
     <View
-        android:background="@color/devtools_divider_graye5"
+        android:layout_marginStart="15dp"
         android:layout_width="match_parent"
-        android:layout_height="1px"/>
+        android:layout_height="1px"
+        android:background="@color/devtools_divider_graye5" />
 
     <TextView
+        android:layout_marginStart="15dp"
         android:id="@+id/mDevToolsTestTvRequestNet"
-        android:textColor="@color/devtools_black"
-        android:textSize="18dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:gravity="center"
-        android:text="请求网络" />
+        android:gravity="left|center_vertical"
+        android:text="测试请求网络接口"
+        android:textColor="@color/devtools_black"
+        android:textSize="18dp" />
 
     <View
-        android:background="@color/devtools_divider_graye5"
+        android:layout_marginStart="15dp"
         android:layout_width="match_parent"
-        android:layout_height="1px"/>
+        android:layout_height="1px"
+        android:background="@color/devtools_divider_graye5" />
 
 </LinearLayout>

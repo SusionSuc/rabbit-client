@@ -43,10 +43,9 @@ dependencies {
     implementation "com.google.code.gson:gson:${uniqueVersion.gsonVersion}"
     implementation "android.arch.lifecycle:extensions:${uniqueVersion.archLifecycleVersion}"
 
-    api "com.squareup.retrofit2:retrofit:${uniqueVersion.retrofit2Version}"
-    api "io.reactivex.rxjava2:rxjava:${uniqueVersion.rx2javaVersion}"
-    api "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:${uniqueVersion.retrofit2RxJavaAdapterVersion}"
-    api "com.squareup.retrofit2:converter-gson:${uniqueVersion.retrofit2ConvertJson}"
-    api "io.reactivex.rxjava2:rxandroid:${uniqueVersion.rx2androidVersion}"
-    api "com.google.code.gson:gson:${uniqueVersion.gsonVersion}"
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation "com.android.support:recyclerview-v7:${uniqueVersion.supportLibVersion}"
+    implementation "com.jakewharton.rxbinding3:rxbinding:${uniqueVersion.rxbinding3Version}"
+
+
 }

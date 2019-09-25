@@ -5,58 +5,52 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#ffffff"
     tools:context=".DevToolsActivity">
 
-    <RelativeLayout
+    <com.susion.devtools.base.view.DevToolsActionBar
+        android:id="@+id/mDevToolsActionBar"
         android:layout_width="match_parent"
-        android:layout_height="45dp">
+        android:layout_height="45dp"/>
+
+    <RelativeLayout
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:paddingStart="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
 
         <ImageView
-            android:id="@+id/mDevToolsBtBack"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:id="@+id/http_icon"
+            android:src="@drawable/devtools_icon_http"
             android:layout_centerVertical="true"
-            android:layout_marginStart="15dp"
-            android:padding="5dp"
-            android:src="@drawable/devtools_icon_back" />
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
 
         <TextView
-            android:id="@+id/mForumSimpleToolBarTvTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/http_icon"
+            android:layout_marginStart="30dp"
+            android:id="@+id/mDevToolsTvHttpLog"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
             android:ellipsize="end"
-            android:gravity="center_vertical"
+            android:gravity="left|center_vertical"
             android:maxLines="10"
             android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:text="开发者工具"
-            android:textColor="#000000"
-            android:textSize="17dp" />
+            android:text="网络日志"
+            android:textColor="@color/devtools_black"
+            android:textSize="16dp" />
+
+        <View
+            android:layout_marginStart="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_toEndOf="@+id/http_icon"
+            android:background="@color/devtools_divider_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
     </RelativeLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/devtools_divider_line" />
 
-
-    <TextView
-        android:layout_marginTop="10dp"
-        android:id="@+id/mForumSimpleToolBarTvHttpLog"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:ellipsize="end"
-        android:gravity="center"
-        android:maxLines="10"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:background="@color/devtools_light_blue"
-        android:text="网络日志"
-        android:textColor="@color/devtools_white"
-        android:textSize="17dp" />
 
 
 </LinearLayout>

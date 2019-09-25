@@ -5,13 +5,12 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import com.susion.devtools.base.DevToolsBaseActivity
 import com.susion.devtools.net.DevToolsTestApiModel
-import com.susion.devtools.utils.DevToolsUiUtils
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : DevToolsBaseActivity() {
 
     private val TAG = javaClass.simpleName
     private val PERMISSIONS_STORAGE =
@@ -20,11 +19,16 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        DevToolsUiUtils.setGeneralStatusBarColor(window)
 
+        mDevToolsTestMainActionBar.hideBackBtn()
+        mDevToolsTestMainActionBar.setTitle("Alpha")
+        setBackListener(mDevToolsTestMainActionBar)
         mDevToolsTestTvOpen.setOnClickListener {
-            DevTools.autoShowDevBtn(this)
-            DevTools.showFloatingView(this@MainActivity)
+            if (!DevTools.devToolsIsOpen()){
+                DevTools.openDevTools(true, this)
+            }else{
+            }
+            refreshOpenStatus()
         }
 
         mDevToolsTestTvRequestNet.setOnClickListener {
@@ -41,6 +45,13 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        mDevToolsTestTvRequestNet.postDelayed({
+            refreshOpenStatus()
+        },500)
+    }
+
+    private fun refreshOpenStatus() {
+        mDevToolsTestTvOpen.text = if (DevTools.devToolsIsOpen()) "关闭DevTools" else "打开DevTools"
     }
 
     private fun sampleRequestNet() {

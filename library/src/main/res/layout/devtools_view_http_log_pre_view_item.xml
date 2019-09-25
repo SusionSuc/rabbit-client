@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:orientation="horizontal"
+    tools:parentTag="RelativeLayout">
+
+    <ImageView
+        android:layout_marginStart="15dp"
+        android:id="@+id/mLogPreViewIvResponseContentType"
+        android:layout_centerVertical="true"
+        android:layout_width="30dp"
+        android:layout_height="30dp"/>
+
+    <LinearLayout
+        android:layout_toEndOf="@+id/mLogPreViewIvResponseContentType"
+        android:id="@+id/log_detail"
+        android:layout_marginStart="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/mLogPreViewTvHost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/devtools_black"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/mLogPreViewTvPath"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="@color/devtools_black"
+            android:textSize="16dp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_toEndOf="@+id/mLogPreViewIvResponseContentType"
+        android:layout_marginStart="20dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/devtools_divider_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+</merge>

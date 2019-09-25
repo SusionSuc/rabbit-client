@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".net.ui.HttpLogDetailActivity">
+
+    <com.susion.devtools.base.view.DevToolsActionBar
+        android:id="@+id/mHttpLogDetailActionBar"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"/>
+
+    <TextView
+        android:id="@+id/mHttpLogDetailTvRequestPath"
+        android:paddingStart="10dp"
+        android:textSize="14dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/devtools_black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <View
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/devtools_divider_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <com.susion.devtools.net.ui.json.JsonRecyclerView
+        android:padding="10dp"
+        android:id="@+id/mHttpLogDetailJsonView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

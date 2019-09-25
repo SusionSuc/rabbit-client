@@ -32,4 +32,14 @@ dependencies {
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${uniqueVersion.kotlinStdlibJdk7Version}"
     api "com.android.support:appcompat-v7:${uniqueVersion.supportLibVersion}"
     api project(":library")
+
+    implementation "com.squareup.retrofit2:retrofit:${uniqueVersion.retrofit2Version}"
+    implementation "com.google.code.gson:gson:${uniqueVersion.gsonVersion}"
+    implementation "io.reactivex.rxjava2:rxjava:${uniqueVersion.rx2javaVersion}"
+    implementation "io.reactivex.rxjava2:rxandroid:${uniqueVersion.rx2androidVersion}"
+    implementation "com.squareup.retrofit2:converter-gson:${uniqueVersion.retrofit2ConvertJson}"
+    implementation "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:${uniqueVersion.retrofit2RxJavaAdapterVersion}"
+
+
 }
+

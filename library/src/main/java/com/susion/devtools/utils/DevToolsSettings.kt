@@ -11,11 +11,11 @@ internal object DevToolsSettings {
     private val AUTO_SHOW = "dev_tools_auto_show"
     private val SP_NAME = "dev_tools"
 
-    fun autoShowFloatingView(context: Context, auto: Boolean) {
+    fun autoOpenDevTools(context: Context, auto: Boolean) {
         getSpEdit(context).putBoolean(AUTO_SHOW, auto).commit()
     }
 
-    fun autoShowFloatingView(context: Context): Boolean {
+    fun autoOpenDevTools(context: Context): Boolean {
         return getSp(context).getBoolean(AUTO_SHOW, false)
     }
 

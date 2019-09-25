@@ -9,9 +9,6 @@ class CustomApplication:Application() {
 
     override fun onCreate() {
         super.onCreate()
-
         DevTools.init(this)
-        DevTools.tryShowDevFloatingView(this)
-
     }
 }

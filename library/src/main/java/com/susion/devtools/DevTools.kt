@@ -1,16 +1,20 @@
 package com.susion.devtools
 
+import android.app.Activity
 import android.app.Application
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.OnLifecycleEvent
 import android.arch.lifecycle.ProcessLifecycleOwner
 import android.content.Context
+import android.os.Bundle
+import com.susion.devtools.base.DevToolsBaseActivity
 import com.susion.devtools.net.DevToolsHttpLogInterceptor
 import com.susion.devtools.utils.DevToolsSettings
 import com.susion.devtools.utils.FloatingViewPermissionHelper
 import com.susion.devtools.view.FloatingView
 import okhttp3.Interceptor
+import java.lang.ref.WeakReference
 
 /**
  * susionwang at 2019-09-23
@@ -18,6 +22,27 @@ import okhttp3.Interceptor
 object DevTools {
 
     private var application: Application? = null
+
+    //是否已经打开 DevTools
+    private var isInDevModel = false
+
+    //当前是否处于DevTools的页面中
+    var isInDevToolsPage = false
+
+    private val acLifecycleListener = SimpleAcLifecycleListener()
+    private val devToolsAcList =  ArrayList<WeakReference<DevToolsBaseActivity>>()
+
+    private val applicationLifecycle = object : LifecycleObserver {
+        @OnLifecycleEvent(Lifecycle.Event.ON_START)
+        fun onForeground() {
+            floatingView.show()
+        }
+
+        @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+        fun onBackground() {
+            floatingView.hide()
+        }
+    }
 
     private val httpLogInterceptor by lazy {
         DevToolsHttpLogInterceptor()
@@ -29,50 +54,81 @@ object DevTools {
 
     fun init(application_: Application) {
         application = application_
-        listenLifeCycle()
-        tryShowDevFloatingView(application_)
+        if (DevToolsSettings.autoOpenDevTools(application_)){
+            openDevTools(false)
+        }
+        application?.registerActivityLifecycleCallbacks(acLifecycleListener)
     }
 
     private fun listenLifeCycle() {
-        ProcessLifecycleOwner.get().lifecycle.addObserver(object : LifecycleObserver {
-            @OnLifecycleEvent(Lifecycle.Event.ON_START)
-            fun onForeground() {
-                showFloatingView(application!!)
-            }
-
-            @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-            fun onBackground() {
-                hideFloatingView()
-            }
-        })
+        ProcessLifecycleOwner.get().lifecycle.removeObserver(applicationLifecycle)
+        ProcessLifecycleOwner.get().lifecycle.addObserver(applicationLifecycle)
     }
 
-    fun showFloatingView(context: Context) {
-        if (application == null) return
+    fun devToolsIsOpen() = isInDevModel
 
-        if (!FloatingViewPermissionHelper.checkPermission(context)) {
-            FloatingViewPermissionHelper.tryStartFloatingWindowPermission(context)
-            return
-        }
-
-        floatingView.show()
+    fun setDevToolsOpenStatus(isOpen: Boolean) {
+        isInDevModel = isOpen
     }
 
-    private fun hideFloatingView() {
-        if (application == null) return
-        floatingView.hide()
-    }
+    fun openDevTools(requestPermission: Boolean = true, context: Context = application!!) {
 
-    fun tryShowDevFloatingView(context: Context) {
-        if (DevToolsSettings.autoShowFloatingView(context)) {
-            showFloatingView(context)
+        val overlayPermissionIsOpen = FloatingViewPermissionHelper.checkPermission(application!!)
+
+        if (!requestPermission && !overlayPermissionIsOpen) return
+
+        if (overlayPermissionIsOpen) {
+            listenLifeCycle()
+            floatingView.show()
+            DevToolsSettings.autoOpenDevTools(context, true)  //default auto open
+        }else{
+            FloatingViewPermissionHelper.showConfirmDialog(context,
+                object : FloatingViewPermissionHelper.OnConfirmResult {
+                    override fun confirmResult(confirm: Boolean) {
+                        if (confirm) {
+                            FloatingViewPermissionHelper.tryStartFloatingWindowPermission(application!!)
+                        }
+                    }
+                })
         }
     }
 
-    fun autoShowDevBtn(context: Context) {
-        DevToolsSettings.autoShowFloatingView(context)
+    fun getHttpLogInterceptor(): Interceptor = httpLogInterceptor
+
+    fun quickFinishAllDevToolsPage() {
+        devToolsAcList.forEach {
+            it.get()?.finish()
+        }
     }
 
-    fun getHttpLogInterceptor():Interceptor = httpLogInterceptor
+    private open class SimpleAcLifecycleListener : Application.ActivityLifecycleCallbacks {
+        override fun onActivityResumed(activity: Activity?) {
 
+        }
+
+        override fun onActivityStarted(activity: Activity?) {
+
+        }
+
+        override fun onActivitySaveInstanceState(activity: Activity?, outState: Bundle?) {
+        }
+
+        override fun onActivityStopped(activity: Activity?) {
+        }
+
+        override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
+            if (activity is DevToolsBaseActivity){
+                devToolsAcList.add(WeakReference(activity))
+            }
+        }
+
+        override fun onActivityDestroyed(activity: Activity?) {
+            if (activity is DevToolsBaseActivity){
+                devToolsAcList.remove(WeakReference(activity))
+            }
+        }
+
+        override fun onActivityPaused(activity: Activity?) {
+        }
+    }
 }
