@@ -2,8 +2,8 @@ package com.susion.devtools.net.ui
 
 import android.content.Context
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import com.susion.devtools.R
 import com.susion.devtools.base.DevToolsBaseActivity
 import com.susion.devtools.net.entities.HttpLogInfo
@@ -38,7 +38,22 @@ class HttpLogDetailActivity : DevToolsBaseActivity() {
         }
 
         mHttpLogDetailTvRequestPath.text = "${logInfo?.path?:""}   ${getTime(logInfo?.time?:0L)}"
+        if (logInfo!!.requestParams.isNotEmpty()){
+            mHttpLogDetailTvRequestParams.visibility = View.VISIBLE
+            mHttpLogDetailTvRequestParams.text = logInfo?.requestParams?.toString()
+        }else{
+            mHttpLogDetailTvRequestParams.visibility = View.GONE
+        }
+
+        if (logInfo!!.requestBody.isNotEmpty()){
+            mHttpLogDetailTvRequestBody.visibility = View.VISIBLE
+            mHttpLogDetailTvRequestBody.text = logInfo?.requestBody
+        }else{
+            mHttpLogDetailTvRequestBody.visibility = View.GONE
+        }
+
         mHttpLogDetailJsonView.bindJson(logInfo!!.responseStr)
+
     }
 
     private fun getTime(time:Long):String{

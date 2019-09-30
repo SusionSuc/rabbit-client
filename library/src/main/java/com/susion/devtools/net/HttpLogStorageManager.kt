@@ -3,6 +3,7 @@ package com.susion.devtools.net
 import android.os.Environment
 import android.util.Log
 import com.google.gson.Gson
+import com.susion.devtools.DevTools
 import com.susion.devtools.net.entities.HttpLogInfo
 import com.susion.devtools.utils.FileUtils
 import com.susion.devtools.utils.runOnIoThread
@@ -23,7 +24,6 @@ object HttpLogStorageManager {
     private val TAG = javaClass.simpleName
 
     private val MAX_FILE_NUMBER = 30
-    private val LOG_DIR = "${Environment.getExternalStorageDirectory()}/DevToolsNetLog/"
     private val disposableList = ArrayList<Disposable>()
     private val FILE_TIME_FORMAT = "yyyy-MM-dd-HH-mm-ss"
 
@@ -38,7 +38,7 @@ object HttpLogStorageManager {
     fun getAllLogFiles(loadResult: (logInfos: List<HttpLogInfo>) -> Unit) {
         val dis = runOnIoThread({
             val logList = ArrayList<HttpLogInfo>()
-            val logParentDir = File(LOG_DIR)
+            val logParentDir = File(getLogDir())
             if (logParentDir.exists()) {
                 logParentDir.listFiles().forEach { logFile ->
                     if (logFile != null && logFile.isFile) {
@@ -74,7 +74,7 @@ object HttpLogStorageManager {
     private fun saveToLocalFile(logInfo: HttpLogInfo) {
         assertMaxFileNumber()
         val savedStr = Gson().toJson(logInfo)
-        val file = File(LOG_DIR, getFileName(logInfo))
+        val file = File(getLogDir(), getFileName(logInfo))
         if (!FileUtils.createFileByDeleteOldFile(file.absolutePath)) {
             return
         }
@@ -89,7 +89,7 @@ object HttpLogStorageManager {
      * delete out of data http log file to make sure max number is [MAX_FILE_NUMBER]
      * */
     private fun assertMaxFileNumber() {
-        val logDir = File(LOG_DIR)
+        val logDir = File(getLogDir())
         if (logDir.exists()) {
             val sortedFiles = logDir.listFiles() ?: return
             if (sortedFiles.size < MAX_FILE_NUMBER) return
@@ -130,6 +130,12 @@ object HttpLogStorageManager {
     private fun getLogFileTime(fileName: String): Date {
         val time = fileName.substring(0, fileName.indexOf('_'))
         return SimpleDateFormat(FILE_TIME_FORMAT).parse(time)
+    }
+
+    private fun getLogDir():String{
+        val logDir =  "${Environment.getExternalStorageDirectory()}/DevToolsNetLog/"
+        val appId = DevTools.application?.packageName?: logDir
+        return "${logDir}${appId.replace(".","")}/"
     }
 
     fun destroy() {

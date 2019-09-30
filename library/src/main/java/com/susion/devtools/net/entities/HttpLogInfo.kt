@@ -1,8 +1,6 @@
 package com.susion.devtools.net.entities
 
 import java.io.Serializable
-import java.util.*
-import kotlin.collections.HashMap
 
 /**
  * susionwang at 2019-09-24
@@ -12,7 +10,8 @@ import kotlin.collections.HashMap
 class HttpLogInfo(
     var host: String = "",
     var path: String = "",
-    var getRequestParams: HashMap<String, String> = HashMap(),
+    var requestParams: HashMap<String, String> = HashMap(),
+    var requestBody:String = "",
     var responseStr: String = "",
     var tookTime: Long = 0L,
     var size: String = "",
@@ -36,7 +35,6 @@ class HttpLogInfo(
     }
 
     override fun toString(): String {
-        return "$host$path$getRequestParams$responseStr$tookTime"
+        return "$host$path$requestParams$responseStr$tookTime"
     }
-
 }

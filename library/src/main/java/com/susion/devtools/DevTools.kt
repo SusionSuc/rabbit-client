@@ -21,7 +21,7 @@ import java.lang.ref.WeakReference
  */
 object DevTools {
 
-    private var application: Application? = null
+    var application: Application? = null
 
     //是否已经打开 DevTools
     private var isInDevModel = false
@@ -100,6 +100,8 @@ object DevTools {
             it.get()?.finish()
         }
     }
+
+    fun autoOpenDevTools(context: Context) = DevToolsSettings.autoOpenDevTools(context)
 
     private open class SimpleAcLifecycleListener : Application.ActivityLifecycleCallbacks {
         override fun onActivityResumed(activity: Activity?) {

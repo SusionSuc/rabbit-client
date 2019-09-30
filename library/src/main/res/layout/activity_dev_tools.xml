@@ -28,7 +28,7 @@
 
         <TextView
             android:layout_toEndOf="@+id/http_icon"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="20dp"
             android:id="@+id/mDevToolsTvHttpLog"
             android:layout_width="match_parent"
             android:layout_height="45dp"
@@ -41,7 +41,7 @@
             android:textSize="16dp" />
 
         <View
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="20dp"
             android:layout_alignParentBottom="true"
             android:layout_toEndOf="@+id/http_icon"
             android:background="@color/devtools_divider_line"
@@ -50,6 +50,44 @@
 
     </RelativeLayout>
 
+
+    <RelativeLayout
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:paddingStart="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <ImageView
+            android:id="@+id/caton_icon"
+            android:src="@drawable/devtools_icon_caton"
+            android:layout_centerVertical="true"
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
+
+        <TextView
+            android:layout_toEndOf="@+id/caton_icon"
+            android:layout_marginStart="20dp"
+            android:id="@+id/mDevToolsTvCatonCheck"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:ellipsize="end"
+            android:gravity="left|center_vertical"
+            android:maxLines="10"
+            android:paddingLeft="20dp"
+            android:text="卡顿检测"
+            android:textColor="@color/devtools_black"
+            android:textSize="16dp" />
+
+        <View
+            android:layout_marginStart="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_toEndOf="@+id/caton_icon"
+            android:background="@color/devtools_divider_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+    </RelativeLayout>
 
 
 

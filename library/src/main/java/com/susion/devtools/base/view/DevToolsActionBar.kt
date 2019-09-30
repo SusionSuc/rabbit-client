@@ -3,7 +3,6 @@ package com.susion.devtools.base.view
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.RelativeLayout
 import com.susion.devtools.R
 import com.susion.devtools.utils.dp2px
@@ -38,11 +37,6 @@ class DevToolsActionBar : RelativeLayout {
 
     fun setTitle(title: String) {
         mDevToolsToolsBarTvTitle.text = title
-    }
-
-
-    fun hideBackBtn(){
-        mDevToolsToolsBarIvBack.visibility = View.GONE
     }
 
     interface ActionListener {

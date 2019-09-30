@@ -1,5 +1,6 @@
 package com.susion.devtools.net
 
+import android.util.Log
 import com.susion.devtools.DevTools
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -12,9 +13,10 @@ class DevToolsHttpLogInterceptor : Interceptor {
     private var startNs = System.nanoTime()
 
     override fun intercept(chain: Interceptor.Chain): Response {
+        val response = chain.proceed(chain.request())
+
         try {
             startNs = System.nanoTime()
-            val response = chain.proceed(chain.request())
 
             if (!DevTools.devToolsIsOpen()) return response
 
@@ -22,9 +24,13 @@ class DevToolsHttpLogInterceptor : Interceptor {
             HttpLogStorageManager.saveLogInfoToLocal(logInfo)
 
             return response
+
         } catch (e: Exception) {
-            throw e
+            Log.d("DevTools", "DevToolsHttpLogInterceptor error")
         }
+
+        return response
+
     }
 
 }
