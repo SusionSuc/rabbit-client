@@ -52,8 +52,9 @@ class HttpLogDetailActivity : DevToolsBaseActivity() {
             mHttpLogDetailTvRequestBody.visibility = View.GONE
         }
 
-        mHttpLogDetailJsonView.bindJson(logInfo!!.responseStr)
-
+        if (logInfo!!.responseStr.isNotEmpty()){
+            mHttpLogDetailJsonView.bindJson(logInfo!!.responseStr)
+        }
     }
 
     private fun getTime(time:Long):String{

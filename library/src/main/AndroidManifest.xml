@@ -7,8 +7,10 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application>
-        <activity android:name=".net.ui.HttpLogDetailActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".exception.ExceptionListActivity"></activity>
+        <activity
+            android:name=".net.ui.HttpLogDetailActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".net.ui.HttpLogListActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />

@@ -10,28 +10,28 @@
     <com.susion.devtools.base.view.DevToolsActionBar
         android:id="@+id/mDevToolsActionBar"
         android:layout_width="match_parent"
-        android:layout_height="45dp"/>
+        android:layout_height="45dp" />
 
     <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:layout_marginTop="10dp"
         android:orientation="horizontal"
-        android:paddingStart="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:paddingStart="10dp">
 
         <ImageView
             android:id="@+id/http_icon"
-            android:src="@drawable/devtools_icon_http"
-            android:layout_centerVertical="true"
             android:layout_width="40dp"
-            android:layout_height="40dp"/>
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/devtools_icon_http" />
 
         <TextView
-            android:layout_toEndOf="@+id/http_icon"
-            android:layout_marginStart="20dp"
             android:id="@+id/mDevToolsTvHttpLog"
             android:layout_width="match_parent"
             android:layout_height="45dp"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@+id/http_icon"
             android:ellipsize="end"
             android:gravity="left|center_vertical"
             android:maxLines="10"
@@ -41,36 +41,74 @@
             android:textSize="16dp" />
 
         <View
-            android:layout_marginStart="20dp"
-            android:layout_alignParentBottom="true"
-            android:layout_toEndOf="@+id/http_icon"
-            android:background="@color/devtools_divider_line"
             android:layout_width="match_parent"
-            android:layout_height="1dp"/>
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@+id/http_icon"
+            android:background="@color/devtools_divider_line" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:paddingStart="10dp">
+
+        <ImageView
+            android:id="@+id/expection_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/devtools_icon_exception" />
+
+        <TextView
+            android:id="@+id/mDevToolsTvException"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@+id/expection_icon"
+            android:ellipsize="end"
+            android:gravity="left|center_vertical"
+            android:maxLines="10"
+            android:paddingLeft="20dp"
+            android:text="异常日志"
+            android:textColor="@color/devtools_black"
+            android:textSize="16dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@+id/expection_icon"
+            android:background="@color/devtools_divider_line" />
 
     </RelativeLayout>
 
 
     <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:layout_marginTop="10dp"
         android:orientation="horizontal"
-        android:paddingStart="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:paddingStart="10dp">
 
         <ImageView
             android:id="@+id/caton_icon"
-            android:src="@drawable/devtools_icon_caton"
-            android:layout_centerVertical="true"
             android:layout_width="40dp"
-            android:layout_height="40dp"/>
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/devtools_icon_caton" />
 
         <TextView
-            android:layout_toEndOf="@+id/caton_icon"
-            android:layout_marginStart="20dp"
             android:id="@+id/mDevToolsTvCatonCheck"
             android:layout_width="match_parent"
             android:layout_height="45dp"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@+id/caton_icon"
             android:ellipsize="end"
             android:gravity="left|center_vertical"
             android:maxLines="10"
@@ -80,15 +118,14 @@
             android:textSize="16dp" />
 
         <View
-            android:layout_marginStart="20dp"
-            android:layout_alignParentBottom="true"
-            android:layout_toEndOf="@+id/caton_icon"
-            android:background="@color/devtools_divider_line"
             android:layout_width="match_parent"
-            android:layout_height="1dp"/>
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@+id/caton_icon"
+            android:background="@color/devtools_divider_line" />
 
     </RelativeLayout>
-
 
 
 </LinearLayout>

@@ -1,10 +1,7 @@
 package com.susion.devtools.net
 
 import com.susion.devtools.net.entities.HttpLogInfo
-import okhttp3.Headers
-import okhttp3.MediaType
-import okhttp3.Request
-import okhttp3.Response
+import okhttp3.*
 import okhttp3.internal.http.HttpHeaders
 import okio.Buffer
 import java.net.URLDecoder
@@ -20,9 +17,40 @@ object HttpResponseParser {
     private val TAG = javaClass.simpleName
 
     fun parserResponse(request: Request, response: Response, startTime: Long): HttpLogInfo {
+        return when {
+            isSuccessResponse(response.code()) -> parseSuccessHttpLog(response, request, startTime)
+            isErrorResponse(response.code()) -> parseErrorHttpLog(response, request, startTime)
+            else -> HttpLogInfo()
+        }
+    }
 
+    private fun parseErrorHttpLog(
+        response: Response,
+        request: Request,
+        startTime: Long
+    ): HttpLogInfo {
         val logInfo = HttpLogInfo()
+        val reqHttpUrl = request.url()
 
+        logInfo.apply {
+            host = reqHttpUrl.host()
+            path = reqHttpUrl.encodedPath()
+            requestParams = getUrlRequestParams(request)
+            requestBody = postRequestParams(request)
+            tookTime = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startTime)
+            requestType = request.method()
+            isSuccessRequest = false
+            responseCode = response.code().toString()
+        }
+        return logInfo
+    }
+
+    private fun parseSuccessHttpLog(
+        response: Response,
+        request: Request,
+        startTime: Long
+    ): HttpLogInfo {
+        val logInfo = HttpLogInfo()
         val responseBody = response.body()
         val contentLength = responseBody!!.contentLength()
         val bodySize =
@@ -30,7 +58,10 @@ object HttpResponseParser {
 
         val reqHttpUrl = request.url()
 
-        if (supportParseType(responseBody.contentType()) && HttpHeaders.hasBody(response) && !bodyHasUnknownEncoding(response.headers())) {
+        if (supportParseType(responseBody.contentType())
+            && HttpHeaders.hasBody(response)
+            && !bodyHasUnknownEncoding(response.headers())
+        ) {
             val source = responseBody.source()
             source.request(java.lang.Long.MAX_VALUE)    // Buffer the entire body.
             val buffer = source.buffer()
@@ -49,10 +80,9 @@ object HttpResponseParser {
                 tookTime = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startTime)
                 size = bodySize
                 requestType = request.method()
-                responseContentType = responseBody.contentType()?.type()?:""
+                responseContentType = responseBody.contentType()?.type() ?: ""
             }
         }
-
         return logInfo
     }
 
@@ -96,17 +126,14 @@ object HttpResponseParser {
         return map
     }
 
-    /**
-     * 获取 POST 请求的请求参数
-     * */
-
-
-    private fun supportParseType(contentType: MediaType?):Boolean{
+    private fun supportParseType(contentType: MediaType?): Boolean {
         return SUPPORT_PARSE_TYPE.contains(contentType?.subtype())
     }
 
-    private val IMAGE_TYPE = arrayOf("png", "jpeg", "jpg","gif", "webp", "zip")
+    private val SUPPORT_PARSE_TYPE = arrayOf("json", "GSON")
 
-    private val SUPPORT_PARSE_TYPE = arrayOf("json","GSON")
+    private fun isSuccessResponse(code: Int) = code == 200
+
+    private fun isErrorResponse(code: Int) = code in 400..599
 
 }

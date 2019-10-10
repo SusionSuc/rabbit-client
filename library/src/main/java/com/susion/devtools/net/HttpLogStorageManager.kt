@@ -100,31 +100,9 @@ object HttpLogStorageManager {
         }
     }
 
-    private fun md5(str: String): String {
-        val digest = MessageDigest.getInstance("MD5")
-        val result = digest.digest(str.toByteArray())
-        println("result${result.size}")
-        return toHex(result)
-    }
-
-    private fun toHex(byteArray: ByteArray): String {
-        return with(StringBuilder()) {
-            byteArray.forEach {
-                val hex = it.toInt() and (0xFF)
-                val hexStr = Integer.toHexString(hex)
-                if (hexStr.length == 1) {
-                    append("0").append(hexStr)
-                } else {
-                    append(hexStr)
-                }
-            }
-            toString()
-        }
-    }
-
     private fun getFileName(logInfo: HttpLogInfo): String {
         val timePrefix = SimpleDateFormat(FILE_TIME_FORMAT).format(Date())
-        return "${timePrefix}_${md5(logInfo.toString())}.txt"
+        return "${timePrefix}_${FileUtils.md5(logInfo.toString())}.txt"
     }
 
     private fun getLogFileTime(fileName: String): Date {
@@ -133,7 +111,7 @@ object HttpLogStorageManager {
     }
 
     private fun getLogDir():String{
-        val logDir =  "${Environment.getExternalStorageDirectory()}/DevToolsNetLog/"
+        val logDir =  "${Environment.getExternalStorageDirectory()}/DevTools/NetRequestLog"
         val appId = DevTools.application?.packageName?: logDir
         return "${logDir}${appId.replace(".","")}/"
     }

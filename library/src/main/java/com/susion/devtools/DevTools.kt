@@ -8,8 +8,12 @@ import android.arch.lifecycle.OnLifecycleEvent
 import android.arch.lifecycle.ProcessLifecycleOwner
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import com.susion.devtools.base.DevToolsBaseActivity
+import com.susion.devtools.exception.ExceptionLogStorageManager
 import com.susion.devtools.net.DevToolsHttpLogInterceptor
+import com.susion.devtools.net.HttpLogStorageManager
 import com.susion.devtools.utils.DevToolsSettings
 import com.susion.devtools.utils.FloatingViewPermissionHelper
 import com.susion.devtools.view.FloatingView
@@ -30,7 +34,7 @@ object DevTools {
     var isInDevToolsPage = false
 
     private val acLifecycleListener = SimpleAcLifecycleListener()
-    private val devToolsAcList =  ArrayList<WeakReference<DevToolsBaseActivity>>()
+    private val devToolsAcList = ArrayList<WeakReference<DevToolsBaseActivity>>()
 
     private val applicationLifecycle = object : LifecycleObserver {
         @OnLifecycleEvent(Lifecycle.Event.ON_START)
@@ -54,7 +58,7 @@ object DevTools {
 
     fun init(application_: Application) {
         application = application_
-        if (DevToolsSettings.autoOpenDevTools(application_)){
+        if (DevToolsSettings.autoOpenDevTools(application_)) {
             openDevTools(false)
         }
         application?.registerActivityLifecycleCallbacks(acLifecycleListener)
@@ -81,19 +85,28 @@ object DevTools {
             listenLifeCycle()
             floatingView.show()
             DevToolsSettings.autoOpenDevTools(context, true)  //default auto open
-        }else{
+        } else {
             FloatingViewPermissionHelper.showConfirmDialog(context,
                 object : FloatingViewPermissionHelper.OnConfirmResult {
                     override fun confirmResult(confirm: Boolean) {
                         if (confirm) {
-                            FloatingViewPermissionHelper.tryStartFloatingWindowPermission(application!!)
+                            FloatingViewPermissionHelper.tryStartFloatingWindowPermission(
+                                application!!
+                            )
                         }
                     }
                 })
         }
     }
 
+    //网络请求日志功能
     fun getHttpLogInterceptor(): Interceptor = httpLogInterceptor
+
+    //异常日志功能
+    fun saveCrashLog(e: Throwable) {
+        Toast.makeText(application, "发生异常！,日志已保存到本地",Toast.LENGTH_SHORT).show()
+        ExceptionLogStorageManager.saveExceptionToLocal(e)
+    }
 
     fun quickFinishAllDevToolsPage() {
         devToolsAcList.forEach {
@@ -102,6 +115,11 @@ object DevTools {
     }
 
     fun autoOpenDevTools(context: Context) = DevToolsSettings.autoOpenDevTools(context)
+
+    fun destroy(){
+        HttpLogStorageManager.destroy()
+        ExceptionLogStorageManager.destroy()
+    }
 
     private open class SimpleAcLifecycleListener : Application.ActivityLifecycleCallbacks {
         override fun onActivityResumed(activity: Activity?) {
@@ -119,13 +137,13 @@ object DevTools {
         }
 
         override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
-            if (activity is DevToolsBaseActivity){
+            if (activity is DevToolsBaseActivity) {
                 devToolsAcList.add(WeakReference(activity))
             }
         }
 
         override fun onActivityDestroyed(activity: Activity?) {
-            if (activity is DevToolsBaseActivity){
+            if (activity is DevToolsBaseActivity) {
                 devToolsAcList.remove(WeakReference(activity))
             }
         }
@@ -133,4 +151,6 @@ object DevTools {
         override fun onActivityPaused(activity: Activity?) {
         }
     }
+
+
 }

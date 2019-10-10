@@ -9,6 +9,7 @@ import com.susion.devtools.R
 import com.susion.devtools.base.adapter.AdapterItemView
 import com.susion.devtools.net.entities.HttpLogInfo
 import com.susion.devtools.net.ui.HttpLogDetailActivity
+import com.susion.devtools.utils.DevToolsUiUtils
 import com.susion.devtools.utils.dp2px
 import com.susion.devtools.utils.getDrawable
 import com.susion.devtools.utils.throttleFirstClick
@@ -37,12 +38,21 @@ class HttpLogPreviewItemView(context: Context) : RelativeLayout(context), Adapte
     override fun bindData(logInfo: HttpLogInfo, position: Int) {
         mLogInfo = logInfo
         mLogPreViewTvHost.text = "${logInfo.host}    ${logInfo.requestType}    ${getTime(logInfo.time)} "
-        mLogPreViewTvPath.text = "${logInfo.path}"
         val res = when(logInfo.responseContentType){
             HttpLogInfo.ResponseContentType.GSON -> R.drawable.devtools_icon_type_json
             else -> R.drawable.devtools_icon_type_json
         }
         mLogPreViewIvResponseContentType.setImageDrawable(getDrawable(context, res))
+
+        if (logInfo.isSuccessRequest){
+            mLogPreViewTvPath.text = "${logInfo.path}"
+            mLogPreViewTvPath.setTextColor(DevToolsUiUtils.getColor(context,R.color.devtools_black))
+            mLogPreViewTvHost.setTextColor(DevToolsUiUtils.getColor(context,R.color.devtools_black))
+        }else{
+            mLogPreViewTvPath.text = "${logInfo.path} ${logInfo.responseCode}"
+            mLogPreViewTvPath.setTextColor(DevToolsUiUtils.getColor(context,R.color.devtools_error_red))
+            mLogPreViewTvHost.setTextColor(DevToolsUiUtils.getColor(context,R.color.devtools_error_red))
+        }
     }
 
     private fun getTime(time:Long):String{

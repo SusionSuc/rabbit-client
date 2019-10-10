@@ -17,7 +17,9 @@ class HttpLogInfo(
     var size: String = "",
     var requestType: String = RequestType.GET,
     var responseContentType: String = ResponseContentType.GSON,
-    var time:Long = System.currentTimeMillis()
+    var time:Long = System.currentTimeMillis(),
+    var isSuccessRequest:Boolean = true,
+    var responseCode:String = "200"
 ) : Serializable {
 
     object RequestType {
@@ -31,7 +33,7 @@ class HttpLogInfo(
     }
 
     fun isValid(): Boolean {
-        return host.isNotEmpty() && path.isNotEmpty() && responseStr.isNotEmpty()
+        return host.isNotEmpty() && path.isNotEmpty()
     }
 
     override fun toString(): String {

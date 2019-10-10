@@ -2,6 +2,7 @@ package com.susion.devtools.utils
 
 import java.io.File
 import java.io.IOException
+import java.security.MessageDigest
 
 /**
  * susionwang at 2019-09-24
@@ -69,6 +70,28 @@ object FileUtils{
      */
     private fun createOrExistsDir(file: File?): Boolean {
         return file != null && if (file.exists()) file.isDirectory else file.mkdirs()
+    }
+
+    fun md5(str: String): String {
+        val digest = MessageDigest.getInstance("MD5")
+        val result = digest.digest(str.toByteArray())
+        println("result${result.size}")
+        return toHex(result)
+    }
+
+    private fun toHex(byteArray: ByteArray): String {
+        return with(StringBuilder()) {
+            byteArray.forEach {
+                val hex = it.toInt() and (0xFF)
+                val hexStr = Integer.toHexString(hex)
+                if (hexStr.length == 1) {
+                    append("0").append(hexStr)
+                } else {
+                    append(hexStr)
+                }
+            }
+            toString()
+        }
     }
 
 }

@@ -5,6 +5,7 @@
     <color name="devtools_black">#333333</color>
     <color name="devtools_light_blue">#88ccff</color>
     <color name="devtools_white">#ffffff</color>
+    <color name="devtools_error_red">#ff0000</color>
 
 
     <color name="devtools_material_dark">#aec4c7</color>
