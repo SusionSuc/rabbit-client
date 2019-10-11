@@ -32,6 +32,7 @@ class HttpLogDetailActivity : DevToolsBaseActivity() {
         setContentView(R.layout.activity_http_log_detail)
         setBackListener(mHttpLogDetailActionBar)
         mHttpLogDetailActionBar.setTitle("日志详情")
+
         if (logInfo == null || logInfo?.isValid() == false){
             showToast(this, "log日志文件已损坏!")
             return

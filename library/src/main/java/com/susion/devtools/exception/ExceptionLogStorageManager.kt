@@ -7,10 +7,7 @@ import com.susion.devtools.exception.entities.ExceptionInfo
 import com.susion.devtools.utils.FileUtils
 import com.susion.devtools.utils.runOnIoThread
 import io.reactivex.disposables.Disposable
-import java.io.File
-import java.io.FileWriter
-import java.io.PrintWriter
-import java.io.StringWriter
+import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -32,8 +29,40 @@ object ExceptionLogStorageManager {
         disposableList.add(dis)
     }
 
-    fun saveException(e: Exception) {
+    fun getAllExceptionFiles(loadResult: (exceptionList: List<ExceptionInfo>) -> Unit) {
+        val dis = runOnIoThread({
+            val exceptionList = ArrayList<ExceptionInfo>()
+            val logParentDir = File(getLogDir())
+            if (logParentDir.exists()) {
+                logParentDir.listFiles().forEach { logFile ->
+                    if (logFile != null && logFile.isFile) {
+                        val exceptionInfo = readLogInfoFromFile(logFile)
+                        if (exceptionInfo != null) {
+                            exceptionList.add(exceptionInfo)
+                        }
+                    }
+                }
+            }
+            exceptionList.sortByDescending { it.time }
+            exceptionList
+        }, {
+            loadResult(it)
+        })
+        disposableList.add(dis)
+    }
 
+    private fun readLogInfoFromFile(logFile: File): ExceptionInfo? {
+        FileReader(logFile).use {
+            val str = it.readText()
+            if (str.isNotEmpty()) {
+                return try {
+                    Gson().fromJson(str, ExceptionInfo::class.java)
+                } catch (e: Exception) {
+                    null
+                }
+            }
+        }
+        return null
     }
 
     private fun translateThrowableToExceptionInfo(e: Throwable): ExceptionInfo {

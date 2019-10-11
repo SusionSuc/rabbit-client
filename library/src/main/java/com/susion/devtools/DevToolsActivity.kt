@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import com.susion.devtools.base.DevToolsBaseActivity
-import com.susion.devtools.exception.ExceptionListActivity
+import com.susion.devtools.exception.ui.ExceptionListActivity
 import com.susion.devtools.net.ui.HttpLogListActivity
 import com.susion.devtools.utils.simpleStartActivity
 import kotlinx.android.synthetic.main.activity_dev_tools.*

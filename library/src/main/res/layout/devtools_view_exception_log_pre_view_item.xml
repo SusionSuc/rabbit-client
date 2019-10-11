@@ -8,13 +8,13 @@
 
     <ImageView
         android:layout_marginStart="15dp"
-        android:id="@+id/mLogPreViewIvResponseContentType"
+        android:id="@+id/mExceptionPreviewIv"
         android:layout_centerVertical="true"
         android:layout_width="30dp"
         android:layout_height="30dp"/>
 
     <LinearLayout
-        android:layout_toEndOf="@+id/mLogPreViewIvResponseContentType"
+        android:layout_toEndOf="@+id/mExceptionPreviewIv"
         android:id="@+id/log_detail"
         android:layout_marginStart="20dp"
         android:layout_width="match_parent"
@@ -23,28 +23,28 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/mLogPreViewTvHost"
+            android:id="@+id/mExceptionPreviewTvLine1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/devtools_black"
             android:maxLines="1"
             android:ellipsize="end"
-            android:textSize="12dp" />
+            android:textSize="13dp" />
 
         <TextView
-            android:id="@+id/mLogPreViewTvPath"
+            android:id="@+id/mExceptionPreviewTvLine2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
             android:maxLines="1"
             android:ellipsize="end"
-            android:textColor="@color/devtools_black"
-            android:textSize="16dp" />
+            android:textSize="13dp"
+            android:textColor="@color/devtools_black" />
 
     </LinearLayout>
 
     <View
-        android:layout_toEndOf="@+id/mLogPreViewIvResponseContentType"
+        android:layout_toEndOf="@+id/mExceptionPreviewIv"
         android:layout_marginStart="20dp"
         android:layout_alignParentBottom="true"
         android:background="@color/devtools_divider_line"

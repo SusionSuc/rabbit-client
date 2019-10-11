@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".exception.ExceptionListActivity">
+    android:orientation="vertical"
+    tools:context=".exception.ui.ExceptionListActivity">
 
     <com.susion.devtools.base.view.DevToolsActionBar
         android:id="@+id/mExceptionListActionBar"
         android:layout_width="match_parent"
-        android:layout_height="45dp"/>
+        android:layout_height="45dp" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/mExceptionLogRv"

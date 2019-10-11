@@ -62,7 +62,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
-            android:src="@drawable/devtools_icon_exception" />
+            android:src="@drawable/devtools_icon_exception_face" />
 
         <TextView
             android:id="@+id/mDevToolsTvException"

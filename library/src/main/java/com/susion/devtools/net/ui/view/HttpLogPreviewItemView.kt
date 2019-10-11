@@ -9,10 +9,8 @@ import com.susion.devtools.R
 import com.susion.devtools.base.adapter.AdapterItemView
 import com.susion.devtools.net.entities.HttpLogInfo
 import com.susion.devtools.net.ui.HttpLogDetailActivity
-import com.susion.devtools.utils.DevToolsUiUtils
+import com.susion.devtools.utils.*
 import com.susion.devtools.utils.dp2px
-import com.susion.devtools.utils.getDrawable
-import com.susion.devtools.utils.throttleFirstClick
 import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.devtools_view_http_log_pre_view_item.view.*
 import java.text.SimpleDateFormat
@@ -37,7 +35,7 @@ class HttpLogPreviewItemView(context: Context) : RelativeLayout(context), Adapte
 
     override fun bindData(logInfo: HttpLogInfo, position: Int) {
         mLogInfo = logInfo
-        mLogPreViewTvHost.text = "${logInfo.host}    ${logInfo.requestType}    ${getTime(logInfo.time)} "
+        mLogPreViewTvHost.text = "${logInfo.host}    ${logInfo.requestType}    ${devToolsTimeFormat(logInfo.time)} "
         val res = when(logInfo.responseContentType){
             HttpLogInfo.ResponseContentType.GSON -> R.drawable.devtools_icon_type_json
             else -> R.drawable.devtools_icon_type_json
@@ -53,10 +51,6 @@ class HttpLogPreviewItemView(context: Context) : RelativeLayout(context), Adapte
             mLogPreViewTvPath.setTextColor(DevToolsUiUtils.getColor(context,R.color.devtools_error_red))
             mLogPreViewTvHost.setTextColor(DevToolsUiUtils.getColor(context,R.color.devtools_error_red))
         }
-    }
-
-    private fun getTime(time:Long):String{
-        return SimpleDateFormat("MM/dd HH:mm:ss").format(Date(time))
     }
 
 }
