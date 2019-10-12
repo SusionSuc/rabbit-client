@@ -22,10 +22,34 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:id="@+id/mExceptionDetailTvThreadName"
+                android:textColor="@color/devtools_black"
+                android:textSize="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="10dp"
+                android:id="@+id/mExceptionDetailTvFilePath"
+                android:textColor="@color/devtools_black"
+                android:textSize="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <View
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/devtools_divider_line" />
+
+            <TextView
                 android:padding="10dp"
                 android:id="@+id/mExceptionDetailTvExceptionInfo"
                 android:textColor="@color/devtools_black"
-                android:textSize="15dp"
+                android:textSize="14dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 

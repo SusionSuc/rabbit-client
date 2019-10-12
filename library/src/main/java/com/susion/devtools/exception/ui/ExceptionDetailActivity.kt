@@ -2,9 +2,12 @@ package com.susion.devtools.exception.ui
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.SpannableStringBuilder
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
 import com.susion.devtools.R
 import com.susion.devtools.base.DevToolsBaseActivity
 import com.susion.devtools.exception.entities.ExceptionInfo
@@ -40,12 +43,26 @@ class ExceptionDetailActivity : DevToolsBaseActivity() {
         renderExceptionInfo()
     }
 
-    //更容易发现是自己的应用的问题
     private fun renderExceptionInfo() {
-        val spannableStringBuilder = SpannableStringBuilder(exceptionInfo?.crashTraceStr?:"")
 
-//        val myPackageReg = "${this.application.packageName}"
+        mExceptionDetailTvThreadName.text = "Crash Thread Name : ${exceptionInfo?.threadName ?:""}"
+        mExceptionDetailTvFilePath.text = "File Path : ${exceptionInfo?.filePath}"
+
+        val redMaxLine = 3
+        val spannableStringBuilder = SpannableStringBuilder()
+        var spanEndIndex = 0
+
+        exceptionInfo?.crashTraceStr?.split("\n")?.forEachIndexed { index,string ->
+            spannableStringBuilder.append(string)
+            if (index < redMaxLine){
+                spanEndIndex = spannableStringBuilder.length
+            }
+        }
+
+        val foregroundColorSpan = ForegroundColorSpan(Color.RED)
+        spannableStringBuilder.setSpan(foregroundColorSpan,0, spanEndIndex, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
 
         mExceptionDetailTvExceptionInfo.text = spannableStringBuilder
     }
+
 }

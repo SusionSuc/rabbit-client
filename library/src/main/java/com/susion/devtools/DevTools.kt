@@ -55,12 +55,9 @@ object DevTools {
         FloatingView(application!!)
     }
 
-    fun init(application_: Application) {
-        application = application_
-        if (DevToolsSettings.autoOpenDevTools(application_)) {
-            openDevTools(false)
-        }
-        application?.registerActivityLifecycleCallbacks(acLifecycleListener)
+    //MUST CALL
+    fun attachApplicationContext(applicationContext:Application){
+        application = applicationContext
         openGlobalExceptionCollector()
     }
 
@@ -76,6 +73,8 @@ object DevTools {
     }
 
     fun openDevTools(requestPermission: Boolean = true, context: Context = application!!) {
+
+        application?.registerActivityLifecycleCallbacks(acLifecycleListener)
 
         val overlayPermissionIsOpen = FloatingViewPermissionHelper.checkPermission(application!!)
 
@@ -160,6 +159,5 @@ object DevTools {
         override fun onActivityPaused(activity: Activity?) {
         }
     }
-
 
 }

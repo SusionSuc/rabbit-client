@@ -3,18 +3,13 @@ package com.susion.devtools.utils
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.content.res.Resources
-import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
 import android.os.Looper
-import android.support.v4.content.ContextCompat
 import android.widget.Toast
 import com.susion.devtools.DevTools
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 

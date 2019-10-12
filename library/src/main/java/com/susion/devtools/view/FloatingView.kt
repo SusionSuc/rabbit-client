@@ -71,10 +71,7 @@ class FloatingView(context: Context) : FrameLayout(context) {
      * show this tacker float view
      */
     fun show() {
-        if (isShow) {
-            Toast.makeText(context, "悬浮窗已经打开", Toast.LENGTH_SHORT).show()
-            return
-        }
+        if (isShow) return
 
         isShow = true
         DevTools.setDevToolsOpenStatus(isShow)

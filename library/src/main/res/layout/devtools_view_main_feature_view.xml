@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:layout_marginTop="10dp"
+    android:orientation="horizontal"
+    android:paddingStart="10dp"
+    tools:parentTag="RelativeLayout">
+
+    <ImageView
+        android:id="@+id/mDevToolsMainFeatureIvIcon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/devtools_icon_http" />
+
+    <TextView
+        android:id="@+id/mDevToolsMainFeatureTvName"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginStart="20dp"
+        android:layout_toEndOf="@+id/mDevToolsMainFeatureIvIcon"
+        android:ellipsize="end"
+        android:gravity="left|center_vertical"
+        android:maxLines="10"
+        android:paddingLeft="10dp"
+        android:text="网络日志"
+        android:textColor="@color/devtools_black"
+        android:textSize="16dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="20dp"
+        android:layout_toEndOf="@+id/mDevToolsMainFeatureIvIcon"
+        android:background="@color/devtools_divider_line" />
+
+</merge>

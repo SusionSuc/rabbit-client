@@ -1,5 +1,6 @@
 package com.susion.devtools.net.entities
 
+import com.susion.devtools.base.DevToolsBaseInfo
 import java.io.Serializable
 
 /**
@@ -17,10 +18,9 @@ class HttpLogInfo(
     var size: String = "",
     var requestType: String = RequestType.GET,
     var responseContentType: String = ResponseContentType.GSON,
-    var time:Long = System.currentTimeMillis(),
     var isSuccessRequest:Boolean = true,
     var responseCode:String = "200"
-) : Serializable {
+) : DevToolsBaseInfo(),Serializable {
 
     object RequestType {
         val GET = "get"
