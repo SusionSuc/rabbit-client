@@ -20,7 +20,7 @@
         android:layout_height="50dp"
         android:gravity="left|center_vertical"
         android:text="打开 DevTools "
-        android:textColor="@color/devtools_black"
+        android:textColor="@color/rabbit_black"
         android:textSize="18dp" />
 
     <View
@@ -36,7 +36,7 @@
         android:layout_height="50dp"
         android:gravity="left|center_vertical"
         android:text="测试请求网络接口"
-        android:textColor="@color/devtools_black"
+        android:textColor="@color/rabbit_black"
         android:textSize="18dp" />
 
     <View
@@ -53,7 +53,7 @@
         android:layout_height="50dp"
         android:gravity="left|center_vertical"
         android:text="获取主线程堆栈"
-        android:textColor="@color/devtools_black"
+        android:textColor="@color/rabbit_black"
         android:textSize="18dp" />
 
     <View
@@ -69,7 +69,7 @@
         android:layout_height="50dp"
         android:gravity="left|center_vertical"
         android:text="获取主线程堆栈2"
-        android:textColor="@color/devtools_black"
+        android:textColor="@color/rabbit_black"
         android:textSize="18dp" />
 
     <View

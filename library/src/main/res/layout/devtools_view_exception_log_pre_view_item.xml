@@ -26,7 +26,7 @@
             android:id="@+id/mExceptionPreviewTvLine1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/devtools_black"
+            android:textColor="@color/rabbit_black"
             android:maxLines="1"
             android:ellipsize="end"
             android:textSize="13dp" />
@@ -39,7 +39,7 @@
             android:maxLines="1"
             android:ellipsize="end"
             android:textSize="13dp"
-            android:textColor="@color/devtools_black" />
+            android:textColor="@color/rabbit_black" />
 
     </LinearLayout>
 
@@ -47,7 +47,7 @@
         android:layout_toEndOf="@+id/mExceptionPreviewIv"
         android:layout_marginStart="20dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/devtools_divider_line"
+        android:background="@color/rabbit_divider_line"
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
 

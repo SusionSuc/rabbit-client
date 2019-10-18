@@ -16,7 +16,7 @@ open class RabbitBaseActivity:AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setStatusBarColor(window, com.susion.rabbit.utils.getColor(this, R.color.devtools_material_dark))
+        setStatusBarColor(window, com.susion.rabbit.utils.getColor(this, R.color.rabbit_material_dark))
         setStatusBarTextColor(window, true)
     }
 

@@ -26,7 +26,7 @@
         android:maxLines="10"
         android:paddingLeft="10dp"
         android:text="网络日志"
-        android:textColor="@color/devtools_black"
+        android:textColor="@color/rabbit_black"
         android:textSize="16dp" />
 
     <View
@@ -35,6 +35,6 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="20dp"
         android:layout_toEndOf="@+id/mDevToolsMainFeatureIvIcon"
-        android:background="@color/devtools_divider_line" />
+        android:background="@color/rabbit_divider_line" />
 
 </merge>

@@ -17,7 +17,7 @@
         android:paddingStart="10dp"
         android:textSize="14dp"
         android:layout_marginTop="10dp"
-        android:textColor="@color/devtools_black"
+        android:textColor="@color/rabbit_black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
@@ -27,7 +27,7 @@
         android:paddingStart="10dp"
         android:textSize="14dp"
         android:layout_marginTop="10dp"
-        android:textColor="@color/devtools_black"
+        android:textColor="@color/rabbit_black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
@@ -36,14 +36,14 @@
         android:paddingStart="10dp"
         android:textSize="14dp"
         android:layout_marginTop="10dp"
-        android:textColor="@color/devtools_black"
+        android:textColor="@color/rabbit_black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
     <View
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:background="@color/devtools_divider_line"
+        android:background="@color/rabbit_divider_line"
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
 

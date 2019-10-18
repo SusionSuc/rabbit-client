@@ -12,7 +12,6 @@ import com.susion.rabbit.base.view.RabbitMainFeatureView
 import com.susion.rabbit.config.RabbitConfigActivity
 import com.susion.rabbit.exception.ui.RabbitExceptionListActivity
 import com.susion.rabbit.net.ui.RabbitHttpLogListActivity
-import com.susion.rabbit.trace.UIThreadLooperMonitor
 import kotlinx.android.synthetic.main.activity_dev_tools.*
 
 /**
@@ -45,22 +44,11 @@ class RabbitMainActivity : RabbitBaseActivity() {
         mDevToolsActionBar.setTitle("Rabbit")
         mDevToolsEntryRv.adapter = featuresAdapter
         mDevToolsEntryRv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-
-        UIThreadLooperMonitor.startMonitorLooper()
-        UIThreadLooperMonitor.addLooperHandleEventListener(object :UIThreadLooperMonitor.LooperHandleEventListener{
-            override fun onStartHandleEvent() {
-
-            }
-
-            override fun onEndHandleEvent() {
-
-            }
-        })
     }
 
     private fun getAllFeatures(): ArrayList<RabbitMainFeatureInfo> {
         return ArrayList<RabbitMainFeatureInfo>().apply {
-            add(RabbitMainFeatureInfo("DevTools功能配置", R.drawable.devtools_icon_feature_setting, RabbitConfigActivity::class.java))
+            add(RabbitMainFeatureInfo("Rabbit功能配置", R.drawable.devtools_icon_feature_setting, RabbitConfigActivity::class.java))
             addAll(Rabbit.getCustomConfig().entryFeatures)
             add(RabbitMainFeatureInfo("网络日志", R.drawable.devtools_icon_http, RabbitHttpLogListActivity::class.java))
             add(RabbitMainFeatureInfo("异常日志", R.drawable.devtools_icon_exception_face,RabbitExceptionListActivity::class.java))

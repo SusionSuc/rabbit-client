@@ -1,4 +1,4 @@
-package com.susion.rabbit.trace
+package com.susion.rabbit.trace.ui
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle

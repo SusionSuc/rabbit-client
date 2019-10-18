@@ -1,4 +1,4 @@
-package com.susion.rabbit.utils
+package com.susion.rabbit.utils.device
 
 import android.annotation.TargetApi
 import android.app.AppOpsManager

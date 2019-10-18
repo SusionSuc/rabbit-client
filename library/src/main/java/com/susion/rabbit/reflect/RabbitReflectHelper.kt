@@ -1,12 +1,15 @@
 package com.susion.rabbit.reflect
 
+import java.lang.reflect.Method
+
 /**
  * susionwang at 2019-10-17
  */
 
 object RabbitReflectHelper {
 
-    fun <T> getObjectField(instance: Any, name: String): T? {
+    fun <T> reflectField(instance: Any?, name: String): T? {
+        if (instance == null) return null
         try {
             val field = instance.javaClass.getDeclaredField(name)
             field.isAccessible = true
@@ -17,4 +20,16 @@ object RabbitReflectHelper {
         return null
     }
 
+
+    fun reflectMethod(instance: Any?, name: String, vararg argTypes: Class<*>): Method? {
+        if (instance == null) return null
+        try {
+            val method = instance.javaClass.getDeclaredMethod(name, *argTypes)
+            method.isAccessible = true
+            return method
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return null
+    }
 }

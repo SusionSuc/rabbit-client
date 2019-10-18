@@ -12,6 +12,7 @@ import com.susion.rabbit.base.RabbitBaseActivity
 import com.susion.rabbit.exception.RabbitExceptionLogStorageManager
 import com.susion.rabbit.net.RabbitHttpLogInterceptor
 import com.susion.rabbit.net.RabbitHttpLogStorageManager
+import com.susion.rabbit.trace.RabbitTracer
 import com.susion.rabbit.utils.RabbitSettings
 import com.susion.rabbit.utils.FloatingViewPermissionHelper
 import com.susion.rabbit.utils.toastInThread
@@ -61,6 +62,7 @@ object Rabbit {
     fun attachApplicationContext(applicationContext: Application) {
         application = applicationContext
         openGlobalExceptionCollector()
+        RabbitTracer.init()
     }
 
     private fun listenLifeCycle() {

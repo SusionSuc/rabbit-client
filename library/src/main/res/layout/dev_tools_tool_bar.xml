@@ -21,7 +21,7 @@
         android:maxLines="10"
         android:ellipsize="end"
         android:textStyle="bold"
-        android:textColor="@color/devtools_black"
+        android:textColor="@color/rabbit_black"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:gravity="center_vertical"

@@ -1,4 +1,4 @@
-package com.susion.rabbit.utils
+package com.susion.rabbit.utils.device
 
 import android.os.Build
 import android.text.TextUtils
@@ -19,7 +19,8 @@ object DeviceUtils {
      */
     fun getEmuiVersion(): Double {
         try {
-            val emuiVersion = getSystemProperty("ro.build.version.emui")
+            val emuiVersion =
+                getSystemProperty("ro.build.version.emui")
             val version = emuiVersion!!.substring(emuiVersion.indexOf("_") + 1)
             return java.lang.Double.parseDouble(version)
         } catch (e: Exception) {
@@ -33,7 +34,8 @@ object DeviceUtils {
      * get xiaomi version of emui
      */
     fun getMiuiVersion(): Int {
-        val version = getSystemProperty("ro.miui.ui.version.name")
+        val version =
+            getSystemProperty("ro.miui.ui.version.name")
         if (version != null) {
             try {
                 return Integer.parseInt(version.substring(1))
@@ -90,7 +92,8 @@ object DeviceUtils {
      * checking if is meizu rom
      */
     fun checkIsMeizuRom(): Boolean {
-        val meizuFlymeOSFlag = getSystemProperty("ro.build.display.id")
+        val meizuFlymeOSFlag =
+            getSystemProperty("ro.build.display.id")
         return if (TextUtils.isEmpty(meizuFlymeOSFlag)) {
             false
         } else meizuFlymeOSFlag!!.contains("flyme") || meizuFlymeOSFlag.toLowerCase().contains("flyme")

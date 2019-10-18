@@ -29,7 +29,7 @@ class RabbitActionBar : RelativeLayout {
     private fun initView() {
         LayoutInflater.from(context).inflate(R.layout.dev_tools_tool_bar, this)
         layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, dp2px(45f))
-        background = getDrawable(context, R.color.devtools_material_promary)
+        background = getDrawable(context, R.color.rabbit_material_promary)
         mDevToolsToolsBarIvBack.throttleFirstClick(Consumer {
             actionListener?.onBackClick()
         })

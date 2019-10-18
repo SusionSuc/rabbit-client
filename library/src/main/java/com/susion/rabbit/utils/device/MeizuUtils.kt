@@ -1,30 +1,53 @@
-package com.susion.rabbit.utils
+package com.susion.rabbit.utils.device
 
 import android.annotation.TargetApi
 import android.app.AppOpsManager
-import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.os.Binder
 import android.os.Build
 import android.util.Log
+import com.susion.rabbit.utils.FloatingViewPermissionHelper
 
-object OppoUtils {
-    private val TAG = "OppoUtils"
+object MeizuUtils {
+
+    private val TAG = "MeizuUtils"
 
     /**
-     * check oppo permission
+     * check meizu permission
      */
     fun checkFloatWindowPermission(context: Context): Boolean {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            checkOp(context, 24) //OP_SYSTEM_ALERT_WINDOW = 24;
+            checkOp(context, 24)
         } else true
+    }
+
+    /**
+     * apply meizu permission granted page
+     */
+    fun applyPermission(context: Context) {
+        try {
+            val intent = Intent("com.meizu.safe.security.SHOW_APPSEC")
+            intent.putExtra("packageName", context.packageName)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            context.startActivity(intent)
+        } catch (e: Exception) {
+            try {
+                Log.e(TAG, "获取悬浮窗权限, 打开AppSecActivity失败, " + Log.getStackTraceString(e))
+                FloatingViewPermissionHelper.commonROMPermissionApplyInternal(
+                    context
+                )
+            } catch (eFinal: Exception) {
+                Log.e(TAG, "获取悬浮窗权限失败, 通用获取方法失败, " + Log.getStackTraceString(eFinal))
+            }
+
+        }
+
     }
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     private fun checkOp(context: Context, op: Int): Boolean {
-        val version = Build.VERSION.SDK_INT
-        if (version >= 19) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             val manager = context.getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
             try {
                 val clazz = AppOpsManager::class.java
@@ -48,24 +71,5 @@ object OppoUtils {
             Log.e(TAG, "Below API 19 cannot invoke!")
         }
         return false
-    }
-
-    /**
-     * apply oppo permission
-     */
-    fun applyOppoPermission(context: Context) {
-        try {
-            val intent = Intent()
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            val comp = ComponentName(
-                "com.coloros.safecenter",
-                "com.coloros.safecenter.sysfloatwindow.FloatWindowListActivity"
-            )//悬浮窗管理页面
-            intent.component = comp
-            context.startActivity(intent)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-
     }
 }

@@ -40,12 +40,12 @@ class HttpLogPreviewItemView(context: Context) : RelativeLayout(context), Rabbit
 
         if (logInfo.isSuccessRequest){
             mLogPreViewTvPath.text = "${logInfo.path}"
-            mLogPreViewTvPath.setTextColor(RabbitUiUtils.getColor(context,R.color.devtools_black))
-            mLogPreViewTvHost.setTextColor(RabbitUiUtils.getColor(context,R.color.devtools_black))
+            mLogPreViewTvPath.setTextColor(RabbitUiUtils.getColor(context,R.color.rabbit_black))
+            mLogPreViewTvHost.setTextColor(RabbitUiUtils.getColor(context,R.color.rabbit_black))
         }else{
             mLogPreViewTvPath.text = "${logInfo.path} ${logInfo.responseCode}"
-            mLogPreViewTvPath.setTextColor(RabbitUiUtils.getColor(context,R.color.devtools_error_red))
-            mLogPreViewTvHost.setTextColor(RabbitUiUtils.getColor(context,R.color.devtools_error_red))
+            mLogPreViewTvPath.setTextColor(RabbitUiUtils.getColor(context,R.color.rabbit_error_red))
+            mLogPreViewTvHost.setTextColor(RabbitUiUtils.getColor(context,R.color.rabbit_error_red))
         }
     }
 
