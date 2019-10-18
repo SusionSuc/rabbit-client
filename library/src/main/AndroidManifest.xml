@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.susion.devtools">
+    package="com.susion.rabbit">
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application>
-        <activity android:name=".exception.ui.ExceptionDetailActivity"></activity>
-        <activity android:name=".exception.ui.ExceptionListActivity" />
+        <activity android:name="com.susion.rabbit.trace.FPSJitterListActivity"></activity>
+        <activity android:name="com.susion.rabbit.config.RabbitConfigActivity" />
+        <activity android:name="com.susion.rabbit.exception.ui.RabbitExceptionDetailActivity" />
+        <activity android:name="com.susion.rabbit.exception.ui.RabbitExceptionListActivity" />
         <activity
-            android:name=".net.ui.HttpLogDetailActivity"
+            android:name="com.susion.rabbit.net.ui.RabbitHttpLogDetailActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".net.ui.HttpLogListActivity"
+            android:name="com.susion.rabbit.net.ui.RabbitHttpLogListActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".DevToolsActivity"
+            android:name="com.susion.rabbit.RabbitMainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
     </application>
 

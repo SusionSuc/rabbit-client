@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".exception.ui.ExceptionListActivity">
+    tools:context=".exception.ui.RabbitExceptionListActivity">
 
-    <com.susion.devtools.base.view.DevToolsActionBar
+    <com.susion.rabbit.base.view.RabbitActionBar
         android:id="@+id/mExceptionListActionBar"
         android:layout_width="match_parent"
         android:layout_height="45dp" />

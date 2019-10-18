@@ -13,6 +13,7 @@ android {
         targetSdkVersion uniqueVersion.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true //Add this
     }
 
     buildTypes {
@@ -29,8 +30,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${uniqueVersion.kotlinStdlibJdk7Version}"
-    api "com.android.support:appcompat-v7:${uniqueVersion.supportLibVersion}"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${uniqueVersion.kotlinStdlibJdk7Version}"
+    implementation "com.android.support:appcompat-v7:${uniqueVersion.supportLibVersion}"
     api project(":library")
 
     implementation "com.squareup.retrofit2:retrofit:${uniqueVersion.retrofit2Version}"
