@@ -1,15 +1,18 @@
-package com.susion.rabbit.exception.view
+package com.susion.rabbit.exception.ui.view
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.RelativeLayout
 import com.susion.rabbit.R
+import com.susion.rabbit.Rabbit
 import com.susion.rabbit.base.adapter.RabbitAdapterItemView
 import com.susion.rabbit.exception.entities.RabbitExceptionInfo
-import com.susion.rabbit.exception.ui.RabbitExceptionDetailActivity
-import com.susion.rabbit.utils.*
+import com.susion.rabbit.exception.ui.RabbitExceptionDetailPage
+import com.susion.rabbit.utils.devToolsTimeFormat
 import com.susion.rabbit.utils.dp2px
+import com.susion.rabbit.utils.getDrawable
+import com.susion.rabbit.utils.throttleFirstClick
 import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.devtools_view_exception_log_pre_view_item.view.*
 
@@ -26,7 +29,7 @@ class ExceptionLogPreviewItemView(context: Context) : RelativeLayout(context), R
             bottomMargin = dp2px(5f)
         }
         throttleFirstClick(Consumer {
-            RabbitExceptionDetailActivity.start(context, mLogInfo)
+            Rabbit.uiManager.openPage(RabbitExceptionDetailPage::class.java, mLogInfo)
         })
     }
 

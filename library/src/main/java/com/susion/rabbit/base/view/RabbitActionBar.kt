@@ -1,10 +1,13 @@
 package com.susion.rabbit.base.view
 
 import android.content.Context
+import android.text.InputType
 import android.util.AttributeSet
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.widget.RelativeLayout
 import com.susion.rabbit.R
+import com.susion.rabbit.Rabbit
 import com.susion.rabbit.utils.dp2px
 import com.susion.rabbit.utils.getDrawable
 import com.susion.rabbit.utils.throttleFirstClick
@@ -29,9 +32,21 @@ class RabbitActionBar : RelativeLayout {
     private fun initView() {
         LayoutInflater.from(context).inflate(R.layout.dev_tools_tool_bar, this)
         layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, dp2px(45f))
-        background = getDrawable(context, R.color.rabbit_material_promary)
+        background = getDrawable(context, R.drawable.rabbit_action_bar_coner_rect)
         mDevToolsToolsBarIvBack.throttleFirstClick(Consumer {
             actionListener?.onBackClick()
+        })
+
+        mRabbitActionBarFakeEt.inputType = InputType.TYPE_NULL
+        mRabbitActionBarFakeEt.setOnKeyListener(OnKeyListener { v, keyCode, event ->
+            if (event?.keyCode == KeyEvent.KEYCODE_BACK) {
+                actionListener?.onBackClick()
+            }
+            return@OnKeyListener true
+        })
+
+        mRabbitActionBarQuickHider.throttleFirstClick(Consumer {
+            Rabbit.uiManager.handleFloatingViewClickEvent()
         })
     }
 
@@ -43,4 +58,10 @@ class RabbitActionBar : RelativeLayout {
         fun onBackClick()
     }
 
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        post {
+            mRabbitActionBarFakeEt.requestFocus()
+        }
+    }
 }

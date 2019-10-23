@@ -1,20 +1,23 @@
 package com.susion.rabbit.exception.entities
 
-import com.susion.rabbit.base.RabbitFileBaseInfo
+import io.realm.RealmObject
+import io.realm.annotations.RealmClass
 import java.io.Serializable
 
 /**
  * susionwang at 2019-10-10
  */
-class RabbitExceptionInfo(
+@RealmClass(name = "rabbit_exception")
+open class RabbitExceptionInfo(
     var crashTraceStr: String = "",
     var exceptionName: String = "",
     var simpleMessage: String = "",
-    var filePath: String = "",
     var threadName: String = "",
-    val currentSystemVersion: String = ""
-) : RabbitFileBaseInfo(), Serializable {
-    fun isValid(): Boolean {
+    var currentSystemVersion: String = "",
+    var time: Long = System.currentTimeMillis()
+) : RealmObject(), Serializable {
+
+    fun isvalid(): Boolean {
         return true
     }
 }

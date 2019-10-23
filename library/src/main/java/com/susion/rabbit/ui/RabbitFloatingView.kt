@@ -1,4 +1,4 @@
-package com.susion.rabbit.view
+package com.susion.rabbit.ui
 
 import android.animation.ValueAnimator
 import android.content.Context
@@ -8,7 +8,6 @@ import android.view.*
 import android.view.animation.LinearInterpolator
 import android.widget.FrameLayout
 import com.susion.rabbit.Rabbit
-import com.susion.rabbit.RabbitMainActivity
 import com.susion.rabbit.R
 import com.susion.rabbit.utils.RabbitUiUtils
 import kotlinx.android.synthetic.main.dev_tools_view_floating.view.*
@@ -34,17 +33,11 @@ class RabbitFloatingView(context: Context) : FrameLayout(context) {
 
     init {
         LayoutInflater.from(context).inflate(R.layout.dev_tools_view_floating, this)
-        layoutParams =
-            LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        layoutParams = LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         isClickable = true
+
         mDevToolsFloatingIv.setOnClickListener {
-            if (Rabbit.isInDevToolsPage) {
-                Rabbit.quickFinishAllDevToolsPage()
-                Rabbit.isInDevToolsPage = false
-            } else {
-                Rabbit.isInDevToolsPage = true
-                RabbitMainActivity.start(context)
-            }
+            Rabbit.uiManager.handleFloatingViewClickEvent()
         }
     }
 
@@ -73,13 +66,13 @@ class RabbitFloatingView(context: Context) : FrameLayout(context) {
         if (isShow) return
 
         isShow = true
-        Rabbit.setDevToolsOpenStatus(isShow)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             mParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
         } else {
             mParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ERROR
         }
+
         mParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
         mParams.format = PixelFormat.RGBA_8888
         mParams.gravity = Gravity.START or Gravity.TOP
@@ -93,7 +86,6 @@ class RabbitFloatingView(context: Context) : FrameLayout(context) {
 
     fun hide() {
         isShow = false
-        Rabbit.setDevToolsOpenStatus(isShow)
         mWindowManager.removeView(this)
     }
 

@@ -1,31 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
-    tools:parentTag="RelativeLayout"
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="45dp">
+    android:layout_height="45dp"
+    tools:parentTag="RelativeLayout">
 
     <ImageView
         android:id="@+id/mDevToolsToolsBarIvBack"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_centerVertical="true"
-        android:src="@drawable/devtools_icon_back"
         android:layout_marginStart="15dp"
         android:padding="5dp"
-        android:layout_width="30dp"
-        android:layout_height="30dp"/>
+        android:src="@drawable/devtools_icon_back" />
 
     <TextView
-        android:layout_marginStart="5dp"
         android:id="@+id/mDevToolsToolsBarTvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
         android:layout_centerInParent="true"
-        android:textSize="17dp"
-        android:maxLines="10"
+        android:layout_marginStart="5dp"
         android:ellipsize="end"
-        android:textStyle="bold"
-        android:textColor="@color/rabbit_black"
+        android:gravity="center_vertical"
+        android:maxLines="10"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:gravity="center_vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"/>
+        android:textColor="@color/rabbit_black"
+        android:textSize="17dp"
+        android:textStyle="bold" />
+
+
+    <EditText
+        android:layout_centerInParent="true"
+        android:id="@+id/mRabbitActionBarFakeEt"
+        android:layout_width="0.5px"
+        android:layout_height="0.5px" />
+
+    <TextView
+        android:layout_alignParentRight="true"
+        android:id="@+id/mRabbitActionBarQuickHider"
+        android:text="快速收起"
+        android:textColor="@color/rabbit_black"
+        android:gravity="center"
+        android:textSize="15dp"
+        android:layout_width="100dp"
+        android:layout_height="50dp"/>
 
 </merge>

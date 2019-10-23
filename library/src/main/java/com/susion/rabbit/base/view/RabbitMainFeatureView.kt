@@ -5,11 +5,11 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.RelativeLayout
 import com.susion.rabbit.R
+import com.susion.rabbit.Rabbit
 import com.susion.rabbit.base.RabbitMainFeatureInfo
 import com.susion.rabbit.base.adapter.RabbitAdapterItemView
 import com.susion.rabbit.utils.dp2px
 import com.susion.rabbit.utils.getDrawable
-import com.susion.rabbit.utils.simpleStartActivity
 import com.susion.rabbit.utils.throttleFirstClick
 import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.devtools_view_main_feature_view.view.*
@@ -38,9 +38,7 @@ class RabbitMainFeatureView : RelativeLayout, RabbitAdapterItemView<RabbitMainFe
         val pd10 = dp2px(10f)
         setPadding(pd10, 0, 0, 0)
         throttleFirstClick(Consumer {
-            if (mFeatureInfo.activityClass != null) {
-                context.simpleStartActivity(mFeatureInfo.activityClass!!)
-            }
+            Rabbit.uiManager.openPage(mFeatureInfo.pageClass)
         })
     }
 
@@ -49,4 +47,5 @@ class RabbitMainFeatureView : RelativeLayout, RabbitAdapterItemView<RabbitMainFe
         mDevToolsMainFeatureTvName.text = fearureInfo.name
         mDevToolsMainFeatureIvIcon.setImageDrawable(getDrawable(context, fearureInfo.icon))
     }
+
 }

@@ -5,16 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".exception.ui.RabbitExceptionListActivity">
+    android:background="@color/rabbit_white">
 
-    <com.susion.rabbit.base.view.RabbitActionBar
-        android:id="@+id/mExceptionListActionBar"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/mExceptionLogListSPL"
         android:layout_width="match_parent"
-        android:layout_height="45dp" />
+        android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/mExceptionLogRv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/mExceptionLogRv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
 
 </LinearLayout>

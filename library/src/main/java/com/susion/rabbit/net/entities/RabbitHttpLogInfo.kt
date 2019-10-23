@@ -1,6 +1,7 @@
 package com.susion.rabbit.net.entities
 
-import com.susion.rabbit.base.RabbitFileBaseInfo
+import io.realm.RealmObject
+import io.realm.annotations.RealmClass
 import java.io.Serializable
 
 /**
@@ -8,35 +9,32 @@ import java.io.Serializable
  *
  * http/https response info
  */
-class RabbitHttpLogInfo(
+@RealmClass(name = "rabbit_http_log")
+open class RabbitHttpLogInfo(
     var host: String = "",
     var path: String = "",
-    var requestParams: HashMap<String, String> = HashMap(),
-    var requestBody:String = "",
+    var requestBody: String = "",
     var responseStr: String = "",
     var tookTime: Long = 0L,
     var size: String = "",
-    var requestType: String = RequestType.GET,
+    var requestType: String = "get",
     var responseContentType: String = ResponseContentType.GSON,
-    var isSuccessRequest:Boolean = true,
-    var responseCode:String = "200"
-) : RabbitFileBaseInfo(),Serializable {
-
-    object RequestType {
-        val GET = "get"
-        val POST = "post"
-        fun isGet(type:String):Boolean = type == GET || type == GET.toLowerCase()
-    }
+    var isSuccessRequest: Boolean = true,
+    var responseCode: String = "200",
+    var requestParamsMapString: String = "",
+    var time: Long = System.currentTimeMillis()
+) : RealmObject(), Serializable {
 
     object ResponseContentType {
         val GSON = "gson"
     }
 
-    fun isValid(): Boolean {
+    fun isvalid(): Boolean {
         return host.isNotEmpty() && path.isNotEmpty()
     }
 
     override fun toString(): String {
-        return "$host$path$requestParams$responseStr$tookTime"
+        return "$host$path$requestParamsMapString$responseStr$tookTime"
     }
+
 }

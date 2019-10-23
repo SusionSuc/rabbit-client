@@ -5,12 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".net.ui.RabbitHttpLogListActivity">
-
-    <com.susion.rabbit.base.view.RabbitActionBar
-        android:id="@+id/mHttpLogListActionBar"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"/>
+    android:background="@color/rabbit_white">
 
     <TextView
         android:layout_width="match_parent"
@@ -21,9 +16,16 @@
         android:textColor="@color/rabbit_black"
         android:textSize="18dp" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/mHttpLogRv"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/mHttpLogListSPL"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/mHttpLogRv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </android.support.v4.widget.SwipeRefreshLayout>
+
 
 </LinearLayout>

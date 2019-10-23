@@ -52,7 +52,6 @@ class RabbitFPSMonitor : FrameTracer.FrameUpdateListener{
             }
             lastTotalFrameMs = totalFrameMs
             lastTotalFrameNumber = totalFrameNumber
-
         }
     }
 

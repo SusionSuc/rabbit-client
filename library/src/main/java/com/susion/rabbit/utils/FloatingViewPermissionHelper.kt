@@ -123,7 +123,7 @@ object FloatingViewPermissionHelper {
         val dialog = AlertDialog.Builder(context)
             .setCancelable(true)
             .setTitle("")
-            .setMessage("应用的悬浮窗权限还没有打开,请打开权限后再尝试!")
+            .setMessage("开启悬浮窗权限后可以自动打开 Rabbit，是否要打开?")
             .setPositiveButton(
                 "现在去开启"
             ) { dialog, which ->

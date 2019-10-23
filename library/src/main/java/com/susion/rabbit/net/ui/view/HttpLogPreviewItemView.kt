@@ -4,9 +4,10 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.widget.RelativeLayout
 import com.susion.rabbit.R
+import com.susion.rabbit.Rabbit
 import com.susion.rabbit.base.adapter.RabbitAdapterItemView
 import com.susion.rabbit.net.entities.RabbitHttpLogInfo
-import com.susion.rabbit.net.ui.RabbitHttpLogDetailActivity
+import com.susion.rabbit.net.ui.RabbitHttpLogDetailPage
 import com.susion.rabbit.utils.*
 import com.susion.rabbit.utils.dp2px
 import io.reactivex.functions.Consumer
@@ -25,7 +26,7 @@ class HttpLogPreviewItemView(context: Context) : RelativeLayout(context), Rabbit
             bottomMargin = dp2px(5f)
         }
         throttleFirstClick(Consumer {
-            RabbitHttpLogDetailActivity.start(context, mLogInfo)
+            Rabbit.uiManager.openPage(RabbitHttpLogDetailPage::class.java, mLogInfo)
         })
     }
 

@@ -5,17 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".config.RabbitConfigActivity">
-
-    <com.susion.rabbit.base.view.RabbitActionBar
-        android:id="@+id/mDevToolsConfigActionBar"
-        android:layout_width="match_parent"
-        android:layout_height="45dp" />
-
+    tools:parentTag="LinearLayout">
 
     <com.susion.rabbit.base.view.RabbitSwitchButton
         android:id="@+id/mRabbitConfigSBOpenFpsMonitor"
         android:layout_width="match_parent"
-        android:layout_height="60dp"/>
+        android:layout_height="60dp" />
 
 </LinearLayout>

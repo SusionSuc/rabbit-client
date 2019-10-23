@@ -1,6 +1,6 @@
 package com.susion.rabbit.exception
 
-import com.susion.rabbit.base.RabbitFileStorageManager
+import com.susion.rabbit.storage.RabbitDbStorageManager
 import com.susion.rabbit.exception.entities.RabbitExceptionInfo
 import com.susion.rabbit.utils.runOnIoThread
 import io.reactivex.disposables.Disposable
@@ -12,23 +12,14 @@ import java.util.*
  * susionwang at 2019-10-10
  * 异常日志
  */
-object RabbitExceptionLogStorageManager : RabbitFileStorageManager() {
+object RabbitExceptionLogStorageManager : RabbitDbStorageManager() {
 
     private val TAG = javaClass.simpleName
-    private val disposableList = ArrayList<Disposable>()
 
     fun saveExceptionToLocal(e: Throwable) {
         val currentThreadName = Thread.currentThread().name
-        val dis = runOnIoThread {
-            val exceptionInfo = translateThrowableToExceptionInfo(e, currentThreadName)
-            saveObjToLocalFile(exceptionInfo, TYPE_EXCEPTION)
-        }
-        disposableList.add(dis)
-    }
-
-    fun getAllExceptionFiles(loadResult: (exceptionList: List<RabbitExceptionInfo>) -> Unit) {
-        val dis = getAllExceptionFiles(TYPE_EXCEPTION, RabbitExceptionInfo::class.java, loadResult)
-        disposableList.add(dis)
+        val exceptionInfo = translateThrowableToExceptionInfo(e, currentThreadName)
+        saveObjToLocalFile(exceptionInfo)
     }
 
     private fun translateThrowableToExceptionInfo(
@@ -41,14 +32,12 @@ object RabbitExceptionLogStorageManager : RabbitFileStorageManager() {
         exceptionInfo.crashTraceStr = strWriter.buffer.toString()
         exceptionInfo.exceptionName = e.javaClass.name
         exceptionInfo.simpleMessage = e.message ?: ""
-        exceptionInfo.filePath = getFilePath(TYPE_EXCEPTION)
         exceptionInfo.threadName = currentThread
         return exceptionInfo
     }
 
-    fun destroy() {
-        disposableList.forEach {
-            it.dispose()
-        }
-    }
+    override fun getMaxDataNumber() = 100
+
+    override fun getDbTimeField() = "time"
+
 }

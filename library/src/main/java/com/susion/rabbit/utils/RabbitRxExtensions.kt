@@ -29,7 +29,7 @@ internal fun runOnIoThread(runnable: () -> Unit): Disposable {
             it.onError(e)
         }
         it.onComplete()
-    }.subscribeOn(Schedulers.io()).subscribe()
+    }.subscribeOn(Schedulers.io()).subscribe({},{})
 }
 
 internal fun <T> runOnIoThread(

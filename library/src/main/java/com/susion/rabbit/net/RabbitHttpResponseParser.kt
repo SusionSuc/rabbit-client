@@ -1,7 +1,11 @@
 package com.susion.rabbit.net
 
+import com.google.gson.Gson
 import com.susion.rabbit.net.entities.RabbitHttpLogInfo
-import okhttp3.*
+import okhttp3.Headers
+import okhttp3.MediaType
+import okhttp3.Request
+import okhttp3.Response
 import okhttp3.internal.http.HttpHeaders
 import okio.Buffer
 import java.net.URLDecoder
@@ -35,7 +39,7 @@ object RabbitHttpResponseParser {
         logInfo.apply {
             host = reqHttpUrl.host()
             path = reqHttpUrl.encodedPath()
-            requestParams = getUrlRequestParams(request)
+            requestParamsMapString = getUrlRequestParams(request)
             requestBody = postRequestParams(request)
             tookTime = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startTime)
             requestType = request.method()
@@ -74,7 +78,7 @@ object RabbitHttpResponseParser {
             logInfo.apply {
                 host = reqHttpUrl.host()
                 path = reqHttpUrl.encodedPath()
-                requestParams = getUrlRequestParams(request)
+                requestParamsMapString = getUrlRequestParams(request)
                 requestBody = postRequestParams(request)
                 responseStr = resStr
                 tookTime = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startTime)
@@ -104,9 +108,9 @@ object RabbitHttpResponseParser {
     /**
      * 获取 GET 请求的请求参数
      * */
-    private fun getUrlRequestParams(request: Request): HashMap<String, String> {
+    private fun getUrlRequestParams(request: Request): String {
         val requestUrl = request.url().toString()
-        val map = HashMap<String, String>()
+        val requestMap = HashMap<String, String>()
         try {
             val charset = "utf-8"
             val decodedUrl = URLDecoder.decode(requestUrl, charset)
@@ -117,13 +121,13 @@ object RabbitHttpResponseParser {
                 for (i in keyValues.indices) {
                     val key = keyValues[i].substring(0, keyValues[i].indexOf("="))
                     val value = keyValues[i].substring(keyValues[i].indexOf("=") + 1)
-                    map[key] = value
+                    requestMap[key] = value
                 }
             }
         } catch (e: Exception) {
             e.printStackTrace()
         }
-        return map
+        return Gson().toJson(requestMap)
     }
 
     private fun supportParseType(contentType: MediaType?): Boolean {

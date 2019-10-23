@@ -74,19 +74,10 @@ object RabbitUiUtils {
         decor.systemUiVisibility = ui
     }
 
-    /**
-     * 复制评论
-     * */
-    fun copyComment(commentTv: TextView){
-        copyStrToClipBoard(commentTv.context, commentTv.text.toString())
-        Toast.makeText(commentTv.context, "已复制当前评论", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun copyStrToClipBoard(context: Context, str: String) {
+    fun copyStrToClipBoard(context: Context, str: String) {
         val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         val clipData = ClipData.newPlainText(null, str)
         clipboard.primaryClip = clipData
     }
-
 
 }

@@ -2,6 +2,7 @@ package com.susion.rabbit.net
 
 import android.util.Log
 import com.susion.rabbit.Rabbit
+import com.susion.rabbit.storage.RabbitDbStorageManager
 import okhttp3.Interceptor
 import okhttp3.Response
 
@@ -18,11 +19,13 @@ class RabbitHttpLogInterceptor : Interceptor {
         try {
             startNs = System.nanoTime()
 
-            if (!Rabbit.devToolsIsOpen()) return response
+            if (!Rabbit.uiManager.floatingViewIsShow) return response
 
             val logInfo = RabbitHttpResponseParser.parserResponse(chain.request(), response, startNs)
 
-            RabbitHttpLogStorageManager.saveLogInfoToLocal(logInfo)
+            if (logInfo.isvalid()){
+                RabbitHttpLogStorageManager.saveObjToLocalFile(logInfo)
+            }
 
             return response
 

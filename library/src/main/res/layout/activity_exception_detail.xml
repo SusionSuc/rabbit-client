@@ -4,13 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".exception.ui.RabbitExceptionDetailActivity">
-
-    <com.susion.rabbit.base.view.RabbitActionBar
-        android:id="@+id/mExceptionDetailActionBar"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"/>
+    android:background="@color/rabbit_white"
+    android:orientation="vertical">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -36,6 +31,7 @@
                 android:id="@+id/mExceptionDetailTvFilePath"
                 android:textColor="@color/rabbit_black"
                 android:textSize="16dp"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 

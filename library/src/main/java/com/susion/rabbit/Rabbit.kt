@@ -1,24 +1,22 @@
 package com.susion.rabbit
 
-import android.app.Activity
 import android.app.Application
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.OnLifecycleEvent
 import android.arch.lifecycle.ProcessLifecycleOwner
 import android.content.Context
-import android.os.Bundle
-import com.susion.rabbit.base.RabbitBaseActivity
 import com.susion.rabbit.exception.RabbitExceptionLogStorageManager
 import com.susion.rabbit.net.RabbitHttpLogInterceptor
 import com.susion.rabbit.net.RabbitHttpLogStorageManager
 import com.susion.rabbit.trace.RabbitTracer
-import com.susion.rabbit.utils.RabbitSettings
+import com.susion.rabbit.ui.RabbitUiManager
 import com.susion.rabbit.utils.FloatingViewPermissionHelper
+import com.susion.rabbit.utils.RabbitSettings
 import com.susion.rabbit.utils.toastInThread
-import com.susion.rabbit.view.RabbitFloatingView
+import io.realm.Realm
+import io.realm.RealmConfiguration
 import okhttp3.Interceptor
-import java.lang.ref.WeakReference
 
 /**
  * susionwang at 2019-09-23
@@ -29,24 +27,19 @@ object Rabbit {
 
     var application: Application? = null
 
-    //是否已经打开 Rabbit
-    private var isInDevModel = false
-
-    //当前是否处于DevTools的页面中
-    var isInDevToolsPage = false
-
-    private val acLifecycleListener = SimpleAcLifecycleListener()
-    private val devToolsAcList = ArrayList<WeakReference<RabbitBaseActivity>>()
+    val uiManager by lazy {
+        RabbitUiManager(application!!)
+    }
 
     private val applicationLifecycle = object : LifecycleObserver {
         @OnLifecycleEvent(Lifecycle.Event.ON_START)
         fun onForeground() {
-            floatingView.show()
+            uiManager.showFloatingView()
         }
 
         @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
         fun onBackground() {
-            floatingView.hide()
+            uiManager.hideFloatingView()
         }
     }
 
@@ -54,15 +47,12 @@ object Rabbit {
         RabbitHttpLogInterceptor()
     }
 
-    private val floatingView by lazy {
-        RabbitFloatingView(application!!)
-    }
-
     //MUST CALL
     fun attachApplicationContext(applicationContext: Application) {
         application = applicationContext
         openGlobalExceptionCollector()
         RabbitTracer.init()
+        initRealm()
     }
 
     private fun listenLifeCycle() {
@@ -70,15 +60,7 @@ object Rabbit {
         ProcessLifecycleOwner.get().lifecycle.addObserver(applicationLifecycle)
     }
 
-    fun devToolsIsOpen() = isInDevModel
-
-    fun setDevToolsOpenStatus(isOpen: Boolean) {
-        isInDevModel = isOpen
-    }
-
     fun openDevTools(requestPermission: Boolean = true, context: Context = application!!) {
-
-        application?.registerActivityLifecycleCallbacks(acLifecycleListener)
 
         val overlayPermissionIsOpen = FloatingViewPermissionHelper.checkPermission(application!!)
 
@@ -86,7 +68,7 @@ object Rabbit {
 
         if (overlayPermissionIsOpen) {
             listenLifeCycle()
-            floatingView.show()
+            uiManager.showFloatingView()
             RabbitSettings.autoOpenDevTools(context, true)  //default auto open
         } else {
             FloatingViewPermissionHelper.showConfirmDialog(context,
@@ -129,12 +111,6 @@ object Rabbit {
         RabbitExceptionLogStorageManager.saveExceptionToLocal(e)
     }
 
-    fun quickFinishAllDevToolsPage() {
-        devToolsAcList.forEach {
-            it.get()?.finish()
-        }
-    }
-
     fun autoOpenDevTools(context: Context) = RabbitSettings.autoOpenDevTools(context)
 
     fun destroy() {
@@ -142,35 +118,11 @@ object Rabbit {
         RabbitExceptionLogStorageManager.destroy()
     }
 
-    private open class SimpleAcLifecycleListener : Application.ActivityLifecycleCallbacks {
-        override fun onActivityResumed(activity: Activity?) {
-
-        }
-
-        override fun onActivityStarted(activity: Activity?) {
-
-        }
-
-        override fun onActivitySaveInstanceState(activity: Activity?, outState: Bundle?) {
-        }
-
-        override fun onActivityStopped(activity: Activity?) {
-        }
-
-        override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
-            if (activity is RabbitBaseActivity) {
-                devToolsAcList.add(WeakReference(activity))
-            }
-        }
-
-        override fun onActivityDestroyed(activity: Activity?) {
-            if (activity is RabbitBaseActivity) {
-                devToolsAcList.remove(WeakReference(activity))
-            }
-        }
-
-        override fun onActivityPaused(activity: Activity?) {
-        }
+    private fun initRealm(){
+        Realm.init(application)
+        val realmConfig = RealmConfiguration.Builder().name("rabbit").deleteRealmIfMigrationNeeded().build()
+        Realm.setDefaultConfiguration(realmConfig)
     }
+
 
 }
