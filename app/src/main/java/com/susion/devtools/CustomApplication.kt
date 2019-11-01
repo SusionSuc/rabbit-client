@@ -12,4 +12,5 @@ class CustomApplication:Application() {
         super.onCreate()
         Rabbit.attachApplicationContext(this)
     }
+
 }

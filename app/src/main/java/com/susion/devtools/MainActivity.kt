@@ -28,13 +28,7 @@ class MainActivity : RabbitBaseActivity() {
 
         mDevToolsTestMainActionBar.setTitle("Alpha")
         setBackListener(mDevToolsTestMainActionBar)
-        mDevToolsTestTvOpen.setOnClickListener {
-            if (!Rabbit.devToolsIsOpen()) {
-                Rabbit.openDevTools(true, this)
-            } else {
-            }
-            refreshOpenStatus()
-        }
+
 
         mDevToolsTestTvRequestNet.setOnClickListener {
             sampleRequestNet()
@@ -50,30 +44,11 @@ class MainActivity : RabbitBaseActivity() {
             }
         }
 
-        mDevToolsTestTvRequestNet.postDelayed({
-            refreshOpenStatus()
-        }, 500)
-
-        mGetMainThreadStack.setOnClickListener {
-            Log.d(TAG, "start time : ${System.currentTimeMillis()}")
-            val stack = Exception("custom").stackTrace
-            val a = 1
-            Log.d(TAG, "trace : ${traceToString(0, stack)}")
-            Log.d(TAG, "end time : ${System.currentTimeMillis()}")
-        }
-
-        mGetMainThreadStack2.setOnClickListener {
-            Log.d(TAG, "start time : ${System.currentTimeMillis()}")
-            val mainThread = Looper.getMainLooper().thread
-            val stackArray = mainThread.stackTrace
-            Log.d(TAG, "trace :${traceToString(0, stackArray)}")
-            Log.d(TAG, "end time : ${System.currentTimeMillis()}")
-        }
-
     }
 
-    private fun refreshOpenStatus() {
-        mDevToolsTestTvOpen.text = if (Rabbit.devToolsIsOpen()) "关闭DevTools" else "打开DevTools"
+    override fun onStart() {
+        super.onStart()
+        Rabbit.openDevTools(true, this)
     }
 
     private fun sampleRequestNet() {
@@ -82,24 +57,6 @@ class MainActivity : RabbitBaseActivity() {
         }, {
             Log.d(TAG, "error : ${it.message}")
         })
-    }
-
-
-    fun traceToString(skipStackCount: Int, stackArray: Array<StackTraceElement>): String {
-
-        if (stackArray.isEmpty()) {
-            return "[]"
-        }
-
-        val b = StringBuilder()
-        for (i in 0 until stackArray.size - skipStackCount) {
-            if (i == stackArray.size - skipStackCount - 1) {
-                return b.toString()
-            }
-            b.append(stackArray[i])
-            b.append("\n")
-        }
-        return b.toString()
     }
 
 }

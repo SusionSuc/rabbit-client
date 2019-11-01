@@ -3,6 +3,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply from: '../buildsystem/common-version.gradle'
 def uniqueVersion = rootProject.ext.versions
+apply plugin: 'org.greenrobot.greendao' // apply plugin
+
 
 android {
     compileSdkVersion uniqueVersion.compileSdkVersion
@@ -45,5 +47,7 @@ dependencies {
 
     implementation "com.android.support:recyclerview-v7:${uniqueVersion.supportLibVersion}"
     implementation "com.jakewharton.rxbinding3:rxbinding:${uniqueVersion.rxbinding3Version}"
+    implementation "org.greenrobot:greendao:${uniqueVersion.greenDaoVersion}"
+
 
 }

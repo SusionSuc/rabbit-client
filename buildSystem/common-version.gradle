@@ -34,6 +34,7 @@ rootProject.ext {
             protoVersion                 : "3.8.0",
             photoViewVersion             : "1.3.1",
             blockCanaryVersion           : "1.6.3",
-            releaseBlockCanaryVersion    : "1.5.0"
+            releaseBlockCanaryVersion    : "1.5.0",
+            greenDaoVersion              : "3.2.2"
     ]
 }

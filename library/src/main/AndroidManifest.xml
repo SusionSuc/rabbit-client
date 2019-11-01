@@ -7,19 +7,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application>
-        <activity android:name="com.susion.rabbit.trace.ui.FPSJitterListActivity"></activity>
-        <activity android:name="com.susion.rabbit.config.RabbitConfigActivity" />
-        <activity android:name="com.susion.rabbit.exception.ui.RabbitExceptionDetailActivity" />
-        <activity android:name="com.susion.rabbit.exception.ui.RabbitExceptionListActivity" />
-        <activity
-            android:name="com.susion.rabbit.net.ui.RabbitHttpLogDetailActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name="com.susion.rabbit.net.ui.RabbitHttpLogListActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name="com.susion.rabbit.RabbitMainActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
     </application>
 
 </manifest>

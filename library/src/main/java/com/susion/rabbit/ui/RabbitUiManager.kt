@@ -3,6 +3,9 @@ package com.susion.rabbit.ui
 import android.content.Context
 import android.graphics.PixelFormat
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
+import android.os.Message
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +13,7 @@ import android.view.WindowManager
 import android.widget.FrameLayout
 import com.susion.rabbit.R
 import com.susion.rabbit.Rabbit
+import com.susion.rabbit.RabbitLog
 import com.susion.rabbit.ui.page.RabbitEntryPage
 import com.susion.rabbit.utils.dp2px
 import com.susion.rabbit.utils.getDrawable
@@ -25,6 +29,21 @@ class RabbitUiManager(val context: Context) {
         const val PAGE_NULL = 1 //一个页面都没有
         const val PAGE_HIDE = 2
         const val PAGE_SHOWING = 3
+
+
+        const val MSA_UPDATE_FPS = 1
+    }
+
+    private val uiHandler = object :Handler(Looper.getMainLooper()){
+        override fun handleMessage(msg: Message) {
+            when(msg.what){
+                MSA_UPDATE_FPS ->{
+                    if (msg.obj is Float){
+                        floatingView.updateFps(msg.obj as Float)
+                    }
+                }
+            }
+        }
     }
 
     //页面是否在展示
@@ -51,9 +70,11 @@ class RabbitUiManager(val context: Context) {
     }
 
     private fun showRabbitEntryPage() {
+        hideFloatingView()
         val entryPage = RabbitEntryPage(context)
         getWm().addView(pageContainer, getPageParams())
         pushPageToTopLevel(entryPage)
+        showFloatingView()
     }
 
     private fun getPageParams(): WindowManager.LayoutParams {
@@ -160,6 +181,7 @@ class RabbitUiManager(val context: Context) {
     }
 
     fun handleFloatingViewClickEvent() {
+        RabbitLog.d("pageShowStatus : $pageShowStatus")
         when(pageShowStatus){
             PAGE_NULL ->  showRabbitEntryPage()
             PAGE_SHOWING -> hideRabbitPage()
@@ -178,7 +200,15 @@ class RabbitUiManager(val context: Context) {
     }
 
     fun hideAllPage() {
+        if (pageShowStatus != PAGE_SHOWING)return
         hideRabbitPage()
+    }
+
+    fun updateUiFromAsynThread(msgType:Int, params:Any){
+        val msg = uiHandler.obtainMessage()
+        msg.what = msgType
+        msg.obj = params
+        uiHandler.sendMessage(msg)
     }
 
 }

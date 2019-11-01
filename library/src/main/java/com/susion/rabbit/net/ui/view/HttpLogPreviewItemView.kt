@@ -32,9 +32,9 @@ class HttpLogPreviewItemView(context: Context) : RelativeLayout(context), Rabbit
 
     override fun bindData(logInfo: RabbitHttpLogInfo, position: Int) {
         mLogInfo = logInfo
-        mLogPreViewTvHost.text = "${logInfo.host}    ${logInfo.requestType}    ${devToolsTimeFormat(logInfo.time)} "
+        mLogPreViewTvHost.text = "${logInfo.host}    ${logInfo.requestType}    ${rabbitTimeFormat(logInfo.time)} "
         val res = when(logInfo.responseContentType){
-            RabbitHttpLogInfo.ResponseContentType.GSON -> R.drawable.devtools_icon_type_json
+            "gson" -> R.drawable.devtools_icon_type_json
             else -> R.drawable.devtools_icon_type_json
         }
         mLogPreViewIvResponseContentType.setImageDrawable(getDrawable(context, res))

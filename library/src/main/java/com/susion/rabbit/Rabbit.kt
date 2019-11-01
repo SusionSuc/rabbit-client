@@ -6,16 +6,15 @@ import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.OnLifecycleEvent
 import android.arch.lifecycle.ProcessLifecycleOwner
 import android.content.Context
-import com.susion.rabbit.exception.RabbitExceptionLogStorageManager
+import android.widget.Toast
+import com.susion.rabbit.config.RabbitConfig
+import com.susion.rabbit.db.RabbitDbStorageManager
+import com.susion.rabbit.base.RabbitInfoHelper
 import com.susion.rabbit.net.RabbitHttpLogInterceptor
-import com.susion.rabbit.net.RabbitHttpLogStorageManager
 import com.susion.rabbit.trace.RabbitTracer
 import com.susion.rabbit.ui.RabbitUiManager
 import com.susion.rabbit.utils.FloatingViewPermissionHelper
-import com.susion.rabbit.utils.RabbitSettings
 import com.susion.rabbit.utils.toastInThread
-import io.realm.Realm
-import io.realm.RealmConfiguration
 import okhttp3.Interceptor
 
 /**
@@ -23,13 +22,9 @@ import okhttp3.Interceptor
  */
 object Rabbit {
 
-    private var mConfig = RabbitFeatureConfig()
-
+    private var mConfig = RabbitConfig()
     var application: Application? = null
-
-    val uiManager by lazy {
-        RabbitUiManager(application!!)
-    }
+    val uiManager by lazy { RabbitUiManager(application!!) }
 
     private val applicationLifecycle = object : LifecycleObserver {
         @OnLifecycleEvent(Lifecycle.Event.ON_START)
@@ -51,8 +46,7 @@ object Rabbit {
     fun attachApplicationContext(applicationContext: Application) {
         application = applicationContext
         openGlobalExceptionCollector()
-        RabbitTracer.init()
-        initRealm()
+        RabbitTracer.init(applicationContext)
     }
 
     private fun listenLifeCycle() {
@@ -69,7 +63,6 @@ object Rabbit {
         if (overlayPermissionIsOpen) {
             listenLifeCycle()
             uiManager.showFloatingView()
-            RabbitSettings.autoOpenDevTools(context, true)  //default auto open
         } else {
             FloatingViewPermissionHelper.showConfirmDialog(context,
                 object : FloatingViewPermissionHelper.OnConfirmResult {
@@ -84,19 +77,23 @@ object Rabbit {
         }
     }
 
-    //网络请求日志功能
+    /**
+     * 网络请求日志功能
+     * */
     fun getHttpLogInterceptor(): Interceptor = httpLogInterceptor
 
     /**
      * 业务配置 Rabbit
      * */
-    fun config(devConfig: RabbitFeatureConfig) {
+    fun config(devConfig: RabbitConfig) {
         mConfig = devConfig
     }
 
-    fun getCustomConfig() = mConfig
+    fun geConfig() = mConfig
 
-    //收集所有线程的崩溃信息
+    /**
+     * 收集所有线程的崩溃信息
+     * */
     private fun openGlobalExceptionCollector() {
         val defaultExceptionHandler = Thread.getDefaultUncaughtExceptionHandler()
         Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
@@ -105,24 +102,19 @@ object Rabbit {
         }
     }
 
-    //异常日志功能
+    /**
+     * 异常日志保存
+     * */
     fun saveCrashLog(e: Throwable) {
-        toastInThread("发生异常！,日志已保存到本地")
-        RabbitExceptionLogStorageManager.saveExceptionToLocal(e)
+        toastInThread("发生异常 ! 日志已保存到本地")
+        val exceptionInfo = RabbitInfoHelper.translateThrowableToExceptionInfo(e, Thread.currentThread().name)
+        RabbitDbStorageManager.save(exceptionInfo)
     }
-
-    fun autoOpenDevTools(context: Context) = RabbitSettings.autoOpenDevTools(context)
 
     fun destroy() {
-        RabbitHttpLogStorageManager.destroy()
-        RabbitExceptionLogStorageManager.destroy()
+        RabbitDbStorageManager.destroy()
     }
 
-    private fun initRealm(){
-        Realm.init(application)
-        val realmConfig = RealmConfiguration.Builder().name("rabbit").deleteRealmIfMigrationNeeded().build()
-        Realm.setDefaultConfiguration(realmConfig)
-    }
-
+    fun isOpen() = uiManager.floatingViewIsShow
 
 }

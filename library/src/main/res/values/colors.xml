@@ -6,6 +6,7 @@
     <color name="rabbit_light_blue">#88ccff</color>
     <color name="rabbit_white">#ffffff</color>
     <color name="rabbit_error_red">#ff0000</color>
+    <color name="rabbit_bg_f5">#f5f5f5</color>
 
 
     <color name="rabbit_material_dark">#aec4c7</color>

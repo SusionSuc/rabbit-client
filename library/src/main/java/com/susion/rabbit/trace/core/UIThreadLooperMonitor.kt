@@ -2,13 +2,14 @@ package com.susion.rabbit.trace.core
 
 import android.os.Looper
 import android.util.Printer
+import androidx.annotation.UiThread
 import com.susion.rabbit.reflect.RabbitReflectHelper
 
 /**
  * susionwang at 2019-10-17
  * 监控主线程消息处理
  */
-object UIThreadLooperMonitor {
+internal object UIThreadLooperMonitor {
 
     private val TAG = javaClass.simpleName
     private var mHandleEventListeners = ArrayList<LooperHandleEventListener>()
@@ -51,6 +52,7 @@ object UIThreadLooperMonitor {
 
     fun listenerSize() = mHandleEventListeners.size
 
+    @UiThread
     private fun notifyListenerLooperProcessMsg(start: Boolean) {
         mHandleEventListeners.forEach {
             if (start) {

@@ -9,7 +9,7 @@ import com.susion.rabbit.Rabbit
 import com.susion.rabbit.base.adapter.RabbitAdapterItemView
 import com.susion.rabbit.exception.entities.RabbitExceptionInfo
 import com.susion.rabbit.exception.ui.RabbitExceptionDetailPage
-import com.susion.rabbit.utils.devToolsTimeFormat
+import com.susion.rabbit.utils.rabbitTimeFormat
 import com.susion.rabbit.utils.dp2px
 import com.susion.rabbit.utils.getDrawable
 import com.susion.rabbit.utils.throttleFirstClick
@@ -38,7 +38,7 @@ class ExceptionLogPreviewItemView(context: Context) : RelativeLayout(context), R
         mExceptionPreviewIv.setImageDrawable(getDrawable(context, R.drawable.devtools_icon_exception))
 
         val simpleExceptionName =info.exceptionName.substring( info.exceptionName.lastIndexOf('.')+1, info.exceptionName.length)
-        mExceptionPreviewTvLine1.text = "${simpleExceptionName}  ${devToolsTimeFormat(info.time)}"
+        mExceptionPreviewTvLine1.text = "${simpleExceptionName}  ${rabbitTimeFormat(info.time)}"
         if (info.simpleMessage.isNotEmpty()){
             mExceptionPreviewTvLine2.visibility = View.VISIBLE
             mExceptionPreviewTvLine2.text = info.simpleMessage

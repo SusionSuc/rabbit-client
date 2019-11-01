@@ -3,7 +3,6 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply from: '../buildsystem/common-version.gradle'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'realm-android'
 def uniqueVersion = rootProject.ext.versions
 
 android {

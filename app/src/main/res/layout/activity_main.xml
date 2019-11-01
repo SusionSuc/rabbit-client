@@ -10,73 +10,22 @@
     <com.susion.rabbit.base.view.RabbitActionBar
         android:id="@+id/mDevToolsTestMainActionBar"
         android:layout_width="match_parent"
-        android:layout_height="45dp"/>
-
-
-    <TextView
-        android:layout_marginStart="15dp"
-        android:id="@+id/mDevToolsTestTvOpen"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="left|center_vertical"
-        android:text="打开 DevTools "
-        android:textColor="@color/rabbit_black"
-        android:textSize="18dp" />
-
-    <View
-        android:layout_marginStart="15dp"
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/devtools_divider_graye5" />
+        android:layout_height="45dp" />
 
     <TextView
-        android:layout_marginStart="15dp"
         android:id="@+id/mDevToolsTestTvRequestNet"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginStart="15dp"
         android:gravity="left|center_vertical"
         android:text="测试请求网络接口"
         android:textColor="@color/rabbit_black"
         android:textSize="18dp" />
 
     <View
-        android:layout_marginStart="15dp"
         android:layout_width="match_parent"
         android:layout_height="1px"
+        android:layout_marginStart="15dp"
         android:background="@color/devtools_divider_graye5" />
-
-
-    <TextView
-        android:layout_marginStart="15dp"
-        android:id="@+id/mGetMainThreadStack"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="left|center_vertical"
-        android:text="获取主线程堆栈"
-        android:textColor="@color/rabbit_black"
-        android:textSize="18dp" />
-
-    <View
-        android:layout_marginStart="15dp"
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/devtools_divider_graye5" />
-
-    <TextView
-        android:layout_marginStart="15dp"
-        android:id="@+id/mGetMainThreadStack2"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="left|center_vertical"
-        android:text="获取主线程堆栈2"
-        android:textColor="@color/rabbit_black"
-        android:textSize="18dp" />
-
-    <View
-        android:layout_marginStart="15dp"
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/devtools_divider_graye5" />
-
 
 </LinearLayout>

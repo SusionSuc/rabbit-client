@@ -45,6 +45,7 @@ object RabbitHttpResponseParser {
             requestType = request.method()
             isSuccessRequest = false
             responseCode = response.code().toString()
+            time = System.currentTimeMillis()
         }
         return logInfo
     }
@@ -84,6 +85,8 @@ object RabbitHttpResponseParser {
                 tookTime = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startTime)
                 size = bodySize
                 requestType = request.method()
+                isSuccessRequest = true
+                time = System.currentTimeMillis()
                 responseContentType = responseBody.contentType()?.type() ?: ""
             }
         }

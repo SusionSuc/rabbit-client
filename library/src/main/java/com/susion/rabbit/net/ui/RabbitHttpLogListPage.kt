@@ -5,7 +5,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.ViewGroup
 import com.susion.rabbit.R
 import com.susion.rabbit.base.adapter.RabbitRvAdapter
-import com.susion.rabbit.net.RabbitHttpLogStorageManager
+import com.susion.rabbit.db.RabbitDbStorageManager
 import com.susion.rabbit.net.entities.RabbitHttpLogInfo
 import com.susion.rabbit.net.ui.view.HttpLogPreviewItemView
 import com.susion.rabbit.ui.page.RabbitBasePage
@@ -38,7 +38,7 @@ class RabbitHttpLogListPage(context: Context) : RabbitBasePage(context) {
     }
 
     private fun loadData() {
-        RabbitHttpLogStorageManager.getAllExceptionFiles(RabbitHttpLogInfo::class.java) {
+        RabbitDbStorageManager.getAll(RabbitHttpLogInfo::class.java) {
             mHttpLogListSPL.isRefreshing = false
             if (it.isNotEmpty()) {
                 logsAdapter.data.clear()

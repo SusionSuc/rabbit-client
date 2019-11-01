@@ -12,6 +12,7 @@ import com.susion.rabbit.base.view.RabbitMainFeatureView
 import com.susion.rabbit.config.RabbitConfigPage
 import com.susion.rabbit.exception.ui.RabbitExceptionListPage
 import com.susion.rabbit.net.ui.RabbitHttpLogListPage
+import com.susion.rabbit.trace.ui.RabbitUiBlockListPage
 import com.susion.rabbit.utils.getDrawable
 
 /**
@@ -31,7 +32,8 @@ class RabbitEntryPage(context: Context) : RabbitBasePage(context) {
     init {
         addView(rv)
         rv.adapter = featuresAdapter
-        rv.layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        rv.layoutParams =
+            LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         rv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         setTitle("Rabbit")
         rv.background = getDrawable(context, R.color.rabbit_white)
@@ -48,7 +50,7 @@ class RabbitEntryPage(context: Context) : RabbitBasePage(context) {
                     RabbitConfigPage::class.java
                 )
             )
-            addAll(Rabbit.getCustomConfig().entryFeatures)
+            addAll(Rabbit.geConfig().entryFeatures)
             add(
                 RabbitMainFeatureInfo(
                     "网络日志",
@@ -62,7 +64,13 @@ class RabbitEntryPage(context: Context) : RabbitBasePage(context) {
                     RabbitExceptionListPage::class.java
                 )
             )
-            add(RabbitMainFeatureInfo("卡顿检测(FPS)", R.drawable.devtools_icon_caton, null))
+            add(
+                RabbitMainFeatureInfo(
+                    "卡顿日志",
+                    R.drawable.devtools_icon_caton,
+                    RabbitUiBlockListPage::class.java
+                )
+            )
         }
     }
 

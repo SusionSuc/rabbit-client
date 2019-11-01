@@ -7,21 +7,22 @@ import android.os.Build
 import android.view.*
 import android.view.animation.LinearInterpolator
 import android.widget.FrameLayout
+import android.widget.LinearLayout
 import com.susion.rabbit.Rabbit
 import com.susion.rabbit.R
 import com.susion.rabbit.utils.RabbitUiUtils
+import com.susion.rabbit.utils.getColor
 import kotlinx.android.synthetic.main.dev_tools_view_floating.view.*
 import kotlin.math.abs
 
 /**
  * susionwang at 2019-09-23
  */
-class RabbitFloatingView(context: Context) : FrameLayout(context) {
+class RabbitFloatingView(context: Context) : LinearLayout(context) {
 
-    private var mAnimator: ValueAnimator? = null /* the animation of the float view*/
-    private var mXInScreen: Float = 0.toFloat() /* the x position in screen */
-    private var mYInScreen: Float = 0.toFloat() /* the y position in screen*/
-    var isShow = false
+    private var mXInScreen: Float = 0.toFloat()
+    private var mYInScreen: Float = 0.toFloat()
+    private var isShow = false
 
     private val mWindowManager: WindowManager by lazy {
         context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
@@ -33,6 +34,7 @@ class RabbitFloatingView(context: Context) : FrameLayout(context) {
 
     init {
         LayoutInflater.from(context).inflate(R.layout.dev_tools_view_floating, this)
+        orientation = VERTICAL
         layoutParams = LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         isClickable = true
 
@@ -111,14 +113,26 @@ class RabbitFloatingView(context: Context) : FrameLayout(context) {
             0f
         }
         val time = abs(start - end).toLong() * 800 / (screenWidth ?: 0)
-        mAnimator = ValueAnimator.ofFloat(start, end).setDuration(time)
-        mAnimator?.interpolator = LinearInterpolator()
-        mAnimator?.addUpdateListener { animation ->
+        val animator = ValueAnimator.ofFloat(start, end).setDuration(time)
+        animator.interpolator = LinearInterpolator()
+        animator.addUpdateListener { animation ->
             val value = animation.animatedValue as Float
             mParams.x = value.toInt()
             mWindowManager.updateViewLayout(this@RabbitFloatingView, mParams)
         }
-        mAnimator?.start()
+        animator.start()
+    }
+
+    fun updateFps(fpsValue:Float){
+        if (fpsValue == 0f){
+            mDevToolsFloatingTvFps.visibility = View.GONE
+            return
+        }
+
+        mDevToolsFloatingTvFps.visibility = View.VISIBLE
+        mDevToolsFloatingTvFps.text = "${fpsValue.toInt()}"
+        val textColor = if (fpsValue < 45) R.color.rabbit_error_red else R.color.rabbit_black
+        mDevToolsFloatingTvFps.setTextColor(getColor(context, textColor))
     }
 
 }

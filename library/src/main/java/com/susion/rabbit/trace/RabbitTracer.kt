@@ -1,5 +1,7 @@
 package com.susion.rabbit.trace
 
+import android.content.Context
+import com.susion.rabbit.config.RabbitSettings
 import com.susion.rabbit.trace.core.UIThreadLooperMonitor
 import com.susion.rabbit.trace.frame.FrameTracer
 import com.susion.rabbit.trace.frame.RabbitFPSMonitor
@@ -11,18 +13,22 @@ import com.susion.rabbit.trace.frame.RabbitFPSMonitor
  */
 object RabbitTracer {
 
+    private var initStatus = false
+
     //帧率监控相关
     private val frameTracer = FrameTracer()
     private val fpsMonitor = RabbitFPSMonitor()
-
     private var fpsMonitorEnable = false
-    private var initStatus = false
 
-    fun init(){
+    fun init(context: Context){
         if (initStatus)return
         initStatus = true
         UIThreadLooperMonitor.init()
         frameTracer.init()
+        fpsMonitor.init()
+        if (RabbitSettings.fpsAutoOpenFlag(context)){
+            enableFPSTracer()
+        }
     }
 
     fun enableFPSTracer() {
