@@ -25,17 +25,17 @@ class RabbitConfigPage(context: Context) : RabbitBasePage(context) {
             object : RabbitSwitchButton.CheckedStatusChangeListener {
                 override fun checkedStatusChange(isChecked: Boolean) {
                     if (isChecked) {
-                        RabbitTracer.enableFPSTracer()
+                        RabbitTracer.openFpsMonitor()
                         RabbitSettings.setFPSCheckOpenFlag(context, true)
                     } else {
-                        RabbitTracer.disableFPSTracer()
+                        RabbitTracer.closeFpsMonitor()
                         RabbitSettings.setFPSCheckOpenFlag(context, false)
                         Rabbit.uiManager.updateUiFromAsynThread(RabbitUiManager.MSA_UPDATE_FPS, 0f)
                     }
                 }
             }
 
-        mRabbitConfigSBOpenFpsMonitor.refreshUi("打开FPS监控", RabbitTracer.isFPSTracerEnable())
+        mRabbitConfigSBOpenFpsMonitor.refreshUi("打开FPS监控", RabbitTracer.fpsMonitorIsOpen())
     }
 
 }

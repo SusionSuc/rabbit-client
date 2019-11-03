@@ -1,10 +1,11 @@
-package com.susion.rabbit.trace.frame
+package com.susion.rabbit.trace.entities
 
 /**
  * susionwang at 2019-11-01
  */
 
 class RabbitBlockStackTraceInfo (val stackTrace:String = ""){
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

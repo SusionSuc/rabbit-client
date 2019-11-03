@@ -1,65 +1,61 @@
 package com.susion.rabbit.trace
 
-import android.content.Context
-import com.susion.rabbit.config.RabbitSettings
+import android.app.Application
+import com.susion.rabbit.trace.core.HardWorkingFrameTracer
 import com.susion.rabbit.trace.core.UIThreadLooperMonitor
-import com.susion.rabbit.trace.frame.FrameTracer
-import com.susion.rabbit.trace.frame.RabbitFPSMonitor
+import com.susion.rabbit.trace.core.LazyFrameTracer
 
 /**
  * susionwang at 2019-10-18
  *
  * 所有监控的管理者
+ *
  */
 object RabbitTracer {
 
+    private var mContext: Application? = null
     private var initStatus = false
 
-    //帧率监控相关
-    private val frameTracer = FrameTracer()
-    private val fpsMonitor = RabbitFPSMonitor()
-    private var fpsMonitorEnable = false
+    //主线程消息循环
+    private val mainThreadLooperMonitor = UIThreadLooperMonitor()
 
-    fun init(context: Context){
-        if (initStatus)return
+    private val lazyFrameTracer by lazy {
+        LazyFrameTracer(mainThreadLooperMonitor)
+    }
+
+    //卡顿监控相关
+    private val hardWorkingFrameTracer by lazy {
+        HardWorkingFrameTracer()
+    }
+
+    fun init(context: Application) {
+        if (initStatus) return
+        mContext = context
         initStatus = true
-        UIThreadLooperMonitor.init()
-        frameTracer.init()
-        fpsMonitor.init()
-        if (RabbitSettings.fpsAutoOpenFlag(context)){
-            enableFPSTracer()
+        mainThreadLooperMonitor.init()
+    }
+
+    fun openFpsMonitor() {
+        mainThreadLooperMonitor.enable = true
+        lazyFrameTracer.startMonitorFps()
+        enableMainThreadLooperMonitor()
+    }
+
+    fun closeFpsMonitor() {
+        lazyFrameTracer.stopMonitorFps()
+        closeMainThreadLooperMonitor()
+    }
+
+    fun fpsMonitorIsOpen()= lazyFrameTracer.fpsMonitorIsOpen()
+
+    private fun closeMainThreadLooperMonitor() {
+        mainThreadLooperMonitor.enable = mainThreadLooperMonitor.listenerSize() != 0
+    }
+
+    private fun enableMainThreadLooperMonitor() {
+        if (!mainThreadLooperMonitor.enable) {
+            mainThreadLooperMonitor.enable = true
         }
     }
-
-    fun enableFPSTracer() {
-        enableFrameTracer()
-        if (!frameTracer.containFrameUpdateListener(fpsMonitor)) {
-            fpsMonitorEnable = true
-            frameTracer.addFrameUpdateListener(fpsMonitor)
-        }
-    }
-
-    fun disableFPSTracer() {
-        fpsMonitorEnable = false
-        frameTracer.removeFrameUpdateListener(fpsMonitor)
-        tryStopUiThreadLooperMonitor()
-    }
-
-    private fun tryStopUiThreadLooperMonitor() {
-        UIThreadLooperMonitor.removeLooperHandleEventListener(frameTracer)
-        if (UIThreadLooperMonitor.listenerSize() > 1) return
-        UIThreadLooperMonitor.setEnableStatus(false)
-    }
-
-    private fun enableFrameTracer() {
-        if (!UIThreadLooperMonitor.isEnable()) {
-            UIThreadLooperMonitor.setEnableStatus(true)
-        }
-        if (!UIThreadLooperMonitor.containEventListener(frameTracer)) {
-            UIThreadLooperMonitor.addLooperHandleEventListener(frameTracer)
-        }
-    }
-
-    fun isFPSTracerEnable() = fpsMonitorEnable
 
 }

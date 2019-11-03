@@ -1,4 +1,4 @@
-package com.susion.rabbit.trace.frame;
+package com.susion.rabbit.trace.entities;
 
 import com.susion.rabbit.base.entities.RabbitGreenDaoInfo;
 

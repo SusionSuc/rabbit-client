@@ -26,10 +26,10 @@ class MainActivity : RabbitBaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        mDevToolsTestMainActionBar.setTitle("Alpha")
+        mDevToolsTestMainActionBar.setTitle("Rabbit")
+        mDevToolsTestMainActionBar.hideQuickFinishBtn()
+        mDevToolsTestMainActionBar.hideBackBtn()
         setBackListener(mDevToolsTestMainActionBar)
-
-
         mDevToolsTestTvRequestNet.setOnClickListener {
             sampleRequestNet()
         }

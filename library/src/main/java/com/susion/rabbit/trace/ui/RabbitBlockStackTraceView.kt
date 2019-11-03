@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.susion.rabbit.R
 import com.susion.rabbit.base.adapter.RabbitAdapterItemView
-import com.susion.rabbit.trace.frame.RabbitBlockStackTraceInfo
+import com.susion.rabbit.trace.entities.RabbitBlockStackTraceInfo
 import com.susion.rabbit.utils.dp2px
 import com.susion.rabbit.utils.getDrawable
 import kotlinx.android.synthetic.main.rabbit_view_block_frame_item.view.*

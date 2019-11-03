@@ -9,13 +9,13 @@ import com.susion.rabbit.reflect.RabbitReflectHelper
  * susionwang at 2019-10-17
  * 监控主线程消息处理
  */
-internal object UIThreadLooperMonitor {
+internal class UIThreadLooperMonitor {
 
     private val TAG = javaClass.simpleName
     private var mHandleEventListeners = ArrayList<LooperHandleEventListener>()
     private var mHookedPrinter: Printer? = null
     private var mOriginPrinter: Printer? = null
-    private var enableStatus = false
+    var enable = false
 
     fun init(){
         mOriginPrinter = RabbitReflectHelper.reflectField<Printer>(Looper.getMainLooper(), "mLogging")
@@ -24,7 +24,7 @@ internal object UIThreadLooperMonitor {
 
             mOriginPrinter?.println(x)
 
-            if (!enableStatus) return@Printer
+            if (!enable) return@Printer
 
             val dispatch = x[0] == '>' || x[0] == '<'
 
@@ -35,12 +35,6 @@ internal object UIThreadLooperMonitor {
 
         Looper.getMainLooper().setMessageLogging(mHookedPrinter)
     }
-
-    fun setEnableStatus(enable:Boolean){
-        enableStatus = enable
-    }
-
-    fun isEnable() = enableStatus
 
     fun addLooperHandleEventListener(listener: LooperHandleEventListener) {
         mHandleEventListeners.add(listener)
@@ -56,20 +50,16 @@ internal object UIThreadLooperMonitor {
     private fun notifyListenerLooperProcessMsg(start: Boolean) {
         mHandleEventListeners.forEach {
             if (start) {
-                it.onStartHandleEvent()
+                it.onMessageLooperStartHandleMessage()
             } else {
-                it.onEndHandleEvent()
+                it.onMessageLooperStopHandleMessage()
             }
         }
     }
 
-    fun containEventListener(listener: LooperHandleEventListener): Boolean {
-        return mHandleEventListeners.contains(listener)
-    }
-
     interface LooperHandleEventListener {
-        fun onStartHandleEvent()
-        fun onEndHandleEvent()
+        fun onMessageLooperStartHandleMessage()
+        fun onMessageLooperStopHandleMessage()
     }
 
 }

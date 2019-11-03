@@ -5,6 +5,7 @@ import android.text.InputType
 import android.util.AttributeSet
 import android.view.KeyEvent
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.RelativeLayout
 import com.susion.rabbit.R
 import com.susion.rabbit.Rabbit
@@ -64,4 +65,14 @@ class RabbitActionBar : RelativeLayout {
             mRabbitActionBarFakeEt.requestFocus()
         }
     }
+
+    fun hideQuickFinishBtn(){
+        mRabbitActionBarQuickHider.visibility = View.GONE
+    }
+
+    fun hideBackBtn(){
+        mDevToolsToolsBarIvBack.visibility = View.GONE
+    }
+
+
 }

@@ -6,7 +6,7 @@ import com.susion.rabbit.base.entities.RabbitGreenDaoInfo
 import com.susion.rabbit.exception.entities.RabbitExceptionInfo
 import com.susion.rabbit.greendao.DaoMaster
 import com.susion.rabbit.net.entities.RabbitHttpLogInfo
-import com.susion.rabbit.trace.frame.RabbitBlockFrameInfo
+import com.susion.rabbit.trace.entities.RabbitBlockFrameInfo
 
 import org.greenrobot.greendao.AbstractDao
 import org.greenrobot.greendao.Property

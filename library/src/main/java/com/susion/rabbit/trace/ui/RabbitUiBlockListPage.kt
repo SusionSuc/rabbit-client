@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import com.susion.rabbit.R
 import com.susion.rabbit.base.adapter.RabbitRvAdapter
 import com.susion.rabbit.db.RabbitDbStorageManager
-import com.susion.rabbit.trace.frame.RabbitBlockFrameInfo
+import com.susion.rabbit.trace.entities.RabbitBlockFrameInfo
 import com.susion.rabbit.ui.page.RabbitBasePage
 import kotlinx.android.synthetic.main.rabbit_page_ui_block_list.view.*
 

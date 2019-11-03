@@ -7,7 +7,7 @@ import android.widget.LinearLayout
 import com.susion.rabbit.R
 import com.susion.rabbit.Rabbit
 import com.susion.rabbit.base.adapter.RabbitAdapterItemView
-import com.susion.rabbit.trace.frame.RabbitBlockFrameInfo
+import com.susion.rabbit.trace.entities.RabbitBlockFrameInfo
 import com.susion.rabbit.utils.*
 import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.rabbit_view_ui_block_item.view.*

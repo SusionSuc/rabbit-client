@@ -12,8 +12,8 @@ import com.susion.rabbit.base.adapter.RabbitAdapterItemView
 import com.susion.rabbit.base.adapter.RabbitRvAdapter
 import com.susion.rabbit.base.view.RabbitSimpleKVItemView
 import com.susion.rabbit.base.view.RabbitSimpleKvInfo
-import com.susion.rabbit.trace.frame.RabbitBlockFrameInfo
-import com.susion.rabbit.trace.frame.RabbitBlockStackTraceInfo
+import com.susion.rabbit.trace.entities.RabbitBlockFrameInfo
+import com.susion.rabbit.trace.entities.RabbitBlockStackTraceInfo
 import com.susion.rabbit.ui.page.RabbitBasePage
 import kotlinx.android.synthetic.main.rabbit_page_ui_block.view.*
 import java.util.concurrent.TimeUnit
@@ -60,7 +60,6 @@ class RabbitUiBlockDetailPage(context: Context) : RabbitBasePage(context) {
                 add(RabbitSimpleKvInfo("Input Event Cost Ms","${translateToMs(blockInfo.inputEventCostNs)}"))
                 add(RabbitSimpleKvInfo("Animation Event Cost Ms","${translateToMs(blockInfo.animationEventCostNs)}"))
             }
-
 
             logsAdapter.data.addAll(simpleKvList)
             logsAdapter.data.addAll(getStackTraceList(blockInfo))
