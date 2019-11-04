@@ -54,21 +54,12 @@ class RabbitUiBlockDetailPage(context: Context) : RabbitBasePage(context) {
         if (blockInfo !is RabbitBlockFrameInfo) return
 
         try {
-            val simpleKvList = ArrayList<RabbitSimpleKvInfo>().apply {
-                add(RabbitSimpleKvInfo("one frame cost time","${blockInfo.costTime}"))
-                add(RabbitSimpleKvInfo("Traversal Event Cost Ms","${translateToMs(blockInfo.traversalEventCostNs)}"))
-                add(RabbitSimpleKvInfo("Input Event Cost Ms","${translateToMs(blockInfo.inputEventCostNs)}"))
-                add(RabbitSimpleKvInfo("Animation Event Cost Ms","${translateToMs(blockInfo.animationEventCostNs)}"))
-            }
 
-            logsAdapter.data.addAll(simpleKvList)
+            mRabbitBlockDetailTvCostTime.text = "卡顿时长 : ${translateToMs(blockInfo.costTime)} Ms"
+
             logsAdapter.data.addAll(getStackTraceList(blockInfo))
-
-            RabbitLog.d("rabbit ui", "data list : ${logsAdapter.data.size}")
-
             mRabbitBlockDetailRv.adapter = logsAdapter
-            mRabbitBlockDetailRv.layoutManager =
-                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            mRabbitBlockDetailRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
         } catch (e: Exception) {
             RabbitLog.d("block frame gson transform error")
@@ -79,6 +70,7 @@ class RabbitUiBlockDetailPage(context: Context) : RabbitBasePage(context) {
     private fun getStackTraceList(blockInfo: RabbitBlockFrameInfo) = Gson().fromJson<List<RabbitBlockStackTraceInfo>>(
             blockInfo.blockFrameStrackTraceStrList,
             object : TypeToken<List<RabbitBlockStackTraceInfo>>() {}.type)
+
 
     private fun translateToMs(ns: Long): Long {
         return TimeUnit.MILLISECONDS.convert(ns, TimeUnit.NANOSECONDS)

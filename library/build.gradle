@@ -30,6 +30,12 @@ android {
     }
 }
 
+greendao {
+    schemaVersion 1000
+    daoPackage 'com.susion.rabbit.greendao'
+    targetGenDir 'src/main/java'
+}
+
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
 
@@ -48,6 +54,5 @@ dependencies {
     implementation "com.android.support:recyclerview-v7:${uniqueVersion.supportLibVersion}"
     implementation "com.jakewharton.rxbinding3:rxbinding:${uniqueVersion.rxbinding3Version}"
     implementation "org.greenrobot:greendao:${uniqueVersion.greenDaoVersion}"
-
 
 }

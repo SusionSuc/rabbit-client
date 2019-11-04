@@ -26,16 +26,33 @@ class RabbitConfigPage(context: Context) : RabbitBasePage(context) {
                 override fun checkedStatusChange(isChecked: Boolean) {
                     if (isChecked) {
                         RabbitTracer.openFpsMonitor()
-                        RabbitSettings.setFPSCheckOpenFlag(context, true)
                     } else {
                         RabbitTracer.closeFpsMonitor()
-                        RabbitSettings.setFPSCheckOpenFlag(context, false)
                         Rabbit.uiManager.updateUiFromAsynThread(RabbitUiManager.MSA_UPDATE_FPS, 0f)
                     }
+                    refreshSwitchStatus()
                 }
             }
 
+        mRabbitConfigSBOpenBlockMonitor.checkedStatusChangeListener =
+            object : RabbitSwitchButton.CheckedStatusChangeListener {
+                override fun checkedStatusChange(isChecked: Boolean) {
+                    if (isChecked) {
+                        RabbitTracer.openBlockMonitor()
+                    } else {
+                        RabbitTracer.closeBlockMonitor()
+                        Rabbit.uiManager.updateUiFromAsynThread(RabbitUiManager.MSA_UPDATE_FPS, 0f)
+                    }
+                    refreshSwitchStatus()
+                }
+            }
+
+        refreshSwitchStatus()
+    }
+
+    private fun refreshSwitchStatus() {
         mRabbitConfigSBOpenFpsMonitor.refreshUi("打开FPS监控", RabbitTracer.fpsMonitorIsOpen())
+        mRabbitConfigSBOpenBlockMonitor.refreshUi("打开卡顿监控", RabbitTracer.blockMonitorIsOpen())
     }
 
 }

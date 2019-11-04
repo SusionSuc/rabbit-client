@@ -27,11 +27,8 @@ public class RabbitBlockFrameInfoDao extends AbstractDao<RabbitBlockFrameInfo, L
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property BlockFrameStrackTraceStrList = new Property(1, String.class, "blockFrameStrackTraceStrList", false, "BLOCK_FRAME_STRACK_TRACE_STR_LIST");
         public final static Property BlockIdentifier = new Property(2, String.class, "blockIdentifier", false, "BLOCK_IDENTIFIER");
-        public final static Property InputEventCostNs = new Property(3, Long.class, "inputEventCostNs", false, "INPUT_EVENT_COST_NS");
-        public final static Property AnimationEventCostNs = new Property(4, Long.class, "animationEventCostNs", false, "ANIMATION_EVENT_COST_NS");
-        public final static Property TraversalEventCostNs = new Property(5, Long.class, "traversalEventCostNs", false, "TRAVERSAL_EVENT_COST_NS");
-        public final static Property CostTime = new Property(6, Long.class, "costTime", false, "COST_TIME");
-        public final static Property Time = new Property(7, Long.class, "time", false, "TIME");
+        public final static Property CostTime = new Property(3, Long.class, "costTime", false, "COST_TIME");
+        public final static Property Time = new Property(4, Long.class, "time", false, "TIME");
     }
 
 
@@ -50,11 +47,8 @@ public class RabbitBlockFrameInfoDao extends AbstractDao<RabbitBlockFrameInfo, L
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"BLOCK_FRAME_STRACK_TRACE_STR_LIST\" TEXT," + // 1: blockFrameStrackTraceStrList
                 "\"BLOCK_IDENTIFIER\" TEXT," + // 2: blockIdentifier
-                "\"INPUT_EVENT_COST_NS\" INTEGER," + // 3: inputEventCostNs
-                "\"ANIMATION_EVENT_COST_NS\" INTEGER," + // 4: animationEventCostNs
-                "\"TRAVERSAL_EVENT_COST_NS\" INTEGER," + // 5: traversalEventCostNs
-                "\"COST_TIME\" INTEGER," + // 6: costTime
-                "\"TIME\" INTEGER);"); // 7: time
+                "\"COST_TIME\" INTEGER," + // 3: costTime
+                "\"TIME\" INTEGER);"); // 4: time
     }
 
     /** Drops the underlying database table. */
@@ -82,29 +76,14 @@ public class RabbitBlockFrameInfoDao extends AbstractDao<RabbitBlockFrameInfo, L
             stmt.bindString(3, blockIdentifier);
         }
  
-        Long inputEventCostNs = entity.getInputEventCostNs();
-        if (inputEventCostNs != null) {
-            stmt.bindLong(4, inputEventCostNs);
-        }
- 
-        Long animationEventCostNs = entity.getAnimationEventCostNs();
-        if (animationEventCostNs != null) {
-            stmt.bindLong(5, animationEventCostNs);
-        }
- 
-        Long traversalEventCostNs = entity.getTraversalEventCostNs();
-        if (traversalEventCostNs != null) {
-            stmt.bindLong(6, traversalEventCostNs);
-        }
- 
         Long costTime = entity.getCostTime();
         if (costTime != null) {
-            stmt.bindLong(7, costTime);
+            stmt.bindLong(4, costTime);
         }
  
         Long time = entity.getTime();
         if (time != null) {
-            stmt.bindLong(8, time);
+            stmt.bindLong(5, time);
         }
     }
 
@@ -127,29 +106,14 @@ public class RabbitBlockFrameInfoDao extends AbstractDao<RabbitBlockFrameInfo, L
             stmt.bindString(3, blockIdentifier);
         }
  
-        Long inputEventCostNs = entity.getInputEventCostNs();
-        if (inputEventCostNs != null) {
-            stmt.bindLong(4, inputEventCostNs);
-        }
- 
-        Long animationEventCostNs = entity.getAnimationEventCostNs();
-        if (animationEventCostNs != null) {
-            stmt.bindLong(5, animationEventCostNs);
-        }
- 
-        Long traversalEventCostNs = entity.getTraversalEventCostNs();
-        if (traversalEventCostNs != null) {
-            stmt.bindLong(6, traversalEventCostNs);
-        }
- 
         Long costTime = entity.getCostTime();
         if (costTime != null) {
-            stmt.bindLong(7, costTime);
+            stmt.bindLong(4, costTime);
         }
  
         Long time = entity.getTime();
         if (time != null) {
-            stmt.bindLong(8, time);
+            stmt.bindLong(5, time);
         }
     }
 
@@ -164,11 +128,8 @@ public class RabbitBlockFrameInfoDao extends AbstractDao<RabbitBlockFrameInfo, L
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // blockFrameStrackTraceStrList
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // blockIdentifier
-            cursor.isNull(offset + 3) ? null : cursor.getLong(offset + 3), // inputEventCostNs
-            cursor.isNull(offset + 4) ? null : cursor.getLong(offset + 4), // animationEventCostNs
-            cursor.isNull(offset + 5) ? null : cursor.getLong(offset + 5), // traversalEventCostNs
-            cursor.isNull(offset + 6) ? null : cursor.getLong(offset + 6), // costTime
-            cursor.isNull(offset + 7) ? null : cursor.getLong(offset + 7) // time
+            cursor.isNull(offset + 3) ? null : cursor.getLong(offset + 3), // costTime
+            cursor.isNull(offset + 4) ? null : cursor.getLong(offset + 4) // time
         );
         return entity;
     }
@@ -178,11 +139,8 @@ public class RabbitBlockFrameInfoDao extends AbstractDao<RabbitBlockFrameInfo, L
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setBlockFrameStrackTraceStrList(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setBlockIdentifier(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setInputEventCostNs(cursor.isNull(offset + 3) ? null : cursor.getLong(offset + 3));
-        entity.setAnimationEventCostNs(cursor.isNull(offset + 4) ? null : cursor.getLong(offset + 4));
-        entity.setTraversalEventCostNs(cursor.isNull(offset + 5) ? null : cursor.getLong(offset + 5));
-        entity.setCostTime(cursor.isNull(offset + 6) ? null : cursor.getLong(offset + 6));
-        entity.setTime(cursor.isNull(offset + 7) ? null : cursor.getLong(offset + 7));
+        entity.setCostTime(cursor.isNull(offset + 3) ? null : cursor.getLong(offset + 3));
+        entity.setTime(cursor.isNull(offset + 4) ? null : cursor.getLong(offset + 4));
      }
     
     @Override

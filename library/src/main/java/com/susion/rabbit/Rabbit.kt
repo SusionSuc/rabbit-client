@@ -6,15 +6,13 @@ import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.OnLifecycleEvent
 import android.arch.lifecycle.ProcessLifecycleOwner
 import android.content.Context
-import android.widget.Toast
 import com.susion.rabbit.config.RabbitConfig
 import com.susion.rabbit.db.RabbitDbStorageManager
-import com.susion.rabbit.base.RabbitInfoHelper
+import com.susion.rabbit.exception.RabbitExceptionManager
 import com.susion.rabbit.net.RabbitHttpLogInterceptor
 import com.susion.rabbit.trace.RabbitTracer
 import com.susion.rabbit.ui.RabbitUiManager
 import com.susion.rabbit.utils.FloatingViewPermissionHelper
-import com.susion.rabbit.utils.toastInThread
 import okhttp3.Interceptor
 
 /**
@@ -35,6 +33,7 @@ object Rabbit {
         @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
         fun onBackground() {
             uiManager.hideFloatingView()
+            uiManager.hideAllPage()
         }
     }
 
@@ -45,7 +44,7 @@ object Rabbit {
     //MUST CALL
     fun attachApplicationContext(applicationContext: Application) {
         application = applicationContext
-        openGlobalExceptionCollector()
+        RabbitExceptionManager.openGlobalExceptionCollector()
         RabbitTracer.init(applicationContext)
     }
 
@@ -91,24 +90,12 @@ object Rabbit {
 
     fun geConfig() = mConfig
 
-    /**
-     * 收集所有线程的崩溃信息
-     * */
-    private fun openGlobalExceptionCollector() {
-        val defaultExceptionHandler = Thread.getDefaultUncaughtExceptionHandler()
-        Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
-            saveCrashLog(throwable)
-            defaultExceptionHandler.uncaughtException(thread, throwable)
-        }
-    }
 
     /**
      * 异常日志保存
      * */
     fun saveCrashLog(e: Throwable) {
-        toastInThread("发生异常 ! 日志已保存到本地")
-        val exceptionInfo = RabbitInfoHelper.translateThrowableToExceptionInfo(e, Thread.currentThread().name)
-        RabbitDbStorageManager.save(exceptionInfo)
+        RabbitExceptionManager.saveCrash(e, Thread.currentThread())
     }
 
     fun destroy() {

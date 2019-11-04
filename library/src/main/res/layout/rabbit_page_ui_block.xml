@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@color/rabbit_bg_f5"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/mRabbitBlockDetailTimeLl"
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
+    <TextView
+        android:padding="10dp"
+        android:id="@+id/mRabbitBlockDetailTvCostTime"
+        android:layout_width="match_parent"
+        android:textSize="17dp"
+        android:textColor="@color/rabbit_black"
+        android:background="@color/rabbit_material_dark"
         android:layout_height="wrap_content"/>
 
     <android.support.v7.widget.RecyclerView

@@ -1,8 +1,8 @@
 package com.susion.rabbit.trace
 
 import android.app.Application
-import com.susion.rabbit.trace.core.HardWorkingFrameTracer
-import com.susion.rabbit.trace.core.UIThreadLooperMonitor
+import com.susion.rabbit.trace.core.ChoreographerFrameUpdateMonitor
+import com.susion.rabbit.trace.core.FrameTracer
 import com.susion.rabbit.trace.core.LazyFrameTracer
 
 /**
@@ -15,47 +15,43 @@ object RabbitTracer {
 
     private var mContext: Application? = null
     private var initStatus = false
-
-    //主线程消息循环
-    private val mainThreadLooperMonitor = UIThreadLooperMonitor()
+    var standardFrameCostNs = 16666666L
 
     private val lazyFrameTracer by lazy {
-        LazyFrameTracer(mainThreadLooperMonitor)
+        LazyFrameTracer().apply {
+            init()
+        }
     }
 
     //卡顿监控相关
-    private val hardWorkingFrameTracer by lazy {
-        HardWorkingFrameTracer()
+    private val frameTracer by lazy {
+        FrameTracer()
     }
 
     fun init(context: Application) {
         if (initStatus) return
         mContext = context
         initStatus = true
-        mainThreadLooperMonitor.init()
     }
 
     fun openFpsMonitor() {
-        mainThreadLooperMonitor.enable = true
         lazyFrameTracer.startMonitorFps()
-        enableMainThreadLooperMonitor()
     }
 
     fun closeFpsMonitor() {
         lazyFrameTracer.stopMonitorFps()
-        closeMainThreadLooperMonitor()
     }
 
     fun fpsMonitorIsOpen()= lazyFrameTracer.fpsMonitorIsOpen()
 
-    private fun closeMainThreadLooperMonitor() {
-        mainThreadLooperMonitor.enable = mainThreadLooperMonitor.listenerSize() != 0
+    fun blockMonitorIsOpen() = frameTracer.blockMonitorIsOpen()
+
+    fun openBlockMonitor() {
+        frameTracer.startBlockMonitor()
     }
 
-    private fun enableMainThreadLooperMonitor() {
-        if (!mainThreadLooperMonitor.enable) {
-            mainThreadLooperMonitor.enable = true
-        }
+    fun closeBlockMonitor() {
+        frameTracer.stopBlockMonitor()
     }
 
 }

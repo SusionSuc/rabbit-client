@@ -43,6 +43,7 @@
         android:textColor="@color/rabbit_black"
         android:gravity="center"
         android:textSize="15dp"
+        android:visibility="gone"
         android:layout_width="100dp"
         android:layout_height="50dp"/>
 

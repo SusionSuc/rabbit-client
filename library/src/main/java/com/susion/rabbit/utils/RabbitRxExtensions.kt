@@ -1,12 +1,9 @@
 package com.susion.rabbit.utils
 
-import android.app.Activity
-import android.content.Context
-import android.content.Intent
-import android.os.HandlerThread
 import android.os.Looper
 import android.widget.Toast
 import com.susion.rabbit.Rabbit
+import com.susion.rabbit.RabbitLog
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -18,7 +15,7 @@ import java.util.*
  * susionwang at 2019-09-24
  */
 
-internal fun runOnIoThread(runnable: () -> Unit): Disposable {
+internal fun runOnIoThread(runnable: () -> Unit, finishCallback: () -> Unit = {}): Disposable {
     return Observable.create<Unit> {
         try {
             it.onNext(runnable())
@@ -26,10 +23,16 @@ internal fun runOnIoThread(runnable: () -> Unit): Disposable {
             it.onError(e)
         }
         it.onComplete()
-    }.subscribeOn(Schedulers.io()).subscribe({}, {})
+    }.subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe({
+            finishCallback()
+        }, {
+            finishCallback()
+        })
 }
 
-internal fun <T> runOnIoThread(
+internal fun <T> runOnIoThreadWithData(
     runnable: () -> T,
     completeCallBack: (result: T) -> Unit
 ): Disposable {
@@ -57,7 +60,6 @@ fun rabbitSimpleTimeFormat(time: Long?): String {
     if (time == null) return ""
     return SimpleDateFormat("HH:mm:ss").format(Date(time))
 }
-
 
 fun toastInThread(msg: String) {
     object : Thread("DevTools_Toast_Thread") {

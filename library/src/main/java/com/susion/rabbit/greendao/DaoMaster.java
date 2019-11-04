@@ -22,15 +22,15 @@ public class DaoMaster extends AbstractDaoMaster {
     /** Creates underlying database table using DAOs. */
     public static void createAllTables(Database db, boolean ifNotExists) {
         RabbitHttpLogInfoDao.createTable(db, ifNotExists);
-        RabbitExceptionInfoDao.createTable(db, ifNotExists);
         RabbitBlockFrameInfoDao.createTable(db, ifNotExists);
+        RabbitExceptionInfoDao.createTable(db, ifNotExists);
     }
 
     /** Drops underlying database table using DAOs. */
     public static void dropAllTables(Database db, boolean ifExists) {
         RabbitHttpLogInfoDao.dropTable(db, ifExists);
-        RabbitExceptionInfoDao.dropTable(db, ifExists);
         RabbitBlockFrameInfoDao.dropTable(db, ifExists);
+        RabbitExceptionInfoDao.dropTable(db, ifExists);
     }
 
     /**
@@ -50,8 +50,8 @@ public class DaoMaster extends AbstractDaoMaster {
     public DaoMaster(Database db) {
         super(db, SCHEMA_VERSION);
         registerDaoClass(RabbitHttpLogInfoDao.class);
-        registerDaoClass(RabbitExceptionInfoDao.class);
         registerDaoClass(RabbitBlockFrameInfoDao.class);
+        registerDaoClass(RabbitExceptionInfoDao.class);
     }
 
     public DaoSession newSession() {

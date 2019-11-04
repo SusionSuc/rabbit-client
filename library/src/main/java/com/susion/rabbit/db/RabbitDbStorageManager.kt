@@ -3,6 +3,7 @@ package com.susion.rabbit.db
 import com.susion.rabbit.Rabbit
 import com.susion.rabbit.base.entities.RabbitGreenDaoInfo
 import com.susion.rabbit.utils.runOnIoThread
+import com.susion.rabbit.utils.runOnIoThreadWithData
 import io.reactivex.disposables.Disposable
 
 /**
@@ -23,7 +24,7 @@ object RabbitDbStorageManager {
         ktClass: Class<T>,
         loadResult: (exceptionList: List<T>) -> Unit
     ) {
-        runOnIoThread({
+        runOnIoThreadWithData({
             greenDaoDbManage.getAllDataWithDescendingSort(ktClass, "time")
         }, {
             loadResult(it)
@@ -31,17 +32,20 @@ object RabbitDbStorageManager {
     }
 
     fun save(obj: RabbitGreenDaoInfo) {
-        val dis = runOnIoThread {
+        val dis = runOnIoThread({
             assertMaxFileNumber(obj)
             greenDaoDbManage.saveObj(obj)
-        }
+        })
         disposableList.add(dis)
     }
 
+    fun saveSync(obj: RabbitGreenDaoInfo){
+        assertMaxFileNumber(obj)
+        greenDaoDbManage.saveObj(obj)
+    }
+
     fun <T : Any> clearAllData(clazz: Class<T>) {
-        runOnIoThread {
-            greenDaoDbManage.clearAllData(clazz)
-        }
+        runOnIoThread ({ greenDaoDbManage.clearAllData(clazz)})
     }
 
     /**

@@ -5,17 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/rabbit_white"
-    tools:parentTag="LinearLayout">
+    tools:context=".SimpleListActivity">
 
-    <com.susion.rabbit.base.view.RabbitSwitchButton
-        android:id="@+id/mRabbitConfigSBOpenFpsMonitor"
+    <com.susion.rabbit.base.view.RabbitActionBar
+        android:id="@+id/mSimpleListPageActionBar"
         android:layout_width="match_parent"
-        android:layout_height="60dp" />
+        android:layout_height="45dp" />
 
-    <com.susion.rabbit.base.view.RabbitSwitchButton
-        android:id="@+id/mRabbitConfigSBOpenBlockMonitor"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/mSimpleListPageRv"
         android:layout_width="match_parent"
-        android:layout_height="60dp" />
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

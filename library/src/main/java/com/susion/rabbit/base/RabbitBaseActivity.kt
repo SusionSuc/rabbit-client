@@ -11,17 +11,21 @@ import com.susion.rabbit.base.view.RabbitActionBar
 
 /**
  * susionwang at 2019-09-25
+ * uniform material design ui
  */
-open class RabbitBaseActivity:AppCompatActivity() {
+open class RabbitBaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setStatusBarColor(window, com.susion.rabbit.utils.getColor(this, R.color.rabbit_material_dark))
+        setStatusBarColor(
+            window,
+            com.susion.rabbit.utils.getColor(this, R.color.rabbit_material_dark)
+        )
         setStatusBarTextColor(window, true)
     }
 
-    fun setBackListener(actionBar:RabbitActionBar){
-        actionBar.actionListener = object : RabbitActionBar.ActionListener{
+    fun setBackListener(actionBar: RabbitActionBar) {
+        actionBar.actionListener = object : RabbitActionBar.ActionListener {
             override fun onBackClick() {
                 finish()
             }
@@ -48,6 +52,14 @@ open class RabbitBaseActivity:AppCompatActivity() {
             }
         }
         decor.systemUiVisibility = ui
+    }
+
+    fun setActionBar(view: RabbitActionBar) {
+        view.actionListener = object : RabbitActionBar.ActionListener {
+            override fun onBackClick() {
+                finish()
+            }
+        }
     }
 
 }

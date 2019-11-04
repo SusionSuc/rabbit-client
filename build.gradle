@@ -27,16 +27,4 @@ task clean(type: Delete) {
 }
 
 
-ext {
-    // For android sub-projects
-    minSdkVersion = 19
-    targetSdkVersion = 23
-    compileSdkVersion = 28
-    buildToolsVersion = '28.0.3'
 
-    javaVersion = JavaVersion.VERSION_1_7
-
-    GROUP = 'com.tencent.matrix'
-    VERSION_NAME = "1.1.0"
-
-}

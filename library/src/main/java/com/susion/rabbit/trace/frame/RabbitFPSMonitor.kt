@@ -2,7 +2,7 @@ package com.susion.rabbit.trace.frame
 
 import com.susion.rabbit.Rabbit
 import com.susion.rabbit.RabbitLog
-import com.susion.rabbit.trace.core.ChoreographerFrameUpdateMonitor
+import com.susion.rabbit.trace.core.LazyChoreographerFrameUpdateMonitor
 import com.susion.rabbit.ui.RabbitUiManager
 import kotlin.math.min
 
@@ -10,7 +10,7 @@ import kotlin.math.min
  * susionwang at 2019-10-18
  * 监控 应用 FPS
  */
-class RabbitFPSMonitor : ChoreographerFrameUpdateMonitor.FrameUpdateListener {
+class RabbitFPSMonitor : LazyChoreographerFrameUpdateMonitor.FrameUpdateListener {
 
     private val TAG = javaClass.simpleName
 

@@ -1,17 +1,16 @@
 package com.susion.devtools
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.os.Looper
 import android.support.v4.app.ActivityCompat
 import android.util.Log
 import com.susion.devtools.net.DevToolsTestApiModel
 import com.susion.rabbit.Rabbit
 import com.susion.rabbit.base.RabbitBaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import java.lang.StringBuilder
 
 class MainActivity : RabbitBaseActivity() {
 
@@ -27,13 +26,25 @@ class MainActivity : RabbitBaseActivity() {
         setContentView(R.layout.activity_main)
 
         mDevToolsTestMainActionBar.setTitle("Rabbit")
-        mDevToolsTestMainActionBar.hideQuickFinishBtn()
         mDevToolsTestMainActionBar.hideBackBtn()
         setBackListener(mDevToolsTestMainActionBar)
+
+        requestPermission()
+
         mDevToolsTestTvRequestNet.setOnClickListener {
             sampleRequestNet()
         }
 
+        mTracerTv.setOnClickListener {
+            startActivity(Intent(this, TracerTestActivity::class.java))
+        }
+
+        mCrashTv.setOnClickListener {
+            val a = 1 / 0
+        }
+    }
+
+    private fun requestPermission() {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
             if (ActivityCompat.checkSelfPermission(
                     this,
@@ -43,7 +54,6 @@ class MainActivity : RabbitBaseActivity() {
                 ActivityCompat.requestPermissions(this, PERMISSIONS_STORAGE, 1);
             }
         }
-
     }
 
     override fun onStart() {

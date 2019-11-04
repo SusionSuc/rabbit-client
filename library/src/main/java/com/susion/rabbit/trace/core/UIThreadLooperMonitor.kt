@@ -17,7 +17,7 @@ internal class UIThreadLooperMonitor {
     private var mOriginPrinter: Printer? = null
     var enable = false
 
-    fun init(){
+    init {
         mOriginPrinter = RabbitReflectHelper.reflectField<Printer>(Looper.getMainLooper(), "mLogging")
 
         mHookedPrinter = Printer { x ->
@@ -43,8 +43,6 @@ internal class UIThreadLooperMonitor {
     fun removeLooperHandleEventListener(listener: LooperHandleEventListener) {
         mHandleEventListeners.remove(listener)
     }
-
-    fun listenerSize() = mHandleEventListeners.size
 
     @UiThread
     private fun notifyListenerLooperProcessMsg(start: Boolean) {
