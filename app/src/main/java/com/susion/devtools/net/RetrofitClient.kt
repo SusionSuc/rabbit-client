@@ -11,10 +11,11 @@ import java.util.concurrent.TimeUnit
  *  author: xun.wang on 2019/4/8
  **/
 class RetrofitClient {
+
     var okHttpClient: OkHttpClient? = null
     private var retrofit: Retrofit?
     private val DEFAULT_TIMEOUT: Long = 10
-    private val url = "https://devapi-takumi.mihayo.com/"
+    private val url = "https://wanandroid.com"
 
     init {
         okHttpClient = OkHttpClient.Builder()
