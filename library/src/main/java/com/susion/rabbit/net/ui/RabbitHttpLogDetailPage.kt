@@ -2,13 +2,11 @@ package com.susion.rabbit.net.ui
 
 import android.content.Context
 import android.view.View
-import android.view.ViewGroup
 import com.susion.rabbit.R
 import com.susion.rabbit.net.entities.RabbitHttpLogInfo
 import com.susion.rabbit.ui.page.RabbitBasePage
-import com.susion.rabbit.utils.getDrawable
 import com.susion.rabbit.utils.showToast
-import kotlinx.android.synthetic.main.activity_http_log_detail.view.*
+import kotlinx.android.synthetic.main.rabbit_page_http_log_detail.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -18,7 +16,7 @@ import java.util.*
 
 class RabbitHttpLogDetailPage(context: Context) : RabbitBasePage(context) {
 
-    override fun getLayoutResId() = R.layout.activity_http_log_detail
+    override fun getLayoutResId() = R.layout.rabbit_page_http_log_detail
 
     init {
         setTitle("日志详情")

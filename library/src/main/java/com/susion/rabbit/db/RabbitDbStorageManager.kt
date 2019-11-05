@@ -18,7 +18,6 @@ object RabbitDbStorageManager {
     private val greenDaoDbManage by lazy {
         RabbitGreenDaoDbManage(Rabbit.application!!)
     }
-    private val SESSION_MAX_DATA_NUMBER = 200
 
     fun <T : RabbitGreenDaoInfo> getAll(
         ktClass: Class<T>,
@@ -33,40 +32,27 @@ object RabbitDbStorageManager {
 
     fun save(obj: RabbitGreenDaoInfo) {
         val dis = runOnIoThread({
-            assertMaxFileNumber(obj)
             greenDaoDbManage.saveObj(obj)
         })
         disposableList.add(dis)
     }
 
-    fun saveSync(obj: RabbitGreenDaoInfo){
-        assertMaxFileNumber(obj)
+    fun saveSync(obj: RabbitGreenDaoInfo) {
         greenDaoDbManage.saveObj(obj)
     }
 
     fun <T : Any> clearAllData(clazz: Class<T>) {
-        runOnIoThread ({ greenDaoDbManage.clearAllData(clazz)})
-    }
-
-    /**
-     * delete out of data http log file to make sure max number is [MAX_FILE_NUMBER]
-     * */
-    private fun assertMaxFileNumber(obj: RabbitGreenDaoInfo) {
-        val sortField = obj.sortField
-        val MAX_FILE_NUMBER = SESSION_MAX_DATA_NUMBER
-        val currentCount = greenDaoDbManage.getDataCount(obj.javaClass).toInt()
-        if (currentCount < MAX_FILE_NUMBER) return
-        greenDaoDbManage.deleteOldDataBySortedField(
-            obj.javaClass,
-            currentCount - MAX_FILE_NUMBER,
-            sortField
-        )
+        runOnIoThread({ greenDaoDbManage.clearAllData(clazz) })
     }
 
     fun destroy() {
         disposableList.forEach {
             it.dispose()
         }
+    }
+
+    fun clearOldSessionData() {
+        greenDaoDbManage.clearOldSessionData()
     }
 
 }

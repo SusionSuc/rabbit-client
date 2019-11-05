@@ -15,7 +15,6 @@ object RabbitTracer {
 
     private var mContext: Application? = null
     private var initStatus = false
-    var standardFrameCostNs = 16666666L
 
     private val lazyFrameTracer by lazy {
         LazyFrameTracer().apply {

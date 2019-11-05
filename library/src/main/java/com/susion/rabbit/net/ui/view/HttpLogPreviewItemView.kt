@@ -11,7 +11,7 @@ import com.susion.rabbit.net.ui.RabbitHttpLogDetailPage
 import com.susion.rabbit.utils.*
 import com.susion.rabbit.utils.dp2px
 import io.reactivex.functions.Consumer
-import kotlinx.android.synthetic.main.devtools_view_http_log_pre_view_item.view.*
+import kotlinx.android.synthetic.main.rabbit_view_http_log_pre_view_item.view.*
 
 /**
  * susionwang at 2019-09-25
@@ -21,7 +21,7 @@ class HttpLogPreviewItemView(context: Context) : RelativeLayout(context), Rabbit
     private lateinit var mLogInfo: RabbitHttpLogInfo
 
     init {
-        LayoutInflater.from(context).inflate(R.layout.devtools_view_http_log_pre_view_item, this)
+        LayoutInflater.from(context).inflate(R.layout.rabbit_view_http_log_pre_view_item, this)
         layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, dp2px(50f)).apply {
             bottomMargin = dp2px(5f)
         }
@@ -34,8 +34,8 @@ class HttpLogPreviewItemView(context: Context) : RelativeLayout(context), Rabbit
         mLogInfo = logInfo
         mLogPreViewTvHost.text = "${logInfo.host}    ${logInfo.requestType}    ${rabbitTimeFormat(logInfo.time)} "
         val res = when(logInfo.responseContentType){
-            "gson" -> R.drawable.devtools_icon_type_json
-            else -> R.drawable.devtools_icon_type_json
+            "gson" -> R.drawable.rabbit_icon_type_json
+            else -> R.drawable.rabbit_icon_type_json
         }
         mLogPreViewIvResponseContentType.setImageDrawable(getDrawable(context, res))
 

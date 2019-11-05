@@ -10,7 +10,7 @@ import com.susion.rabbit.exception.entities.RabbitExceptionInfo
 import com.susion.rabbit.ui.page.RabbitBasePage
 import com.susion.rabbit.utils.RabbitUiUtils
 import com.susion.rabbit.utils.showToast
-import kotlinx.android.synthetic.main.activity_exception_detail.view.*
+import kotlinx.android.synthetic.main.rabbit_page_exception_detail.view.*
 
 /**
  * susionwang at 2019-10-21
@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_exception_detail.view.*
 
 class RabbitExceptionDetailPage(context: Context): RabbitBasePage(context) {
 
-    override fun getLayoutResId()  = R.layout.activity_exception_detail
+    override fun getLayoutResId()  = R.layout.rabbit_page_exception_detail
 
     init {
         setTitle("异常详情")

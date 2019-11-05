@@ -46,7 +46,7 @@ class RabbitEntryPage(context: Context) : RabbitBasePage(context) {
             add(
                 RabbitMainFeatureInfo(
                     "Rabbit功能配置",
-                    R.drawable.devtools_icon_feature_setting,
+                    R.drawable.rabbit_icon_feature_setting,
                     RabbitConfigPage::class.java
                 )
             )
@@ -54,20 +54,20 @@ class RabbitEntryPage(context: Context) : RabbitBasePage(context) {
             add(
                 RabbitMainFeatureInfo(
                     "网络日志",
-                    R.drawable.devtools_icon_http,
+                    R.drawable.rabbit_icon_http,
                     RabbitHttpLogListPage::class.java
                 )
             )
             add(
                 RabbitMainFeatureInfo(
-                    "异常日志", R.drawable.devtools_icon_exception_face,
+                    "异常日志", R.drawable.rabbit_icon_exception_face,
                     RabbitExceptionListPage::class.java
                 )
             )
             add(
                 RabbitMainFeatureInfo(
                     "卡顿日志",
-                    R.drawable.devtools_icon_caton,
+                    R.drawable.rabbit_icon_caton,
                     RabbitUiBlockListPage::class.java
                 )
             )

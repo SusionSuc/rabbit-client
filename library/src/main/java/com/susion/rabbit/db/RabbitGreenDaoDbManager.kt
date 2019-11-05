@@ -19,16 +19,6 @@ internal class RabbitGreenDaoDbManage(val context: Context) {
     private val DB_NAME = "rabbit"
     private val daoMap = HashMap<String, AbstractDao<Any, Long>>()
 
-    fun <T : Any> getDataCount(clazz: Class<T>): Long {
-        return daoImpl(clazz)?.count() ?: 0
-    }
-
-    fun <T : Any> deleteOldDataBySortedField(clazz: Class<T>, count: Int, sortField: String) {
-        getDataWithDescendingSort(clazz, sortField,count).forEach {
-            daoImpl(clazz)?.delete(it)
-        }
-    }
-
     fun saveObj(obj: RabbitGreenDaoInfo) {
         daoImpl(obj.javaClass)?.save(obj)
     }
@@ -47,6 +37,10 @@ internal class RabbitGreenDaoDbManage(val context: Context) {
         val dao = daoImpl(clazz)
         val property = getProperties(dao, sortField)
         return dao?.queryBuilder()?.orderDesc(property)?.limit(count)?.build()?.list() as List<T>
+    }
+
+    fun <T : Any> getDataCount(clazz: Class<T>): Long {
+        return daoImpl(clazz)?.count() ?: 0
     }
 
     private fun <T : Any> getProperties(dao: AbstractDao<T, Long>?, field: String): Property? {
@@ -88,6 +82,13 @@ internal class RabbitGreenDaoDbManage(val context: Context) {
             }
         }
         return null
+    }
+
+    fun clearOldSessionData() {
+        val dataClass = Rabbit.geConfig().storageInOnSessionData
+        dataClass.forEach {
+            clearAllData(it)
+        }
     }
 
 }

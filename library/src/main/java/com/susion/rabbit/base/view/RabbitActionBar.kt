@@ -13,7 +13,7 @@ import com.susion.rabbit.utils.dp2px
 import com.susion.rabbit.utils.getDrawable
 import com.susion.rabbit.utils.throttleFirstClick
 import io.reactivex.functions.Consumer
-import kotlinx.android.synthetic.main.dev_tools_tool_bar.view.*
+import kotlinx.android.synthetic.main.rabbit_action_bar.view.*
 
 /**
  * susionwang at 2019-09-25
@@ -31,7 +31,7 @@ class RabbitActionBar : RelativeLayout {
     }
 
     private fun initView() {
-        LayoutInflater.from(context).inflate(R.layout.dev_tools_tool_bar, this)
+        LayoutInflater.from(context).inflate(R.layout.rabbit_action_bar, this)
         layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, dp2px(45f))
         background = getDrawable(context, R.drawable.rabbit_action_bar_coner_rect)
         mDevToolsToolsBarIvBack.throttleFirstClick(Consumer {

@@ -20,7 +20,7 @@ import com.susion.rabbit.utils.getColor
 import com.susion.rabbit.utils.getDrawable
 import com.susion.rabbit.utils.throttleFirstClick
 import io.reactivex.functions.Consumer
-import kotlinx.android.synthetic.main.devtools_view_main_feature_view.view.*
+import kotlinx.android.synthetic.main.rabbit_view_main_feature_view.view.*
 
 /**
  * susionwang at 2019-10-12

@@ -8,15 +8,14 @@ import com.susion.rabbit.base.view.RabbitSwitchButton
 import com.susion.rabbit.trace.RabbitTracer
 import com.susion.rabbit.ui.RabbitUiManager
 import com.susion.rabbit.ui.page.RabbitBasePage
-import com.susion.rabbit.utils.getDrawable
-import kotlinx.android.synthetic.main.activity_dev_tools_config.view.*
+import kotlinx.android.synthetic.main.rabbit_page_config.view.*
 
 /**
  * susionwang at 2019-10-21
  */
 class RabbitConfigPage(context: Context) : RabbitBasePage(context) {
 
-    override fun getLayoutResId() = R.layout.activity_dev_tools_config
+    override fun getLayoutResId() = R.layout.rabbit_page_config
 
     init {
         layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)

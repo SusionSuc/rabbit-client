@@ -43,7 +43,7 @@ public class JsonItemView extends LinearLayout {
 
     private void initView() {
         setOrientation(VERTICAL);
-        LayoutInflater.from(mContext).inflate(R.layout.devtools_json_view, this, true);
+        LayoutInflater.from(mContext).inflate(R.layout.rabbit_json_view, this, true);
 
         mTvLeft = findViewById(R.id.tv_left);
         mTvRight = findViewById(R.id.tv_right);

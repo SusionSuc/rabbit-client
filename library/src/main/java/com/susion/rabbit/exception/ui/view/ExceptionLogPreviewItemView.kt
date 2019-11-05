@@ -14,7 +14,7 @@ import com.susion.rabbit.utils.dp2px
 import com.susion.rabbit.utils.getDrawable
 import com.susion.rabbit.utils.throttleFirstClick
 import io.reactivex.functions.Consumer
-import kotlinx.android.synthetic.main.devtools_view_exception_log_pre_view_item.view.*
+import kotlinx.android.synthetic.main.rabbit_view_exception_log_pre_view_item.view.*
 
 /**
  * susionwang at 2019-09-25
@@ -24,7 +24,7 @@ class ExceptionLogPreviewItemView(context: Context) : RelativeLayout(context), R
     private lateinit var mLogInfo: RabbitExceptionInfo
 
     init {
-        LayoutInflater.from(context).inflate(R.layout.devtools_view_exception_log_pre_view_item, this)
+        LayoutInflater.from(context).inflate(R.layout.rabbit_view_exception_log_pre_view_item, this)
         layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, dp2px(50f)).apply {
             bottomMargin = dp2px(5f)
         }
@@ -35,7 +35,7 @@ class ExceptionLogPreviewItemView(context: Context) : RelativeLayout(context), R
 
     override fun bindData(info: RabbitExceptionInfo, position: Int) {
         mLogInfo = info
-        mExceptionPreviewIv.setImageDrawable(getDrawable(context, R.drawable.devtools_icon_exception))
+        mExceptionPreviewIv.setImageDrawable(getDrawable(context, R.drawable.rabbit_icon_exception))
 
         val simpleExceptionName =info.exceptionName.substring( info.exceptionName.lastIndexOf('.')+1, info.exceptionName.length)
         mExceptionPreviewTvLine1.text = "${simpleExceptionName}  ${rabbitTimeFormat(info.time)}"

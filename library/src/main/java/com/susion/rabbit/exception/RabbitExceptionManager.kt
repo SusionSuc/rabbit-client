@@ -1,9 +1,7 @@
 package com.susion.rabbit.exception
 
-import com.susion.rabbit.RabbitLog
 import com.susion.rabbit.db.RabbitDbStorageManager
 import com.susion.rabbit.exception.entities.RabbitExceptionInfo
-import com.susion.rabbit.utils.runOnIoThread
 import com.susion.rabbit.utils.toastInThread
 import java.io.PrintWriter
 import java.io.StringWriter
@@ -20,10 +18,14 @@ object RabbitExceptionManager {
         val exceptionInfo = RabbitExceptionInfo()
         val strWriter = StringWriter()
         e.printStackTrace(PrintWriter(strWriter))
-        exceptionInfo.crashTraceStr = strWriter.buffer.toString()
-        exceptionInfo.exceptionName = e.javaClass.name
-        exceptionInfo.simpleMessage = e.message ?: ""
-        exceptionInfo.threadName = currentThread
+        exceptionInfo.apply {
+            crashTraceStr = strWriter.buffer.toString()
+            exceptionName = e.javaClass.name
+            simpleMessage = e.message ?: ""
+            threadName = currentThread
+            time = System.currentTimeMillis()
+        }
+
         return exceptionInfo
     }
 

@@ -9,7 +9,7 @@ import com.susion.rabbit.db.RabbitDbStorageManager
 import com.susion.rabbit.net.entities.RabbitHttpLogInfo
 import com.susion.rabbit.net.ui.view.HttpLogPreviewItemView
 import com.susion.rabbit.ui.page.RabbitBasePage
-import kotlinx.android.synthetic.main.activity_http_log_list.view.*
+import kotlinx.android.synthetic.main.rabbit_page_http_log_list.view.*
 
 /**
  * susionwang at 2019-10-21
@@ -48,6 +48,6 @@ class RabbitHttpLogListPage(context: Context) : RabbitBasePage(context) {
         }
     }
 
-    override fun getLayoutResId() = R.layout.activity_http_log_list
+    override fun getLayoutResId() = R.layout.rabbit_page_http_log_list
 
 }

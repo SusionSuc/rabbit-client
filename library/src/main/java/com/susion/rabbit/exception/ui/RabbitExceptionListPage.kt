@@ -8,7 +8,7 @@ import com.susion.rabbit.db.RabbitDbStorageManager
 import com.susion.rabbit.exception.entities.RabbitExceptionInfo
 import com.susion.rabbit.exception.ui.view.ExceptionLogPreviewItemView
 import com.susion.rabbit.ui.page.RabbitBasePage
-import kotlinx.android.synthetic.main.activity_exception_list.view.*
+import kotlinx.android.synthetic.main.rabbit_page_exception_list.view.*
 
 /**
  * susionwang at 2019-10-21
@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.activity_exception_list.view.*
 
 class RabbitExceptionListPage(context: Context): RabbitBasePage(context) {
 
-    override fun getLayoutResId()  = R.layout.activity_exception_list
+    override fun getLayoutResId()  = R.layout.rabbit_page_exception_list
 
     private val logsAdapter by lazy {
         object : RabbitRvAdapter<RabbitExceptionInfo>(ArrayList()) {

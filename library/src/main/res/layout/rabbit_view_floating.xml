@@ -6,20 +6,28 @@
     android:orientation="vertical"
     tools:parentTag="LinearLayout">
 
+    <LinearLayout
+        android:id="@+id/mDevToolsFloatingFeatureOpenTipLl"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </LinearLayout>
+
     <ImageView
+        android:layout_margin="3dp"
         android:id="@+id/mDevToolsFloatingIv"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/devtools_icon_floating" />
+        android:src="@drawable/rabbit_icon_floating" />
 
     <TextView
-        android:background="@color/rabbit_white"
         android:id="@+id/mDevToolsFloatingTvFps"
-        android:layout_marginTop="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:textStyle="bold"
-        android:textSize="15dp"/>
+        android:background="@color/rabbit_white"
+        android:textSize="15dp"
+        android:textStyle="bold" />
 
 </merge>

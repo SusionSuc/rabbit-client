@@ -6,13 +6,12 @@ import android.graphics.PixelFormat
 import android.os.Build
 import android.view.*
 import android.view.animation.LinearInterpolator
-import android.widget.FrameLayout
 import android.widget.LinearLayout
 import com.susion.rabbit.Rabbit
 import com.susion.rabbit.R
 import com.susion.rabbit.utils.RabbitUiUtils
 import com.susion.rabbit.utils.getColor
-import kotlinx.android.synthetic.main.dev_tools_view_floating.view.*
+import kotlinx.android.synthetic.main.rabbit_view_floating.view.*
 import kotlin.math.abs
 
 /**
@@ -33,7 +32,7 @@ class RabbitFloatingView(context: Context) : LinearLayout(context) {
     }
 
     init {
-        LayoutInflater.from(context).inflate(R.layout.dev_tools_view_floating, this)
+        LayoutInflater.from(context).inflate(R.layout.rabbit_view_floating, this)
         orientation = VERTICAL
         layoutParams = LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         isClickable = true

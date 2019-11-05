@@ -5,6 +5,7 @@ import android.os.HandlerThread
 import android.os.Looper
 import android.widget.Toast
 import com.google.gson.Gson
+import com.susion.rabbit.Rabbit
 import com.susion.rabbit.RabbitLog
 import com.susion.rabbit.db.RabbitDbStorageManager
 import com.susion.rabbit.trace.RabbitExecuteManager
@@ -24,8 +25,8 @@ class RabbitBlockMonitor : ChoreographerFrameUpdateMonitor.FrameUpdateListener {
     private var stackCollectHandler: Handler? = null
     private var blockStackTraces = HashSet<RabbitBlockStackTraceInfo>()
 
-    private val stackCollectPeriod =  TimeUnit.MILLISECONDS.convert(RabbitTracer.standardFrameCostNs, TimeUnit.NANOSECONDS)  // 栈采集周期
-    private val blockThreshold = RabbitTracer.standardFrameCostNs * 5             //卡顿阈值
+    private val stackCollectPeriod =  TimeUnit.MILLISECONDS.convert(Rabbit.geConfig().traceConfig.blockStackCollectPeriod, TimeUnit.NANOSECONDS)  // 栈采集周期
+    private val blockThreshold = Rabbit.geConfig().traceConfig.blockThreshold
 
     //一帧采集一次主线程堆栈
     private val blockStackCollectTask = object : Runnable {

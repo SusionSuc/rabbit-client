@@ -12,7 +12,7 @@ import com.susion.rabbit.utils.dp2px
 import com.susion.rabbit.utils.getDrawable
 import com.susion.rabbit.utils.throttleFirstClick
 import io.reactivex.functions.Consumer
-import kotlinx.android.synthetic.main.devtools_view_main_feature_view.view.*
+import kotlinx.android.synthetic.main.rabbit_view_main_feature_view.view.*
 
 /**
  * susionwang at 2019-10-12
@@ -31,7 +31,7 @@ class RabbitMainFeatureView : RelativeLayout, RabbitAdapterItemView<RabbitMainFe
     }
 
     private fun initView() {
-        LayoutInflater.from(context).inflate(R.layout.devtools_view_main_feature_view, this)
+        LayoutInflater.from(context).inflate(R.layout.rabbit_view_main_feature_view, this)
         layoutParams = MarginLayoutParams(LayoutParams.MATCH_PARENT, dp2px(50f)).apply {
             topMargin = dp2px(10f)
         }

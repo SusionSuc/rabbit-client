@@ -10,7 +10,7 @@ class CustomApplication:Application() {
 
     override fun onCreate() {
         super.onCreate()
-        Rabbit.attachApplicationContext(this)
+        Rabbit.init(this)
     }
 
 }

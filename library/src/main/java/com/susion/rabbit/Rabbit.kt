@@ -41,11 +41,20 @@ object Rabbit {
         RabbitHttpLogInterceptor()
     }
 
-    //MUST CALL
-    fun attachApplicationContext(applicationContext: Application) {
+
+    /**
+     * Rabbit 初始化入口 [MUST CALL]
+     * Rabbit UI展现基于WindowManager, Rabbit 中的Context不能用来展示如[Dialog]之类的UI
+     * 对于Rabbit支持的自定义配置看 [RabbitConfig]
+     *
+     * 打开Rabbit悬浮球调用 [openDevTools]
+     * */
+    fun init(applicationContext: Application, config_: RabbitConfig = RabbitConfig()) {
         application = applicationContext
+        mConfig = config_
         RabbitExceptionManager.openGlobalExceptionCollector()
         RabbitTracer.init(applicationContext)
+        RabbitDbStorageManager.clearOldSessionData()
     }
 
     private fun listenLifeCycle() {
@@ -81,15 +90,7 @@ object Rabbit {
      * */
     fun getHttpLogInterceptor(): Interceptor = httpLogInterceptor
 
-    /**
-     * 业务配置 Rabbit
-     * */
-    fun config(devConfig: RabbitConfig) {
-        mConfig = devConfig
-    }
-
     fun geConfig() = mConfig
-
 
     /**
      * 异常日志保存
@@ -102,6 +103,9 @@ object Rabbit {
         RabbitDbStorageManager.destroy()
     }
 
+    /**
+     * 悬浮球是否在展示
+     * */
     fun isOpen() = uiManager.floatingViewIsShow
 
 }
