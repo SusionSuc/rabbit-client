@@ -8,6 +8,7 @@
 2. App Crash 捕获
 3. App 流畅度(FPS) 监控
 4. App 卡顿监控
+5. App 页面启动时间与平均帧率监控 (开发中)
 
 # 使用文档
 
@@ -44,4 +45,10 @@ val okHttpClient = OkHttpClient.Builder().addInterceptor(Rabbit.getHttpLogInterc
 
 可以在Rabbit功能配置页打开这两个功能。当监控到卡顿时会保存到数据库，可以在Rabbit中查看页面卡顿原因。
 
+# 实现原理
 
+Rabbit中各个功能的实现会逐渐更新在wiki中,欢迎关注我的微信公众号或者掘金快速获得相关信息:
+
+- [掘金](https://juejin.im/user/57b1173f165abd0054298059)
+
+![](picture/微信公众号.jpeg)
