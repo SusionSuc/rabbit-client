@@ -29,6 +29,7 @@ class RabbitConfigPage(context: Context) : RabbitBasePage(context) {
                         RabbitTracer.closeFpsMonitor()
                         Rabbit.uiManager.updateUiFromAsynThread(RabbitUiManager.MSA_UPDATE_FPS, 0f)
                     }
+                    RabbitSettings.setFPSCheckOpenFlag(context, isChecked)
                     refreshSwitchStatus()
                 }
             }
@@ -42,6 +43,7 @@ class RabbitConfigPage(context: Context) : RabbitBasePage(context) {
                         RabbitTracer.closeBlockMonitor()
                         Rabbit.uiManager.updateUiFromAsynThread(RabbitUiManager.MSA_UPDATE_FPS, 0f)
                     }
+                    RabbitSettings.setBlockCheckOpenFlag(context, isChecked)
                     refreshSwitchStatus()
                 }
             }

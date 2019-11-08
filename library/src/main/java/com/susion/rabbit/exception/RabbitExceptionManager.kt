@@ -44,7 +44,7 @@ object RabbitExceptionManager {
         thread: Thread,
         defaultExceptionHandler: Thread.UncaughtExceptionHandler? = null
     ) {
-        toastInThread("发生崩溃! 日志已保存")
+        toastInThread("发生异常! 日志已保存")
         Thread.sleep(1000) // 把toast给弹出来
         val exceptionInfo = translateThrowableToExceptionInfo(e, Thread.currentThread().name)
         RabbitDbStorageManager.saveSync(exceptionInfo)

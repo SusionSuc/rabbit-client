@@ -1,6 +1,8 @@
 package com.susion.rabbit.trace
 
 import android.app.Application
+import com.susion.rabbit.RabbitLog
+import com.susion.rabbit.config.RabbitSettings
 import com.susion.rabbit.trace.core.ChoreographerFrameUpdateMonitor
 import com.susion.rabbit.trace.core.FrameTracer
 import com.susion.rabbit.trace.core.LazyFrameTracer
@@ -31,6 +33,16 @@ object RabbitTracer {
         if (initStatus) return
         mContext = context
         initStatus = true
+
+        if (RabbitSettings.blockCheckAutoOpen(context)){
+            RabbitLog.d("openBlockMonitor ")
+            openBlockMonitor()
+        }
+
+        if (RabbitSettings.fpsCheckAutoOpenFlag(context)){
+            RabbitLog.d("openFpsMonitor ")
+            openFpsMonitor()
+        }
     }
 
     fun openFpsMonitor() {

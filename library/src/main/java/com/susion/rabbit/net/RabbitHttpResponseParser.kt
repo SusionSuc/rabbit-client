@@ -23,8 +23,7 @@ object RabbitHttpResponseParser {
     fun parserResponse(request: Request, response: Response, startTime: Long): RabbitHttpLogInfo {
         return when {
             isSuccessResponse(response.code()) -> parseSuccessHttpLog(response, request, startTime)
-            isErrorResponse(response.code()) -> parseErrorHttpLog(response, request, startTime)
-            else -> RabbitHttpLogInfo()
+            else -> parseErrorHttpLog(response, request, startTime)
         }
     }
 

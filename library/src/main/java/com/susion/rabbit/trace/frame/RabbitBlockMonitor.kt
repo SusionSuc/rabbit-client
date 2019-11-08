@@ -31,7 +31,6 @@ class RabbitBlockMonitor : ChoreographerFrameUpdateMonitor.FrameUpdateListener {
     //一帧采集一次主线程堆栈
     private val blockStackCollectTask = object : Runnable {
         override fun run() {
-            RabbitLog.d("blockStackCollectTask run ")
             blockStackTraces.add(
                 RabbitBlockStackTraceInfo(
                     getUiThreadStackTrace()
@@ -48,9 +47,8 @@ class RabbitBlockMonitor : ChoreographerFrameUpdateMonitor.FrameUpdateListener {
     }
 
     override fun doFrame(frameCostNs: Long) {
-        RabbitLog.d("RabbitBlockMonitor doFrame  frameCostNs : $frameCostNs   blockStackTraces size : ${blockStackTraces.size}  stackCollectPeriod : $stackCollectPeriod")
-        stackCollectHandler?.removeCallbacks(blockStackCollectTask)
 
+        stackCollectHandler?.removeCallbacks(blockStackCollectTask)
         if (frameCostNs > blockThreshold && blockStackTraces.isNotEmpty()) {
             toastInThread("检测到卡顿!!")
             val blockFrameInfo = RabbitBlockFrameInfo()

@@ -7,6 +7,7 @@ import android.arch.lifecycle.OnLifecycleEvent
 import android.arch.lifecycle.ProcessLifecycleOwner
 import android.content.Context
 import com.susion.rabbit.config.RabbitConfig
+import com.susion.rabbit.config.RabbitSettings
 import com.susion.rabbit.db.RabbitDbStorageManager
 import com.susion.rabbit.exception.RabbitExceptionManager
 import com.susion.rabbit.net.RabbitHttpLogInterceptor
@@ -22,6 +23,7 @@ object Rabbit {
 
     private var mConfig = RabbitConfig()
     var application: Application? = null
+    private var isInit = false
     val uiManager by lazy { RabbitUiManager(application!!) }
 
     private val applicationLifecycle = object : LifecycleObserver {
@@ -55,6 +57,7 @@ object Rabbit {
         RabbitExceptionManager.openGlobalExceptionCollector()
         RabbitTracer.init(applicationContext)
         RabbitDbStorageManager.clearOldSessionData()
+        isInit = true
     }
 
     private fun listenLifeCycle() {
@@ -106,6 +109,6 @@ object Rabbit {
     /**
      * 悬浮球是否在展示
      * */
-    fun isOpen() = uiManager.floatingViewIsShow
+    fun isOpen() = isInit
 
 }
