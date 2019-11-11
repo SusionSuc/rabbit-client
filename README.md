@@ -2,6 +2,8 @@
 
 **Rabbit是一个可以帮助Android开发者提高开发效率和App质量的开发者工具。Rabbit目前处于开发阶段,各个功能都处于不断完善中。**
 
+**本项目的初衷是使自己了解性能监控等方便的原理, 因此对于每一个功能我都会比较详细的记录其实现原理，原理相关文章可以查看[Rabbit实现原理剖析](https://github.com/SusionSuc/AdvancedAndroid/blob/master/Rabbit%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/README.md)**
+
 目前主要包括下面功能:
 
 1. 网络日志监控
