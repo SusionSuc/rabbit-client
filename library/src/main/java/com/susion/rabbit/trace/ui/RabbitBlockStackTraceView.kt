@@ -10,6 +10,7 @@ import com.susion.rabbit.trace.entities.RabbitBlockStackTraceInfo
 import com.susion.rabbit.utils.dp2px
 import com.susion.rabbit.utils.getDrawable
 import kotlinx.android.synthetic.main.rabbit_view_block_frame_item.view.*
+import java.lang.StringBuilder
 
 /**
  * susionwang at 2019-09-25
@@ -33,7 +34,27 @@ class RabbitBlockStackTraceView(context: Context) : LinearLayout(context),
     }
 
     override fun bindData(blockInfo: RabbitBlockStackTraceInfo, position: Int) {
-        mRabbitBlockFrameViewTvStackTrace.text = blockInfo.stackTrace
+
+        val realShowTrace = getRealShowTrace(blockInfo.stackTrace)
+
+        mRabbitBlockFrameViewTvStackTrace.text = " 卡顿 ${blockInfo.collectCount}次  \n $realShowTrace"
+    }
+
+    //显示前30行
+    private fun getRealShowTrace(stackTrace: String): String {
+
+        val allTraceLine = stackTrace.split('\n')
+
+        if (allTraceLine.size < 30) return stackTrace
+
+        val realShowTrace = StringBuilder()
+
+        allTraceLine.subList(0,30).forEach {
+            realShowTrace.append(it)
+            realShowTrace.append('\n')
+        }
+
+        return "$realShowTrace \n ..."
     }
 
 }

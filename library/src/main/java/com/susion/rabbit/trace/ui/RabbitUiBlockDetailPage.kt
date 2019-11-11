@@ -54,17 +54,14 @@ class RabbitUiBlockDetailPage(context: Context) : RabbitBasePage(context) {
         if (blockInfo !is RabbitBlockFrameInfo) return
 
         try {
-
-            mRabbitBlockDetailTvCostTime.text = "卡顿时长 : ${translateToMs(blockInfo.costTime)} Ms"
-
-            logsAdapter.data.addAll(getStackTraceList(blockInfo))
+            val traceList = getStackTraceList(blockInfo)
+            logsAdapter.data.addAll(traceList.sortedByDescending { it.collectCount })
             mRabbitBlockDetailRv.adapter = logsAdapter
             mRabbitBlockDetailRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-
+            mRabbitBlockDetailTvCostTime.text = "卡顿时长 : ${translateToMs(blockInfo.costTime)} Ms ; 抓取主线程堆栈 : ${traceList.size} 次"
         } catch (e: Exception) {
             RabbitLog.d("block frame gson transform error")
         }
-
     }
 
     private fun getStackTraceList(blockInfo: RabbitBlockFrameInfo) = Gson().fromJson<List<RabbitBlockStackTraceInfo>>(

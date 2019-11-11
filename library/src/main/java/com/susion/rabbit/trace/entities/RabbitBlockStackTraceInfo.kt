@@ -4,7 +4,7 @@ package com.susion.rabbit.trace.entities
  * susionwang at 2019-11-01
  */
 
-class RabbitBlockStackTraceInfo (val stackTrace:String = ""){
+class RabbitBlockStackTraceInfo (val stackTrace:String = "", var collectCount:Int = 1){
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -20,4 +20,7 @@ class RabbitBlockStackTraceInfo (val stackTrace:String = ""){
     override fun hashCode(): Int {
         return stackTrace.hashCode()
     }
+
+
+    fun getMapKey() = hashCode().toString()
 }
