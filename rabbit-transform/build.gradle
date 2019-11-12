@@ -1,0 +1,41 @@
+apply from: '../buildsystem/common-version.gradle'
+apply plugin: 'java'
+apply plugin: 'kotlin'
+apply plugin: 'maven'
+apply plugin: 'kotlin-kapt'
+
+def uniqueVersion = rootProject.ext.versions
+
+compileKotlin {
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8
+}
+
+compileTestKotlin {
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8
+}
+
+dependencies {
+    implementation gradleApi()
+    implementation "com.android.tools.build:gradle:${uniqueVersion.buildToolsVersion}"
+    implementation "com.google.auto.service:auto-service:${uniqueVersion.autoServiceVersion}"
+    kapt "com.google.auto.service:auto-service:${uniqueVersion.autoServiceVersion}"
+
+    implementation "org.ow2.asm:asm:${uniqueVersion.asmVersion}"
+    implementation "org.ow2.asm:asm-analysis:${uniqueVersion.asmVersion}"
+    implementation "org.ow2.asm:asm-commons:${uniqueVersion.asmVersion}"
+    implementation "org.ow2.asm:asm-tree:${uniqueVersion.asmVersion}"
+    implementation "org.ow2.asm:asm-util:${uniqueVersion.asmVersion}"
+}
+
+
+group 'com.susion.rabbit.transform'
+version '0.0.1'
+
+uploadArchives {
+    repositories {
+        flatDir {
+            name "../localRepo"
+            dir "../localRepo/rabbitTransform"
+        }
+    }
+}

@@ -1,8 +1,10 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'rabbit-transform'
 apply from: '../buildsystem/common-version.gradle'
 apply plugin: 'kotlin-kapt'
+
 def uniqueVersion = rootProject.ext.versions
 
 android {

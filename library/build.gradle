@@ -2,9 +2,9 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply from: '../buildsystem/common-version.gradle'
-def uniqueVersion = rootProject.ext.versions
 apply plugin: 'org.greenrobot.greendao' // apply plugin
 
+def uniqueVersion = rootProject.ext.versions
 
 android {
     compileSdkVersion uniqueVersion.compileSdkVersion
