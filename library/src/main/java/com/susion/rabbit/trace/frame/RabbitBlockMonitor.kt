@@ -92,7 +92,7 @@ class RabbitBlockMonitor : ChoreographerFrameUpdateMonitor.FrameUpdateListener {
     }
 
     private fun getIdentifierByMaxCount(traceMap:Map<String, RabbitBlockStackTraceInfo>):String{
-        return traceMap.toList().maxBy { it.second.collectCount }?.second.toString()
+        return traceMap.values.toList().maxBy { it.collectCount }?.stackTrace.toString()
     }
 
 }

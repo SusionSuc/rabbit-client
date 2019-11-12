@@ -13,4 +13,5 @@ object RabbitExecuteManager {
             return Thread(r, "rabbit_trace_frame_notice_thread")
         }
     })
+
 }

@@ -30,7 +30,6 @@ class RabbitUiManager(val context: Context) {
         const val PAGE_HIDE = 2
         const val PAGE_SHOWING = 3
 
-
         const val MSA_UPDATE_FPS = 1
     }
 
@@ -47,10 +46,10 @@ class RabbitUiManager(val context: Context) {
     }
 
     //页面是否在展示
-    var pageShowStatus = PAGE_NULL
+    private var pageShowStatus = PAGE_NULL
 
     //悬浮的View是否在显示
-    var floatingViewIsShow = false
+    private var floatingViewIsShow = false
 
     //rabbit floating views
     private val floatingView by lazy {

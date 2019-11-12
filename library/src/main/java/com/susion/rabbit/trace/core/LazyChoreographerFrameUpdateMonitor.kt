@@ -40,7 +40,7 @@ open class LazyChoreographerFrameUpdateMonitor {
     private var addInputQueue: Method? = null
     private var addAnimationQueue: Method? = null
     private var commitQueque: Method? = null
-    protected var choreographer: Choreographer? = null
+    private var choreographer: Choreographer? = null
     private var callbackQueues: Array<Any>? = null
     private var callbackQueueLock: Any? = null
     private val METHOD_ADD_CALLBACK = "addCallbackLocked"

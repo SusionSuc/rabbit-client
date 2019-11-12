@@ -30,7 +30,6 @@ class RabbitFPSMonitor : LazyChoreographerFrameUpdateMonitor.FrameUpdateListener
         animationCostNs: Long,
         traversalCostNs: Long
     ) {
-        RabbitLog.d("RabbitFPSMonitor doFrame ")
         fpsCalculate(frameCostNs)
     }
 
