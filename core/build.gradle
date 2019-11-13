@@ -1,0 +1,60 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply from: '../buildsystem/common-version.gradle'
+apply plugin: 'org.greenrobot.greendao' // apply plugin
+
+def uniqueVersion = rootProject.ext.versions
+
+android {
+    compileSdkVersion uniqueVersion.compileSdkVersion
+    buildToolsVersion uniqueVersion.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion uniqueVersion.minSdkVersion
+        targetSdkVersion uniqueVersion.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+greendao {
+    schemaVersion 1000
+    daoPackage 'com.susion.rabbit.greendao'
+    targetGenDir 'src/main/java'
+}
+
+dependencies {
+    api fileTree(include: ['*.jar'], dir: 'libs')
+    api project(':tracer-interface')
+
+
+    implementation "com.android.support:appcompat-v7:${uniqueVersion.supportLibVersion}"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${uniqueVersion.kotlinStdlibJdk7Version}"
+    implementation "com.github.bumptech.glide:glide:${uniqueVersion.glideVersion}"
+
+    implementation "com.squareup.retrofit2:retrofit:${uniqueVersion.retrofit2Version}"
+    implementation "io.reactivex.rxjava2:rxjava:${uniqueVersion.rx2javaVersion}"
+    implementation "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:${uniqueVersion.retrofit2RxJavaAdapterVersion}"
+    implementation "com.squareup.retrofit2:converter-gson:${uniqueVersion.retrofit2ConvertJson}"
+    implementation "io.reactivex.rxjava2:rxandroid:${uniqueVersion.rx2androidVersion}"
+    implementation "com.google.code.gson:gson:${uniqueVersion.gsonVersion}"
+    implementation "android.arch.lifecycle:extensions:${uniqueVersion.archLifecycleVersion}"
+
+    implementation "com.android.support:recyclerview-v7:${uniqueVersion.supportLibVersion}"
+    implementation "com.jakewharton.rxbinding3:rxbinding:${uniqueVersion.rxbinding3Version}"
+    implementation "org.greenrobot:greendao:${uniqueVersion.greenDaoVersion}"
+
+}

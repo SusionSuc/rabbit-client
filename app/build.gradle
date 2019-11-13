@@ -1,9 +1,9 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'rabbit-transform'
 apply from: '../buildsystem/common-version.gradle'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'rabbit-tracer-transform'
 
 def uniqueVersion = rootProject.ext.versions
 
@@ -35,7 +35,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${uniqueVersion.kotlinStdlibJdk7Version}"
     implementation "com.android.support:appcompat-v7:${uniqueVersion.supportLibVersion}"
-    api project(":library")
+    api project(':core')
 
     implementation "com.squareup.retrofit2:retrofit:${uniqueVersion.retrofit2Version}"
     implementation "com.google.code.gson:gson:${uniqueVersion.gsonVersion}"
