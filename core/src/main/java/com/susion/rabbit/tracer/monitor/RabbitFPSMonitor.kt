@@ -1,4 +1,4 @@
-package com.susion.rabbit.tracer.frame
+package com.susion.rabbit.tracer.monitor
 
 import com.susion.rabbit.Rabbit
 import com.susion.rabbit.tracer.core.LazyChoreographerFrameUpdateMonitor

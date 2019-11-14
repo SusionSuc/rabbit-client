@@ -5,6 +5,7 @@ import com.susion.rabbit.RabbitLog
 import com.susion.rabbit.config.RabbitSettings
 import com.susion.rabbit.tracer.core.FrameTracer
 import com.susion.rabbit.tracer.core.LazyFrameTracer
+import com.susion.rabbit.tracer.monitor.RabbitAppSpeedMonitor
 
 /**
  * susionwang at 2019-10-18
@@ -16,6 +17,7 @@ object RabbitTracer {
 
     private var mContext: Application? = null
     private var initStatus = false
+    private val TAG = "rabbit-tracer"
 
     private val lazyFrameTracer by lazy {
         LazyFrameTracer().apply {
@@ -23,9 +25,12 @@ object RabbitTracer {
         }
     }
 
-    //卡顿监控相关
     private val frameTracer by lazy {
         FrameTracer()
+    }
+
+    private val appSpeedMonitor by lazy {
+        RabbitAppSpeedMonitor()
     }
 
     fun init(context: Application) {
@@ -33,21 +38,22 @@ object RabbitTracer {
         mContext = context
         initStatus = true
 
-        if (RabbitSettings.blockCheckAutoOpen(context)){
+        if (RabbitSettings.blockCheckAutoOpen(context)) {
             RabbitLog.d("openBlockMonitor ")
             openBlockMonitor()
         }
 
-        if (RabbitSettings.fpsCheckAutoOpenFlag(context)){
+        if (RabbitSettings.fpsCheckAutoOpenFlag(context)) {
             RabbitLog.d("openFpsMonitor ")
             openFpsMonitor()
         }
 
-        RabbitTracerLog.listener = object :RabbitTracerLog.EventListener{
-            override fun requestPrintDebugLog(msg: String) {
-                RabbitLog.d("rabbit-tracer", msg)
+        RabbitTracerEventNotifier.eventNotifier = object : RabbitTracerEventNotifier.TracerEvent {
+            override fun applicationCreateCostTime(time: Long) {
+                appSpeedMonitor.recordApplicationCreateCostTime(time)
             }
         }
+
     }
 
     fun openFpsMonitor() {
@@ -58,7 +64,7 @@ object RabbitTracer {
         lazyFrameTracer.stopMonitorFps()
     }
 
-    fun fpsMonitorIsOpen()= lazyFrameTracer.fpsMonitorIsOpen()
+    fun fpsMonitorIsOpen() = lazyFrameTracer.fpsMonitorIsOpen()
 
     fun blockMonitorIsOpen() = frameTracer.blockMonitorIsOpen()
 

@@ -1,6 +1,6 @@
 package com.susion.rabbit.tracer.core
 
-import com.susion.rabbit.tracer.frame.RabbitFPSMonitor
+import com.susion.rabbit.tracer.monitor.RabbitFPSMonitor
 
 /**
  * susionwang at 2019-10-18

@@ -50,6 +50,7 @@ object Rabbit {
      *
      * 打开Rabbit悬浮球调用 [openDevTools]
      * */
+    @JvmStatic
     fun init(applicationContext: Application, config_: RabbitConfig = RabbitConfig()) {
         application = applicationContext
         mConfig = config_
