@@ -15,9 +15,9 @@ import com.susion.rabbit.tracer.monitor.RabbitAppSpeedMonitor
  */
 object RabbitTracer {
 
+    private val TAG = "rabbit-tracer"
     private var mContext: Application? = null
     private var initStatus = false
-    private val TAG = "rabbit-tracer"
 
     private val lazyFrameTracer by lazy {
         LazyFrameTracer().apply {
@@ -29,12 +29,11 @@ object RabbitTracer {
         FrameTracer()
     }
 
-    private val appSpeedMonitor by lazy {
-        RabbitAppSpeedMonitor()
-    }
+    private val appSpeedMonitor = RabbitAppSpeedMonitor()
 
     fun init(context: Application) {
         if (initStatus) return
+
         mContext = context
         initStatus = true
 
@@ -48,10 +47,11 @@ object RabbitTracer {
             openFpsMonitor()
         }
 
-        RabbitTracerEventNotifier.eventNotifier = object : RabbitTracerEventNotifier.TracerEvent {
-            override fun applicationCreateCostTime(time: Long) {
-                appSpeedMonitor.recordApplicationCreateCostTime(time)
-            }
+        appSpeedMonitor.init()
+
+        if (RabbitSettings.acSpeedMonitorOpenFlag(context)) {
+            RabbitLog.d("open activity speed monitor ")
+            appSpeedMonitor.monitorAcSpeed()
         }
 
     }
@@ -75,5 +75,6 @@ object RabbitTracer {
     fun closeBlockMonitor() {
         frameTracer.stopBlockMonitor()
     }
+
 
 }

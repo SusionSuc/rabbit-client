@@ -95,7 +95,7 @@ class AppStartSpeedMeasureTransform : RabbitClassTransformer {
 
         attachMethod.instructions?.find(Opcodes.ALOAD)?.apply {
 
-            RabbitTransformPrinter.p("insert code to  ${attachMethod.name} --- ${this.opcode}")
+            RabbitTransformPrinter.p("insert code to  ${attachMethod.name} --- ${klass.name}")
 
             attachMethod.instructions?.insertBefore(
                 this,
