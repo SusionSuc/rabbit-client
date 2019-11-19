@@ -8,6 +8,7 @@ import com.susion.rabbit.R
 import com.susion.rabbit.Rabbit
 import com.susion.rabbit.base.adapter.RabbitAdapterItemView
 import com.susion.rabbit.tracer.entities.RabbitBlockFrameInfo
+import com.susion.rabbit.tracer.entities.RabbitPageSpeedUiInfo
 import com.susion.rabbit.utils.*
 import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.rabbit_view_ui_block_item.view.*
@@ -15,8 +16,8 @@ import kotlinx.android.synthetic.main.rabbit_view_ui_block_item.view.*
 /**
  * susionwang at 2019-09-25
  */
-class RabbitUiBlockItemView(context: Context) : LinearLayout(context),
-    RabbitAdapterItemView<RabbitBlockFrameInfo> {
+class RabbitPageSpeedUiItemView(context: Context) : LinearLayout(context),
+    RabbitAdapterItemView<RabbitPageSpeedUiInfo> {
 
     init {
         LayoutInflater.from(context).inflate(R.layout.rabbit_view_ui_block_item, this)
@@ -24,15 +25,14 @@ class RabbitUiBlockItemView(context: Context) : LinearLayout(context),
         orientation = VERTICAL
     }
 
-    override fun bindData(blockInfo: RabbitBlockFrameInfo, position: Int) {
-//        val ms = TimeUnit.MILLISECONDS.convert(blockInfo.tr , TimeUnit.NANOSECONDS)
-        mRabbitUiBlockItemViewTvLine1.text = "time:${rabbitSimpleTimeFormat(blockInfo.time)}"
-        mRabbitUiBlockItemViewTvLine2.text = "${blockInfo.blockIdentifier}"
+    override fun bindData(uiInfo: RabbitPageSpeedUiInfo, position: Int) {
+
+        mRabbitUiBlockItemViewTvLine1.text = uiInfo.pageName
+        mRabbitUiBlockItemViewTvLine2.text = "页面测试记录数 : ${uiInfo.speedInfoList.size}"
 
         throttleFirstClick(Consumer {
-            Rabbit.uiManager.openPage(RabbitUiBlockDetailPage::class.java, blockInfo)
+            Rabbit.uiManager.openPage(RabbitPageSpeedDetailPage::class.java, uiInfo)
         })
-
     }
 
 }

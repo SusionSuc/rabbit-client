@@ -29,7 +29,9 @@ object RabbitTracer {
         FrameTracer()
     }
 
-    private val appSpeedMonitor = RabbitAppSpeedMonitor()
+    private val appSpeedMonitor = RabbitAppSpeedMonitor().apply {
+        init()
+    }
 
     fun init(context: Application) {
         if (initStatus) return
@@ -47,13 +49,10 @@ object RabbitTracer {
             openFpsMonitor()
         }
 
-        appSpeedMonitor.init()
-
-        if (RabbitSettings.acSpeedMonitorOpenFlag(context)) {
-            RabbitLog.d("open activity speed monitor ")
-            appSpeedMonitor.monitorAcSpeed()
+        if (RabbitSettings.acSpeedMonitorOpenFlag(context)){
+            RabbitLog.d("openPageSpeedMonitor ")
+            openPageSpeedMonitor()
         }
-
     }
 
     fun openFpsMonitor() {
@@ -64,10 +63,6 @@ object RabbitTracer {
         lazyFrameTracer.stopMonitorFps()
     }
 
-    fun fpsMonitorIsOpen() = lazyFrameTracer.fpsMonitorIsOpen()
-
-    fun blockMonitorIsOpen() = frameTracer.blockMonitorIsOpen()
-
     fun openBlockMonitor() {
         frameTracer.startBlockMonitor()
     }
@@ -76,5 +71,17 @@ object RabbitTracer {
         frameTracer.stopBlockMonitor()
     }
 
+    fun openPageSpeedMonitor() {
+        appSpeedMonitor.startMonitorPageSpeed()
+    }
 
+    fun closePageSpeedMonitor(){
+        appSpeedMonitor.stopMonitorPageSpeed()
+    }
+
+    fun fpsMonitorIsOpen() = lazyFrameTracer.fpsMonitorIsOpen()
+
+    fun blockMonitorIsOpen() = frameTracer.blockMonitorIsOpen()
+
+    fun pageSpeedMonitorIsOpen() = appSpeedMonitor.isOpen()
 }

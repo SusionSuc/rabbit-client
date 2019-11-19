@@ -38,6 +38,7 @@ rootProject.ext {
             greenDaoVersion              : "3.2.2",
             asmVersion                   : "7.1",
             autoServiceVersion           : "1.0-rc4",
-            buildToolsVersion            : "3.5.0"
+            buildToolsVersion            : "3.5.0",
+            mpChartVersion               : "v3.1.0"
     ]
 }

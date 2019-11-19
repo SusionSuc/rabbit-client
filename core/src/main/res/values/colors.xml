@@ -12,6 +12,8 @@
     <color name="rabbit_material_dark">#aec4c7</color>
     <color name="rabbit_material_promary">#e0f7fa</color>
     <color name="rabbit_transparent_black">#88000000</color>
+    <color name="rabbit_light_green">#e3f2fd</color>
+    <color name="rabbit_teal">#e0f2f1</color>
 
 
 </resources>

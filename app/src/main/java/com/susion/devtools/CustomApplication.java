@@ -23,4 +23,5 @@ public class CustomApplication extends Application {
         super.attachBaseContext(base);
         Log.d("attachBaseContext", "called !!!");
     }
+
 }

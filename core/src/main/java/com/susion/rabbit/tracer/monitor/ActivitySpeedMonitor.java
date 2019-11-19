@@ -63,7 +63,6 @@ public class ActivitySpeedMonitor extends FrameLayout {
         RabbitTracerEventNotifier.eventNotifier.activityCreateStart(activity, System.currentTimeMillis());
     }
 
-
     public static void activityResumeEnd(Activity activity){
         RabbitTracerEventNotifier.eventNotifier.activityResumeEnd(activity, System.currentTimeMillis());
     }

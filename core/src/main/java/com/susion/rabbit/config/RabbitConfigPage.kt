@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.rabbit_page_config.view.*
 
 /**
  * susionwang at 2019-10-21
+ *
  */
 class RabbitConfigPage(context: Context) : RabbitBasePage(context) {
 
@@ -48,12 +49,26 @@ class RabbitConfigPage(context: Context) : RabbitBasePage(context) {
                 }
             }
 
+        mRabbitConfigSBPageSpeedMonitor.checkedStatusChangeListener =
+            object : RabbitSwitchButton.CheckedStatusChangeListener {
+                override fun checkedStatusChange(isChecked: Boolean) {
+                    if (isChecked) {
+                        RabbitTracer.openPageSpeedMonitor()
+                    } else {
+                        RabbitTracer.closePageSpeedMonitor()
+                    }
+                    RabbitSettings.setActivitySpeedMonitorOpenFlag(context, isChecked)
+                    refreshSwitchStatus()
+                }
+            }
+
         refreshSwitchStatus()
     }
 
     private fun refreshSwitchStatus() {
         mRabbitConfigSBOpenFpsMonitor.refreshUi("打开FPS监控", RabbitTracer.fpsMonitorIsOpen())
         mRabbitConfigSBOpenBlockMonitor.refreshUi("打开卡顿监控", RabbitTracer.blockMonitorIsOpen())
+        mRabbitConfigSBPageSpeedMonitor.refreshUi("打开页面测试监控", RabbitTracer.pageSpeedMonitorIsOpen())
     }
 
 }

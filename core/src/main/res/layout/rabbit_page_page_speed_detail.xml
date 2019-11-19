@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/rabbit_white"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:layout_margin="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:background="@color/rabbit_light_green"
+            android:padding="15dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textSize="16dp"
+                    android:text="页面名称"
+                    android:textColor="@color/rabbit_black"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/mRabbitSpeedDetailTvPageName"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textSize="16dp"
+                    android:text="MainActivity"
+                    android:textColor="@color/rabbit_black"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textSize="16dp"
+                    android:text="平均创建耗时"
+                    android:textColor="@color/rabbit_black"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/mRabbitSpeedDetailTvCreateTime"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textSize="16dp"
+                    android:text="110ms"
+                    android:textColor="@color/rabbit_black"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textSize="16dp"
+                    android:text="平均渲染"
+                    android:textColor="@color/rabbit_black"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/mRabbitSpeedDetailTvRenderTime"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textSize="16dp"
+                    android:text="110ms"
+                    android:textColor="@color/rabbit_black"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+    <TextView
+        android:layout_margin="15dp"
+        android:gravity="center"
+        android:textSize="16dp"
+        android:padding="5dp"
+        android:text="耗时曲线"
+        android:textColor="@color/rabbit_black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:layout_marginTop="10dp"
+        android:id="@+id/mRabbitSpeedDetailChart"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"/>
+
+
+</LinearLayout>

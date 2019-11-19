@@ -14,8 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".TracerTestActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" ></activity>
+        <activity android:name=".net.TransformTestActivity"></activity>
+        <activity
+            android:name=".TracerTestActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".SimpleListActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />

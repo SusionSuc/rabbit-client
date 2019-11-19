@@ -44,4 +44,5 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:${uniqueVersion.retrofit2ConvertJson}"
     implementation "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:${uniqueVersion.retrofit2RxJavaAdapterVersion}"
     implementation "com.android.support:recyclerview-v7:${uniqueVersion.supportLibVersion}"
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 }

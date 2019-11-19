@@ -5,8 +5,6 @@ import org.objectweb.asm.tree.ClassNode
 
 /**
  * Represents class transformer
- *
- * @author johnsonlee
  */
 interface RabbitClassTransformer : TransformListener {
 

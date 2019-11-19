@@ -1,11 +1,9 @@
 package com.susion.rabbit.tracer.monitor
 
-import android.app.Activity
-import android.content.Context
-import com.susion.rabbit.Rabbit
 import com.susion.rabbit.RabbitLog
+import com.susion.rabbit.db.RabbitDbStorageManager
 import com.susion.rabbit.tracer.RabbitTracerEventNotifier
-import com.susion.rabbit.utils.RabbitEmptyActivityLifecycleCallbacks
+import com.susion.rabbit.tracer.entities.RabbitPageSpeedInfo
 
 /**
  * susionwang at 2019-11-14
@@ -18,55 +16,68 @@ import com.susion.rabbit.utils.RabbitEmptyActivityLifecycleCallbacks
 class RabbitAppSpeedMonitor {
 
     private val TAG = javaClass.simpleName
+    private var currentPageSpeedInfo: RabbitPageSpeedInfo = RabbitPageSpeedInfo()
+    private var pageSpeedMonotorEnable = false
 
     fun init() {
+        monitorActivitySpeed()
+    }
 
+    fun startMonitorPageSpeed() {
+        pageSpeedMonotorEnable = true
+        monitorActivitySpeed()
+    }
+
+    fun stopMonitorPageSpeed(){
+        pageSpeedMonotorEnable = false
+        RabbitTracerEventNotifier.eventNotifier = RabbitTracerEventNotifier.FakeEventListener()
+    }
+
+    private fun monitorActivitySpeed() {
         RabbitTracerEventNotifier.eventNotifier = object : RabbitTracerEventNotifier.TracerEvent {
 
             override fun applicationCreateCostTime(time: Long) {
-                recordApplicationCreateCostTime(time)
+
             }
 
             override fun activityCreateStart(activity: Any, time: Long) {
-                RabbitLog.d(TAG, "${activity.javaClass.simpleName}  activityCreateStart time : $time ms")
+                currentPageSpeedInfo = RabbitPageSpeedInfo()
+                currentPageSpeedInfo.pageName = activity.javaClass.name
+                currentPageSpeedInfo.createStartTime = time
             }
 
             override fun activityCreateEnd(activity: Any, time: Long) {
-                RabbitLog.d(TAG, "${activity.javaClass.simpleName}  activityCreateEnd time : $time ms")
+                currentPageSpeedInfo.createEndTime = time
             }
 
             override fun activityDrawFinish(activity: Any, time: Long) {
-                RabbitLog.d(TAG, "${activity.javaClass.simpleName}  activityDrawFinish time : $time ms")
+                currentPageSpeedInfo.drawFinishTime = time
+                saveToLocal()
+            }
+
+            override fun activityResumeEnd(activity: Any, time: Long) {
+                currentPageSpeedInfo.resumeEndTime = time
+            }
+
+            //持久化页面测试信息到本地
+            private fun saveToLocal() {
+                if (!currentPageSpeedInfo.isValid()) return
+                currentPageSpeedInfo.time = System.currentTimeMillis()
+                RabbitLog.d(TAG, "---> 持久化页面测试信息 : ${currentPageSpeedInfo.pageName}")
+                RabbitDbStorageManager.save(currentPageSpeedInfo)
             }
 
         }
+    }
 
-        if (Rabbit.geConfig().traceConfig.homeActivityName.isNotEmpty()) {
-            openActivityDrawListener()
+    private fun monitorAppStartSpeed() {
+        RabbitTracerEventNotifier.eventNotifier = object : RabbitTracerEventNotifier.TracerEvent {
+            override fun applicationCreateCostTime(time: Long) {
+
+            }
         }
     }
 
-    private fun openActivityDrawListener() {
-
-    }
-
-    fun recordApplicationCreateCostTime(time: Long) {
-        RabbitLog.d(TAG, "application onCreate cost time : $time ms")
-    }
-
-    fun monitorAcSpeed() {
-        Rabbit.application?.registerActivityLifecycleCallbacks(object :
-            RabbitEmptyActivityLifecycleCallbacks() {
-            override fun onActivityResumed(activity: Activity?) {
-                super.onActivityResumed(activity)
-
-            }
-        })
-    }
-
-
-    fun recordActivityDrawFinish(context: Context, time: Long) {
-
-    }
+    fun isOpen() = pageSpeedMonotorEnable
 
 }

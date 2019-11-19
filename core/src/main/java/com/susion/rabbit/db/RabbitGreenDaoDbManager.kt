@@ -5,8 +5,10 @@ import com.susion.rabbit.Rabbit
 import com.susion.rabbit.base.entities.RabbitGreenDaoInfo
 import com.susion.rabbit.exception.entities.RabbitExceptionInfo
 import com.susion.rabbit.greendao.DaoMaster
+import com.susion.rabbit.greendao.RabbitPageSpeedInfoDao
 import com.susion.rabbit.net.entities.RabbitHttpLogInfo
 import com.susion.rabbit.tracer.entities.RabbitBlockFrameInfo
+import com.susion.rabbit.tracer.entities.RabbitPageSpeedInfo
 import org.greenrobot.greendao.AbstractDao
 import org.greenrobot.greendao.Property
 
@@ -60,6 +62,7 @@ internal class RabbitGreenDaoDbManage(val context: Context) {
                 RabbitExceptionInfo::class.java -> daoSession.rabbitExceptionInfoDao as AbstractDao<Any, Long>
                 RabbitHttpLogInfo::class.java -> daoSession.rabbitHttpLogInfoDao as AbstractDao<Any, Long>
                 RabbitBlockFrameInfo::class.java ->daoSession.rabbitBlockFrameInfoDao as AbstractDao<Any, Long>
+                RabbitPageSpeedInfo::class.java -> daoSession.rabbitPageSpeedInfoDao as AbstractDao<Any, Long>
                 else -> null
             }
 

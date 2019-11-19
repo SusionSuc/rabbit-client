@@ -80,13 +80,13 @@ class ActivitySpeedMonitorTransform : RabbitClassTransformer {
 
         onCreateMethod.instructions?.find(Opcodes.RETURN)?.apply {
             RabbitTransformPrinter.p("ActivitySpeedMonitorTransform : insert code to wrap activity content view ---> ${klass.name}")
-            onCreateMethod.instructions.insertBefore(this, VarInsnNode(Opcodes.ALOAD, 0)) //参数
+            onCreateMethod.instructions?.insertBefore(this, VarInsnNode(Opcodes.ALOAD, 0)) //参数
             onCreateMethod.instructions?.insertBefore(this, getWrapSpeedViewMethod())
         }
 
         onCreateMethod.instructions?.find(Opcodes.ALOAD)?.apply {
             RabbitTransformPrinter.p("ActivitySpeedMonitorTransform : insert code to on activity create ---> ${klass.name}")
-            onCreateMethod.instructions.insertBefore(this, VarInsnNode(Opcodes.ALOAD, 0)) //参数
+            onCreateMethod.instructions?.insertBefore(this, VarInsnNode(Opcodes.ALOAD, 0)) //参数
             onCreateMethod.instructions?.insertBefore(this, getAcCreateStateMethod())
         }
     }
@@ -103,17 +103,19 @@ class ActivitySpeedMonitorTransform : RabbitClassTransformer {
 
         onResumeMethod.instructions?.find(Opcodes.RETURN)?.apply {
             RabbitTransformPrinter.p("insert code to  ${onResumeMethod.name} --- ${klass.name}")
-            onResumeMethod.instructions?.insertBefore(
-                this,
-                MethodInsnNode(
-                    Opcodes.INVOKESTATIC,
-                    ACTIVITY_SPEED_MONITOR_CLASS,
-                    acResumeEndName,
-                    acResumeEndDesc,
-                    false
-                )
-            )
+            onResumeMethod.instructions?.insertBefore(this, VarInsnNode(Opcodes.ALOAD, 0)) //参数
+            onResumeMethod.instructions?.insertBefore(this, getAcResumeStateMethod())
         }
+    }
+
+    private fun getAcResumeStateMethod(): MethodInsnNode {
+        return MethodInsnNode(
+            Opcodes.INVOKESTATIC,
+            ACTIVITY_SPEED_MONITOR_CLASS,
+            acResumeEndName,
+            acResumeEndDesc,
+            false
+        )
     }
 
     private fun getWrapSpeedViewMethod() = MethodInsnNode(
@@ -154,6 +156,7 @@ class ActivitySpeedMonitorTransform : RabbitClassTransformer {
                 )
                 add(InsnNode(Opcodes.RETURN))
             })
+            maxStack = 1
         }
     }
 

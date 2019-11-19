@@ -12,6 +12,7 @@ import com.susion.rabbit.base.view.RabbitMainFeatureView
 import com.susion.rabbit.config.RabbitConfigPage
 import com.susion.rabbit.exception.ui.RabbitExceptionListPage
 import com.susion.rabbit.net.ui.RabbitHttpLogListPage
+import com.susion.rabbit.tracer.ui.RabbitPageSpeedListPage
 import com.susion.rabbit.tracer.ui.RabbitUiBlockListPage
 import com.susion.rabbit.utils.getDrawable
 
@@ -69,6 +70,14 @@ class RabbitEntryPage(context: Context) : RabbitBasePage(context) {
                     "卡顿日志",
                     R.drawable.rabbit_icon_caton,
                     RabbitUiBlockListPage::class.java
+                )
+            )
+
+            add(
+                RabbitMainFeatureInfo(
+                    "页面测试日志",
+                    R.drawable.rabbit_icon_caton,
+                    RabbitPageSpeedListPage::class.java
                 )
             )
         }

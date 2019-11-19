@@ -9,10 +9,12 @@ import org.greenrobot.greendao.identityscope.IdentityScopeType;
 import org.greenrobot.greendao.internal.DaoConfig;
 
 import com.susion.rabbit.tracer.entities.RabbitBlockFrameInfo;
+import com.susion.rabbit.tracer.entities.RabbitPageSpeedInfo;
 import com.susion.rabbit.net.entities.RabbitHttpLogInfo;
 import com.susion.rabbit.exception.entities.RabbitExceptionInfo;
 
 import com.susion.rabbit.greendao.RabbitBlockFrameInfoDao;
+import com.susion.rabbit.greendao.RabbitPageSpeedInfoDao;
 import com.susion.rabbit.greendao.RabbitHttpLogInfoDao;
 import com.susion.rabbit.greendao.RabbitExceptionInfoDao;
 
@@ -26,10 +28,12 @@ import com.susion.rabbit.greendao.RabbitExceptionInfoDao;
 public class DaoSession extends AbstractDaoSession {
 
     private final DaoConfig rabbitBlockFrameInfoDaoConfig;
+    private final DaoConfig rabbitPageSpeedInfoDaoConfig;
     private final DaoConfig rabbitHttpLogInfoDaoConfig;
     private final DaoConfig rabbitExceptionInfoDaoConfig;
 
     private final RabbitBlockFrameInfoDao rabbitBlockFrameInfoDao;
+    private final RabbitPageSpeedInfoDao rabbitPageSpeedInfoDao;
     private final RabbitHttpLogInfoDao rabbitHttpLogInfoDao;
     private final RabbitExceptionInfoDao rabbitExceptionInfoDao;
 
@@ -40,6 +44,9 @@ public class DaoSession extends AbstractDaoSession {
         rabbitBlockFrameInfoDaoConfig = daoConfigMap.get(RabbitBlockFrameInfoDao.class).clone();
         rabbitBlockFrameInfoDaoConfig.initIdentityScope(type);
 
+        rabbitPageSpeedInfoDaoConfig = daoConfigMap.get(RabbitPageSpeedInfoDao.class).clone();
+        rabbitPageSpeedInfoDaoConfig.initIdentityScope(type);
+
         rabbitHttpLogInfoDaoConfig = daoConfigMap.get(RabbitHttpLogInfoDao.class).clone();
         rabbitHttpLogInfoDaoConfig.initIdentityScope(type);
 
@@ -47,22 +54,29 @@ public class DaoSession extends AbstractDaoSession {
         rabbitExceptionInfoDaoConfig.initIdentityScope(type);
 
         rabbitBlockFrameInfoDao = new RabbitBlockFrameInfoDao(rabbitBlockFrameInfoDaoConfig, this);
+        rabbitPageSpeedInfoDao = new RabbitPageSpeedInfoDao(rabbitPageSpeedInfoDaoConfig, this);
         rabbitHttpLogInfoDao = new RabbitHttpLogInfoDao(rabbitHttpLogInfoDaoConfig, this);
         rabbitExceptionInfoDao = new RabbitExceptionInfoDao(rabbitExceptionInfoDaoConfig, this);
 
         registerDao(RabbitBlockFrameInfo.class, rabbitBlockFrameInfoDao);
+        registerDao(RabbitPageSpeedInfo.class, rabbitPageSpeedInfoDao);
         registerDao(RabbitHttpLogInfo.class, rabbitHttpLogInfoDao);
         registerDao(RabbitExceptionInfo.class, rabbitExceptionInfoDao);
     }
     
     public void clear() {
         rabbitBlockFrameInfoDaoConfig.clearIdentityScope();
+        rabbitPageSpeedInfoDaoConfig.clearIdentityScope();
         rabbitHttpLogInfoDaoConfig.clearIdentityScope();
         rabbitExceptionInfoDaoConfig.clearIdentityScope();
     }
 
     public RabbitBlockFrameInfoDao getRabbitBlockFrameInfoDao() {
         return rabbitBlockFrameInfoDao;
+    }
+
+    public RabbitPageSpeedInfoDao getRabbitPageSpeedInfoDao() {
+        return rabbitPageSpeedInfoDao;
     }
 
     public RabbitHttpLogInfoDao getRabbitHttpLogInfoDao() {
