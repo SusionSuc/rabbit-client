@@ -89,7 +89,7 @@ RabbitTracer.closePageSpeedMonitor()
 
 # 实现原理
 
-Rabbit中各个功能的实现会逐渐更新在wiki中,欢迎关注我的微信公众号或者掘金快速获得相关信息:
+>Rabbit相关实现原理剖析，欢迎关注我的微信公众号:
 
 - [掘金](https://juejin.im/user/57b1173f165abd0054298059)
 
