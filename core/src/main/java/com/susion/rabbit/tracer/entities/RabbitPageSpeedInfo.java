@@ -55,14 +55,6 @@ public class RabbitPageSpeedInfo implements RabbitGreenDaoInfo {
     public RabbitPageSpeedInfo() {
     }
 
-    public boolean isValid(){
-        boolean nonnullData = createStartTime != 0L && createEndTime != 0L && drawFinishTime != 0L && resumeEndTime != 0L;
-        boolean validCreateTime = (createEndTime - createStartTime) < 10000;
-        boolean validRenderTime = (drawFinishTime - createStartTime) < 10000;
-
-        return nonnullData && validCreateTime && validRenderTime;
-    }
-
     @Override
     public String getSortField() {
         return "time";

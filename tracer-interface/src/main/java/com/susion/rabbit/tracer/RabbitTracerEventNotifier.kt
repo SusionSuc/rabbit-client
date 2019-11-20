@@ -10,7 +10,7 @@ object RabbitTracerEventNotifier {
     var eventNotifier: TracerEvent = FakeEventListener()
 
     interface TracerEvent {
-        fun applicationCreateCostTime(time:Long){}
+        fun applicationCreateTime(attachBaseContextTime:Long, createEndTime:Long){}
         fun activityDrawFinish(activity:Any, time: Long){}
         fun activityCreateEnd(activity: Any, time: Long){}
         fun activityCreateStart(activity: Any, time: Long){}

@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/rabbit_white"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:parentTag="android.widget.LinearLayout">
 
     <TextView
         android:layout_margin="10dp"
-        android:textSize="16dp"
-        android:padding="5dp"
-        android:text="耗时概略"
-        android:textStyle="bold"
-        android:textColor="@color/rabbit_black"
         android:layout_width="match_parent"
+        android:textSize="18dp"
+        android:text="应用启动信息概览"
+        android:textColor="@color/rabbit_black"
         android:layout_height="wrap_content"/>
 
     <View
-        android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="@color/rabbit_divider_line"/>
@@ -39,12 +38,12 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:textSize="16dp"
-                android:text="页面名称"
+                android:text="OnCreate平均耗时"
                 android:textColor="@color/rabbit_black"
                 android:layout_height="wrap_content"/>
 
             <TextView
-                android:id="@+id/mRabbitSpeedDetailTvPageName"
+                android:id="@+id/mRabbitAppSpeedTvAvgOnCreate"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:textSize="16dp"
@@ -64,12 +63,12 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:textSize="16dp"
-                android:text="平均创建耗时"
+                android:text="冷启动平均耗时"
                 android:textColor="@color/rabbit_black"
                 android:layout_height="wrap_content"/>
 
             <TextView
-                android:id="@+id/mRabbitSpeedDetailTvCreateTime"
+                android:id="@+id/mRabbitAppSpeedTvAvgFullTime"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:textSize="16dp"
@@ -89,12 +88,12 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:textSize="16dp"
-                android:text="平均渲染"
+                android:text="记录数"
                 android:textColor="@color/rabbit_black"
                 android:layout_height="wrap_content"/>
 
             <TextView
-                android:id="@+id/mRabbitSpeedDetailTvRenderTime"
+                android:id="@+id/mRabbitAppSpeedTvLogNumber"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:textSize="16dp"
@@ -108,26 +107,17 @@
 
     <TextView
         android:layout_margin="10dp"
-        android:textSize="16dp"
-        android:padding="5dp"
-        android:text="耗时曲线"
-        android:textStyle="bold"
-        android:textColor="@color/rabbit_black"
         android:layout_width="match_parent"
+        android:textSize="18dp"
+        android:text="页面测速日志列表"
+        android:textColor="@color/rabbit_black"
         android:layout_height="wrap_content"/>
 
     <View
         android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
         android:layout_width="match_parent"
         android:layout_height="1px"
+        android:layout_marginEnd="15dp"
         android:background="@color/rabbit_divider_line"/>
 
-    <com.github.mikephil.charting.charts.LineChart
-        android:layout_margin="10dp"
-        android:id="@+id/mRabbitSpeedDetailChart"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"/>
-
-
-</LinearLayout>
+</merge>

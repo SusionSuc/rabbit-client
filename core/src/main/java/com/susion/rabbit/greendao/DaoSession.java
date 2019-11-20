@@ -9,11 +9,13 @@ import org.greenrobot.greendao.identityscope.IdentityScopeType;
 import org.greenrobot.greendao.internal.DaoConfig;
 
 import com.susion.rabbit.tracer.entities.RabbitBlockFrameInfo;
+import com.susion.rabbit.tracer.entities.RabbitAppStartSpeedInfo;
 import com.susion.rabbit.tracer.entities.RabbitPageSpeedInfo;
 import com.susion.rabbit.net.entities.RabbitHttpLogInfo;
 import com.susion.rabbit.exception.entities.RabbitExceptionInfo;
 
 import com.susion.rabbit.greendao.RabbitBlockFrameInfoDao;
+import com.susion.rabbit.greendao.RabbitAppStartSpeedInfoDao;
 import com.susion.rabbit.greendao.RabbitPageSpeedInfoDao;
 import com.susion.rabbit.greendao.RabbitHttpLogInfoDao;
 import com.susion.rabbit.greendao.RabbitExceptionInfoDao;
@@ -28,11 +30,13 @@ import com.susion.rabbit.greendao.RabbitExceptionInfoDao;
 public class DaoSession extends AbstractDaoSession {
 
     private final DaoConfig rabbitBlockFrameInfoDaoConfig;
+    private final DaoConfig rabbitAppStartSpeedInfoDaoConfig;
     private final DaoConfig rabbitPageSpeedInfoDaoConfig;
     private final DaoConfig rabbitHttpLogInfoDaoConfig;
     private final DaoConfig rabbitExceptionInfoDaoConfig;
 
     private final RabbitBlockFrameInfoDao rabbitBlockFrameInfoDao;
+    private final RabbitAppStartSpeedInfoDao rabbitAppStartSpeedInfoDao;
     private final RabbitPageSpeedInfoDao rabbitPageSpeedInfoDao;
     private final RabbitHttpLogInfoDao rabbitHttpLogInfoDao;
     private final RabbitExceptionInfoDao rabbitExceptionInfoDao;
@@ -44,6 +48,9 @@ public class DaoSession extends AbstractDaoSession {
         rabbitBlockFrameInfoDaoConfig = daoConfigMap.get(RabbitBlockFrameInfoDao.class).clone();
         rabbitBlockFrameInfoDaoConfig.initIdentityScope(type);
 
+        rabbitAppStartSpeedInfoDaoConfig = daoConfigMap.get(RabbitAppStartSpeedInfoDao.class).clone();
+        rabbitAppStartSpeedInfoDaoConfig.initIdentityScope(type);
+
         rabbitPageSpeedInfoDaoConfig = daoConfigMap.get(RabbitPageSpeedInfoDao.class).clone();
         rabbitPageSpeedInfoDaoConfig.initIdentityScope(type);
 
@@ -54,11 +61,13 @@ public class DaoSession extends AbstractDaoSession {
         rabbitExceptionInfoDaoConfig.initIdentityScope(type);
 
         rabbitBlockFrameInfoDao = new RabbitBlockFrameInfoDao(rabbitBlockFrameInfoDaoConfig, this);
+        rabbitAppStartSpeedInfoDao = new RabbitAppStartSpeedInfoDao(rabbitAppStartSpeedInfoDaoConfig, this);
         rabbitPageSpeedInfoDao = new RabbitPageSpeedInfoDao(rabbitPageSpeedInfoDaoConfig, this);
         rabbitHttpLogInfoDao = new RabbitHttpLogInfoDao(rabbitHttpLogInfoDaoConfig, this);
         rabbitExceptionInfoDao = new RabbitExceptionInfoDao(rabbitExceptionInfoDaoConfig, this);
 
         registerDao(RabbitBlockFrameInfo.class, rabbitBlockFrameInfoDao);
+        registerDao(RabbitAppStartSpeedInfo.class, rabbitAppStartSpeedInfoDao);
         registerDao(RabbitPageSpeedInfo.class, rabbitPageSpeedInfoDao);
         registerDao(RabbitHttpLogInfo.class, rabbitHttpLogInfoDao);
         registerDao(RabbitExceptionInfo.class, rabbitExceptionInfoDao);
@@ -66,6 +75,7 @@ public class DaoSession extends AbstractDaoSession {
     
     public void clear() {
         rabbitBlockFrameInfoDaoConfig.clearIdentityScope();
+        rabbitAppStartSpeedInfoDaoConfig.clearIdentityScope();
         rabbitPageSpeedInfoDaoConfig.clearIdentityScope();
         rabbitHttpLogInfoDaoConfig.clearIdentityScope();
         rabbitExceptionInfoDaoConfig.clearIdentityScope();
@@ -73,6 +83,10 @@ public class DaoSession extends AbstractDaoSession {
 
     public RabbitBlockFrameInfoDao getRabbitBlockFrameInfoDao() {
         return rabbitBlockFrameInfoDao;
+    }
+
+    public RabbitAppStartSpeedInfoDao getRabbitAppStartSpeedInfoDao() {
+        return rabbitAppStartSpeedInfoDao;
     }
 
     public RabbitPageSpeedInfoDao getRabbitPageSpeedInfoDao() {

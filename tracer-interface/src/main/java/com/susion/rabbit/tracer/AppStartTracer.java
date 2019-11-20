@@ -8,18 +8,17 @@ package com.susion.rabbit.tracer;
  */
 public class AppStartTracer {
 
-    private static long appStartTime;
+    public static long appAttachBaseContextTime = 0;
     public static final String CLASS_PATH = "com/susion/rabbit/tracer/AppStartTracer";
     public static final String METHOD_RECORD_APPLICATION_CREATE_START = "recordApplicationCreateStart";
     public static final String METHOD_RECORD_APPLICATION_CREATE_END = "recordApplicationCreateEnd";
 
     public static void recordApplicationCreateStart() {
-        appStartTime = System.currentTimeMillis();
+        appAttachBaseContextTime =System.currentTimeMillis();
     }
 
     public static void recordApplicationCreateEnd() {
-        RabbitTracerEventNotifier.eventNotifier.applicationCreateCostTime(System.currentTimeMillis() - appStartTime);
+        RabbitTracerEventNotifier.eventNotifier.applicationCreateTime(appAttachBaseContextTime, System.currentTimeMillis());
     }
-
 
 }

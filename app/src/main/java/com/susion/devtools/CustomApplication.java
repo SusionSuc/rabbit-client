@@ -15,7 +15,14 @@ public class CustomApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Rabbit.init(this, new RabbitConfig());
+
+        RabbitConfig myConfig = new RabbitConfig();
+
+        RabbitConfig.TraceConfig traceConfig = new RabbitConfig.TraceConfig();
+        traceConfig.setHomeActivityName(MainActivity.class.getName());
+        myConfig.setTraceConfig(traceConfig);
+        Rabbit.init(this,myConfig);
+
     }
 
     @Override

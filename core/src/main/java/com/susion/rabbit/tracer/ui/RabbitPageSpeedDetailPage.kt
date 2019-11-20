@@ -12,6 +12,7 @@ import com.susion.rabbit.R
 import com.susion.rabbit.tracer.entities.RabbitPageSpeedInfo
 import com.susion.rabbit.tracer.entities.RabbitPageSpeedUiInfo
 import com.susion.rabbit.ui.page.RabbitBasePage
+import com.susion.rabbit.utils.dp2px
 import kotlinx.android.synthetic.main.rabbit_page_page_speed_detail.view.*
 import java.util.ArrayList
 
@@ -34,7 +35,11 @@ class RabbitPageSpeedDetailPage(context: Context) : RabbitBasePage(context) {
             isDragEnabled = true
             setScaleEnabled(true)
             setPinchZoom(true)
+            setPadding(dp2px(3f), dp2px(3f), dp2px(3f), dp2px(3f))
+            axisRight.isEnabled = false
+            xAxis.isEnabled = false
         }
+
     }
 
     override fun setEntryParams(blockInfo: Any) {
@@ -42,22 +47,13 @@ class RabbitPageSpeedDetailPage(context: Context) : RabbitBasePage(context) {
 
         mRabbitSpeedDetailTvPageName.text = blockInfo.pageName.split(".").lastOrNull() ?: ""
 
-        val count = blockInfo.speedInfoList.size
-        var totalCreateTime = 0L
-        var totalRenderTime = 0L
+        mRabbitSpeedDetailTvCreateTime.text = "${(blockInfo.speedInfoList.map { it.pageCreateTime }.average()).toInt()} ms"
+        mRabbitSpeedDetailTvRenderTime.text = "${(blockInfo.speedInfoList.map { it.pageRenderTime }.average()).toInt()} ms"
 
-        blockInfo.speedInfoList.forEach {
-            totalCreateTime += it.pageCreateTime
-            totalRenderTime += it.pageRenderTime
-        }
-
-        mRabbitSpeedDetailTvCreateTime.text = "${(totalCreateTime / count).toInt()} ms"
-        mRabbitSpeedDetailTvRenderTime.text = "${(totalRenderTime / count).toInt()} ms"
-
-        renderChart(blockInfo.speedInfoList)
+        renderChart(  blockInfo.speedInfoList.sortedBy { it.time })
     }
 
-    private fun renderChart(speedInfoList: ArrayList<RabbitPageSpeedInfo>) {
+    private fun renderChart(speedInfoList: List<RabbitPageSpeedInfo>) {
 
         val createTimes = ArrayList<Entry>()
         speedInfoList.forEachIndexed { index, rabbitPageSpeedInfo ->
@@ -70,12 +66,20 @@ class RabbitPageSpeedDetailPage(context: Context) : RabbitBasePage(context) {
         }
 
         val dataSets = ArrayList<ILineDataSet>()
-        dataSets.add(LineDataSet(createTimes, "创建耗时"))
-        dataSets.add(LineDataSet(renderTimes, "渲染耗时"))
+        val onCreateDatas = LineDataSet(createTimes, "onCreate耗时").apply {
+            setCircleColor(Color.parseColor("#00e676"))
+            color = Color.parseColor("#00e676")
+        }
 
-        val createData = LineData(dataSets)
+        val coldDatas = LineDataSet(renderTimes, "冷启动耗时").apply {
+            setCircleColor(Color.parseColor("#ff4081"))
+            color = Color.parseColor("#ff4081")
+        }
+        dataSets.add(onCreateDatas)
+        dataSets.add(coldDatas)
 
-        mRabbitSpeedDetailChart.data = createData
+        mRabbitSpeedDetailChart.data =  LineData(dataSets)
+
     }
 
 }

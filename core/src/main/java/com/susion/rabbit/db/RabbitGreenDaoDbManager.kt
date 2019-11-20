@@ -7,6 +7,7 @@ import com.susion.rabbit.exception.entities.RabbitExceptionInfo
 import com.susion.rabbit.greendao.DaoMaster
 import com.susion.rabbit.greendao.RabbitPageSpeedInfoDao
 import com.susion.rabbit.net.entities.RabbitHttpLogInfo
+import com.susion.rabbit.tracer.entities.RabbitAppStartSpeedInfo
 import com.susion.rabbit.tracer.entities.RabbitBlockFrameInfo
 import com.susion.rabbit.tracer.entities.RabbitPageSpeedInfo
 import org.greenrobot.greendao.AbstractDao
@@ -14,7 +15,7 @@ import org.greenrobot.greendao.Property
 
 /**
  * susionwang at 2019-10-21
- *
+ * 所有rabbit可以持久数据都应该有对应的 Dao
  */
 internal class RabbitGreenDaoDbManage(val context: Context) {
 
@@ -63,6 +64,7 @@ internal class RabbitGreenDaoDbManage(val context: Context) {
                 RabbitHttpLogInfo::class.java -> daoSession.rabbitHttpLogInfoDao as AbstractDao<Any, Long>
                 RabbitBlockFrameInfo::class.java ->daoSession.rabbitBlockFrameInfoDao as AbstractDao<Any, Long>
                 RabbitPageSpeedInfo::class.java -> daoSession.rabbitPageSpeedInfoDao as AbstractDao<Any, Long>
+                RabbitAppStartSpeedInfo::class.java -> daoSession.rabbitAppStartSpeedInfoDao as AbstractDao<Any, Long>
                 else -> null
             }
 

@@ -1,6 +1,7 @@
 package com.susion.rabbit.tracer.ui
 
 import android.content.Context
+import android.support.v7.widget.CardView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -21,8 +22,12 @@ class RabbitPageSpeedUiItemView(context: Context) : LinearLayout(context),
 
     init {
         LayoutInflater.from(context).inflate(R.layout.rabbit_view_ui_block_item, this)
-        layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply {
+            val mr15 = dp2px(15f)
+            setMargins(mr15,mr15,mr15, 0)
+        }
         orientation = VERTICAL
+        background = getDrawable(context, R.color.rabbit_teal)
     }
 
     override fun bindData(uiInfo: RabbitPageSpeedUiInfo, position: Int) {
@@ -33,6 +38,7 @@ class RabbitPageSpeedUiItemView(context: Context) : LinearLayout(context),
         throttleFirstClick(Consumer {
             Rabbit.uiManager.openPage(RabbitPageSpeedDetailPage::class.java, uiInfo)
         })
+
     }
 
 }
