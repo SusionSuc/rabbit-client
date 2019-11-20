@@ -33,7 +33,7 @@ class RabbitPageSpeedUiItemView(context: Context) : LinearLayout(context),
     override fun bindData(uiInfo: RabbitPageSpeedUiInfo, position: Int) {
 
         mRabbitUiBlockItemViewTvLine1.text = uiInfo.pageName
-        mRabbitUiBlockItemViewTvLine2.text = "页面测试记录数 : ${uiInfo.speedInfoList.size}"
+        mRabbitUiBlockItemViewTvLine2.text = "记录数 : ${uiInfo.speedInfoList.size}"
 
         throttleFirstClick(Consumer {
             Rabbit.uiManager.openPage(RabbitPageSpeedDetailPage::class.java, uiInfo)

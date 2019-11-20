@@ -12,7 +12,7 @@
 2. App Crash 捕获
 3. App 流畅度(FPS) 监控
 4. App 卡顿监控
-5. App 页面启动时间与平均帧率监控 (开发中)
+5. App 测速 (应用启动测速&页面测速)
 
 # 使用文档
 
@@ -48,6 +48,44 @@ val okHttpClient = OkHttpClient.Builder().addInterceptor(Rabbit.getHttpLogInterc
 ## App 流畅度(FPS) 监控  && App 卡顿监控
 
 可以在Rabbit功能配置页打开这两个功能。当监控到卡顿时会保存到数据库，可以在Rabbit中查看页面卡顿原因。
+
+可以调用下面方法打开/关闭这两个功能:
+
+```
+    RabbitTracer.openFpsMonitor()
+    RabbitTracer.closeFpsMonitor()
+
+    RabbitTracer.openBlockMonitor()
+    RabbitTracer.closeBlockMonitor()
+```
+
+
+## App测速
+
+目前App测速功能主要包括:
+
+1. 应用`onCreate`耗时统计
+2. 应用`冷启动`耗时统计
+3. 页面`onCreate`耗时统计
+4. 页面`渲染`耗时统计
+
+**应用启动耗时统计**会自动打开, 如果想要打开/关闭页面耗时统计开关可以调用:
+
+```
+RabbitTracer.openPageSpeedMonitor()
+RabbitTracer.closePageSpeedMonitor()
+```
+
+最终呈现效果如下图:
+
+>应用启动耗时统计
+
+![net1](picture/app_speed.png)
+
+>页面启动耗时统计
+
+![net1](picture/page_speed.png)
+
 
 # 实现原理
 

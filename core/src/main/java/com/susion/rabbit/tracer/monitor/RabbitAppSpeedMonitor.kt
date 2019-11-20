@@ -33,7 +33,7 @@ class RabbitAppSpeedMonitor {
     private var pageSpeedMonitorEnable = false
 
     fun init() {
-        monitorActivitySpeed()
+        monitorAppStartSpeed()
         entryActivityName = Rabbit.geConfig().traceConfig.homeActivityName
     }
 
@@ -91,6 +91,7 @@ class RabbitAppSpeedMonitor {
     private fun monitorAppStartSpeed() {
         RabbitTracerEventNotifier.eventNotifier = object : RabbitTracerEventNotifier.TracerEvent {
             override fun applicationCreateTime(attachBaseContextTime: Long, createEndTime: Long) {
+                appSpeedCanRecord = true
                 appSpeedInfo.createStartTime = attachBaseContextTime
                 appSpeedInfo.createEndTime = createEndTime
                 saveAppStartInfoToLocal(0, "")
