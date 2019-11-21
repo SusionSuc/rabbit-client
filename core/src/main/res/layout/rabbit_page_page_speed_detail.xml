@@ -38,7 +38,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:textSize="16dp"
+                android:textSize="14dp"
                 android:text="页面名称"
                 android:textColor="@color/rabbit_black"
                 android:layout_height="wrap_content"/>
@@ -47,7 +47,7 @@
                 android:id="@+id/mRabbitSpeedDetailTvPageName"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:textSize="16dp"
+                android:textSize="14dp"
                 android:text="MainActivity"
                 android:textColor="@color/rabbit_black"
                 android:layout_height="wrap_content"/>
@@ -63,8 +63,8 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:textSize="16dp"
-                android:text="平均创建耗时"
+                android:textSize="14dp"
+                android:text="onCreate平均耗时"
                 android:textColor="@color/rabbit_black"
                 android:layout_height="wrap_content"/>
 
@@ -72,7 +72,7 @@
                 android:id="@+id/mRabbitSpeedDetailTvCreateTime"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:textSize="16dp"
+                android:textSize="14dp"
                 android:text="110ms"
                 android:textColor="@color/rabbit_black"
                 android:layout_height="wrap_content"/>
@@ -88,16 +88,41 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:textSize="16dp"
-                android:text="平均渲染"
+                android:textSize="14dp"
+                android:text="首次inflate平均耗时"
                 android:textColor="@color/rabbit_black"
                 android:layout_height="wrap_content"/>
 
             <TextView
-                android:id="@+id/mRabbitSpeedDetailTvRenderTime"
+                android:id="@+id/mRabbitSpeedDetailTvInlateTime"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:textSize="16dp"
+                android:textSize="14dp"
+                android:text="110ms"
+                android:textColor="@color/rabbit_black"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:textSize="14dp"
+                android:text="完全渲染平均耗时"
+                android:textColor="@color/rabbit_black"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/mRabbitSpeedDetailTvFullRenderTime"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:textSize="14dp"
                 android:text="110ms"
                 android:textColor="@color/rabbit_black"
                 android:layout_height="wrap_content"/>

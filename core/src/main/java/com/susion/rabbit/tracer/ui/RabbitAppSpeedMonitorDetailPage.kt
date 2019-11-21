@@ -71,7 +71,6 @@ class RabbitAppSpeedMonitorDetailPage(context: Context) : RabbitBasePage(context
                         speedUiInfo = RabbitPageSpeedUiInfo(speedInfo.pageName)
                         pageSpeedMap[speedInfo.pageName] = speedUiInfo
                     }
-
                     speedUiInfo.speedInfoList.add(speedInfo)
                 }
 

@@ -29,8 +29,9 @@ public class RabbitPageSpeedInfoDao extends AbstractDao<RabbitPageSpeedInfo, Lon
         public final static Property Time = new Property(2, long.class, "time", false, "TIME");
         public final static Property CreateStartTime = new Property(3, long.class, "createStartTime", false, "CREATE_START_TIME");
         public final static Property CreateEndTime = new Property(4, long.class, "createEndTime", false, "CREATE_END_TIME");
-        public final static Property DrawFinishTime = new Property(5, long.class, "drawFinishTime", false, "DRAW_FINISH_TIME");
-        public final static Property ResumeEndTime = new Property(6, long.class, "resumeEndTime", false, "RESUME_END_TIME");
+        public final static Property InflateFinishTime = new Property(5, long.class, "inflateFinishTime", false, "INFLATE_FINISH_TIME");
+        public final static Property FullDrawFinishTime = new Property(6, long.class, "fullDrawFinishTime", false, "FULL_DRAW_FINISH_TIME");
+        public final static Property ResumeEndTime = new Property(7, long.class, "resumeEndTime", false, "RESUME_END_TIME");
     }
 
 
@@ -51,8 +52,9 @@ public class RabbitPageSpeedInfoDao extends AbstractDao<RabbitPageSpeedInfo, Lon
                 "\"TIME\" INTEGER NOT NULL ," + // 2: time
                 "\"CREATE_START_TIME\" INTEGER NOT NULL ," + // 3: createStartTime
                 "\"CREATE_END_TIME\" INTEGER NOT NULL ," + // 4: createEndTime
-                "\"DRAW_FINISH_TIME\" INTEGER NOT NULL ," + // 5: drawFinishTime
-                "\"RESUME_END_TIME\" INTEGER NOT NULL );"); // 6: resumeEndTime
+                "\"INFLATE_FINISH_TIME\" INTEGER NOT NULL ," + // 5: inflateFinishTime
+                "\"FULL_DRAW_FINISH_TIME\" INTEGER NOT NULL ," + // 6: fullDrawFinishTime
+                "\"RESUME_END_TIME\" INTEGER NOT NULL );"); // 7: resumeEndTime
     }
 
     /** Drops the underlying database table. */
@@ -77,8 +79,9 @@ public class RabbitPageSpeedInfoDao extends AbstractDao<RabbitPageSpeedInfo, Lon
         stmt.bindLong(3, entity.getTime());
         stmt.bindLong(4, entity.getCreateStartTime());
         stmt.bindLong(5, entity.getCreateEndTime());
-        stmt.bindLong(6, entity.getDrawFinishTime());
-        stmt.bindLong(7, entity.getResumeEndTime());
+        stmt.bindLong(6, entity.getInflateFinishTime());
+        stmt.bindLong(7, entity.getFullDrawFinishTime());
+        stmt.bindLong(8, entity.getResumeEndTime());
     }
 
     @Override
@@ -97,8 +100,9 @@ public class RabbitPageSpeedInfoDao extends AbstractDao<RabbitPageSpeedInfo, Lon
         stmt.bindLong(3, entity.getTime());
         stmt.bindLong(4, entity.getCreateStartTime());
         stmt.bindLong(5, entity.getCreateEndTime());
-        stmt.bindLong(6, entity.getDrawFinishTime());
-        stmt.bindLong(7, entity.getResumeEndTime());
+        stmt.bindLong(6, entity.getInflateFinishTime());
+        stmt.bindLong(7, entity.getFullDrawFinishTime());
+        stmt.bindLong(8, entity.getResumeEndTime());
     }
 
     @Override
@@ -114,8 +118,9 @@ public class RabbitPageSpeedInfoDao extends AbstractDao<RabbitPageSpeedInfo, Lon
             cursor.getLong(offset + 2), // time
             cursor.getLong(offset + 3), // createStartTime
             cursor.getLong(offset + 4), // createEndTime
-            cursor.getLong(offset + 5), // drawFinishTime
-            cursor.getLong(offset + 6) // resumeEndTime
+            cursor.getLong(offset + 5), // inflateFinishTime
+            cursor.getLong(offset + 6), // fullDrawFinishTime
+            cursor.getLong(offset + 7) // resumeEndTime
         );
         return entity;
     }
@@ -127,8 +132,9 @@ public class RabbitPageSpeedInfoDao extends AbstractDao<RabbitPageSpeedInfo, Lon
         entity.setTime(cursor.getLong(offset + 2));
         entity.setCreateStartTime(cursor.getLong(offset + 3));
         entity.setCreateEndTime(cursor.getLong(offset + 4));
-        entity.setDrawFinishTime(cursor.getLong(offset + 5));
-        entity.setResumeEndTime(cursor.getLong(offset + 6));
+        entity.setInflateFinishTime(cursor.getLong(offset + 5));
+        entity.setFullDrawFinishTime(cursor.getLong(offset + 6));
+        entity.setResumeEndTime(cursor.getLong(offset + 7));
      }
     
     @Override

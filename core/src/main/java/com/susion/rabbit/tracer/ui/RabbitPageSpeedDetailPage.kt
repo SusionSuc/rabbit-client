@@ -3,7 +3,6 @@ package com.susion.rabbit.tracer.ui
 import android.content.Context
 import android.graphics.Color
 import android.view.ViewGroup
-import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
@@ -48,7 +47,8 @@ class RabbitPageSpeedDetailPage(context: Context) : RabbitBasePage(context) {
         mRabbitSpeedDetailTvPageName.text = blockInfo.pageName.split(".").lastOrNull() ?: ""
 
         mRabbitSpeedDetailTvCreateTime.text = "${(blockInfo.speedInfoList.map { it.pageCreateTime }.average()).toInt()} ms"
-        mRabbitSpeedDetailTvRenderTime.text = "${(blockInfo.speedInfoList.map { it.pageRenderTime }.average()).toInt()} ms"
+        mRabbitSpeedDetailTvInlateTime.text = "${(blockInfo.speedInfoList.map { it.pageInflateTime }.average()).toInt()} ms"
+        mRabbitSpeedDetailTvFullRenderTime.text = "${(blockInfo.speedInfoList.map { it.fullRenderTime }.average()).toInt()} ms"
 
         renderChart(  blockInfo.speedInfoList.sortedBy { it.time })
     }
@@ -60,9 +60,14 @@ class RabbitPageSpeedDetailPage(context: Context) : RabbitBasePage(context) {
             createTimes.add(Entry(index.toFloat(), rabbitPageSpeedInfo.pageCreateTime.toFloat()))
         }
 
+        val inflateTimes = ArrayList<Entry>()
+        speedInfoList.forEachIndexed { index, rabbitPageSpeedInfo ->
+            inflateTimes.add(Entry(index.toFloat(), rabbitPageSpeedInfo.pageInflateTime.toFloat()))
+        }
+
         val renderTimes = ArrayList<Entry>()
         speedInfoList.forEachIndexed { index, rabbitPageSpeedInfo ->
-            renderTimes.add(Entry(index.toFloat(), rabbitPageSpeedInfo.pageRenderTime.toFloat()))
+            renderTimes.add(Entry(index.toFloat(), rabbitPageSpeedInfo.fullRenderTime.toFloat()))
         }
 
         val dataSets = ArrayList<ILineDataSet>()
@@ -71,12 +76,19 @@ class RabbitPageSpeedDetailPage(context: Context) : RabbitBasePage(context) {
             color = Color.parseColor("#00e676")
         }
 
-        val coldDatas = LineDataSet(renderTimes, "冷启动耗时").apply {
+        val inflateDatas = LineDataSet(inflateTimes, "inflate耗时").apply {
             setCircleColor(Color.parseColor("#ff4081"))
             color = Color.parseColor("#ff4081")
         }
+
+        val fullDrawDatas = LineDataSet(renderTimes, "完全渲染耗时").apply {
+            setCircleColor(Color.parseColor("#aa00ff"))
+            color = Color.parseColor("#aa00ff")
+        }
+
         dataSets.add(onCreateDatas)
-        dataSets.add(coldDatas)
+        dataSets.add(inflateDatas)
+        dataSets.add(fullDrawDatas)
 
         mRabbitSpeedDetailChart.data =  LineData(dataSets)
 

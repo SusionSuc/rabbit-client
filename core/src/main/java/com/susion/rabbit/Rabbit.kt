@@ -7,10 +7,12 @@ import android.arch.lifecycle.OnLifecycleEvent
 import android.arch.lifecycle.ProcessLifecycleOwner
 import android.content.Context
 import com.susion.rabbit.config.RabbitConfig
+import com.susion.rabbit.config.RabbitSettings
 import com.susion.rabbit.db.RabbitDbStorageManager
 import com.susion.rabbit.exception.RabbitExceptionManager
 import com.susion.rabbit.net.RabbitHttpLogInterceptor
 import com.susion.rabbit.tracer.RabbitTracer
+import com.susion.rabbit.tracer.monitor.RabbitAppSpeedInterceptor
 import com.susion.rabbit.ui.RabbitUiManager
 import com.susion.rabbit.utils.FloatingViewPermissionHelper
 import okhttp3.Interceptor
@@ -93,6 +95,8 @@ object Rabbit {
      * */
     fun getHttpLogInterceptor(): Interceptor = httpLogInterceptor
 
+    fun getApiTracerInterceptor() = RabbitAppSpeedInterceptor()
+
     fun geConfig() = mConfig
 
     /**
@@ -110,5 +114,13 @@ object Rabbit {
      * 悬浮球是否在展示
      * */
     fun isOpen() = isInit
+
+
+    fun autoOpen(context: Context) = RabbitSettings.autoOpenRabbit(context)
+
+    fun enableAutoOpen(autoOpen: Boolean) {
+        if (application == null) return
+        RabbitSettings.autoOpenRabbit(application!!, autoOpen)
+    }
 
 }

@@ -5,7 +5,6 @@ import com.susion.rabbit.Rabbit
 import com.susion.rabbit.base.entities.RabbitGreenDaoInfo
 import com.susion.rabbit.exception.entities.RabbitExceptionInfo
 import com.susion.rabbit.greendao.DaoMaster
-import com.susion.rabbit.greendao.RabbitPageSpeedInfoDao
 import com.susion.rabbit.net.entities.RabbitHttpLogInfo
 import com.susion.rabbit.tracer.entities.RabbitAppStartSpeedInfo
 import com.susion.rabbit.tracer.entities.RabbitBlockFrameInfo

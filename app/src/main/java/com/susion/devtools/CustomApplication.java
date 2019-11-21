@@ -19,8 +19,8 @@ public class CustomApplication extends Application {
         RabbitConfig myConfig = new RabbitConfig();
 
         RabbitConfig.TraceConfig traceConfig = new RabbitConfig.TraceConfig();
-        traceConfig.setHomeActivityName(MainActivity.class.getName());
         myConfig.setTraceConfig(traceConfig);
+
         Rabbit.init(this,myConfig);
 
     }

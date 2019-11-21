@@ -1,5 +1,6 @@
 package com.susion.rabbit.utils
 
+import android.content.Context
 import java.io.File
 import java.io.IOException
 import java.security.MessageDigest
@@ -91,6 +92,26 @@ object FileUtils{
                 }
             }
             toString()
+        }
+    }
+
+    fun getAssetString(context: Context, name: String): String {
+        var result = ""
+        try {
+            //获取输入流
+            val mAssets = context.assets.open(name)
+            //获取文件的字节数
+            val length = mAssets.available()
+            //创建byte数组
+            val buffer = ByteArray(length)
+            //将文件中的数据写入到字节数组中
+            mAssets.read(buffer)
+            mAssets.close()
+            result = String(buffer)
+            return result
+        } catch (e: IOException) {
+            e.printStackTrace()
+            return result
         }
     }
 

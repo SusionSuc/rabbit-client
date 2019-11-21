@@ -25,9 +25,29 @@ public class RabbitPageSpeedInfo implements RabbitGreenDaoInfo {
 
     public long createEndTime;
 
-    public long drawFinishTime;
+    public long inflateFinishTime;
+
+    public long fullDrawFinishTime;
 
     public long resumeEndTime;
+
+    @Generated(hash = 2079077552)
+    public RabbitPageSpeedInfo(Long id, String pageName, long time,
+            long createStartTime, long createEndTime, long inflateFinishTime,
+            long fullDrawFinishTime, long resumeEndTime) {
+        this.id = id;
+        this.pageName = pageName;
+        this.time = time;
+        this.createStartTime = createStartTime;
+        this.createEndTime = createEndTime;
+        this.inflateFinishTime = inflateFinishTime;
+        this.fullDrawFinishTime = fullDrawFinishTime;
+        this.resumeEndTime = resumeEndTime;
+    }
+
+    @Generated(hash = 1224997673)
+    public RabbitPageSpeedInfo() {
+    }
 
     @Keep
     public long getPageCreateTime(){
@@ -35,24 +55,12 @@ public class RabbitPageSpeedInfo implements RabbitGreenDaoInfo {
     }
 
     @Keep
-    public long getPageRenderTime(){
-        return  drawFinishTime - createStartTime;
+    public long getPageInflateTime(){
+        return  inflateFinishTime - createStartTime;
     }
 
-    @Generated(hash = 600818591)
-    public RabbitPageSpeedInfo(Long id, String pageName, long time, long createStartTime, long createEndTime,
-            long drawFinishTime, long resumeEndTime) {
-        this.id = id;
-        this.pageName = pageName;
-        this.time = time;
-        this.createStartTime = createStartTime;
-        this.createEndTime = createEndTime;
-        this.drawFinishTime = drawFinishTime;
-        this.resumeEndTime = resumeEndTime;
-    }
-
-    @Generated(hash = 1224997673)
-    public RabbitPageSpeedInfo() {
+    public long getFullRenderTime(){
+        return fullDrawFinishTime - createStartTime;
     }
 
     @Override
@@ -76,69 +84,54 @@ public class RabbitPageSpeedInfo implements RabbitGreenDaoInfo {
         this.pageName = pageName;
     }
 
-    public Long getTime() {
+    public long getTime() {
         return this.time;
-    }
-
-    public void setTime(Long time) {
-        this.time = time;
-    }
-
-    public Long getCreateStartTime() {
-        return this.createStartTime;
-    }
-
-    public void setCreateStartTime(Long createStartTime) {
-        this.createStartTime = createStartTime;
-    }
-
-    public Long getCreateEndTime() {
-        return this.createEndTime;
-    }
-
-    public void setCreateEndTime(Long createEndTime) {
-        this.createEndTime = createEndTime;
-    }
-
-    public Long getDrawFinishTime() {
-        return this.drawFinishTime;
-    }
-
-    public void setDrawFinishTime(Long drawFinishTime) {
-        this.drawFinishTime = drawFinishTime;
-    }
-
-    public Long getResumeEndTime() {
-        return this.resumeEndTime;
-    }
-
-    public void setResumeEndTime(Long resumeEndTime) {
-        this.resumeEndTime = resumeEndTime;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public void setTime(long time) {
         this.time = time;
     }
 
+    public long getCreateStartTime() {
+        return this.createStartTime;
+    }
+
     public void setCreateStartTime(long createStartTime) {
         this.createStartTime = createStartTime;
+    }
+
+    public long getCreateEndTime() {
+        return this.createEndTime;
     }
 
     public void setCreateEndTime(long createEndTime) {
         this.createEndTime = createEndTime;
     }
 
-    public void setDrawFinishTime(long drawFinishTime) {
-        this.drawFinishTime = drawFinishTime;
+    public long getInflateFinishTime() {
+        return this.inflateFinishTime;
+    }
+
+    public void setInflateFinishTime(long inflateFinishTime) {
+        this.inflateFinishTime = inflateFinishTime;
+    }
+
+    public long getFullDrawFinishTime() {
+        return this.fullDrawFinishTime;
+    }
+
+    public void setFullDrawFinishTime(long fullDrawFinishTime) {
+        this.fullDrawFinishTime = fullDrawFinishTime;
+    }
+
+    public long getResumeEndTime() {
+        return this.resumeEndTime;
     }
 
     public void setResumeEndTime(long resumeEndTime) {
         this.resumeEndTime = resumeEndTime;
     }
+
 
 
 }

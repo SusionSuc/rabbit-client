@@ -29,9 +29,7 @@ object RabbitTracer {
         FrameTracer()
     }
 
-    private val appSpeedMonitor = RabbitAppSpeedMonitor().apply {
-        init()
-    }
+    private val appSpeedMonitor = RabbitAppSpeedMonitor()
 
     fun init(context: Application) {
         if (initStatus) return
@@ -49,6 +47,7 @@ object RabbitTracer {
             openFpsMonitor()
         }
 
+        appSpeedMonitor.init(context)
         if (RabbitSettings.acSpeedMonitorOpenFlag(context)){
             RabbitLog.d("openPageSpeedMonitor ")
             openPageSpeedMonitor()
@@ -84,4 +83,9 @@ object RabbitTracer {
     fun blockMonitorIsOpen() = frameTracer.blockMonitorIsOpen()
 
     fun pageSpeedMonitorIsOpen() = appSpeedMonitor.isOpen()
+
+    fun markRequestFinish(requestUrl: String) {
+        appSpeedMonitor.markRequestFinish(requestUrl)
+    }
+
 }

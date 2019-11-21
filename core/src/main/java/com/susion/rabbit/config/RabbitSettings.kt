@@ -12,6 +12,7 @@ internal object RabbitSettings {
     private val AUTO_OPEN_FPS_CHECK = "auto_open_fps_check"
     private val AUTO_OPEM_BLOACK_CHECK = "auto_open_block_check"
     private val AUTO_OPEN_ACTIVITY_SPEED_CHECK = "auto_open_ac_speed_check"
+    private val AUTO_OPEN_RABBIT = "auto_open"
 
     fun setFPSCheckOpenFlag(context: Context, autoOpen: Boolean) {
         setBooleanValue(context, AUTO_OPEN_FPS_CHECK, autoOpen)
@@ -24,6 +25,13 @@ internal object RabbitSettings {
     fun setActivitySpeedMonitorOpenFlag(context: Context, autoOpen: Boolean){
         setBooleanValue(context, AUTO_OPEN_ACTIVITY_SPEED_CHECK, autoOpen)
     }
+
+    fun autoOpenRabbit(context: Context,autoOpen: Boolean) {
+        setBooleanValue(context, AUTO_OPEN_RABBIT, autoOpen)
+    }
+
+    fun autoOpenRabbit(context: Context) = getSp(context).getBoolean(AUTO_OPEN_RABBIT, false)
+
 
     fun blockCheckAutoOpen(context: Context) = getSp(context).getBoolean(AUTO_OPEM_BLOACK_CHECK, false)
 
