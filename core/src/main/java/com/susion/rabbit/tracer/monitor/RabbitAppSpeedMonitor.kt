@@ -42,7 +42,7 @@ class RabbitAppSpeedMonitor {
 
     fun init(context: Context) {
         loadConfig(context)
-        monitorAppStartSpeed()
+        monitorApplicationStart()
         RabbitLog.d(TAG, "entryActivityName : $entryActivityName")
     }
 
@@ -53,7 +53,6 @@ class RabbitAppSpeedMonitor {
      * */
     private fun loadConfig(context: Context) {
         try {
-
             val jsonStr = FileUtils.getAssetString(context, ASSERT_FILE_NAME)
             if (jsonStr.isEmpty()) return
             confgiInfo = Gson().fromJson(jsonStr,RabbitAppSpeedMonitorConfig::class.java)
@@ -100,6 +99,7 @@ class RabbitAppSpeedMonitor {
                 appSpeedInfo.createEndTime = createEndTime
                 appSpeedInfo.fullShowCostTime = 0
                 if (entryActivityName.isEmpty()) {
+                    appSpeedCanRecord = false
                     RabbitDbStorageManager.save(appSpeedInfo)
                 }
             }
@@ -122,14 +122,14 @@ class RabbitAppSpeedMonitor {
             }
 
             override fun activityDrawFinish(activity: Any, time: Long) {
-                saveAppSpeedInfoToLocal(time)
-                if (entryActivityName.isNotEmpty()) {
-                    saveAppStartInfoToLocal(time, activity.javaClass.simpleName)
+                saveAppPageSpeedInfoToLocal(time)
+                if (entryActivityName.isNotEmpty() && appSpeedCanRecord) {
+                    saveApplicationStartInfoToLocal(time, activity.javaClass.simpleName)
                 }
             }
 
             //页面测试信息
-            private fun saveAppSpeedInfoToLocal(drawFinishTime: Long) {
+            private fun saveAppPageSpeedInfoToLocal(drawFinishTime: Long) {
                 if (!pageSpeedCanRecord) return
 
                 if (pageSpeedInfo.inflateFinishTime == 0L) {
@@ -158,8 +158,8 @@ class RabbitAppSpeedMonitor {
                     RabbitDbStorageManager.save(pageSpeedInfo)
                 }
             }
-
         }
+
     }
 
     private fun resetPageApiRequestStatus(acSimpleName: String) {
@@ -183,25 +183,21 @@ class RabbitAppSpeedMonitor {
         }
     }
 
-    private fun monitorAppStartSpeed() {
+    private fun monitorApplicationStart() {
         RabbitTracerEventNotifier.eventNotifier = object : RabbitTracerEventNotifier.TracerEvent {
             override fun applicationCreateTime(attachBaseContextTime: Long, createEndTime: Long) {
-                appSpeedCanRecord = true
                 appSpeedInfo.createStartTime = attachBaseContextTime
                 appSpeedInfo.createEndTime = createEndTime
-                if (entryActivityName.isEmpty()) {
-                    RabbitDbStorageManager.save(appSpeedInfo)
-                }
+                RabbitDbStorageManager.save(appSpeedInfo)
             }
         }
     }
 
     //应用测速信息记录
-    private fun saveAppStartInfoToLocal(pageDrawFinishTime: Long, pageName: String) {
+    private fun saveApplicationStartInfoToLocal(pageDrawFinishTime: Long, pageName: String) {
         if (!appSpeedCanRecord || pageName != entryActivityName) return
 
         val apiStatus = pageApiStatusInfo[entryActivityName]
-
         if (apiStatus != null) {
             if (apiStatus.allApiRequestFinish()) {
                 appSpeedCanRecord = false

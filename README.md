@@ -4,7 +4,7 @@
 
 >**本项目的初衷是使自己了解性能监控等模块的实现原理, 因此对于每一个功能我都会比较详细的记录其实现原理**
 
->实现原理相关文章见 : [Rabbit实现原理剖析](https://github.com/SusionSuc/AdvancedAndroid/blob/master/Rabbit%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/README.md)
+实现原理相关文章见:[Rabbit实现原理剖析](https://github.com/SusionSuc/AdvancedAndroid/blob/master/Rabbit%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/README.md)
 
 目前主要包括下面功能:
 
@@ -70,27 +70,21 @@ val okHttpClient = OkHttpClient.Builder().addInterceptor(Rabbit.getHttpLogInterc
 
 目前App测速功能主要包括:
 
-1. 应用`onCreate`耗时统计
-2. 应用`冷启动`耗时统计
-3. 页面`onCreate`耗时统计
-4. 页面`渲染`耗时统计
+1. `Application.onCreate`耗时统计
+2. 应用冷启动耗时统计
+3. `Activity.onCreate`耗时统计
+4. `Activity`首次`inflate`耗时统计
+5. `Activity`首次渲染耗时
 
-**应用启动耗时统计**会自动打开, 如果想要打开/关闭页面耗时统计开关可以调用:
-
-```
-RabbitTracer.openPageSpeedMonitor()
-RabbitTracer.closePageSpeedMonitor()
-```
-
-最终呈现效果如下图:
+具体实现原理可以看[测速组件实现原理](https://github.com/SusionSuc/AdvancedAndroid/blob/master/Rabbit%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/%E5%BA%94%E7%94%A8%E6%B5%8B%E9%80%9F%E7%BB%84%E4%BB%B6.md),最终呈现效果如下图:
 
 >应用启动耗时统计
 
-![net1](picture/app_speed.png)
+![net1](picture/app_speed.jpg)
 
 >页面启动耗时统计
 
-![net1](picture/page_speed.png)
+![net1](picture/page_speed.jpg)
 
 
 # 实现原理
