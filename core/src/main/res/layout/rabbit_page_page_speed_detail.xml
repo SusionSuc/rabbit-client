@@ -1,158 +1,189 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/rabbit_white"
-    android:orientation="vertical">
-
-    <TextView
-        android:layout_margin="10dp"
-        android:textSize="16dp"
-        android:padding="5dp"
-        android:text="耗时概略"
-        android:textStyle="bold"
-        android:textColor="@color/rabbit_black"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <View
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/rabbit_divider_line"/>
+    android:background="@color/rabbit_white">
 
     <LinearLayout
-        android:layout_margin="10dp"
-        android:background="@color/rabbit_light_green"
-        android:padding="15dp"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:padding="5dp"
+            android:text="耗时概略"
+            android:textColor="@color/rabbit_black"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@color/rabbit_divider_line" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_margin="10dp"
+            android:background="@color/rabbit_light_green"
+            android:orientation="vertical"
+            android:padding="15dp">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:textSize="14dp"
-                android:text="页面名称"
-                android:textColor="@color/rabbit_black"
-                android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/mRabbitSpeedDetailTvPageName"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:textSize="14dp"
-                android:text="MainActivity"
-                android:textColor="@color/rabbit_black"
-                android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="页面名称"
+                    android:textColor="@color/rabbit_black"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:id="@+id/mRabbitSpeedDetailTvPageName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="MainActivity"
+                    android:textColor="@color/rabbit_black"
+                    android:textSize="14dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="onCreate平均耗时"
+                    android:textColor="@color/rabbit_black"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:id="@+id/mRabbitSpeedDetailTvCreateTime"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="110ms"
+                    android:textColor="@color/rabbit_black"
+                    android:textSize="14dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="首次inflate平均耗时"
+                    android:textColor="@color/rabbit_black"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:id="@+id/mRabbitSpeedDetailTvInlateTime"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="110ms"
+                    android:textColor="@color/rabbit_black"
+                    android:textSize="14dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="完全渲染平均耗时"
+                    android:textColor="@color/rabbit_black"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:id="@+id/mRabbitSpeedDetailTvFullRenderTime"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="110ms"
+                    android:textColor="@color/rabbit_black"
+                    android:textSize="14dp" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_marginTop="10dp"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_margin="10dp"
+            android:padding="5dp"
+            android:text="耗时曲线"
+            android:textColor="@color/rabbit_black"
+            android:textSize="16dp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:textSize="14dp"
-                android:text="onCreate平均耗时"
-                android:textColor="@color/rabbit_black"
-                android:layout_height="wrap_content"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@color/rabbit_divider_line" />
 
-            <TextView
-                android:id="@+id/mRabbitSpeedDetailTvCreateTime"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:textSize="14dp"
-                android:text="110ms"
-                android:textColor="@color/rabbit_black"
-                android:layout_height="wrap_content"/>
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/mRabbitSpeedDetailChart"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_margin="10dp" />
 
-        </LinearLayout>
 
-        <LinearLayout
-            android:layout_marginTop="10dp"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_margin="10dp"
+            android:padding="5dp"
+            android:text="网络请求耗时曲线"
+            android:textColor="@color/rabbit_black"
+            android:textSize="16dp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:textSize="14dp"
-                android:text="首次inflate平均耗时"
-                android:textColor="@color/rabbit_black"
-                android:layout_height="wrap_content"/>
-
-            <TextView
-                android:id="@+id/mRabbitSpeedDetailTvInlateTime"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:textSize="14dp"
-                android:text="110ms"
-                android:textColor="@color/rabbit_black"
-                android:layout_height="wrap_content"/>
-
-        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@color/rabbit_divider_line" />
 
         <LinearLayout
-            android:layout_marginTop="10dp"
+            android:id="@+id/mRabbitSpeedDetailRequestChartLl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:textSize="14dp"
-                android:text="完全渲染平均耗时"
-                android:textColor="@color/rabbit_black"
-                android:layout_height="wrap_content"/>
-
-            <TextView
-                android:id="@+id/mRabbitSpeedDetailTvFullRenderTime"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:textSize="14dp"
-                android:text="110ms"
-                android:textColor="@color/rabbit_black"
-                android:layout_height="wrap_content"/>
-
-        </LinearLayout>
+            android:orientation="vertical" />
 
     </LinearLayout>
 
-    <TextView
-        android:layout_margin="10dp"
-        android:textSize="16dp"
-        android:padding="5dp"
-        android:text="耗时曲线"
-        android:textStyle="bold"
-        android:textColor="@color/rabbit_black"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <View
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/rabbit_divider_line"/>
-
-    <com.github.mikephil.charting.charts.LineChart
-        android:layout_margin="10dp"
-        android:id="@+id/mRabbitSpeedDetailChart"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"/>
-
-
-</LinearLayout>
+</ScrollView>

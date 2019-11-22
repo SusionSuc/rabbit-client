@@ -23,7 +23,8 @@ class RabbitPageSpeedConfig(
 
 class RabbitApiInfo(
     val api: String = "",
-    var isFinish: Boolean = false
+    var isFinish: Boolean = false,
+    var costTime:Long = 0
 )
 
 class RabbitPageApiInfo(val apiStatusList: ArrayList<RabbitApiInfo> = ArrayList()) {

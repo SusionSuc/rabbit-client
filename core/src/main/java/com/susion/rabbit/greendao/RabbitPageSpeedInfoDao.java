@@ -32,6 +32,7 @@ public class RabbitPageSpeedInfoDao extends AbstractDao<RabbitPageSpeedInfo, Lon
         public final static Property InflateFinishTime = new Property(5, long.class, "inflateFinishTime", false, "INFLATE_FINISH_TIME");
         public final static Property FullDrawFinishTime = new Property(6, long.class, "fullDrawFinishTime", false, "FULL_DRAW_FINISH_TIME");
         public final static Property ResumeEndTime = new Property(7, long.class, "resumeEndTime", false, "RESUME_END_TIME");
+        public final static Property ApiRequestCostString = new Property(8, String.class, "apiRequestCostString", false, "API_REQUEST_COST_STRING");
     }
 
 
@@ -54,7 +55,8 @@ public class RabbitPageSpeedInfoDao extends AbstractDao<RabbitPageSpeedInfo, Lon
                 "\"CREATE_END_TIME\" INTEGER NOT NULL ," + // 4: createEndTime
                 "\"INFLATE_FINISH_TIME\" INTEGER NOT NULL ," + // 5: inflateFinishTime
                 "\"FULL_DRAW_FINISH_TIME\" INTEGER NOT NULL ," + // 6: fullDrawFinishTime
-                "\"RESUME_END_TIME\" INTEGER NOT NULL );"); // 7: resumeEndTime
+                "\"RESUME_END_TIME\" INTEGER NOT NULL ," + // 7: resumeEndTime
+                "\"API_REQUEST_COST_STRING\" TEXT);"); // 8: apiRequestCostString
     }
 
     /** Drops the underlying database table. */
@@ -82,6 +84,11 @@ public class RabbitPageSpeedInfoDao extends AbstractDao<RabbitPageSpeedInfo, Lon
         stmt.bindLong(6, entity.getInflateFinishTime());
         stmt.bindLong(7, entity.getFullDrawFinishTime());
         stmt.bindLong(8, entity.getResumeEndTime());
+ 
+        String apiRequestCostString = entity.getApiRequestCostString();
+        if (apiRequestCostString != null) {
+            stmt.bindString(9, apiRequestCostString);
+        }
     }
 
     @Override
@@ -103,6 +110,11 @@ public class RabbitPageSpeedInfoDao extends AbstractDao<RabbitPageSpeedInfo, Lon
         stmt.bindLong(6, entity.getInflateFinishTime());
         stmt.bindLong(7, entity.getFullDrawFinishTime());
         stmt.bindLong(8, entity.getResumeEndTime());
+ 
+        String apiRequestCostString = entity.getApiRequestCostString();
+        if (apiRequestCostString != null) {
+            stmt.bindString(9, apiRequestCostString);
+        }
     }
 
     @Override
@@ -120,7 +132,8 @@ public class RabbitPageSpeedInfoDao extends AbstractDao<RabbitPageSpeedInfo, Lon
             cursor.getLong(offset + 4), // createEndTime
             cursor.getLong(offset + 5), // inflateFinishTime
             cursor.getLong(offset + 6), // fullDrawFinishTime
-            cursor.getLong(offset + 7) // resumeEndTime
+            cursor.getLong(offset + 7), // resumeEndTime
+            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8) // apiRequestCostString
         );
         return entity;
     }
@@ -135,6 +148,7 @@ public class RabbitPageSpeedInfoDao extends AbstractDao<RabbitPageSpeedInfo, Lon
         entity.setInflateFinishTime(cursor.getLong(offset + 5));
         entity.setFullDrawFinishTime(cursor.getLong(offset + 6));
         entity.setResumeEndTime(cursor.getLong(offset + 7));
+        entity.setApiRequestCostString(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
      }
     
     @Override

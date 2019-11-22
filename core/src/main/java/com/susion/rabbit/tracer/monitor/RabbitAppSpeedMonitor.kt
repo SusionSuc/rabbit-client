@@ -11,7 +11,6 @@ import java.lang.Exception
 
 /**
  * susionwang at 2019-11-14
- *
  * 应用速度监控:
  * 1. 应用启动速度
  * 2. 页面启动速度、渲染速度
@@ -20,12 +19,13 @@ class RabbitAppSpeedMonitor {
 
     private val TAG = javaClass.simpleName
 
-    private val ASSERT_FILE_NAME = "page_api_list.json"
+    private val ASSERT_FILE_NAME = "rabbit_speed_monitor.json"
 
     private var currentPageName: String = ""
     private val pageApiStatusInfo = HashMap<String, RabbitPageApiInfo>()
-    private var confgiInfo = RabbitAppSpeedMonitorConfig()
+    private var configInfo = RabbitAppSpeedMonitorConfig()
     private val monitorPageApiSet = HashSet<String>()
+    private val apiSet = HashSet<String>()
 
     //避免重复统计测试时间
     private var appSpeedCanRecord = false
@@ -49,19 +49,23 @@ class RabbitAppSpeedMonitor {
     /**
      * 目前定死从 asstets/page_api_list.json 文件中加载
      *
-     * 也可以扩展为网络配置
+     * TODO:也可以扩展为网络配置
      * */
     private fun loadConfig(context: Context) {
         try {
             val jsonStr = FileUtils.getAssetString(context, ASSERT_FILE_NAME)
             if (jsonStr.isEmpty()) return
-            confgiInfo = Gson().fromJson(jsonStr,RabbitAppSpeedMonitorConfig::class.java)
 
-            confgiInfo.pageConfigList.forEach {
+            configInfo = Gson().fromJson(jsonStr,RabbitAppSpeedMonitorConfig::class.java)
+
+            configInfo.pageConfigList.forEach {
                 monitorPageApiSet.add(it.pageSimpleName)
+                it.apiList.forEach {simpleUrl->
+                    apiSet.add(simpleUrl)
+                }
             }
 
-            entryActivityName = confgiInfo.homeActivity
+            entryActivityName = configInfo.homeActivity
 
         } catch (e: Exception) {
             RabbitLog.d(TAG, "loadConfig failed ${e.message} ")
@@ -71,11 +75,12 @@ class RabbitAppSpeedMonitor {
     /**
      * 一个请求结束
      * */
-    fun markRequestFinish(requestUrl: String) {
+    fun markRequestFinish(requestUrl: String, costTime:Long = 0) {
         val curApiInfo = pageApiStatusInfo[currentPageName] ?: return
         curApiInfo.apiStatusList.forEach {
             if (requestUrl.contains(it.api)) {
                 it.isFinish = true
+                it.costTime = costTime
             }
         }
     }
@@ -150,6 +155,7 @@ class RabbitAppSpeedMonitor {
                         )
                         pageSpeedCanRecord = false
                         pageSpeedInfo.fullDrawFinishTime = drawFinishTime
+                        pageSpeedInfo.apiRequestCostString = Gson().toJson(apiStatus).toString()
                         RabbitDbStorageManager.save(pageSpeedInfo)
                     }
                 } else {
@@ -167,7 +173,7 @@ class RabbitAppSpeedMonitor {
         var pageApiInfo = pageApiStatusInfo[acSimpleName]
         if (pageApiInfo == null) {
             pageApiInfo = RabbitPageApiInfo()
-            for (apiConfigInfo in confgiInfo.pageConfigList) {
+            for (apiConfigInfo in configInfo.pageConfigList) {
                 if (apiConfigInfo.pageSimpleName == acSimpleName) {
                     apiConfigInfo.apiList.forEach { apiUrl ->
                         pageApiInfo.apiStatusList.add(RabbitApiInfo(apiUrl, false))
@@ -212,5 +218,15 @@ class RabbitAppSpeedMonitor {
     }
 
     fun isOpen() = pageSpeedMonitorEnable
+
+    //是否监控这个请求
+    fun monitorRequest(requestUrl: String):Boolean {
+        for (api in  apiSet){
+            if (requestUrl.contains(api)){
+                return true
+            }
+        }
+        return false
+    }
 
 }

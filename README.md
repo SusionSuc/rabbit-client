@@ -13,6 +13,7 @@
 3. App 流畅度(FPS) 监控
 4. App 卡顿监控
 5. App 测速 (应用启动测速&页面测速)
+6. 网络请求耗时监控
 
 # 使用文档
 
@@ -80,11 +81,15 @@ val okHttpClient = OkHttpClient.Builder().addInterceptor(Rabbit.getHttpLogInterc
 
 >应用启动耗时统计
 
-![net1](picture/app_speed.jpg)
+![speed](picture/app_speed.png)
 
 >页面启动耗时统计
 
-![net1](picture/page_speed.jpg)
+![speed](picture/page_render_speed.png)
+
+>网络耗时统计
+
+![](picture/page_request_speed.png)
 
 
 # 实现原理

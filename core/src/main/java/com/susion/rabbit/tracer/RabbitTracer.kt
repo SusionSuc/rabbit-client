@@ -16,7 +16,9 @@ import com.susion.rabbit.tracer.monitor.RabbitAppSpeedMonitor
 object RabbitTracer {
 
     private val TAG = "rabbit-tracer"
+
     private var mContext: Application? = null
+
     private var initStatus = false
 
     private val lazyFrameTracer by lazy {
@@ -84,8 +86,9 @@ object RabbitTracer {
 
     fun pageSpeedMonitorIsOpen() = appSpeedMonitor.isOpen()
 
-    fun markRequestFinish(requestUrl: String) {
-        appSpeedMonitor.markRequestFinish(requestUrl)
+    fun markRequestFinish(requestUrl: String, costTime:Long = 0) {
+        appSpeedMonitor.markRequestFinish(requestUrl,costTime)
     }
 
+    fun monitorRequest(requestUrl: String) = appSpeedMonitor.monitorRequest(requestUrl)
 }

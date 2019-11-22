@@ -31,10 +31,13 @@ public class RabbitPageSpeedInfo implements RabbitGreenDaoInfo {
 
     public long resumeEndTime;
 
-    @Generated(hash = 2079077552)
+    public String apiRequestCostString;
+
+    @Generated(hash = 216133275)
     public RabbitPageSpeedInfo(Long id, String pageName, long time,
             long createStartTime, long createEndTime, long inflateFinishTime,
-            long fullDrawFinishTime, long resumeEndTime) {
+            long fullDrawFinishTime, long resumeEndTime,
+            String apiRequestCostString) {
         this.id = id;
         this.pageName = pageName;
         this.time = time;
@@ -43,6 +46,7 @@ public class RabbitPageSpeedInfo implements RabbitGreenDaoInfo {
         this.inflateFinishTime = inflateFinishTime;
         this.fullDrawFinishTime = fullDrawFinishTime;
         this.resumeEndTime = resumeEndTime;
+        this.apiRequestCostString = apiRequestCostString;
     }
 
     @Generated(hash = 1224997673)
@@ -132,6 +136,13 @@ public class RabbitPageSpeedInfo implements RabbitGreenDaoInfo {
         this.resumeEndTime = resumeEndTime;
     }
 
+    public String getApiRequestCostString() {
+        return this.apiRequestCostString;
+    }
+
+    public void setApiRequestCostString(String apiRequestCostString) {
+        this.apiRequestCostString = apiRequestCostString;
+    }
 
 
 }
