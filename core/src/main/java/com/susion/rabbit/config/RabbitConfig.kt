@@ -24,7 +24,8 @@ class RabbitConfig(
         //卡顿栈采集周期
         var blockStackCollectPeriod: Long = STANDARD_FRAME_NS,
         //卡顿检测时间
-        var blockThreshold: Long = STANDARD_FRAME_NS * 10
+        var blockThreshold: Long = STANDARD_FRAME_NS * 10,
+        var autoOpenPageSpeedMonitor:Boolean = false
     ) {
         companion object {
             var STANDARD_FRAME_NS = 16666666L

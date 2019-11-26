@@ -47,7 +47,7 @@ class RabbitFPSMonitor : LazyChoreographerFrameUpdateMonitor.FrameUpdateListener
 
         if (durationNs >= FPS_COLLECT_PERIOD) {
             val fps = min(60f, collectFrame * 6f)
-            Rabbit.uiManager.updateUiFromAsynThread(RabbitUiManager.MSA_UPDATE_FPS, fps)
+            Rabbit.uiManager.updateUiFromAsyncThread(RabbitUiManager.MSA_UPDATE_FPS, fps)
             lastTotalFrameNs = totalFrameNs
             lastTotalFrameNumber = totalFrameNumber
         }

@@ -7,7 +7,6 @@ import com.susion.rabbit.db.RabbitDbStorageManager
 import com.susion.rabbit.tracer.RabbitTracerEventNotifier
 import com.susion.rabbit.tracer.entities.*
 import com.susion.rabbit.utils.FileUtils
-import java.lang.Exception
 
 /**
  * susionwang at 2019-11-14
@@ -56,11 +55,11 @@ class RabbitAppSpeedMonitor {
             val jsonStr = FileUtils.getAssetString(context, ASSERT_FILE_NAME)
             if (jsonStr.isEmpty()) return
 
-            configInfo = Gson().fromJson(jsonStr,RabbitAppSpeedMonitorConfig::class.java)
+            configInfo = Gson().fromJson(jsonStr, RabbitAppSpeedMonitorConfig::class.java)
 
             configInfo.pageConfigList.forEach {
                 monitorPageApiSet.add(it.pageSimpleName)
-                it.apiList.forEach {simpleUrl->
+                it.apiList.forEach { simpleUrl ->
                     apiSet.add(simpleUrl)
                 }
             }
@@ -75,7 +74,7 @@ class RabbitAppSpeedMonitor {
     /**
      * 一个请求结束
      * */
-    fun markRequestFinish(requestUrl: String, costTime:Long = 0) {
+    fun markRequestFinish(requestUrl: String, costTime: Long = 0) {
         val curApiInfo = pageApiStatusInfo[currentPageName] ?: return
         curApiInfo.apiStatusList.forEach {
             if (requestUrl.contains(it.api)) {
@@ -210,7 +209,7 @@ class RabbitAppSpeedMonitor {
                 appSpeedInfo.fullShowCostTime = pageDrawFinishTime - appSpeedInfo.createStartTime
                 RabbitDbStorageManager.save(appSpeedInfo)
             }
-        }else{
+        } else {
             appSpeedCanRecord = false
             appSpeedInfo.fullShowCostTime = pageDrawFinishTime - appSpeedInfo.createStartTime
             RabbitDbStorageManager.save(appSpeedInfo)
@@ -220,9 +219,9 @@ class RabbitAppSpeedMonitor {
     fun isOpen() = pageSpeedMonitorEnable
 
     //是否监控这个请求
-    fun monitorRequest(requestUrl: String):Boolean {
-        for (api in  apiSet){
-            if (requestUrl.contains(api)){
+    fun monitorRequest(requestUrl: String): Boolean {
+        for (api in apiSet) {
+            if (requestUrl.contains(api)) {
                 return true
             }
         }

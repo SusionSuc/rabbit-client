@@ -80,6 +80,14 @@ class RabbitEntryPage(context: Context) : RabbitBasePage(context) {
                     RabbitAppSpeedMonitorDetailPage::class.java
                 )
             )
+
+            add(
+                RabbitMainFeatureInfo(
+                    "内存泄漏",
+                    R.drawable.rabbit_icon_memory_leak,
+                   null
+                )
+            )
         }
     }
 

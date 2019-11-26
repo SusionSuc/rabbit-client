@@ -57,7 +57,7 @@ object Rabbit {
         application = applicationContext
         mConfig = config_
         RabbitExceptionManager.openGlobalExceptionCollector()
-        RabbitTracer.init(applicationContext)
+        RabbitTracer.init(applicationContext, mConfig.traceConfig)
         RabbitDbStorageManager.clearOldSessionData()
         isInit = true
     }

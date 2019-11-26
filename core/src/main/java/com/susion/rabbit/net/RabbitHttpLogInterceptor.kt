@@ -17,7 +17,7 @@ class RabbitHttpLogInterceptor : Interceptor {
     private val TAG = "RabbitHttpLogInterceptor"
     private var startNs = System.nanoTime()
 
-    override fun intercept(chain: Interceptor.Chain): Response {
+    override fun intercept(chain: Interceptor.Chain): Response? {
 
         val request = chain.request()
 
@@ -27,25 +27,21 @@ class RabbitHttpLogInterceptor : Interceptor {
 
         try {
 
-            processForHttpLog(request, response)
+            startNs = System.nanoTime()
+
+            val logInfo = RabbitHttpResponseParser.parserResponse(request, response, startNs)
+
+            if (logInfo.isvalid()) {
+                RabbitDbStorageManager.save(logInfo)
+            }
 
             return response
 
         } catch (e: Exception) {
+
             RabbitLog.d("RabbitHttpLogInterceptor error : ${e.printStackTrace()}")
-        }
 
-        return response
-
-    }
-
-    private fun processForHttpLog(request: Request, response: Response) {
-        startNs = System.nanoTime()
-
-        val logInfo = RabbitHttpResponseParser.parserResponse(request, response, startNs)
-
-        if (logInfo.isvalid()) {
-            RabbitDbStorageManager.save(logInfo)
+            return response
         }
     }
 

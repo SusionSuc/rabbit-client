@@ -1,0 +1,6 @@
+//debug 模式下才使用rabbit
+def taskName = getGradle().getStartParameter().taskNames.toString().toLowerCase()
+if (taskName.contains("debug")){
+    print("apply rabbit transform ! ---->")
+    apply plugin: 'rabbit-tracer-transform'
+}

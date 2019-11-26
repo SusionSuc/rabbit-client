@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.FrameLayout
+import android.widget.Toast
 import com.susion.rabbit.R
 import com.susion.rabbit.Rabbit
 import com.susion.rabbit.RabbitLog
@@ -203,7 +204,7 @@ class RabbitUiManager(val context: Context) {
         hideRabbitPage()
     }
 
-    fun updateUiFromAsynThread(msgType:Int, params:Any){
+    fun updateUiFromAsyncThread(msgType:Int, params:Any){
         val msg = uiHandler.obtainMessage()
         msg.what = msgType
         msg.obj = params
