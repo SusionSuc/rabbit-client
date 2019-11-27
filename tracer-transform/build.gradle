@@ -19,7 +19,7 @@ dependencies {
     api project(':tracer-interface')
 
     implementation gradleApi()
-    implementation "com.android.tools.build:gradle:${uniqueVersion.buildToolsVersion}"
+    implementation "com.android.tools.build:gradle:3.5.0"
     implementation "com.google.auto.service:auto-service:${uniqueVersion.autoServiceVersion}"
     kapt "com.google.auto.service:auto-service:${uniqueVersion.autoServiceVersion}"
 

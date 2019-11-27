@@ -2,10 +2,6 @@
 
 **Rabbit是一个可以帮助Android开发者提高开发效率和App质量的开发者工具，它的定位在一定程度上更偏向于`APM`。Rabbit目前处于开发阶段,各个功能都在不断完善中,如果哪里不足欢迎提`issue`或者`mr`**
 
->**本项目的初衷是使自己了解性能监控等模块的实现原理, 因此对于每一个功能我都会比较详细的记录其实现原理**
-
-实现原理相关文章见:[Rabbit实现原理剖析](https://github.com/SusionSuc/AdvancedAndroid/blob/master/Rabbit%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/README.md)
-
 目前主要包括下面功能:
 
 1. 网络日志监控
@@ -14,6 +10,8 @@
 4. App 卡顿监控
 5. App 测速 (应用启动测速&页面测速)
 6. 网络请求耗时监控
+
+>实现原理相关文章见:[Rabbit实现原理剖析](https://github.com/SusionSuc/AdvancedAndroid/blob/master/Rabbit%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/README.md)
 
 # 使用文档
 
