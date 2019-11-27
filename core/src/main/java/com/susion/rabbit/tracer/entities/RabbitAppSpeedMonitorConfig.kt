@@ -1,6 +1,6 @@
 package com.susion.rabbit.tracer.entities
 
-import android.support.annotation.Keep
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 
 /**

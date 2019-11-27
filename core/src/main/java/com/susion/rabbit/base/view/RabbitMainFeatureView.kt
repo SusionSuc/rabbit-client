@@ -39,6 +39,9 @@ class RabbitMainFeatureView : RelativeLayout, RabbitAdapterItemView<RabbitMainFe
         setPadding(pd10, 0, 0, 0)
         throttleFirstClick(Consumer {
             Rabbit.uiManager.openPage(mFeatureInfo.pageClass)
+            if (mFeatureInfo.pageClass == null){
+                mFeatureInfo.action()
+            }
         })
     }
 

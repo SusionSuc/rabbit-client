@@ -1,6 +1,6 @@
 package com.susion.rabbit.base
 
-import android.support.annotation.DrawableRes
+import androidx.annotation.DrawableRes
 import android.view.View
 
 /**
@@ -9,5 +9,6 @@ import android.view.View
 class RabbitMainFeatureInfo(
     val name: String,
     @DrawableRes val icon: Int,
-    val pageClass: Class<out View>?
+    val pageClass: Class<out View>?,
+    val action:()->Unit = {}
 )

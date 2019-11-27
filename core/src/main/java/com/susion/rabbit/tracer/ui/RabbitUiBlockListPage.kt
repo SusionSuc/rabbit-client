@@ -1,7 +1,7 @@
 package com.susion.rabbit.tracer.ui
 
 import android.content.Context
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.ViewGroup
 import com.susion.rabbit.R
 import com.susion.rabbit.base.adapter.RabbitRvAdapter
@@ -29,7 +29,11 @@ class RabbitUiBlockListPage(context: Context) : RabbitBasePage(context) {
         setTitle("卡顿日志")
 
         mUiBlockPageRv.adapter = logsAdapter
-        mUiBlockPageRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        mUiBlockPageRv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
+            context,
+            androidx.recyclerview.widget.LinearLayoutManager.VERTICAL,
+            false
+        )
         loadData()
 
         mUiBlockPageSRL.setOnRefreshListener {

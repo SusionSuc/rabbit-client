@@ -1,6 +1,6 @@
 package com.susion.rabbit.base.adapter
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 
@@ -8,13 +8,13 @@ import android.view.ViewGroup
  * create by susion
  * 简单的做数据 到 UI 的映射
  */
-abstract class RabbitRvAdapter<T>(val data: MutableList<T>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+abstract class RabbitRvAdapter<T>(val data: MutableList<T>) : androidx.recyclerview.widget.RecyclerView.Adapter<androidx.recyclerview.widget.RecyclerView.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): androidx.recyclerview.widget.RecyclerView.ViewHolder {
         return CommonViewHolder(createItem(viewType))
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int) {
         (holder as CommonViewHolder<T>).item.bindData(data[position], position)
     }
 
@@ -41,6 +41,6 @@ abstract class RabbitRvAdapter<T>(val data: MutableList<T>) : RecyclerView.Adapt
     abstract fun createItem(type: Int): RabbitAdapterItemView<*>
 
     private class CommonViewHolder<T> internal constructor(var item: RabbitAdapterItemView<T>) :
-        RecyclerView.ViewHolder(if (item is View) item else throw RuntimeException("RabbitRvAdapter item view must is view"))
+        androidx.recyclerview.widget.RecyclerView.ViewHolder(if (item is View) item else throw RuntimeException("RabbitRvAdapter item view must is view"))
 
 }

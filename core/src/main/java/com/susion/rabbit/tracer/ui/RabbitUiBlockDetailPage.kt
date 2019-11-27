@@ -2,7 +2,7 @@ package com.susion.rabbit.tracer.ui
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.ViewGroup
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -57,7 +57,11 @@ class RabbitUiBlockDetailPage(context: Context) : RabbitBasePage(context) {
             val traceList = getStackTraceList(blockInfo)
             logsAdapter.data.addAll(traceList.sortedByDescending { it.collectCount })
             mRabbitBlockDetailRv.adapter = logsAdapter
-            mRabbitBlockDetailRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            mRabbitBlockDetailRv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
+                context,
+                androidx.recyclerview.widget.LinearLayoutManager.VERTICAL,
+                false
+            )
             mRabbitBlockDetailTvCostTime.text = "卡顿时长 : ${translateToMs(blockInfo.costTime)} Ms ; 抓取主线程堆栈 : ${traceList.size} 次"
         } catch (e: Exception) {
             RabbitLog.d("block frame gson transform error")

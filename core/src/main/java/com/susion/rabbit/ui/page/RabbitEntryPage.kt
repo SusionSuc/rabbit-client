@@ -1,8 +1,9 @@
 package com.susion.rabbit.ui.page
 
 import android.content.Context
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import android.content.Intent
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import com.susion.rabbit.R
 import com.susion.rabbit.Rabbit
@@ -15,6 +16,7 @@ import com.susion.rabbit.net.ui.RabbitHttpLogListPage
 import com.susion.rabbit.tracer.ui.RabbitAppSpeedMonitorDetailPage
 import com.susion.rabbit.tracer.ui.RabbitUiBlockListPage
 import com.susion.rabbit.utils.getDrawable
+import leakcanary.LeakCanary
 
 /**
  * susionwang at 2019-10-21
@@ -35,7 +37,11 @@ class RabbitEntryPage(context: Context) : RabbitBasePage(context) {
         rv.adapter = featuresAdapter
         rv.layoutParams =
             LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
-        rv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        rv.layoutManager = LinearLayoutManager(
+            context,
+            LinearLayoutManager.VERTICAL,
+            false
+        )
         setTitle("Rabbit")
         rv.background = getDrawable(context, R.color.rabbit_white)
     }
@@ -86,7 +92,10 @@ class RabbitEntryPage(context: Context) : RabbitBasePage(context) {
                     "内存泄漏",
                     R.drawable.rabbit_icon_memory_leak,
                    null
-                )
+                ) {
+                    Rabbit.appCurrentActivity?.get()?.startActivity(LeakCanary.newLeakDisplayActivityIntent())
+                    Rabbit.uiManager.hideAllPage()
+                }
             )
         }
     }

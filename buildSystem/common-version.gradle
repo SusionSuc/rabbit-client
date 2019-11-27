@@ -2,17 +2,15 @@ rootProject.ext {
     versions = [
             versionCode                  : 1000000,
             versionName                  : "1.0.0",
-            applicationId                : "com.susion.devtools",
+            applicationId                : "com.susion.rabbit",
             minSdkVersion                : 21,
-            compileSdkVersion            : 27,
-            targetSdkVersion             : 27,
-            buildToolsVersion            : "27.0.3",
-            supportLibVersion            : "27.1.1",
+            compileSdkVersion            : 28,
+            targetSdkVersion             : 28,
+            buildToolsVersion            : "28.0.3",
             kotlinStdlibJdk7Version      : "1.3.21",
             loggingInterceptorVersion    : "3.10.0",
             archLifecycleVersion         : "1.1.0",
             multidexVersion              : "1.0.3",
-            leakcanaryAndroidVersion     : "1.5.4",
             rxbinding3Version            : "3.0.0-alpha2",
             gsonVersion                  : "2.8.2",
             rx2javaVersion               : "2.2.0",
@@ -20,12 +18,34 @@ rootProject.ext {
             retrofit2Version             : "2.4.0",
             retrofit2RxJavaAdapterVersion: "1.0.0",
             retrofit2ConvertJson         : "2.4.0",
-            glideVersion                 : "4.8.0",
+            glideVersion                 : "4.10.0",
             pbJavaVersion                : "3.8.0",
             protoVersion                 : "3.8.0",
             greenDaoVersion              : "3.2.2",
             asmVersion                   : "7.1",
             autoServiceVersion           : "1.0-rc4",
-            mpChartVersion               : "v3.1.0"
+            mpChartVersion               : "v3.1.0",
+            leakCanaryVersion            : "2.0-beta-5"
+    ]
+
+    def androidXVersion = "1.0.0"
+    def archLifeVersion = "2.0.0"
+
+    androidXDependencies = [
+            core            : "androidx.core:core:${androidXVersion}",
+            coreUtils       : "androidx.legacy:legacy-support-core-utils:${androidXVersion}",
+            coreUi          : "androidx.legacy:legacy-support-core-ui:${androidXVersion}",
+            media           : "androidx.media:media:${androidXVersion}",
+            fragment        : "androidx.fragment:fragment:${androidXVersion}",
+            annotations     : "androidx.annotation:annotation:${androidXVersion}",
+            appcompat       : "androidx.appcompat:appcompat:${androidXVersion}",
+            cardView        : "androidx.cardview:cardview:${androidXVersion}",
+            recyclerView    : "androidx.recyclerview:recyclerview:${androidXVersion}",
+            multidex        : 'androidx.multidex:multidex:2.0.0',
+            constraintlayout: 'androidx.constraintlayout:constraintlayout:1.1.3',
+            lifeRuntime     : "androidx.lifecycle:lifecycle-runtime:${archLifeVersion}",
+            lifeExtensions  : "androidx.lifecycle:lifecycle-extensions:${archLifeVersion}",
+            lifeViewModel   : "androidx.lifecycle:lifecycle-viewmodel:${archLifeVersion}",
+            lifeLiveData    : "androidx.lifecycle:lifecycle-livedata:${archLifeVersion}"
     ]
 }

@@ -1,7 +1,7 @@
 package com.susion.rabbit.exception.ui
 
 import android.content.Context
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.susion.rabbit.R
 import com.susion.rabbit.base.adapter.RabbitRvAdapter
 import com.susion.rabbit.db.RabbitDbStorageManager
@@ -28,7 +28,11 @@ class RabbitExceptionListPage(context: Context): RabbitBasePage(context) {
     init {
         setTitle("App异常日志")
         mExceptionLogRv.adapter = logsAdapter
-        mExceptionLogRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        mExceptionLogRv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
+            context,
+            androidx.recyclerview.widget.LinearLayoutManager.VERTICAL,
+            false
+        )
         loadAllData()
         mExceptionLogListSPL.setOnRefreshListener {
             loadAllData()

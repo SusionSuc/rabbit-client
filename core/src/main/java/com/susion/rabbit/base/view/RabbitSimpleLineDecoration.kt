@@ -4,15 +4,15 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Rect
-import android.support.annotation.ColorRes
-import android.support.v7.widget.RecyclerView
+import androidx.annotation.ColorRes
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import com.susion.rabbit.utils.getColor
 
 /**
  * Created by susion on 2018/8/14.
  */
-class RabbitSimpleLineDecoration : RecyclerView.ItemDecoration {
+class RabbitSimpleLineDecoration : androidx.recyclerview.widget.RecyclerView.ItemDecoration {
 
     lateinit var mDividerPaint: Paint
     private var mDividerHeight: Int = 0
@@ -68,14 +68,14 @@ class RabbitSimpleLineDecoration : RecyclerView.ItemDecoration {
     override fun getItemOffsets(
         outRect: Rect,
         view: View,
-        parent: RecyclerView,
-        state: RecyclerView.State
+        parent: androidx.recyclerview.widget.RecyclerView,
+        state: androidx.recyclerview.widget.RecyclerView.State
     ) {
         super.getItemOffsets(outRect, view, parent, state)
         outRect.bottom = mDividerHeight
     }
 
-    override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
+    override fun onDraw(c: Canvas, parent: androidx.recyclerview.widget.RecyclerView, state: androidx.recyclerview.widget.RecyclerView.State) {
         val childCount = parent.childCount
 
         val left: Int = if (mMargin.left > 0) {

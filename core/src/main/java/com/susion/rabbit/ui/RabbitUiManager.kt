@@ -1,30 +1,30 @@
 package com.susion.rabbit.ui
 
+import android.app.Activity
+import android.app.Application
 import android.content.Context
 import android.graphics.PixelFormat
-import android.os.Build
-import android.os.Handler
-import android.os.Looper
-import android.os.Message
+import android.os.*
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.FrameLayout
-import android.widget.Toast
 import com.susion.rabbit.R
 import com.susion.rabbit.Rabbit
 import com.susion.rabbit.RabbitLog
 import com.susion.rabbit.ui.page.RabbitEntryPage
+import com.susion.rabbit.utils.RabbitActivityLifecycleWrapper
 import com.susion.rabbit.utils.dp2px
 import com.susion.rabbit.utils.getDrawable
+import java.lang.ref.WeakReference
 
 /**
  * susionwang at 2019-10-21
  *
  * 管理 Rabbit 顶层的UI逻辑
  */
-class RabbitUiManager(val context: Context) {
+class RabbitUiManager(val applicationContext: Application) {
 
     companion object {
         const val PAGE_NULL = 1 //一个页面都没有
@@ -60,7 +60,7 @@ class RabbitUiManager(val context: Context) {
     //rabbit page
     private val pageList = ArrayList<RabbitPageProtocol>()
     private val pageContainer by lazy {
-        FrameLayout(context).apply {
+        FrameLayout(applicationContext).apply {
             layoutParams = ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
@@ -71,7 +71,7 @@ class RabbitUiManager(val context: Context) {
 
     private fun showRabbitEntryPage() {
         hideFloatingView()
-        val entryPage = RabbitEntryPage(context)
+        val entryPage = RabbitEntryPage(applicationContext)
         getWm().addView(pageContainer, getPageParams())
         pushPageToTopLevel(entryPage)
         showFloatingView()
@@ -95,14 +95,14 @@ class RabbitUiManager(val context: Context) {
         }
     }
 
-    private fun getWm() = (context.getSystemService(Context.WINDOW_SERVICE) as WindowManager)
+    private fun getWm() = (applicationContext.getSystemService(Context.WINDOW_SERVICE) as WindowManager)
 
     private fun addPage(pageClass: Class<out View>): RabbitPageProtocol? {
         var newedView: View? = null
 
         for (surInt in pageClass.interfaces) {
             if (surInt == RabbitPageProtocol::class.java) {
-                newedView = pageClass.getConstructor(Context::class.java).newInstance(context)
+                newedView = pageClass.getConstructor(Context::class.java).newInstance(applicationContext)
                 break
             }
         }
@@ -110,7 +110,7 @@ class RabbitUiManager(val context: Context) {
         if (newedView == null) {
             for (surInt in pageClass.superclass.interfaces) {
                 if (surInt == RabbitPageProtocol::class.java) {
-                    newedView = pageClass.getConstructor(Context::class.java).newInstance(context)
+                    newedView = pageClass.getConstructor(Context::class.java).newInstance(applicationContext)
                     break
                 }
             }
