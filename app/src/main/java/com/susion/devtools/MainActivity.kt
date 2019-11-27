@@ -42,6 +42,11 @@ class MainActivity : RabbitBaseActivity() {
         mCrashTv.setOnClickListener {
             val a = 1 / 0
         }
+
+        mLeakCanaryTv.setOnClickListener {
+            
+        }
+
     }
 
     private fun requestPermission() {

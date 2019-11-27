@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".net.TransformTestActivity"></activity>
+
+        <activity android:name=".net.TransformTestActivity" />
         <activity
             android:name=".TracerTestActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
@@ -30,6 +31,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
     </application>
 
 </manifest>

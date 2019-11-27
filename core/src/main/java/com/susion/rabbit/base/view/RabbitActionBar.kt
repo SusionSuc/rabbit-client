@@ -40,10 +40,12 @@ class RabbitActionBar : RelativeLayout {
 
         mRabbitActionBarFakeEt.inputType = InputType.TYPE_NULL
         mRabbitActionBarFakeEt.setOnKeyListener(OnKeyListener { v, keyCode, event ->
-            if (event?.keyCode == KeyEvent.KEYCODE_BACK) {
+            if (event?.keyCode == KeyEvent.KEYCODE_BACK && Rabbit.uiManager.pageIsShow()) {
                 actionListener?.onBackClick()
+                return@OnKeyListener true
+            }else{
+                return@OnKeyListener false
             }
-            return@OnKeyListener true
         })
 
         mRabbitActionBarQuickHider.throttleFirstClick(Consumer {

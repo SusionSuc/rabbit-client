@@ -211,4 +211,6 @@ class RabbitUiManager(val applicationContext: Application) {
         uiHandler.sendMessage(msg)
     }
 
+    fun pageIsShow() = pageShowStatus == PAGE_SHOWING
+
 }

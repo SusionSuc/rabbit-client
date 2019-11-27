@@ -54,4 +54,21 @@
         android:layout_marginStart="15dp"
         android:background="@color/devtools_divider_graye5" />
 
+
+    <TextView
+        android:id="@+id/mLeakCanaryTv"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="15dp"
+        android:gravity="left|center_vertical"
+        android:text="跳转到leakcanary"
+        android:textColor="@color/rabbit_black"
+        android:textSize="18dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginStart="15dp"
+        android:background="@color/devtools_divider_graye5" />
+
 </LinearLayout>
