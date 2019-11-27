@@ -27,9 +27,6 @@ import com.susion.rabbit.tracer.RabbitTracerEventNotifier;
  */
 public class ActivitySpeedMonitor extends FrameLayout {
 
-    int layoutWidth = 0;
-    int layoutHeight = 0;
-
     public ActivitySpeedMonitor(@NonNull Context context) {
         super(context);
     }
