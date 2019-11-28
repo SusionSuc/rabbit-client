@@ -31,5 +31,4 @@ class RabbitConfig(
             var STANDARD_FRAME_NS = 16666666L
         }
     }
-
 }

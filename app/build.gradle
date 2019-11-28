@@ -6,6 +6,10 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'rabbit-tracer-transform'
 def uniqueVersion = rootProject.ext.versions
 
+rabbitConfig{
+    monitorPkgNamePrefixList = ['com.susion.devtools', 'bbbb']
+}
+
 android {
     compileSdkVersion uniqueVersion.compileSdkVersion
     buildToolsVersion uniqueVersion.buildToolsVersion
