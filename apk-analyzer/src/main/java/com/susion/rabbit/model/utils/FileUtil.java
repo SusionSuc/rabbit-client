@@ -16,8 +16,12 @@
 
 package com.susion.rabbit.model.utils;
 
+import org.apache.commons.lang3.text.StrBuilder;
+import org.jetbrains.annotations.NotNull;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
@@ -43,8 +47,8 @@ import java.util.zip.ZipOutputStream;
  */
 
 public class FileUtil {
-    private static final String TAG         = "Matrix.FileUtil";
-    public static final  int    BUFFER_SIZE = 16384;
+    private static final String TAG = "Matrix.FileUtil";
+    public static final int BUFFER_SIZE = 16384;
 
     public static final boolean isLegalFile(File file) {
         return file != null && file.exists() && file.canRead() && file.isFile() && file.length() > 0;
@@ -239,7 +243,7 @@ public class FileUtil {
                 closeQuietly(inputStream);
             } catch (Exception e) {
                 Log.e(TAG, "file op readFileAsString close e type:%s, e msg:%s, filePath:%s",
-                    e.getClass().getSimpleName(), e.getMessage(), filePath);
+                        e.getClass().getSimpleName(), e.getMessage(), filePath);
             }
         }
         return fileData.toString();
@@ -389,7 +393,7 @@ public class FileUtil {
         File[] var3 = files;
         int var4 = files.length;
 
-        for(int var5 = 0; var5 < var4; ++var5) {
+        for (int var5 = 0; var5 < var4; ++var5) {
             File file = var3[var5];
 
             try {
@@ -403,6 +407,7 @@ public class FileUtil {
             throw exception;
         }
     }
+
     private static File[] verifiedListFiles(File directory) throws IOException {
         String message;
         if (!directory.exists()) {
@@ -438,5 +443,26 @@ public class FileUtil {
 
     }
 
+    @NotNull
+    public static String getStringFromFile(@NotNull File file) {
+        try {
+            StringBuilder buffer = new StringBuilder();
+            InputStream is = new FileInputStream(file);
+            String line; // 用来保存每行读取的内容
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+            line = reader.readLine(); // 读取第一行
+            while (line != null) { // 如果 line 为空说明读完了
+                buffer.append(line); // 将读到的内容添加到 buffer 中
+                buffer.append("\n"); // 添加换行符
+                line = reader.readLine(); // 读取下一行
+            }
+            reader.close();
+            is.close();
+            return buffer.toString();
+        } catch (Exception e) {
+
+        }
+        return "";
+    }
 }
 

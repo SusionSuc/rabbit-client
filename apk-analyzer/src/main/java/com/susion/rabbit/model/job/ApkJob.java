@@ -20,8 +20,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.susion.rabbit.ApkChecker;
-import com.susion.rabbit.model.output.MMTaskResultRegistry;
+import com.susion.rabbit.ApkAnalyzer;
 import com.susion.rabbit.model.result.JobResult;
 import com.susion.rabbit.model.result.JobResultFactory;
 import com.susion.rabbit.model.result.TaskResult;
@@ -65,9 +64,9 @@ public final class ApkJob {
 
     private ExecutorService executor;
     private static final int TIMEOUT_SECONDS = 600;
-    private              int timeoutSeconds  = TIMEOUT_SECONDS;
-    private static final int THREAD_NUM      = 1;
-    private              int threadNum       = THREAD_NUM;
+    private int timeoutSeconds = TIMEOUT_SECONDS;
+    private static final int THREAD_NUM = 1;
+    private int threadNum = THREAD_NUM;
 
     private List<ApkTask> preTasks;
     private List<ApkTask> taskList;
@@ -133,24 +132,10 @@ public final class ApkJob {
             task = TaskFactory.factory(TaskFactory.TASK_TYPE_CHECK_RESGUARD, jobConfig, params);
         } else if (JobConstants.OPTION_FIND_NON_ALPHA_PNG.equals(name)) {
             task = TaskFactory.factory(TaskFactory.TASK_TYPE_FIND_NON_ALPHA_PNG, jobConfig, params);
-        } else if (JobConstants.OPTION_CHECK_MULTILIB.equals(name)) {
-            task = TaskFactory.factory(TaskFactory.TASK_TYPE_CHECK_MULTILIB, jobConfig, params);
         } else if (JobConstants.OPTION_UNCOMPRESSED_FILE.equals(name)) {
             task = TaskFactory.factory(TaskFactory.TASK_TYPE_UNCOMPRESSED_FILE, jobConfig, params);
-        } else if (JobConstants.OPTION_COUNT_R_CLASS.equals(name)) {
-            task = TaskFactory.factory(TaskFactory.TASK_TYPE_COUNT_R_CLASS, jobConfig, params);
         } else if (JobConstants.OPTION_DUPLICATE_RESOURCES.equals(name)) {
             task = TaskFactory.factory(TaskFactory.TASK_TYPE_DUPLICATE_FILE, jobConfig, params);
-        } else if (JobConstants.OPTION_CHECK_MULTISTL.equals(name)) {
-            task = TaskFactory.factory(TaskFactory.TASK_TYPE_CHECK_MULTISTL, jobConfig, params);
-        } else if (JobConstants.OPTION_UNUSED_RESOURCES.equals(name)) {
-            task = TaskFactory.factory(TaskFactory.TASK_TYPE_UNUSED_RESOURCES, jobConfig, params);
-        } else if (JobConstants.OPTION_UNUSED_ASSETS.equals(name)) {
-            task = TaskFactory.factory(TaskFactory.TASK_TYPE_UNUSED_ASSETS, jobConfig, params);
-        } else if (JobConstants.OPTION_UNSTRIPPED_SO.equals(name)) {
-            task = TaskFactory.factory(TaskFactory.TASK_TYPE_UNSTRIPPED_SO, jobConfig, params);
-        } else if (JobConstants.OPTION_COUNT_CLASS.equals(name)) {
-            task = TaskFactory.factory(TaskFactory.TASK_TYPE_COUNT_CLASS, jobConfig, params);
         }
         return task;
     }
@@ -195,7 +180,7 @@ public final class ApkJob {
                 }
             }
             if (!FileUtil.isLegalFile(value)) {
-                ApkChecker.printError("Input apk path '" + value + "' is illegal!");
+                ApkAnalyzer.errorExit("Input apk path '" + value + "' is illegal!");
             } else {
                 jobConfig.setApkPath(value);
             }
@@ -237,7 +222,7 @@ public final class ApkJob {
                 Attributes registry = manifest.getAttributes(JobConstants.TASK_RESULT_REGISTRY);
                 if (registry != null) {
                     String registryClassPath = registry.getValue(JobConstants.TASK_RESULT_REGISTERY_CLASS);
-                    ClassLoader classLoader = new URLClassLoader(new URL[] {file.toURL()});
+                    ClassLoader classLoader = new URLClassLoader(new URL[]{file.toURL()});
                     Class registryClass = classLoader.loadClass(registryClassPath);
                     TaskResultRegistry resultRegistry = (TaskResultRegistry) registryClass.newInstance();
                     TaskResultFactory.addCustomTaskJsonResult(resultRegistry.getJsonResult());
@@ -301,137 +286,27 @@ public final class ApkJob {
                         taskList.add(task);
                     }
                 } else {
-                    ApkChecker.printError("Unknown option: " + option.toString());
+                    ApkAnalyzer.errorExit("Unknown option: " + option.toString());
                 }
             }
 
         } else {
-            ApkChecker.printError("The content of config file is not in json format!");
+            ApkAnalyzer.errorExit("The content of config file is not in json format!");
         }
     }
 
-    private int parseGlobalParams() {
+    private int parseGlobalParams() throws Exception {
         int paramLen = 0;
         Map<String, String> globalParams = new HashMap<>();
         paramLen = parseParams(0, args, globalParams);
 
-        try {
-            if (globalParams.containsKey(JobConstants.PARAM_CONFIG)) {
-
-                final String configPath = globalParams.get(JobConstants.PARAM_CONFIG);
-                if (!FileUtil.isLegalFile(configPath)) {
-                    ApkChecker.printError("Input config file '" + configPath + "' is illegal!");
-                } else if (!configPath.endsWith(".json")) {
-                    ApkChecker.printError("Input config file must has a suffix '.json'!");
-                } else {
-                    readConfigFile(configPath);
-                }
-
-            } else {
-
-                String apkPath = "";
-                String mappingFilePath = "";
-                String resMappingFilePath = "";
-
-                if (globalParams.containsKey(JobConstants.PARAM_INPUT)) {
-                    String inputDir = globalParams.get(JobConstants.PARAM_INPUT);
-                    if (!Util.isNullOrNil(inputDir)) {
-                        File inputFile = new File(inputDir);
-                        if (inputFile.isDirectory() && inputFile.exists()) {
-                            jobConfig.setInputDir(inputFile.getAbsolutePath());
-                            for (File file : inputFile.listFiles()) {
-                                if (file.isFile() && file.getName().endsWith(ApkConstants.APK_FILE_SUFFIX)) {
-                                    apkPath =  file.getAbsolutePath();
-                                    break;
-                                }
-                            }
-                            mappingFilePath = inputDir + "/" + ApkConstants.DEFAULT_MAPPING_FILENAME;
-                            resMappingFilePath = inputDir + "/" + ApkConstants.DEFAULT_RESGUARD_MAPPING_FILENAME;
-                        }
-                    }
-                }
-
-                if (globalParams.containsKey(JobConstants.PARAM_APK)) {
-                    apkPath = globalParams.get(JobConstants.PARAM_APK);
-                    if (!FileUtil.isLegalFile(apkPath)) {
-                        ApkChecker.printError("Input apk path '" + apkPath + "' is illegal!");
-                    }
-                }
-
-                jobConfig.setApkPath(apkPath);
-                File apkFile = new File(apkPath);
-
-                if (globalParams.containsKey(JobConstants.PARAM_UNZIP)) {
-                    jobConfig.setUnzipPath(globalParams.get(JobConstants.PARAM_UNZIP));
-                } else {
-                    jobConfig.setUnzipPath(apkFile.getParentFile().getAbsolutePath() + File.separator + getApkRawName(apkFile.getName()) + "_unzip");
-                }
-
-                if (globalParams.containsKey(JobConstants.PARAM_MAPPING_TXT)) {
-                    mappingFilePath = globalParams.get(JobConstants.PARAM_MAPPING_TXT);
-                }
-                jobConfig.setMappingFilePath(mappingFilePath);
-
-                if (globalParams.containsKey(JobConstants.PARAM_RES_MAPPING_TXT)) {
-                    resMappingFilePath = globalParams.get(JobConstants.PARAM_RES_MAPPING_TXT);
-                }
-                jobConfig.setResMappingFilePath(resMappingFilePath);
-
-
-                String value = "";
-                if (globalParams.containsKey(JobConstants.PARAM_FORMAT) && !Util.isNullOrNil(globalParams.get(JobConstants.PARAM_FORMAT))) {
-                    value = globalParams.get(JobConstants.PARAM_FORMAT);
-                } else {
-                    value = TaskResultFactory.TASK_RESULT_TYPE_HTML;
-                }
-                String[] formats = value.split(",");
-                List<String> formatList = new ArrayList<>();
-                for (String format : formats) {
-                    if (!Util.isNullOrNil(format)) {
-                        formatList.add(format.trim());
-                    }
-                }
-                Log.i(TAG, "format list " + formatList.toString());
-                jobConfig.setOutputFormatList(formatList);
-
-                if (globalParams.containsKey(JobConstants.PARAM_OUTPUT)) {
-                    jobConfig.setOutputPath(globalParams.get(JobConstants.PARAM_OUTPUT));
-                } else {
-                    jobConfig.setOutputPath(apkFile.getParentFile().getAbsolutePath() + File.separator + getApkRawName(apkFile.getName()));
-                }
-
-                if (globalParams.containsKey(JobConstants.PARAM_FORMAT_JAR)) {
-                    File file = new File(globalParams.get(JobConstants.PARAM_FORMAT_JAR));
-                    JarFile jarFile = new JarFile(file);
-                    Manifest manifest = jarFile.getManifest();
-                    Attributes registry = manifest.getAttributes(JobConstants.TASK_RESULT_REGISTRY);
-                    if (registry != null) {
-                        String registryClassPath = registry.getValue(JobConstants.TASK_RESULT_REGISTERY_CLASS);
-                        ClassLoader classLoader = new URLClassLoader(new URL[]{file.toURL()});
-                        Class registryClass = classLoader.loadClass(registryClassPath);
-                        TaskResultRegistry resultRegistry = (TaskResultRegistry) registryClass.newInstance();
-                        TaskResultFactory.addCustomTaskJsonResult(resultRegistry.getJsonResult());
-                        TaskResultFactory.addCustomTaskHtmlResult(resultRegistry.getHtmlResult());
-                    }
-                }
-
-                if (globalParams.containsKey(JobConstants.PARAM_FORMAT_CONFIG)) {
-                    JsonElement jsonElement = new JsonParser().parse(globalParams.get(JobConstants.PARAM_FORMAT_CONFIG));
-                    jobConfig.setOutputConfig((JsonArray) jsonElement);
-                }
-
-                if (globalParams.containsKey(JobConstants.PARAM_LOG_LEVEL)) {
-                    Log.setLogLevel(globalParams.get(JobConstants.PARAM_LOG_LEVEL));
-                }
-
-            }
-
-            //register MMTaskResult
-            MMTaskResultRegistry mmTaskResultRegistry = new MMTaskResultRegistry();
-            TaskResultFactory.addCustomTaskHtmlResult(mmTaskResultRegistry.getHtmlResult());
-            TaskResultFactory.addCustomTaskJsonResult(mmTaskResultRegistry.getJsonResult());
-        } catch (Exception e) {
-            ApkChecker.printError(e.getMessage());
+        final String configPath = globalParams.get(JobConstants.PARAM_CONFIG);
+        if (!FileUtil.isLegalFile(configPath)) {
+            ApkAnalyzer.errorExit("Input config file '" + configPath + "' is illegal!");
+        } else if (!configPath.endsWith(".json")) {
+            ApkAnalyzer.errorExit("Input config file must has a suffix '.json'!");
+        } else {
+            readConfigFile(configPath);
         }
 
         return paramLen;
@@ -440,7 +315,7 @@ public final class ApkJob {
     private boolean parseParams() {
         if (args != null && args.length >= 2) {
 
-            int paramLen = parseGlobalParams();
+            int paramLen = 0;
 
             for (int i = paramLen; i < args.length; i++) {
                 if (args[i].startsWith("-") && !args[i].startsWith("--")) {
@@ -465,7 +340,7 @@ public final class ApkJob {
         return true;
     }
 
-    public void run() throws  Exception {
+    public void run() throws Exception {
         if (parseParams()) {
             ApkTask unzipTask = TaskFactory.factory(TaskFactory.TASK_TYPE_UNZIP, jobConfig, new HashMap<String, String>());
             preTasks.add(unzipTask);
@@ -479,7 +354,7 @@ public final class ApkJob {
             }
             execute();
         } else {
-            ApkChecker.printHelp();
+
         }
     }
 

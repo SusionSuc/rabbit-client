@@ -21,7 +21,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.susion.rabbit.model.result.TaskHtmlResult;
 import com.susion.rabbit.model.task.TaskFactory;
-import com.tencent.matrix.javalib.util.Util;
+import com.susion.rabbit.model.utils.Util;
 import org.w3c.dom.Element;
 
 import java.util.Map;

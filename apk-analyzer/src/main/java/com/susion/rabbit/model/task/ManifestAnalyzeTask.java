@@ -51,6 +51,10 @@ public class ManifestAnalyzeTask extends ApkTask {
         type = TASK_TYPE_MANIFEST;
     }
 
+    public ManifestAnalyzeTask(){
+
+    }
+
     @Override
     public void init() throws TaskInitException {
         super.init();

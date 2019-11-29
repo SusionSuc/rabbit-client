@@ -44,6 +44,9 @@ public abstract class ApkTask implements Callable<TaskResult> {
         void getProgress(int progress, String message);
     }
 
+    public ApkTask(){
+
+    }
 
     public ApkTask(JobConfig config, Map<String, String> params) {
         this.params = params;
