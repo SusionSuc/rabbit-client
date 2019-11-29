@@ -1,0 +1,17 @@
+apply plugin: 'java-library'
+apply from: '../buildsystem/common-version.gradle'
+
+def uniqueVersion = rootProject.ext.versions
+
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "com.google.code.gson:gson:${uniqueVersion.gsonVersion}"
+    implementation 'com.android.tools:common:25.1.0'
+    implementation files('libs/apktool-lib.jar')
+    implementation files('libs/android-framework.jar')
+
+}
+
+sourceCompatibility = "8"
+targetCompatibility = "8"

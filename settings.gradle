@@ -1,3 +1,3 @@
-include ':app', ':core', ':tracer-transform', ':tracer-interface'
+include ':app', ':core', ':tracer-transform', ':tracer-interface', ':apk-analyzer'
 rootProject.name='Rabbit'
 
