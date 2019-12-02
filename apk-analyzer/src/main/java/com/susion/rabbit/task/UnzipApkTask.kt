@@ -1,5 +1,6 @@
 package com.susion.rabbit
 
+import com.susion.rabbit.entities.UnZipApkFileInfo
 import com.susion.rabbit.model.utils.FileUtil
 import com.susion.rabbit.model.utils.Util
 import java.io.*
@@ -12,18 +13,13 @@ import java.util.zip.ZipFile
  */
 class UnzipApkTask {
 
-    class UnzipResult(
-        var unzipPath: String = "",
-        var apkFileSize: Long = 0
-    )
-
-    fun unzipApk(apkPath: String): UnzipResult {
-        val result = UnzipResult()
+    fun unzipApk(apkPath: String): UnZipApkFileInfo {
+        val result = UnZipApkFileInfo()
         val apkFile = File(apkPath)
         val unZipDir = getUnzipPath(apkFile)
 
-        result.unzipPath = unZipDir.absolutePath
-        result.apkFileSize = apkFile.length()
+        result.dirPath = unZipDir.absolutePath
+        result.apkSize = apkFile.length()
 
         if (unZipDir.exists()) {
             FileUtil.deleteDirectory(unZipDir)

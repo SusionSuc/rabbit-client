@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package com.susion.rabbit.model.task.util;
+package com.susion.rabbit.helper;
 
 
-import com.susion.rabbit.model.utils.FileUtil;
 import com.susion.rabbit.model.utils.Log;
 
 import org.xmlpull.v1.XmlPullParser;
