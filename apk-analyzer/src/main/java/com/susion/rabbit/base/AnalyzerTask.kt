@@ -1,6 +1,6 @@
 package com.susion.rabbit.base
 
-import com.susion.rabbit.Config
+import com.susion.rabbit.entities.UnZipApkFileInfo
 
 /**
  * susionwang at 2019-11-29
@@ -8,7 +8,8 @@ import com.susion.rabbit.Config
 
 interface AnalyzerTask {
 
-    fun analyze(config: Config): String
+    // analyzer result json str
+    fun analyze(unZipContext: UnZipApkFileInfo): String
 
     fun getResultName(): String
 

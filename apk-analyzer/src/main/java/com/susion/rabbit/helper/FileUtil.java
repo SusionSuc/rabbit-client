@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-package com.susion.rabbit.model.utils;
+package com.susion.rabbit.helper;
 
-import org.apache.commons.lang3.text.StrBuilder;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedInputStream;
@@ -94,7 +93,6 @@ public class FileUtil {
         if (file.exists()) {
             boolean deleted = file.delete();
             if (!deleted) {
-                Log.e(TAG, "Failed to delete file, try to delete when exit. path: " + file.getPath());
                 file.deleteOnExit();
             }
             return deleted;
@@ -137,7 +135,6 @@ public class FileUtil {
                 closeable.close();
             }
         } catch (IOException e) {
-            Log.w(TAG, "Failed to close resource", e);
         }
     }
 
@@ -147,7 +144,6 @@ public class FileUtil {
                 zipFile.close();
             }
         } catch (IOException e) {
-            Log.w(TAG, "Failed to close resource", e);
         }
     }
 
@@ -234,16 +230,14 @@ public class FileUtil {
                 fileData.append(readData);
             }
         } catch (Exception e) {
-            Log.e(TAG, "file op readFileAsString e type:%s, e msg:%s, filePath:%s",
-                    e.getClass().getSimpleName(), e.getMessage(), filePath);
+
             return "";
         } finally {
             try {
                 closeQuietly(fileReader);
                 closeQuietly(inputStream);
             } catch (Exception e) {
-                Log.e(TAG, "file op readFileAsString close e type:%s, e msg:%s, filePath:%s",
-                        e.getClass().getSimpleName(), e.getMessage(), filePath);
+
             }
         }
         return fileData.toString();
@@ -347,7 +341,6 @@ public class FileUtil {
                 zipOutputStream.flush();
             }
         } catch (ZipException e) {
-            Log.e(TAG, "addZipEntry err!");
         } finally {
             closeQuietly(inputStream);
 

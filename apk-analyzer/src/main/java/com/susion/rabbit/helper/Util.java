@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.susion.rabbit.model.utils;
+package com.susion.rabbit.helper;
 
 import java.util.regex.Pattern;
 

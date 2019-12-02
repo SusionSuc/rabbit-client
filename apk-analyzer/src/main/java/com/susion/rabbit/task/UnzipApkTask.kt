@@ -1,8 +1,9 @@
-package com.susion.rabbit
+package com.susion.rabbit.task
 
+import com.susion.rabbit.ApkAnalyzer
 import com.susion.rabbit.entities.UnZipApkFileInfo
-import com.susion.rabbit.model.utils.FileUtil
-import com.susion.rabbit.model.utils.Util
+import com.susion.rabbit.helper.FileUtil
+import com.susion.rabbit.helper.Util
 import java.io.*
 import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
@@ -14,12 +15,12 @@ import java.util.zip.ZipFile
 class UnzipApkTask {
 
     fun unzipApk(apkPath: String): UnZipApkFileInfo {
-        val result = UnZipApkFileInfo()
+        val unZipResult = UnZipApkFileInfo()
         val apkFile = File(apkPath)
         val unZipDir = getUnzipPath(apkFile)
 
-        result.dirPath = unZipDir.absolutePath
-        result.apkSize = apkFile.length()
+        unZipResult.unZipDir = unZipDir.absolutePath
+        unZipResult.apkSize = apkFile.length()
 
         if (unZipDir.exists()) {
             FileUtil.deleteDirectory(unZipDir)
@@ -29,13 +30,32 @@ class UnzipApkTask {
             throw RuntimeException("---Create directory '" + unZipDir.absolutePath + "' failed!")
         }
 
+        //收集所有解压的文件的信息
         val zipApk = ZipFile(apkFile)
         val entries = zipApk.entries()
         while (entries.hasMoreElements()) {
-            writeEntry(zipApk, entries.nextElement() as ZipEntry, unZipDir.absolutePath)
+
+            val entry = entries.nextElement() as ZipEntry
+
+            val outName = writeEntry(zipApk, entry, unZipDir.absolutePath) ?: ""
+            val fileAbsolutePath = "$unZipDir/$outName"
+
+            val fileType = getFileSuffix(outName)
+            var fileList = unZipResult.fileMap[fileType]
+            if (fileList == null) {
+                fileList = ArrayList()
+                unZipResult.fileMap[fileType] = fileList
+            }
+
+            fileList.add(UnZipApkFileInfo.FileInfo(outName, fileAbsolutePath, entry.compressedSize))
+
         }
 
-        return result
+        //读取类混淆文件
+        unZipResult.proguardClassMap.putAll(readMappingTxtFile())
+
+        return unZipResult
+
     }
 
     @Throws(IOException::class)
@@ -124,6 +144,44 @@ class UnzipApkTask {
         return if (index == -1) {
             name
         } else name.substring(0, index)
+    }
+
+    private fun getFileSuffix(name: String): String {
+        val index = name.indexOf('.')
+        return if (index >= 0 && index < name.length - 1) {
+            name.substring(index + 1)
+        } else ""
+    }
+
+    @Throws(IOException::class)
+    private fun readMappingTxtFile(): Map<String, String> {
+        val classMappingFile = File(ApkAnalyzer.globalConfig.classMappingFilePath)
+        if (!classMappingFile.exists()) return emptyMap()
+
+        val resMap = HashMap<String, String>()
+        val bufferedReader = BufferedReader(FileReader(classMappingFile))
+        var beforeClass: String
+        var afterClass: String
+        bufferedReader.use { bufferedReader ->
+            var line: String? = bufferedReader.readLine()
+            while (line != null) {
+                if (!line.startsWith(" ")) {
+                    val pair =
+                        line.split("->".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                    if (pair.size == 2) {
+                        beforeClass = pair[0].trim { it <= ' ' }
+                        afterClass = pair[1].trim { it <= ' ' }
+                        afterClass = afterClass.substring(0, afterClass.length - 1)
+                        if (!Util.isNullOrNil(beforeClass) && !Util.isNullOrNil(afterClass)) {
+                            resMap[afterClass] = beforeClass
+                        }
+                    }
+                }
+                line = bufferedReader.readLine()
+            }
+        }
+
+        return resMap
     }
 
 }

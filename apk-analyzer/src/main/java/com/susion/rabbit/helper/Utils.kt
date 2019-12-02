@@ -1,4 +1,4 @@
-package com.susion.rabbit.utils
+package com.susion.rabbit.helper
 
 import java.util.*
 

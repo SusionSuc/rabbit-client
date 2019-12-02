@@ -5,4 +5,15 @@ package com.susion.rabbit.entities
  */
 
 //解压后的apk文件信息
-data class ApkFileInfo(val dirPath:String = "")
+data class UnZipApkFileInfo(
+    var unZipDir: String = "",
+    var apkSize: Long = 0,
+    val fileMap: HashMap<String, ArrayList<FileInfo>> = HashMap(),
+    val proguardClassMap: HashMap<String, String> = HashMap()
+) {
+    data class FileInfo(
+        val name: String,
+        @Transient val path: String,
+        val size: Long
+    )
+}

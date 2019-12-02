@@ -2,9 +2,10 @@ package com.susion.rabbit
 
 import com.google.gson.Gson
 import com.susion.rabbit.base.AnalyzerTask
-import com.susion.rabbit.model.utils.FileUtil
-import com.susion.rabbit.task.AppInfoAnalyzerTask
+import com.susion.rabbit.helper.FileUtil
+import com.susion.rabbit.task.*
 import java.io.File
+import java.lang.StringBuilder
 import kotlin.system.exitProcess
 
 /**
@@ -14,8 +15,13 @@ object ApkAnalyzer {
 
     private val analyzerTasks = ArrayList<AnalyzerTask>().apply {
         add(AppInfoAnalyzerTask())
+        add(BigImageResAnalyzerTask())
+        add(ApkComposeAnalyzerTask())
+        add(DuplicatedFileAnalyzerTask())
+        add(MethodCountAnalyzerTask())
     }
-    private var config: Config = Config()
+
+    var globalConfig: Config = Config()
 
     @JvmStatic
     fun main(args: Array<String>) {
@@ -26,19 +32,25 @@ object ApkAnalyzer {
             errorExit("请输入配置文件Path")
         }
 
-        config = loadConfig(args[0]) ?: Config("")
+        globalConfig = loadConfig(args[0]) ?: Config("")
 
-        if (!config.isValid()) {
+        if (!globalConfig.isValid()) {
             errorExit("配置文件错误!")
         }
 
-        val unzipResult = UnzipApkTask().unzipApk(config.apkPath)
-        config.unzipApkPath = unzipResult.unzipPath
-        analyzerTasks.forEach {
-            val resultStr = it.analyze(config)
-            print("analyze result : ${it.getResultName()} : $resultStr")
-        }
+        val unzipResult = UnzipApkTask().unzipApk(globalConfig.apkPath)
 
+        val jsonStr = StringBuilder()
+        jsonStr.append("{")
+        analyzerTasks.forEachIndexed { index, analyzerTask ->
+            jsonStr.append("\"${analyzerTask.getResultName()}\":")
+            jsonStr.append(analyzerTask.analyze(unzipResult))
+            if (index != analyzerTasks.size - 1) {
+                jsonStr.append(",")
+            }
+        }
+        jsonStr.append("}")
+        print(jsonStr)
     }
 
     private fun loadConfig(filePath: String): Config? {

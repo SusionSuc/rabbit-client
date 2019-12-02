@@ -1,10 +1,10 @@
 package com.susion.rabbit.task
 
 import com.google.gson.Gson
-import com.susion.rabbit.Config
 import com.susion.rabbit.base.AnalyzerTask
-import com.susion.rabbit.model.task.util.ManifestParser
-import com.susion.rabbit.utils.Utils
+import com.susion.rabbit.entities.UnZipApkFileInfo
+import com.susion.rabbit.helper.ManifestParser
+import com.susion.rabbit.helper.Utils
 import java.io.File
 
 /**
@@ -12,14 +12,23 @@ import java.io.File
  */
 class AppInfoAnalyzerTask : AnalyzerTask {
 
+    companion object {
+        val NAME = "AppInfo"
+    }
+
     val MANIFEST_FILE_NAME = "AndroidManifest.xml"
     val ARSC_FILE_NAME = "resources.arsc"
-    private val appInfo = AppInfo()
 
-    override fun analyze(config: Config): String {
-        appInfo.appSize = Utils.formatImageSize(File(config.apkPath).length())
+    override fun analyze(apkInfo: UnZipApkFileInfo): String {
 
-        val manifestParser = ManifestParser(File(config.unzipApkPath, MANIFEST_FILE_NAME), File(config.unzipApkPath, ARSC_FILE_NAME))
+        val appInfo = AppInfo()
+
+        appInfo.appSize = Utils.formatImageSize(apkInfo.apkSize)
+
+        val manifestParser = ManifestParser(
+            File(apkInfo.unZipDir, MANIFEST_FILE_NAME),
+            File(apkInfo.unZipDir, ARSC_FILE_NAME)
+        )
         val manifestTag = manifestParser.parse()
 
         appInfo.versionCode = manifestTag.get("android:versionCode")?.asString ?: ""
@@ -33,10 +42,9 @@ class AppInfoAnalyzerTask : AnalyzerTask {
         return Gson().toJson(appInfo)
     }
 
-    override fun getResultName() = "AppInfo"
+    override fun getResultName() = NAME
 
     class AppInfo(
-        var appName: String = "",
         var versionCode: String = "",
         var versionName: String = "",
         var appSize: String = ""

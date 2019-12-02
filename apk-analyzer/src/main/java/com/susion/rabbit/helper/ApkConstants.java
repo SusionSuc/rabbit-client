@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.susion.rabbit.model.task.util;
+package com.susion.rabbit.helper;
 
 /**
  * Created by jinqiuchen on 17/5/27.
