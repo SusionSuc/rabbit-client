@@ -26,8 +26,6 @@ object ApkAnalyzer {
     @JvmStatic
     fun main(args: Array<String>) {
 
-        val args = arrayOf("/Users/susionwang/Desktop/ApkAnalyzer.json")
-
         if (args.isEmpty()) {
             errorExit("请输入配置文件Path")
         }
@@ -50,7 +48,9 @@ object ApkAnalyzer {
             }
         }
         jsonStr.append("}")
-        print(jsonStr)
+
+        writeResult(jsonStr.toString(), File(unzipResult.unZipDir).parentFile)
+
     }
 
     private fun loadConfig(filePath: String): Config? {
@@ -66,6 +66,17 @@ object ApkAnalyzer {
     fun errorExit(errMsg: String) {
         print(errMsg)
         exitProcess(0)
+    }
+
+    private fun writeResult(resultStr: String, targetDir: File) {
+        if (!targetDir.exists()) return
+        val resultFile = File(targetDir, "apk-analyzer-result.json")
+
+        if (resultFile.exists()) {
+            resultFile.delete()
+        }
+
+        resultFile.writeText(resultStr)
     }
 
 }
