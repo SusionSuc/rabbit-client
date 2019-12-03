@@ -1,4 +1,4 @@
-package com.susion.rabbit.performance.ui
+package com.susion.rabbit.performance.ui.page
 
 import android.content.Context
 import android.view.ViewGroup
@@ -10,6 +10,8 @@ import com.susion.rabbit.performance.entities.RabbitAppStartSpeedInfo
 import com.susion.rabbit.performance.entities.RabbitAppStartSpeedTotalInfo
 import com.susion.rabbit.performance.entities.RabbitPageSpeedInfo
 import com.susion.rabbit.performance.entities.RabbitPageSpeedUiInfo
+import com.susion.rabbit.performance.ui.view.RabbitAppSpeedInfoView
+import com.susion.rabbit.performance.ui.view.RabbitPageSpeedUiItemView
 import com.susion.rabbit.ui.page.RabbitBasePage
 import kotlinx.android.synthetic.main.rabbit_page_ui_block_list.view.*
 

@@ -21,7 +21,7 @@ import javax.xml.parsers.SAXParserFactory
 class ActivitySpeedMonitorTransform : RabbitClassTransformer {
 
     private val ACTIVITY_SPEED_MONITOR_CLASS =
-        "com/susion/rabbit/tracer/monitor/ActivitySpeedMonitor"
+        "com/susion/rabbit/performance/monitor/ActivitySpeedMonitor"
 
     //ActivitySpeedMonitor.wrapperViewOnActivityCreateEnd()
     private val wapperMethodName = "wrapperViewOnActivityCreateEnd"

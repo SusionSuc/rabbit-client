@@ -41,8 +41,8 @@ class RabbitUiManager(val applicationContext: Application) {
                     }
                 }
                 MSG_UPDATE_MEMORY_VALUE -> {
-                    if (msg.obj is Int) {
-                        floatingView.updateMemorySize(msg.obj as Int)
+                    if (msg.obj is String) {
+                        floatingView.updateMemorySize(msg.obj as String)
                     }
                 }
             }

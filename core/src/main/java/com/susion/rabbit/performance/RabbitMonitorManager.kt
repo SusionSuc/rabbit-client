@@ -3,12 +3,14 @@ package com.susion.rabbit.performance
 import android.app.ActivityManager
 import android.app.Application
 import android.content.Context
+import com.susion.rabbit.Rabbit
 import com.susion.rabbit.config.RabbitConfig
 import com.susion.rabbit.config.RabbitSettings
 import com.susion.rabbit.performance.core.RabbitMonitor
 import com.susion.rabbit.performance.monitor.RabbitAppSpeedMonitor
 import com.susion.rabbit.performance.monitor.RabbitBlockMonitor
 import com.susion.rabbit.performance.monitor.RabbitFPSMonitor
+import com.susion.rabbit.performance.monitor.RabbitMemoryMonitor
 
 /**
  * susionwang at 2019-10-18
@@ -19,16 +21,17 @@ object RabbitMonitorManager {
     private val TAG = "rabbit-monitor"
     private var mContext: Application? = null
     private var initStatus = false
-    private var mConfig: RabbitConfig.TraceConfig = RabbitConfig.TraceConfig()
-    val monitorList = ArrayList<RabbitMonitor>().apply {
-        add(RabbitAppSpeedMonitor())
-        add(RabbitFPSMonitor())
-        add(RabbitBlockMonitor())
+    private var mConfig: RabbitConfig.MonitorConfig = RabbitConfig.MonitorConfig()
+    private val monitorMap = HashMap<String, RabbitMonitor>().apply {
+        put(RabbitMonitor.APP_SPEED.enName, RabbitAppSpeedMonitor())
+        put(RabbitMonitor.FPS.enName, RabbitFPSMonitor())
+        put(RabbitMonitor.BLOCK.enName, RabbitBlockMonitor())
+        put(RabbitMonitor.MEMORY.enName, RabbitMemoryMonitor())
     }
 
-    private val appSpeedMonitor = RabbitAppSpeedMonitor()
+    val monitorList = monitorMap.values.toList()
 
-    fun init(context: Application, config: RabbitConfig.TraceConfig) {
+    fun init(context: Application, config: RabbitConfig.MonitorConfig) {
         if (!isMainProcess(context)) return
         if (initStatus) return
 
@@ -37,28 +40,30 @@ object RabbitMonitorManager {
         initStatus = true
 
         monitorList.forEach {
-            if (RabbitSettings.autoOpen(context, it.getMonitorInfo().enName)) {
+            val autoOpen = RabbitSettings.autoOpen(context, it.getMonitorInfo().enName)
+            if (autoOpen) {
                 it.open(context)
             }
+        }
+
+        //自动打开测速功能
+        if (Rabbit.geConfig().monitorConfig.autoOpenPageSpeedMonitor) {
+            monitorMap[RabbitMonitor.APP_SPEED.enName]?.open(context)
         }
     }
 
     fun openMonitor(name: String) {
         assertInit()
-        monitorList.forEach {
-            if (it.getMonitorInfo().enName == name) {
-                it.open(mContext!!)
-            }
-        }
+        monitorMap[name]?.open(mContext!!)
     }
 
     fun closeMonitor(name: String) {
         assertInit()
-        monitorList.forEach {
-            if (it.getMonitorInfo().enName == name) {
-                it.close()
-            }
-        }
+        monitorMap[name]?.close()
+    }
+
+    fun isOpen(name: String): Boolean {
+        return monitorMap[name]?.isOpen() ?: false
     }
 
     private fun assertInit() {
@@ -67,13 +72,20 @@ object RabbitMonitorManager {
         }
     }
 
-    fun pageSpeedMonitorIsOpen() = appSpeedMonitor.isOpen()
-
-    fun markRequestFinish(requestUrl: String, costTime: Long = 0) {
-        appSpeedMonitor.markRequestFinish(requestUrl, costTime)
+    fun monitorRequest(requestUrl: String): Boolean {
+        val appSpeedMonitor = monitorMap[RabbitMonitor.APP_SPEED.enName]
+        if (appSpeedMonitor is RabbitAppSpeedMonitor) {
+            return appSpeedMonitor.monitorRequest(requestUrl)
+        }
+        return false
     }
 
-    fun monitorRequest(requestUrl: String) = appSpeedMonitor.monitorRequest(requestUrl)
+    fun markRequestFinish(requestUrl: String, costTime: Long) {
+        val appSpeedMonitor = monitorMap[RabbitMonitor.APP_SPEED.enName]
+        if (appSpeedMonitor is RabbitAppSpeedMonitor) {
+            appSpeedMonitor.markRequestFinish(requestUrl, costTime)
+        }
+    }
 
     private fun isMainProcess(context: Context): Boolean {
         return context.packageName == getCurrentProcessName(

@@ -49,7 +49,7 @@ class RabbitFPSMonitor : LazyChoreographerFrameUpdateMonitor.FrameUpdateListener
 
     override fun isOpen() = isOpen
 
-    override fun getMonitorInfo() = RabbitMonitor.MONITOR_FPS
+    override fun getMonitorInfo() = RabbitMonitor.FPS
 
     override fun doFrame(
         frameCostNs: Long,

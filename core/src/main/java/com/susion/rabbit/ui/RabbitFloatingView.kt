@@ -130,19 +130,19 @@ class RabbitFloatingView(context: Context) : LinearLayout(context) {
         }
 
         mDevToolsFloatingTvFps.visibility = View.VISIBLE
-        mDevToolsFloatingTvFps.text = "${fpsValue.toInt()}"
+        mDevToolsFloatingTvFps.text = "fps:${fpsValue.toInt()}"
         val textColor = if (fpsValue < 45) R.color.rabbit_error_red else R.color.rabbit_black
         mDevToolsFloatingTvFps.setTextColor(getColor(context, textColor))
     }
 
-    fun updateMemorySize(memorySize: Int) {
-        if (memorySize == 0) {
+    fun updateMemorySize(memorySize: String) {
+        if (memorySize.isEmpty()) {
             mDevToolsFloatingTvMemory.visibility = View.GONE
             return
         }
 
         mDevToolsFloatingTvMemory.visibility = View.VISIBLE
-        mDevToolsFloatingTvMemory.text = "${RabbitUiUtils.formatFileSize(memorySize.toLong())}"
+        mDevToolsFloatingTvMemory.text = "mem:${memorySize}"
     }
 
 }

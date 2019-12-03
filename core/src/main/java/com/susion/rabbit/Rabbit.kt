@@ -68,7 +68,7 @@ object Rabbit {
             }
         })
         RabbitExceptionManager.openGlobalExceptionCollector()
-        RabbitMonitorManager.init(applicationContext, mConfig.traceConfig)
+        RabbitMonitorManager.init(applicationContext, mConfig.monitorConfig)
         RabbitDbStorageManager.clearOldSessionData()
         isInit = true
     }

@@ -18,10 +18,12 @@ public class CustomApplication extends Application {
 
         RabbitConfig myConfig = new RabbitConfig();
 
-        RabbitConfig.TraceConfig traceConfig = new RabbitConfig.TraceConfig();
-        myConfig.setTraceConfig(traceConfig);
+        myConfig.setInDebug(true);
 
-        Rabbit.init(this,myConfig);
+        RabbitConfig.MonitorConfig traceConfig = new RabbitConfig.MonitorConfig();
+        myConfig.setMonitorConfig(traceConfig);
+
+        Rabbit.init(this, myConfig);
 
     }
 

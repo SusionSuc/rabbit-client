@@ -24,7 +24,7 @@ class RabbitAppSpeedInterceptor : Interceptor {
         val requestUrl = request.url().url().toString()
         val response = chain.proceed(request)
 
-        if (!Rabbit.isOpen() || !RabbitMonitorManager.pageSpeedMonitorIsOpen()) return response
+        if (!Rabbit.isOpen() || !RabbitMonitorManager.isOpen(RabbitMonitor.APP_SPEED.enName)) return response
 
         if (!RabbitMonitorManager.monitorRequest(requestUrl)) return response
 

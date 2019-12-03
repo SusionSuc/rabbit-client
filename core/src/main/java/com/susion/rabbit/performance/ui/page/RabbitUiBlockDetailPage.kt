@@ -1,4 +1,4 @@
-package com.susion.rabbit.performance.ui
+package com.susion.rabbit.performance.ui.page
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -13,6 +13,7 @@ import com.susion.rabbit.base.view.RabbitSimpleKVItemView
 import com.susion.rabbit.base.view.RabbitSimpleKvInfo
 import com.susion.rabbit.performance.entities.RabbitBlockFrameInfo
 import com.susion.rabbit.performance.entities.RabbitBlockStackTraceInfo
+import com.susion.rabbit.performance.ui.view.RabbitBlockStackTraceView
 import com.susion.rabbit.ui.page.RabbitBasePage
 import kotlinx.android.synthetic.main.rabbit_page_ui_block.view.*
 import java.util.concurrent.TimeUnit

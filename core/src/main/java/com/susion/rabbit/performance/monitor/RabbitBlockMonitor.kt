@@ -26,10 +26,10 @@ class RabbitBlockMonitor : ChoreographerFrameUpdateMonitor.FrameUpdateListener, 
 
     // 栈采集周期
     private val stackCollectPeriod = TimeUnit.MILLISECONDS.convert(
-        Rabbit.geConfig().traceConfig.blockStackCollectPeriod,
+        Rabbit.geConfig().monitorConfig.blockStackCollectPeriod,
         TimeUnit.NANOSECONDS
     )
-    private val blockThreshold = Rabbit.geConfig().traceConfig.blockThreshold
+    private val blockThreshold = Rabbit.geConfig().monitorConfig.blockThreshold
 
     private var monitorThread: HandlerThread? = null
     private val frameTracer = ChoreographerFrameUpdateMonitor()
@@ -71,7 +71,7 @@ class RabbitBlockMonitor : ChoreographerFrameUpdateMonitor.FrameUpdateListener, 
 
     override fun isOpen() = isOpen
 
-    override fun getMonitorInfo() = RabbitMonitor.MONITOR_BLOCK
+    override fun getMonitorInfo() = RabbitMonitor.BLOCK
 
     override fun doFrame(frameCostNs: Long) {
         stackCollectHandler?.removeCallbacks(blockStackCollectTask)

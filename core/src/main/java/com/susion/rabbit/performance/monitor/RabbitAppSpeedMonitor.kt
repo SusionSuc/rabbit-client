@@ -60,7 +60,7 @@ class RabbitAppSpeedMonitor : RabbitMonitor {
 
     override fun isOpen() = pageSpeedMonitorEnable
 
-    override fun getMonitorInfo() = RabbitMonitor.MONITOR_APP_SPEED
+    override fun getMonitorInfo() = RabbitMonitor.APP_SPEED
 
     /**
      * 目前定死从 asstets/page_api_list.json 文件中加载

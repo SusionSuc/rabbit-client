@@ -17,60 +17,81 @@ public class RabbitMemoryInfo implements RabbitGreenDaoInfo {
 
     public long time;
 
-    public int memorySize;
+    public int totalSize;
+
+    public int vmSize;
+
+    public int nativeSize;
+
+    public int othersSize;
+
+    @Generated(hash = 506538862)
+    public RabbitMemoryInfo(Long id, long time, int totalSize, int vmSize,
+            int nativeSize, int othersSize) {
+        this.id = id;
+        this.time = time;
+        this.totalSize = totalSize;
+        this.vmSize = vmSize;
+        this.nativeSize = nativeSize;
+        this.othersSize = othersSize;
+    }
+
+    @Generated(hash = 1300157943)
+    public RabbitMemoryInfo() {
+    }
 
     @Override
     public String getSortField() {
         return "time";
     }
 
-
     public Long getId() {
         return this.id;
     }
-
 
     public void setId(Long id) {
         this.id = id;
     }
 
-
     public long getTime() {
         return this.time;
     }
-
 
     public void setTime(long time) {
         this.time = time;
     }
 
-
-    public int getMemorySize() {
-        return this.memorySize;
+    public int getTotalSize() {
+        return this.totalSize;
     }
 
-
-    public void setMemorySize(int memorySize) {
-        this.memorySize = memorySize;
+    public void setTotalSize(int totalSize) {
+        this.totalSize = totalSize;
     }
 
-
-    public RabbitMemoryInfo(long time, int memorySize) {
-        this.time = time;
-        this.memorySize = memorySize;
+    public int getVmSize() {
+        return this.vmSize;
     }
 
-
-    @Generated(hash = 1028915299)
-    public RabbitMemoryInfo(Long id, long time, int memorySize) {
-        this.id = id;
-        this.time = time;
-        this.memorySize = memorySize;
+    public void setVmSize(int vmSize) {
+        this.vmSize = vmSize;
     }
 
-
-    @Generated(hash = 1300157943)
-    public RabbitMemoryInfo() {
+    public int getNativeSize() {
+        return this.nativeSize;
     }
+
+    public void setNativeSize(int nativeSize) {
+        this.nativeSize = nativeSize;
+    }
+
+    public int getOthersSize() {
+        return this.othersSize;
+    }
+
+    public void setOthersSize(int othersSize) {
+        this.othersSize = othersSize;
+    }
+
 
 }

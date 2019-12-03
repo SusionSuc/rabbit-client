@@ -12,8 +12,9 @@ import com.susion.rabbit.base.view.RabbitMainFeatureView
 import com.susion.rabbit.config.RabbitConfigPage
 import com.susion.rabbit.exception.ui.RabbitExceptionListPage
 import com.susion.rabbit.net.ui.RabbitHttpLogListPage
-import com.susion.rabbit.performance.ui.RabbitAppSpeedMonitorDetailPage
-import com.susion.rabbit.performance.ui.RabbitUiBlockListPage
+import com.susion.rabbit.performance.ui.page.RabbitAppSpeedMonitorDetailPage
+import com.susion.rabbit.performance.ui.page.RabbitMemoryComposePage
+import com.susion.rabbit.performance.ui.page.RabbitUiBlockListPage
 import com.susion.rabbit.utils.getDrawable
 import leakcanary.LeakCanary
 
@@ -90,11 +91,20 @@ class RabbitEntryPage(context: Context) : RabbitBasePage(context) {
                 RabbitMainFeatureInfo(
                     "内存泄漏",
                     R.drawable.rabbit_icon_memory_leak,
-                   null
+                    null
                 ) {
-                    Rabbit.appCurrentActivity?.get()?.startActivity(LeakCanary.newLeakDisplayActivityIntent())
+                    Rabbit.appCurrentActivity?.get()
+                        ?.startActivity(LeakCanary.newLeakDisplayActivityIntent())
                     Rabbit.uiManager.hideAllPage()
                 }
+            )
+
+            add(
+                RabbitMainFeatureInfo(
+                    "内存分析",
+                    R.drawable.rabbit_icon_memory_compose,
+                    RabbitMemoryComposePage::class.java
+                )
             )
         }
     }

@@ -1,4 +1,4 @@
-package com.susion.rabbit.performance.ui
+package com.susion.rabbit.performance.ui.view
 
 import android.content.Context
 import android.view.LayoutInflater

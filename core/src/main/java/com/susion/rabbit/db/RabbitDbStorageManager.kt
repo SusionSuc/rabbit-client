@@ -30,6 +30,18 @@ object RabbitDbStorageManager {
         })
     }
 
+    fun <T : RabbitGreenDaoInfo> getDataWithDescendingSort(
+        ktClass: Class<T>,
+        count: Int,
+        loadResult: (exceptionList: List<T>) -> Unit
+    ) {
+        runOnIoThreadWithData({
+            greenDaoDbManage.getDataWithDescendingSort(ktClass, "time", count)
+        }, {
+            loadResult(it)
+        })
+    }
+
     fun save(obj: RabbitGreenDaoInfo) {
         val dis = runOnIoThread({
             greenDaoDbManage.saveObj(obj)

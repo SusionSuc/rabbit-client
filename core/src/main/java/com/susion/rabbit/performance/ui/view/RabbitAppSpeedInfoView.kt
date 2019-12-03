@@ -1,4 +1,4 @@
-package com.susion.rabbit.performance.ui
+package com.susion.rabbit.performance.ui.view
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import com.susion.rabbit.R
 import com.susion.rabbit.Rabbit
 import com.susion.rabbit.base.adapter.RabbitAdapterItemView
 import com.susion.rabbit.performance.entities.RabbitAppStartSpeedTotalInfo
+import com.susion.rabbit.performance.ui.page.RabbitAppStartSpeedDetailPage
 import com.susion.rabbit.utils.*
 import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.rabbit_view_app_speed_info.view.*
