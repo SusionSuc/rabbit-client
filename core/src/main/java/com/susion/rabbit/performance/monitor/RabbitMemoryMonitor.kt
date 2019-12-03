@@ -58,7 +58,7 @@ class RabbitMemoryMonitor : RabbitMonitor {
         monitorThread = null
         Rabbit.uiManager.updateUiFromAsyncThread(
             RabbitUiManager.MSG_UPDATE_MEMORY_VALUE,
-            0
+            ""
         )
         isOpen = false
     }
