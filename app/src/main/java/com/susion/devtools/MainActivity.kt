@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.core.app.ActivityCompat
 import com.susion.devtools.net.DevToolsTestApiModel
 import com.susion.rabbit.Rabbit
@@ -14,6 +15,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : RabbitBaseActivity() {
 
+    private val objList = ArrayList<Any>()
     private val TAG = javaClass.simpleName
     private val PERMISSIONS_STORAGE =
         arrayOf(
@@ -43,8 +45,10 @@ class MainActivity : RabbitBaseActivity() {
             val a = 1 / 0
         }
 
-        mLeakCanaryTv.setOnClickListener {
-            
+        mGenerateObjTv.setOnClickListener {
+            (0..1000).forEach { _ ->
+                objList.add(View(this))
+            }
         }
 
     }

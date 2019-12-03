@@ -25,7 +25,10 @@ class RabbitConfig(
         var blockStackCollectPeriod: Long = STANDARD_FRAME_NS,
         //卡顿检测时间
         var blockThreshold: Long = STANDARD_FRAME_NS * 10,
-        var autoOpenPageSpeedMonitor:Boolean = false
+        //自动打开页面测速功能
+        var autoOpenPageSpeedMonitor: Boolean = false,
+        //内存监控 -> 内存采样周期
+        var memoryValueCollectPeriod: Long = 70000L
     ) {
         companion object {
             var STANDARD_FRAME_NS = 16666666L

@@ -34,7 +34,8 @@ class RabbitFloatingView(context: Context) : LinearLayout(context) {
     init {
         LayoutInflater.from(context).inflate(R.layout.rabbit_view_floating, this)
         orientation = VERTICAL
-        layoutParams = LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        layoutParams =
+            LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         isClickable = true
 
         mDevToolsFloatingIv.setOnClickListener {
@@ -122,8 +123,8 @@ class RabbitFloatingView(context: Context) : LinearLayout(context) {
         animator.start()
     }
 
-    fun updateFps(fpsValue:Float){
-        if (fpsValue == 0f){
+    fun updateFps(fpsValue: Float) {
+        if (fpsValue == 0f) {
             mDevToolsFloatingTvFps.visibility = View.GONE
             return
         }
@@ -132,6 +133,16 @@ class RabbitFloatingView(context: Context) : LinearLayout(context) {
         mDevToolsFloatingTvFps.text = "${fpsValue.toInt()}"
         val textColor = if (fpsValue < 45) R.color.rabbit_error_red else R.color.rabbit_black
         mDevToolsFloatingTvFps.setTextColor(getColor(context, textColor))
+    }
+
+    fun updateMemorySize(memorySize: Int) {
+        if (memorySize == 0) {
+            mDevToolsFloatingTvMemory.visibility = View.GONE
+            return
+        }
+
+        mDevToolsFloatingTvMemory.visibility = View.VISIBLE
+        mDevToolsFloatingTvMemory.text = "${RabbitUiUtils.formatFileSize(memorySize.toLong())}"
     }
 
 }

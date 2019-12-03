@@ -1,6 +1,5 @@
 package com.susion.rabbit.ui
 
-import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.graphics.PixelFormat
@@ -14,10 +13,8 @@ import com.susion.rabbit.R
 import com.susion.rabbit.Rabbit
 import com.susion.rabbit.RabbitLog
 import com.susion.rabbit.ui.page.RabbitEntryPage
-import com.susion.rabbit.utils.RabbitActivityLifecycleWrapper
 import com.susion.rabbit.utils.dp2px
 import com.susion.rabbit.utils.getDrawable
-import java.lang.ref.WeakReference
 
 /**
  * susionwang at 2019-10-21
@@ -31,15 +28,21 @@ class RabbitUiManager(val applicationContext: Application) {
         const val PAGE_HIDE = 2
         const val PAGE_SHOWING = 3
 
-        const val MSA_UPDATE_FPS = 1
+        const val MSG_UPDATE_FPS = 100
+        const val MSG_UPDATE_MEMORY_VALUE = 110
     }
 
-    private val uiHandler = object :Handler(Looper.getMainLooper()){
+    private val uiHandler = object : Handler(Looper.getMainLooper()) {
         override fun handleMessage(msg: Message) {
-            when(msg.what){
-                MSA_UPDATE_FPS ->{
-                    if (msg.obj is Float){
+            when (msg.what) {
+                MSG_UPDATE_FPS -> {
+                    if (msg.obj is Float) {
                         floatingView.updateFps(msg.obj as Float)
+                    }
+                }
+                MSG_UPDATE_MEMORY_VALUE -> {
+                    if (msg.obj is Int) {
+                        floatingView.updateMemorySize(msg.obj as Int)
                     }
                 }
             }
@@ -95,14 +98,16 @@ class RabbitUiManager(val applicationContext: Application) {
         }
     }
 
-    private fun getWm() = (applicationContext.getSystemService(Context.WINDOW_SERVICE) as WindowManager)
+    private fun getWm() =
+        (applicationContext.getSystemService(Context.WINDOW_SERVICE) as WindowManager)
 
     private fun addPage(pageClass: Class<out View>): RabbitPageProtocol? {
         var newedView: View? = null
 
         for (surInt in pageClass.interfaces) {
             if (surInt == RabbitPageProtocol::class.java) {
-                newedView = pageClass.getConstructor(Context::class.java).newInstance(applicationContext)
+                newedView =
+                    pageClass.getConstructor(Context::class.java).newInstance(applicationContext)
                 break
             }
         }
@@ -110,7 +115,8 @@ class RabbitUiManager(val applicationContext: Application) {
         if (newedView == null) {
             for (surInt in pageClass.superclass.interfaces) {
                 if (surInt == RabbitPageProtocol::class.java) {
-                    newedView = pageClass.getConstructor(Context::class.java).newInstance(applicationContext)
+                    newedView = pageClass.getConstructor(Context::class.java)
+                        .newInstance(applicationContext)
                     break
                 }
             }
@@ -182,8 +188,8 @@ class RabbitUiManager(val applicationContext: Application) {
 
     fun handleFloatingViewClickEvent() {
         RabbitLog.d("pageShowStatus : $pageShowStatus")
-        when(pageShowStatus){
-            PAGE_NULL ->  showRabbitEntryPage()
+        when (pageShowStatus) {
+            PAGE_NULL -> showRabbitEntryPage()
             PAGE_SHOWING -> hideRabbitPage()
             PAGE_HIDE -> restoreRabbitPage()
         }
@@ -200,11 +206,11 @@ class RabbitUiManager(val applicationContext: Application) {
     }
 
     fun hideAllPage() {
-        if (pageShowStatus != PAGE_SHOWING)return
+        if (pageShowStatus != PAGE_SHOWING) return
         hideRabbitPage()
     }
 
-    fun updateUiFromAsyncThread(msgType:Int, params:Any){
+    fun updateUiFromAsyncThread(msgType: Int, params: Any) {
         val msg = uiHandler.obtainMessage()
         msg.what = msgType
         msg.obj = params

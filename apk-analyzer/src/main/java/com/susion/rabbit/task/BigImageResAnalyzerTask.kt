@@ -27,7 +27,7 @@ class BigImageResAnalyzerTask : AnalyzerTask {
         val overLimitImages =
             unZipContext.fileMap.filter { checkedImageTypes.contains(it.key) }.flatMap { it.value }
                 .filter { (it.size / 1024) > limitImageSize }
-                .map { OverLimitImageInfo(Utils.getFileRelativeName(unZipContext.unZipDir,it.path), Utils.formatImageSize(it.size)) }
+                .map { OverLimitImageInfo(Utils.getFileRelativeName(unZipContext.unZipDir,it.path), Utils.formatFileSize(it.size)) }
 
         return Gson().toJson(overLimitImages)
     }

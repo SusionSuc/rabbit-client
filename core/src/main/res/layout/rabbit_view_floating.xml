@@ -30,4 +30,14 @@
         android:textSize="15dp"
         android:textStyle="bold" />
 
+    <TextView
+        android:layout_marginTop="5dp"
+        android:id="@+id/mDevToolsFloatingTvMemory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/rabbit_white"
+        android:textSize="15dp"
+        android:textStyle="bold" />
+
 </merge>

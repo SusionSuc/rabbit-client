@@ -23,7 +23,7 @@ class AppInfoAnalyzerTask : AnalyzerTask {
 
         val appInfo = AppInfo()
 
-        appInfo.appSize = Utils.formatImageSize(apkInfo.apkSize)
+        appInfo.appSize = Utils.formatFileSize(apkInfo.apkSize)
 
         val manifestParser = ManifestParser(
             File(apkInfo.unZipDir, MANIFEST_FILE_NAME),

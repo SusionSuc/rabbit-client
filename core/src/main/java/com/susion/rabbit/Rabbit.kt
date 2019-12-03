@@ -13,8 +13,8 @@ import com.susion.rabbit.config.RabbitSettings
 import com.susion.rabbit.db.RabbitDbStorageManager
 import com.susion.rabbit.exception.RabbitExceptionManager
 import com.susion.rabbit.net.RabbitHttpLogInterceptor
-import com.susion.rabbit.tracer.RabbitTracer
-import com.susion.rabbit.tracer.monitor.RabbitAppSpeedInterceptor
+import com.susion.rabbit.performance.RabbitMonitorManager
+import com.susion.rabbit.performance.core.RabbitAppSpeedInterceptor
 import com.susion.rabbit.ui.RabbitUiManager
 import com.susion.rabbit.utils.FloatingViewPermissionHelper
 import com.susion.rabbit.utils.RabbitActivityLifecycleWrapper
@@ -68,7 +68,7 @@ object Rabbit {
             }
         })
         RabbitExceptionManager.openGlobalExceptionCollector()
-        RabbitTracer.init(applicationContext, mConfig.traceConfig)
+        RabbitMonitorManager.init(applicationContext, mConfig.traceConfig)
         RabbitDbStorageManager.clearOldSessionData()
         isInit = true
     }

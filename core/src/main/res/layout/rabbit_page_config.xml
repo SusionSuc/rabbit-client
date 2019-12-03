@@ -2,25 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mConfigPageRootViewLl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/rabbit_white"
+    android:orientation="vertical"
     tools:parentTag="LinearLayout">
-
-    <com.susion.rabbit.base.view.RabbitSwitchButton
-        android:id="@+id/mRabbitConfigSBOpenFpsMonitor"
-        android:layout_width="match_parent"
-        android:layout_height="60dp" />
-
-    <com.susion.rabbit.base.view.RabbitSwitchButton
-        android:id="@+id/mRabbitConfigSBOpenBlockMonitor"
-        android:layout_width="match_parent"
-        android:layout_height="60dp" />
-
-    <com.susion.rabbit.base.view.RabbitSwitchButton
-        android:id="@+id/mRabbitConfigSBPageSpeedMonitor"
-        android:layout_width="match_parent"
-        android:layout_height="60dp" />
 
 </LinearLayout>

@@ -26,7 +26,7 @@ class DuplicatedFileAnalyzerTask : AnalyzerTask {
 
             var md5FileInfo = md5Map[md5Value]
             if (md5FileInfo == null) {
-                md5FileInfo = SameMd5Files(fileSize = Utils.formatImageSize(it.size), md5Value = md5Value)
+                md5FileInfo = SameMd5Files(fileSize = Utils.formatFileSize(it.size), md5Value = md5Value)
                 md5Map[md5Value] = md5FileInfo
             }
 

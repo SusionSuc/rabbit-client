@@ -6,9 +6,9 @@ import com.susion.rabbit.base.entities.RabbitGreenDaoInfo
 import com.susion.rabbit.exception.entities.RabbitExceptionInfo
 import com.susion.rabbit.greendao.DaoMaster
 import com.susion.rabbit.net.entities.RabbitHttpLogInfo
-import com.susion.rabbit.tracer.entities.RabbitAppStartSpeedInfo
-import com.susion.rabbit.tracer.entities.RabbitBlockFrameInfo
-import com.susion.rabbit.tracer.entities.RabbitPageSpeedInfo
+import com.susion.rabbit.performance.entities.RabbitAppStartSpeedInfo
+import com.susion.rabbit.performance.entities.RabbitBlockFrameInfo
+import com.susion.rabbit.performance.entities.RabbitPageSpeedInfo
 import org.greenrobot.greendao.AbstractDao
 import org.greenrobot.greendao.Property
 

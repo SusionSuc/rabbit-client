@@ -5,9 +5,11 @@ import android.view.ViewGroup
 import com.susion.rabbit.R
 import com.susion.rabbit.Rabbit
 import com.susion.rabbit.base.view.RabbitSwitchButton
-import com.susion.rabbit.tracer.RabbitTracer
+import com.susion.rabbit.performance.RabbitMonitorManager
+import com.susion.rabbit.performance.monitor.RabbitFPSMonitor
 import com.susion.rabbit.ui.RabbitUiManager
 import com.susion.rabbit.ui.page.RabbitBasePage
+import com.susion.rabbit.utils.RabbitUiUtils
 import kotlinx.android.synthetic.main.rabbit_page_config.view.*
 
 /**
@@ -21,54 +23,30 @@ class RabbitConfigPage(context: Context) : RabbitBasePage(context) {
     init {
         layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         setTitle("功能配置")
-        mRabbitConfigSBOpenFpsMonitor.checkedStatusChangeListener =
-            object : RabbitSwitchButton.CheckedStatusChangeListener {
+
+        //监控相关的配置
+        RabbitMonitorManager.monitorList.forEach { monitor ->
+            val monitorInfo = monitor.getMonitorInfo()
+            val switchBtn = RabbitSwitchButton(context).apply {
+                LayoutParams(LayoutParams.MATCH_PARENT, RabbitUiUtils.dp2px(60f))
+            }
+            mConfigPageRootViewLl.addView(switchBtn)
+            switchBtn.checkedStatusChangeListener = object : RabbitSwitchButton.CheckedStatusChangeListener {
                 override fun checkedStatusChange(isChecked: Boolean) {
                     if (isChecked) {
-                        RabbitTracer.openFpsMonitor()
+                        RabbitMonitorManager.openMonitor(monitorInfo.enName)
                     } else {
-                        RabbitTracer.closeFpsMonitor()
-                        Rabbit.uiManager.updateUiFromAsyncThread(RabbitUiManager.MSA_UPDATE_FPS, 0f)
+                        RabbitMonitorManager.closeMonitor(monitorInfo.enName)
                     }
-                    RabbitSettings.setFPSCheckOpenFlag(context, isChecked)
-                    refreshSwitchStatus()
+                    RabbitSettings.setAutoOpenFlag(context, monitorInfo.enName, isChecked)
                 }
             }
+            switchBtn.refreshUi(
+                monitorInfo.znName,
+                RabbitSettings.autoOpen(context, monitorInfo.enName)
+            )
+        }
 
-        mRabbitConfigSBOpenBlockMonitor.checkedStatusChangeListener =
-            object : RabbitSwitchButton.CheckedStatusChangeListener {
-                override fun checkedStatusChange(isChecked: Boolean) {
-                    if (isChecked) {
-                        RabbitTracer.openBlockMonitor()
-                    } else {
-                        RabbitTracer.closeBlockMonitor()
-                        Rabbit.uiManager.updateUiFromAsyncThread(RabbitUiManager.MSA_UPDATE_FPS, 0f)
-                    }
-                    RabbitSettings.setBlockCheckOpenFlag(context, isChecked)
-                    refreshSwitchStatus()
-                }
-            }
-
-        mRabbitConfigSBPageSpeedMonitor.checkedStatusChangeListener =
-            object : RabbitSwitchButton.CheckedStatusChangeListener {
-                override fun checkedStatusChange(isChecked: Boolean) {
-                    if (isChecked) {
-                        RabbitTracer.openPageSpeedMonitor()
-                    } else {
-                        RabbitTracer.closePageSpeedMonitor()
-                    }
-                    RabbitSettings.setActivitySpeedMonitorOpenFlag(context, isChecked)
-                    refreshSwitchStatus()
-                }
-            }
-
-        refreshSwitchStatus()
-    }
-
-    private fun refreshSwitchStatus() {
-        mRabbitConfigSBOpenFpsMonitor.refreshUi("打开FPS监控", RabbitTracer.fpsMonitorIsOpen())
-        mRabbitConfigSBOpenBlockMonitor.refreshUi("打开卡顿监控", RabbitTracer.blockMonitorIsOpen())
-        mRabbitConfigSBPageSpeedMonitor.refreshUi("打开页面测试监控", RabbitTracer.pageSpeedMonitorIsOpen())
     }
 
 }

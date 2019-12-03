@@ -1,7 +1,6 @@
 package com.susion.rabbit.ui.page
 
 import android.content.Context
-import android.content.Intent
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
@@ -13,8 +12,8 @@ import com.susion.rabbit.base.view.RabbitMainFeatureView
 import com.susion.rabbit.config.RabbitConfigPage
 import com.susion.rabbit.exception.ui.RabbitExceptionListPage
 import com.susion.rabbit.net.ui.RabbitHttpLogListPage
-import com.susion.rabbit.tracer.ui.RabbitAppSpeedMonitorDetailPage
-import com.susion.rabbit.tracer.ui.RabbitUiBlockListPage
+import com.susion.rabbit.performance.ui.RabbitAppSpeedMonitorDetailPage
+import com.susion.rabbit.performance.ui.RabbitUiBlockListPage
 import com.susion.rabbit.utils.getDrawable
 import leakcanary.LeakCanary
 

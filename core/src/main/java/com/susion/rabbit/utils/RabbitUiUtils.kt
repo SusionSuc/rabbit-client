@@ -12,6 +12,7 @@ import android.view.View
 import android.view.Window
 import android.widget.TextView
 import android.widget.Toast
+import java.util.*
 
 /**
  * susionwang at 2019-09-23
@@ -50,7 +51,6 @@ object RabbitUiUtils {
         setStatusBarTextColor(window, true)
     }
 
-
     private fun setStatusBarColor(window: Window, @ColorInt color: Int) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             window.statusBarColor = color
@@ -80,4 +80,21 @@ object RabbitUiUtils {
         clipboard.primaryClip = clipData
     }
 
+    fun formatFileSize(size: Long): String {
+        if (size <= 0) return ""
+        val formater = Formatter()
+        return when {
+            size < 1024 -> size.toString() + "B"
+            size < 1024 * 1024 -> {
+                formater.format("%.2f KB", size / 1024f).toString()
+            }
+            size < 1024 * 1024 * 1024 -> {
+                formater.format("%.2f MB", size / 1024f / 1024f).toString()
+            }
+            size < 1024 * 1024 * 1024 * 1024 -> {
+                formater.format("%.2f GB", size / 1024f / 1024f / 1024f).toString()
+            }
+            else -> ""
+        }
+    }
 }

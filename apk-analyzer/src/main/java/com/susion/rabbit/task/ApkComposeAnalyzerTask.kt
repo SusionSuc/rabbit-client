@@ -27,7 +27,7 @@ class ApkComposeAnalyzerTask : AnalyzerTask {
         }
 
         val resultList = composeList.sortedByDescending {
-            it.totalSizeStr = Utils.formatImageSize(it.totalSize)
+            it.totalSizeStr = Utils.formatFileSize(it.totalSize)
             it.totalSize
         }.filter { (it.totalSize / 1024) > 10 && it.type.isNotEmpty()}
 

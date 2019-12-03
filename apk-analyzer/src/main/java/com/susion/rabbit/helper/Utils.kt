@@ -8,7 +8,7 @@ import java.util.*
 
 object Utils {
 
-    fun formatImageSize(size: Long): String {
+    fun formatFileSize(size: Long): String {
         if (size <= 0) return ""
         val formater = Formatter()
         return when {
