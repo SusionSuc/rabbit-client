@@ -2,6 +2,7 @@ package com.susion.rabbit.performance.monitor
 
 import android.content.Context
 import com.google.gson.Gson
+import com.susion.rabbit.Rabbit
 import com.susion.rabbit.RabbitLog
 import com.susion.rabbit.db.RabbitDbStorageManager
 import com.susion.rabbit.performance.core.RabbitMonitor
@@ -43,11 +44,11 @@ class RabbitAppSpeedMonitor : RabbitMonitor {
     private var pageSpeedMonitorEnable = false
 
     init {
+        loadConfig()
         monitorApplicationStart()
     }
 
     override fun open(context: Context) {
-        loadConfig(context)
         pageSpeedMonitorEnable = true
         monitorActivitySpeed()
         RabbitLog.d(TAG, "entryActivityName : $entryActivityName")
@@ -67,9 +68,9 @@ class RabbitAppSpeedMonitor : RabbitMonitor {
      *
      * TODO:也可以扩展为网络配置
      * */
-    private fun loadConfig(context: Context) {
+    private fun loadConfig() {
         try {
-            val jsonStr = FileUtils.getAssetString(context, ASSERT_FILE_NAME)
+            val jsonStr = FileUtils.getAssetString(Rabbit.application!!, ASSERT_FILE_NAME)
             if (jsonStr.isEmpty()) return
 
             configInfo = Gson().fromJson(jsonStr, RabbitAppSpeedMonitorConfig::class.java)
@@ -133,6 +134,7 @@ class RabbitAppSpeedMonitor : RabbitMonitor {
             }
 
             override fun activityDrawFinish(activity: Any, time: Long) {
+                RabbitLog.d(TAG, "activityDrawFinish : ${ activity.javaClass.simpleName}")
                 saveAppPageSpeedInfoToLocal(time)
                 if (entryActivityName.isNotEmpty() && appSpeedCanRecord) {
                     saveApplicationStartInfoToLocal(time, activity.javaClass.simpleName)

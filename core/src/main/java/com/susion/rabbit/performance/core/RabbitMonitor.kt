@@ -14,7 +14,7 @@ interface RabbitMonitor {
         val MEMORY = MonitorInfo("memory_monitor", "内存监控", true) //fps监控
     }
 
-    class MonitorInfo(val enName: String, val znName: String, val runInDebug: Boolean = true)
+    class MonitorInfo(val name: String, val znName: String, val runInDebug: Boolean = true)
 
     fun open(context: Context)
 

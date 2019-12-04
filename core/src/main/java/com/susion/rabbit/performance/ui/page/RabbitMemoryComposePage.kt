@@ -23,15 +23,27 @@ class RabbitMemoryComposePage(context: Context) : RabbitBasePage(context) {
     override fun getLayoutResId() = R.layout.rabbit_page_memory_compose
 
     init {
+
+        setTitle("内存概览")
         initChart(mRabbitMemComposePageMemChart)
 
         mRabbitMemComposePageTvMaxMem.text =
             RabbitUiUtils.formatFileSize(Runtime.getRuntime().maxMemory())
 
+        mRabbitMemComposePageSRL.setOnRefreshListener {
+            loadData()
+        }
+
+        loadData()
+    }
+
+    private fun loadData() {
         RabbitDbStorageManager.getDataWithDescendingSort(
             RabbitMemoryInfo::class.java,
-            50
+            200
         ) { memInfos ->
+
+            mRabbitMemComposePageSRL.isRefreshing = false
 
             val avgMem = memInfos.map { it.totalSize }.average()
             val avgVmMem = memInfos.map { it.vmSize }.average()

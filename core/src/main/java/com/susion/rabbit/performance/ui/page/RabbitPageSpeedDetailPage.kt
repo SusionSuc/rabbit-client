@@ -12,6 +12,8 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.google.gson.Gson
 import com.susion.rabbit.R
 import com.susion.rabbit.RabbitLog
+import com.susion.rabbit.db.RabbitDbStorageManager
+import com.susion.rabbit.greendao.RabbitPageSpeedInfoDao
 import com.susion.rabbit.performance.entities.RabbitApiInfo
 import com.susion.rabbit.performance.entities.RabbitPageApiInfo
 import com.susion.rabbit.performance.entities.RabbitPageSpeedInfo
@@ -29,32 +31,52 @@ import java.util.ArrayList
 class RabbitPageSpeedDetailPage(context: Context) : RabbitBasePage(context) {
 
 
+    private var pageName: String = ""
+
     override fun getLayoutResId() = R.layout.rabbit_page_page_speed_detail
 
     init {
         layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         setTitle("页面测速详情")
         initChart(mRabbitSpeedDetailChart)
+        mRabbitSpeedDetailTvPageSRL.setOnRefreshListener {
+            RabbitDbStorageManager.getAll(
+                RabbitPageSpeedInfo::class.java,
+                RabbitPageSpeedInfoDao.Properties.PageName,
+                pageName
+            ) {
+                mRabbitSpeedDetailTvPageSRL.isRefreshing = false
+                renderUi(it)
+            }
+        }
     }
 
     override fun setEntryParams(blockInfo: Any) {
         if (blockInfo !is RabbitPageSpeedUiInfo) return
 
+        pageName = blockInfo.pageName
+
         mRabbitSpeedDetailTvPageName.text = blockInfo.pageName.split(".").lastOrNull() ?: ""
 
+        renderUi(blockInfo.speedInfoList)
+    }
+
+    fun renderUi(speedInfos: List<RabbitPageSpeedInfo>) {
+
+        mRabbitSpeedDetailRequestChartLl.removeAllViews()
+
         mRabbitSpeedDetailTvCreateTime.text =
-            "${(blockInfo.speedInfoList.map { it.pageCreateTime }.average()).toInt()} ms"
+            "${(speedInfos.map { it.pageCreateTime }.average()).toInt()} ms"
         mRabbitSpeedDetailTvInlateTime.text =
-            "${(blockInfo.speedInfoList.map { it.pageInflateTime }.average()).toInt()} ms"
+            "${(speedInfos.map { it.pageInflateTime }.average()).toInt()} ms"
         mRabbitSpeedDetailTvFullRenderTime.text =
-            "${(blockInfo.speedInfoList.map { it.fullRenderTime }.average()).toInt()} ms"
+            "${(speedInfos.map { it.fullRenderTime }.average()).toInt()} ms"
 
+        val orderSpeedInfos = speedInfos.sortedBy { it.time }
 
-        val orderSpeedInfos = blockInfo.speedInfoList.sortedBy { it.time }
         renderChart(orderSpeedInfos)
 
         renderRequestChart(orderSpeedInfos)
-
     }
 
     private fun renderChart(speedInfoList: List<RabbitPageSpeedInfo>) {
@@ -95,6 +117,7 @@ class RabbitPageSpeedDetailPage(context: Context) : RabbitBasePage(context) {
         dataSets.add(fullDrawDatas)
 
         mRabbitSpeedDetailChart.data = LineData(dataSets)
+        mRabbitSpeedDetailChart.invalidate()
 
     }
 
@@ -140,7 +163,7 @@ class RabbitPageSpeedDetailPage(context: Context) : RabbitBasePage(context) {
         dataSets.add(onCreateDatas)
 
         chart.data = LineData(dataSets)
-
+        chart.invalidate()
         return chart
     }
 

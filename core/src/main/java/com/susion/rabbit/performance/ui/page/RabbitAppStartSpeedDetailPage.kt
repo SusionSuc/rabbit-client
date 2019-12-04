@@ -36,23 +36,25 @@ class RabbitAppStartSpeedDetailPage(context: Context) : RabbitBasePage(context) 
             isDragEnabled = true
             setScaleEnabled(true)
             setPinchZoom(true)
-            setPadding(dp2px(3f),dp2px(3f),dp2px(3f),dp2px(3f))
+            setPadding(dp2px(3f), dp2px(3f), dp2px(3f), dp2px(3f))
             axisRight.isEnabled = false
             xAxis.isEnabled = false
         }
 
-        RabbitDbStorageManager.getAll(RabbitAppStartSpeedInfo::class.java){ speedInfos->
-            val onCreateCostList = speedInfos.map { it.createEndTime - it.createStartTime }
-            val fullCostList = speedInfos.map { it.fullShowCostTime}
+        RabbitDbStorageManager.getAll(RabbitAppStartSpeedInfo::class.java) { speedInfos ->
+            val onCreateCostList =
+                speedInfos.map { it.createEndTime - it.createStartTime }.filter { it != 0L }
+            val fullCostList = speedInfos.map { it.fullShowCostTime }.filter { it != 0L }
+
             mRabbitAppSpeedPageTvAvgOnCreate.text = "${(onCreateCostList.average()).toInt()} ms"
             mRabbitAppSpeedPageTvAvgFullTime.text = "${(fullCostList.average()).toInt()} ms"
 
-            val maxOnCreate = onCreateCostList.max()?.toInt() ?:0
-            val minOnCreate = onCreateCostList.min()?.toInt() ?:0
+            val maxOnCreate = onCreateCostList.max()?.toInt() ?: 0
+            val minOnCreate = onCreateCostList.min()?.toInt() ?: 0
             mRabbitAppSpeedPageTvRangeOnCreate.text = "($minOnCreate ~ $maxOnCreate) ms"
 
-            val maxFull = fullCostList.max()?.toInt() ?:0
-            val minFull = fullCostList.min()?.toInt() ?:0
+            val maxFull = fullCostList.max()?.toInt() ?: 0
+            val minFull = fullCostList.min()?.toInt() ?: 0
             mRabbitAppSpeedPageTvRangeFullStart.text = "($minFull ~ $maxFull) ms"
 
             mRabbitAppSpeedPageTvLogNumber.text = speedInfos.size.toString()

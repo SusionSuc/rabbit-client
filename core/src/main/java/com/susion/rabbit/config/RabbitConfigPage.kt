@@ -3,11 +3,8 @@ package com.susion.rabbit.config
 import android.content.Context
 import android.view.ViewGroup
 import com.susion.rabbit.R
-import com.susion.rabbit.Rabbit
 import com.susion.rabbit.base.view.RabbitSwitchButton
 import com.susion.rabbit.performance.RabbitMonitorManager
-import com.susion.rabbit.performance.monitor.RabbitFPSMonitor
-import com.susion.rabbit.ui.RabbitUiManager
 import com.susion.rabbit.ui.page.RabbitBasePage
 import com.susion.rabbit.utils.RabbitUiUtils
 import kotlinx.android.synthetic.main.rabbit_page_config.view.*
@@ -34,16 +31,16 @@ class RabbitConfigPage(context: Context) : RabbitBasePage(context) {
             switchBtn.checkedStatusChangeListener = object : RabbitSwitchButton.CheckedStatusChangeListener {
                 override fun checkedStatusChange(isChecked: Boolean) {
                     if (isChecked) {
-                        RabbitMonitorManager.openMonitor(monitorInfo.enName)
+                        RabbitMonitorManager.openMonitor(monitorInfo.name)
                     } else {
-                        RabbitMonitorManager.closeMonitor(monitorInfo.enName)
+                        RabbitMonitorManager.closeMonitor(monitorInfo.name)
                     }
-                    RabbitSettings.setAutoOpenFlag(context, monitorInfo.enName, isChecked)
+                    RabbitSettings.setAutoOpenFlag(context, monitorInfo.name, isChecked)
                 }
             }
             switchBtn.refreshUi(
                 monitorInfo.znName,
-                RabbitSettings.autoOpen(context, monitorInfo.enName)
+                RabbitSettings.autoOpen(context, monitorInfo.name)
             )
         }
 

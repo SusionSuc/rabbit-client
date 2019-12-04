@@ -5,6 +5,7 @@ import com.susion.rabbit.base.entities.RabbitGreenDaoInfo
 import com.susion.rabbit.utils.runOnIoThread
 import com.susion.rabbit.utils.runOnIoThreadWithData
 import io.reactivex.disposables.Disposable
+import org.greenrobot.greendao.Property
 
 /**
  * susionwang at 2019-10-12
@@ -42,6 +43,19 @@ object RabbitDbStorageManager {
         })
     }
 
+    fun <T : RabbitGreenDaoInfo> getAll(
+        ktClass: Class<T>,
+        property: Property,
+        value: String,
+        loadResult: (exceptionList: List<T>) -> Unit
+    ) {
+        runOnIoThreadWithData({
+            greenDaoDbManage.getDatas(ktClass, property.eq(value))
+        }, {
+            loadResult(it)
+        })
+    }
+
     fun save(obj: RabbitGreenDaoInfo) {
         val dis = runOnIoThread({
             greenDaoDbManage.saveObj(obj)
@@ -56,6 +70,7 @@ object RabbitDbStorageManager {
     fun <T : Any> clearAllData(clazz: Class<T>) {
         runOnIoThread({ greenDaoDbManage.clearAllData(clazz) })
     }
+
 
     fun destroy() {
         disposableList.forEach {

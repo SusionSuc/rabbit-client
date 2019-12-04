@@ -5,6 +5,7 @@ import com.susion.rabbit.Rabbit
 import com.susion.rabbit.base.entities.RabbitGreenDaoInfo
 import com.susion.rabbit.exception.entities.RabbitExceptionInfo
 import com.susion.rabbit.greendao.DaoMaster
+import com.susion.rabbit.greendao.RabbitMemoryInfoDao
 import com.susion.rabbit.net.entities.RabbitHttpLogInfo
 import com.susion.rabbit.performance.entities.RabbitAppStartSpeedInfo
 import com.susion.rabbit.performance.entities.RabbitBlockFrameInfo
@@ -12,6 +13,7 @@ import com.susion.rabbit.performance.entities.RabbitMemoryInfo
 import com.susion.rabbit.performance.entities.RabbitPageSpeedInfo
 import org.greenrobot.greendao.AbstractDao
 import org.greenrobot.greendao.Property
+import org.greenrobot.greendao.query.WhereCondition
 
 /**
  * susionwang at 2019-10-21
@@ -32,8 +34,13 @@ internal class RabbitGreenDaoDbManage(val context: Context) {
         daoImpl.save(obj)
     }
 
-    fun <T : Any> getDatas(clazz: Class<T>, count: Int): List<T> {
-        return daoImpl(clazz)?.queryBuilder()?.limit(count)?.list() as List<T>
+
+    fun <T : Any> getDataById(clazz: Class<T>, id: Long): T? {
+        return daoImpl(clazz)?.loadByRowId(id) ?: null
+    }
+
+    fun <T : Any> getDatas(clazz: Class<T>, condition: WhereCondition): List<T> {
+        return daoImpl(clazz)?.queryBuilder()?.where(condition)?.list() as List<T>
     }
 
     fun <T : Any> getAllDataWithDescendingSort(clazz: Class<T>, sortField: String): List<T> {
@@ -109,5 +116,6 @@ internal class RabbitGreenDaoDbManage(val context: Context) {
             clearAllData(it)
         }
     }
+
 
 }

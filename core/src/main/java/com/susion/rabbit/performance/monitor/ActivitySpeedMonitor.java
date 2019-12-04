@@ -14,6 +14,9 @@ import android.widget.FrameLayout;
 
 import com.susion.rabbit.tracer.RabbitTracerEventNotifier;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * susionwang at 2019-11-15
  * <p>
@@ -49,12 +52,26 @@ public class ActivitySpeedMonitor extends FrameLayout {
     public static void wrapperViewOnActivityCreateEnd(Activity activity) {
         RabbitTracerEventNotifier.eventNotifier.activityCreateEnd(activity, System.currentTimeMillis());
         ViewGroup contentView = activity.findViewById(android.R.id.content);
-        if (contentView != null && contentView.getChildCount() == 1 && contentView instanceof FrameLayout) {
+        //这里存在问题，强制取第0个View，可能会导致渲染完成时机取的不正确
+        if (contentView != null && contentView.getChildCount() >= 1 && contentView instanceof FrameLayout) {
             View realAcContent = contentView.getChildAt(0);
             ActivitySpeedMonitor monitorWrapperView = new ActivitySpeedMonitor(contentView.getContext());
-            contentView.removeView(realAcContent);
-            monitorWrapperView.addView(realAcContent);
-            contentView.addView(monitorWrapperView);
+            contentView.addView(monitorWrapperView,0);
+            replaceParent(realAcContent, contentView, monitorWrapperView);
+
+            final int childCount = contentView.getChildCount();
+            if (childCount > 1) {
+                List<View>  oldChilds = new ArrayList<>();
+                for (int i = 1; i < childCount; i++) {
+                    View child = contentView.getChildAt(i);
+                    oldChilds.add(child);
+                    contentView.removeView(child);
+                }
+
+                for (int i=0; i < oldChilds.size(); i++){
+                    monitorWrapperView.addView(oldChilds.get(i));
+                }
+            }
         }
     }
 
@@ -64,6 +81,11 @@ public class ActivitySpeedMonitor extends FrameLayout {
 
     public static void activityResumeEnd(Activity activity) {
         RabbitTracerEventNotifier.eventNotifier.activityResumeEnd(activity, System.currentTimeMillis());
+    }
+
+    public static void replaceParent(View view, ViewGroup oldParent, ViewGroup newParent) {
+        oldParent.removeView(view);
+        newParent.addView(view);
     }
 
 }

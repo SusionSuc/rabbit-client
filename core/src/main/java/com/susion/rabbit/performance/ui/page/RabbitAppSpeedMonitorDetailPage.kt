@@ -89,5 +89,4 @@ class RabbitAppSpeedMonitorDetailPage(context: Context) : RabbitBasePage(context
 
     }
 
-
 }

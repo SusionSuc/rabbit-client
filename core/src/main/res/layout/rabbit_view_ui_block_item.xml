@@ -29,4 +29,10 @@
         android:textColor="@color/rabbit_black"
         android:textSize="15dp" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/rabbit_divider_line"
+        android:layout_marginTop="3dp"/>
+
 </merge>

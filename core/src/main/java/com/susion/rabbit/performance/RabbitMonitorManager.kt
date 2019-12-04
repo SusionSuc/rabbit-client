@@ -3,7 +3,6 @@ package com.susion.rabbit.performance
 import android.app.ActivityManager
 import android.app.Application
 import android.content.Context
-import com.susion.rabbit.Rabbit
 import com.susion.rabbit.config.RabbitConfig
 import com.susion.rabbit.config.RabbitSettings
 import com.susion.rabbit.performance.core.RabbitMonitor
@@ -23,10 +22,10 @@ object RabbitMonitorManager {
     private var initStatus = false
     private var mConfig: RabbitConfig.MonitorConfig = RabbitConfig.MonitorConfig()
     private val monitorMap = HashMap<String, RabbitMonitor>().apply {
-        put(RabbitMonitor.APP_SPEED.enName, RabbitAppSpeedMonitor())
-        put(RabbitMonitor.FPS.enName, RabbitFPSMonitor())
-        put(RabbitMonitor.BLOCK.enName, RabbitBlockMonitor())
-        put(RabbitMonitor.MEMORY.enName, RabbitMemoryMonitor())
+        put(RabbitMonitor.APP_SPEED.name, RabbitAppSpeedMonitor())
+        put(RabbitMonitor.FPS.name, RabbitFPSMonitor())
+        put(RabbitMonitor.BLOCK.name, RabbitBlockMonitor())
+        put(RabbitMonitor.MEMORY.name, RabbitMemoryMonitor())
     }
 
     val monitorList = monitorMap.values.toList()
@@ -39,16 +38,15 @@ object RabbitMonitorManager {
         mContext = context
         initStatus = true
 
+        mConfig.autoOpenMonitors.forEach {
+            RabbitSettings.setAutoOpenFlag(context, it, true)
+        }
+
         monitorList.forEach {
-            val autoOpen = RabbitSettings.autoOpen(context, it.getMonitorInfo().enName)
+            val autoOpen = RabbitSettings.autoOpen(context, it.getMonitorInfo().name)
             if (autoOpen) {
                 it.open(context)
             }
-        }
-
-        //自动打开测速功能
-        if (Rabbit.geConfig().monitorConfig.autoOpenPageSpeedMonitor) {
-            monitorMap[RabbitMonitor.APP_SPEED.enName]?.open(context)
         }
     }
 
@@ -73,7 +71,7 @@ object RabbitMonitorManager {
     }
 
     fun monitorRequest(requestUrl: String): Boolean {
-        val appSpeedMonitor = monitorMap[RabbitMonitor.APP_SPEED.enName]
+        val appSpeedMonitor = monitorMap[RabbitMonitor.APP_SPEED.name]
         if (appSpeedMonitor is RabbitAppSpeedMonitor) {
             return appSpeedMonitor.monitorRequest(requestUrl)
         }
@@ -81,7 +79,7 @@ object RabbitMonitorManager {
     }
 
     fun markRequestFinish(requestUrl: String, costTime: Long) {
-        val appSpeedMonitor = monitorMap[RabbitMonitor.APP_SPEED.enName]
+        val appSpeedMonitor = monitorMap[RabbitMonitor.APP_SPEED.name]
         if (appSpeedMonitor is RabbitAppSpeedMonitor) {
             appSpeedMonitor.markRequestFinish(requestUrl, costTime)
         }
