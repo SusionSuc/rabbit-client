@@ -9,7 +9,7 @@ import java.io.StringWriter
 /**
  * susionwang at 2019-11-04
  */
-object RabbitExceptionManager {
+internal object RabbitExceptionManager {
 
     private fun translateThrowableToExceptionInfo(
         e: Throwable,

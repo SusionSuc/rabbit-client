@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit
  * susionwang at 2019-09-24
  * parser response to specific info [RabbitHttpLogInfo]
  */
-object RabbitHttpResponseParser {
+internal object RabbitHttpResponseParser {
 
     private val TAG = javaClass.simpleName
 

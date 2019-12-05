@@ -5,7 +5,6 @@ import com.susion.rabbit.Rabbit
 import com.susion.rabbit.base.entities.RabbitGreenDaoInfo
 import com.susion.rabbit.exception.entities.RabbitExceptionInfo
 import com.susion.rabbit.greendao.DaoMaster
-import com.susion.rabbit.greendao.RabbitMemoryInfoDao
 import com.susion.rabbit.net.entities.RabbitHttpLogInfo
 import com.susion.rabbit.performance.entities.RabbitAppStartSpeedInfo
 import com.susion.rabbit.performance.entities.RabbitBlockFrameInfo
@@ -94,7 +93,7 @@ internal class RabbitGreenDaoDbManage(val context: Context) {
             }
 
             if (dao == null) {
-                dao = getDaoFromProvider(entitiesClass, Rabbit.geConfig().daoProvider)
+                dao = getDaoFromProvider(entitiesClass, Rabbit.getConfig().daoProvider)
             }
 
             if (dao != null) {
@@ -118,7 +117,7 @@ internal class RabbitGreenDaoDbManage(val context: Context) {
     }
 
     fun clearOldSessionData() {
-        val dataClass = Rabbit.geConfig().storageInOnSessionData
+        val dataClass = Rabbit.getConfig().storageInOnSessionData
         dataClass.forEach {
             clearAllData(it)
         }

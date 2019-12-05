@@ -13,7 +13,7 @@ import com.susion.rabbit.performance.monitor.*
  * susionwang at 2019-10-18
  * 所有监控的管理者
  */
-object RabbitMonitorManager {
+internal object RabbitMonitorManager {
 
     private val TAG = "rabbit-monitor"
     private var mContext: Application? = null

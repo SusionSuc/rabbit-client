@@ -5,10 +5,14 @@ import android.util.Log
 /**
  * susionwang at 2019-10-18
  */
-object RabbitLog {
+internal object RabbitLog {
 
     private val DEFAULT_TAG = "rabbit"
     var isEnable: Boolean = true
+
+    fun init(enable:Boolean){
+        isEnable = enable
+    }
 
     fun d(tag: String, logStr: String) {
         if (isEnable) {

@@ -13,7 +13,7 @@ import okhttp3.Response
  * 1. 监听请求是否完成
  * 2. 监听请求耗时
  */
-class RabbitAppSpeedInterceptor : Interceptor {
+internal class RabbitAppSpeedInterceptor : Interceptor {
 
     private val TAG = javaClass.simpleName
 

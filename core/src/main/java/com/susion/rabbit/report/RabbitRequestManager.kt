@@ -7,14 +7,13 @@ import com.susion.rabbit.Rabbit
 import com.susion.rabbit.RabbitLog
 import com.susion.rabbit.report.entities.RabbitReportInfo
 import okhttp3.*
-import java.security.MessageDigest
 import java.util.*
 import java.util.concurrent.TimeUnit
 
 /**
  * susionwang at 2019-12-05
  */
-class RabbitRequestManager {
+internal class RabbitRequestManager {
 
     private val TAG = "rabbit-data-report"
 
@@ -31,7 +30,7 @@ class RabbitRequestManager {
 
     fun postTrackRequest(points: List<RabbitReportInfo>, requestListener: TrackRequestListener) {
 
-        val trackUrl = Rabbit.geConfig().reportConfig.reportPath
+        val trackUrl = Rabbit.getConfig().reportConfig.reportPath
 
         RabbitLog.d(
             TAG,

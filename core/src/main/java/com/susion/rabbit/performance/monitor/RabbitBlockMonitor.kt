@@ -7,7 +7,6 @@ import android.os.Looper
 import com.google.gson.Gson
 import com.susion.rabbit.Rabbit
 import com.susion.rabbit.db.RabbitDbStorageManager
-import com.susion.rabbit.performance.RabbitExecuteManager
 import com.susion.rabbit.performance.core.ChoreographerFrameUpdateMonitor
 import com.susion.rabbit.performance.core.RabbitMonitor
 import com.susion.rabbit.performance.entities.RabbitBlockFrameInfo
@@ -19,17 +18,17 @@ import java.util.concurrent.TimeUnit
  * 监控应用卡顿
  *
  * */
-class RabbitBlockMonitor : ChoreographerFrameUpdateMonitor.FrameUpdateListener, RabbitMonitor {
+internal class RabbitBlockMonitor : ChoreographerFrameUpdateMonitor.FrameUpdateListener, RabbitMonitor {
 
     private var stackCollectHandler: Handler? = null
     private var blockStackTraces = HashMap<String, RabbitBlockStackTraceInfo>()
 
     // 栈采集周期
     private val stackCollectPeriod = TimeUnit.MILLISECONDS.convert(
-        Rabbit.geConfig().monitorConfig.blockStackCollectPeriod,
+        Rabbit.getConfig().monitorConfig.blockStackCollectPeriod,
         TimeUnit.NANOSECONDS
     )
-    private val blockThreshold = Rabbit.geConfig().monitorConfig.blockThreshold
+    private val blockThreshold = Rabbit.getConfig().monitorConfig.blockThreshold
 
     private var monitorThread: HandlerThread? = null
     private val frameTracer = ChoreographerFrameUpdateMonitor()
@@ -84,9 +83,7 @@ class RabbitBlockMonitor : ChoreographerFrameUpdateMonitor.FrameUpdateListener, 
                 blockIdentifier = getIdentifierByMaxCount(blockStackTraces)
                 time = System.currentTimeMillis()
             }
-            RabbitExecuteManager.DB_THREAD.execute {
-                RabbitDbStorageManager.save(blockFrameInfo)
-            }
+            RabbitDbStorageManager.save(blockFrameInfo)
         }
 
         stackCollectHandler?.postDelayed(blockStackCollectTask, stackCollectPeriod)

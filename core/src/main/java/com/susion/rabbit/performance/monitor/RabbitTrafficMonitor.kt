@@ -16,7 +16,7 @@ import com.susion.rabbit.utils.RabbitUiUtils
  * susionwang at 2019-12-04
  * 流量监控
  */
-class RabbitTrafficMonitor : RabbitMonitor {
+internal class RabbitTrafficMonitor : RabbitMonitor {
 
     override fun open(context: Context) {
 

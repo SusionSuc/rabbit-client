@@ -10,7 +10,7 @@ import java.lang.reflect.Method
  *
  * 向[Choreographer]中插入3种callback, 监控一帧不同类型的事件运行时间
  */
-open class LazyChoreographerFrameUpdateMonitor {
+internal open class LazyChoreographerFrameUpdateMonitor {
 
     private val TAG = javaClass.simpleName
 

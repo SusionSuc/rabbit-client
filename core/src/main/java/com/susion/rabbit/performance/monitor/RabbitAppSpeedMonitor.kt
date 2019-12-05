@@ -17,7 +17,7 @@ import com.susion.rabbit.utils.FileUtils
  * 1. 应用启动速度
  * 2. 页面启动速度、渲染速度
  */
-class RabbitAppSpeedMonitor : RabbitMonitor {
+internal class RabbitAppSpeedMonitor : RabbitMonitor {
 
     private val TAG = javaClass.simpleName
 

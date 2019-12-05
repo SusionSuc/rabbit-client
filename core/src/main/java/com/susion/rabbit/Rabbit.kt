@@ -24,6 +24,7 @@ import java.lang.ref.WeakReference
 
 /**
  * susionwang at 2019-09-23
+ * Rabbit 入口类
  */
 object Rabbit {
 
@@ -63,7 +64,7 @@ object Rabbit {
         application = applicationContext
         mConfig = config_
         applicationContext.registerActivityLifecycleCallbacks(object :
-            RabbitActivityLifecycleWrapper(){
+            RabbitActivityLifecycleWrapper() {
             override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
                 appCurrentActivity = WeakReference(activity)
             }
@@ -72,6 +73,7 @@ object Rabbit {
         RabbitMonitorManager.init(applicationContext, mConfig.monitorConfig)
         RabbitDbStorageManager.clearOldSessionData()
         RabbitDataReportCenter.init(applicationContext)
+        RabbitLog.init(mConfig.enableLog)
         isInit = true
     }
 
@@ -110,7 +112,7 @@ object Rabbit {
 
     fun getApiTracerInterceptor() = RabbitAppSpeedInterceptor()
 
-    fun geConfig() = mConfig
+    fun getConfig() = mConfig
 
     /**
      * 异常日志保存

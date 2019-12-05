@@ -21,7 +21,7 @@ import java.util.concurrent.*
  * susionwang at 2019-12-05
  * 数据上报中心
  */
-object RabbitDataReportCenter {
+internal object RabbitDataReportCenter {
 
     private val TAG = "rabbit-data-report"
     var appCurrentActivity: WeakReference<Activity?>? = null    //当前应用正在展示的Activity
@@ -84,7 +84,7 @@ object RabbitDataReportCenter {
 
     fun report(info: Any, timeX: Long = System.currentTimeMillis()) {
 
-        if (!Rabbit.geConfig().reportConfig.reportMonitorData) return
+        if (!Rabbit.getConfig().reportConfig.reportMonitorData) return
 
         val infoJsonStr = gson.toJson(info)
 

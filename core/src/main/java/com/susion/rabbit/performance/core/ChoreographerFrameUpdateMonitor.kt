@@ -5,7 +5,7 @@ import android.view.Choreographer
 /**
  * 向 Choreographer pos callback。 这个操作会导致应用不断接收 [Vsync 信号]
  * */
-open class ChoreographerFrameUpdateMonitor {
+internal open class ChoreographerFrameUpdateMonitor {
 
     private var isStart = false
     private val frameCallback = object : Choreographer.FrameCallback {

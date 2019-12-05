@@ -11,7 +11,7 @@ import kotlin.math.min
  * susionwang at 2019-10-18
  * 监控 应用 FPS
  */
-class RabbitFPSMonitor : LazyChoreographerFrameUpdateMonitor.FrameUpdateListener, RabbitMonitor {
+internal class RabbitFPSMonitor : LazyChoreographerFrameUpdateMonitor.FrameUpdateListener, RabbitMonitor {
 
     private val TAG = javaClass.simpleName
     private val frameTracer = LazyChoreographerFrameUpdateMonitor().apply {

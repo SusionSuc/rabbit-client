@@ -58,7 +58,7 @@ class RabbitEntryPage(context: Context) : RabbitBasePage(context) {
                     RabbitConfigPage::class.java
                 )
             )
-            addAll(Rabbit.geConfig().entryFeatures)
+            addAll(Rabbit.getConfig().entryFeatures)
             add(
                 RabbitMainFeatureInfo(
                     "网络日志",

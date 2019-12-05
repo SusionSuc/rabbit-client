@@ -7,7 +7,6 @@ import android.os.Handler
 import android.os.HandlerThread
 import android.os.Process
 import com.susion.rabbit.Rabbit
-import com.susion.rabbit.RabbitLog
 import com.susion.rabbit.db.RabbitDbStorageManager
 import com.susion.rabbit.performance.core.RabbitMonitor
 import com.susion.rabbit.performance.entities.RabbitMemoryInfo
@@ -18,7 +17,7 @@ import com.susion.rabbit.utils.RabbitUiUtils
  * susionwang at 2019-12-03
  * 内存监控
  */
-class RabbitMemoryMonitor : RabbitMonitor {
+internal class RabbitMemoryMonitor : RabbitMonitor {
 
     private val TAG = javaClass.simpleName
     private var isOpen = false
@@ -43,7 +42,7 @@ class RabbitMemoryMonitor : RabbitMonitor {
 
     override fun open(context: Context) {
         mCtx = context
-        MEMORY_COLLECT_PERIOD = Rabbit.geConfig().monitorConfig.memoryValueCollectPeriod
+        MEMORY_COLLECT_PERIOD = Rabbit.getConfig().monitorConfig.memoryValueCollectPeriod
         mActivityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as? ActivityManager
         monitorThread = HandlerThread("rabbit_memory_monitor_thread")
         monitorThread?.start()

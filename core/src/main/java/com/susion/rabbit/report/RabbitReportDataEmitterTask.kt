@@ -9,7 +9,7 @@ import java.util.concurrent.locks.ReentrantLock
  * susionwang at 2019-12-05
  * 数据发射工作
  */
-class RabbitReportDataEmitterTask {
+internal class RabbitReportDataEmitterTask {
 
     private val TAG = "rabbit-data-report"
 
