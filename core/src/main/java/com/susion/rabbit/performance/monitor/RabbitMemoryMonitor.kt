@@ -29,8 +29,7 @@ class RabbitMemoryMonitor : RabbitMonitor {
     private val memoryCollectRunnable = object : Runnable {
         override fun run() {
             val memInfo = getMemoryInfo()
-
-            RabbitLog.d(TAG, "vm size : ${RabbitUiUtils.formatFileSize(memInfo.vmSize.toLong())}  native size : ${RabbitUiUtils.formatFileSize(memInfo.nativeSize.toLong())}")
+//            RabbitLog.d(TAG, "vm size : ${RabbitUiUtils.formatFileSize(memInfo.vmSize.toLong())}  native size : ${RabbitUiUtils.formatFileSize(memInfo.nativeSize.toLong())}")
             RabbitDbStorageManager.save(memInfo)
             Rabbit.uiManager.updateUiFromAsyncThread(
                 RabbitUiManager.MSG_UPDATE_MEMORY_VALUE,

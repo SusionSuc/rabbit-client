@@ -3,13 +3,11 @@ package com.susion.rabbit.performance
 import android.app.ActivityManager
 import android.app.Application
 import android.content.Context
+import com.susion.rabbit.RabbitLog
 import com.susion.rabbit.config.RabbitConfig
 import com.susion.rabbit.config.RabbitSettings
 import com.susion.rabbit.performance.core.RabbitMonitor
-import com.susion.rabbit.performance.monitor.RabbitAppSpeedMonitor
-import com.susion.rabbit.performance.monitor.RabbitBlockMonitor
-import com.susion.rabbit.performance.monitor.RabbitFPSMonitor
-import com.susion.rabbit.performance.monitor.RabbitMemoryMonitor
+import com.susion.rabbit.performance.monitor.*
 
 /**
  * susionwang at 2019-10-18
@@ -26,6 +24,7 @@ object RabbitMonitorManager {
         put(RabbitMonitor.FPS.name, RabbitFPSMonitor())
         put(RabbitMonitor.BLOCK.name, RabbitBlockMonitor())
         put(RabbitMonitor.MEMORY.name, RabbitMemoryMonitor())
+//        put(RabbitMonitor.TRAFFIC.name, RabbitTrafficMonitor())
     }
 
     val monitorList = monitorMap.values.toList()
@@ -46,6 +45,7 @@ object RabbitMonitorManager {
             val autoOpen = RabbitSettings.autoOpen(context, it.getMonitorInfo().name)
             if (autoOpen) {
                 it.open(context)
+                RabbitLog.d("monitor auto open : ${it.getMonitorInfo().name} ")
             }
         }
     }

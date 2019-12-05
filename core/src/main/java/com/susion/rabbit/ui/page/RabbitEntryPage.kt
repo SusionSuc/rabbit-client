@@ -1,6 +1,8 @@
 package com.susion.rabbit.ui.page
 
+import android.content.ComponentName
 import android.content.Context
+import android.content.Intent
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
@@ -16,7 +18,6 @@ import com.susion.rabbit.performance.ui.page.RabbitAppSpeedMonitorDetailPage
 import com.susion.rabbit.performance.ui.page.RabbitMemoryComposePage
 import com.susion.rabbit.performance.ui.page.RabbitUiBlockListPage
 import com.susion.rabbit.utils.getDrawable
-import leakcanary.LeakCanary
 
 /**
  * susionwang at 2019-10-21
@@ -93,8 +94,13 @@ class RabbitEntryPage(context: Context) : RabbitBasePage(context) {
                     R.drawable.rabbit_icon_memory_leak,
                     null
                 ) {
-                    Rabbit.appCurrentActivity?.get()
-                        ?.startActivity(LeakCanary.newLeakDisplayActivityIntent())
+                    //隐私启动，显示调用会在release构建时有问题
+                    val leakIntent = Intent()
+                    leakIntent.component = ComponentName(
+                        "com.mihoyo.hyperion",
+                        "leakcanary.internal.activity.LeakActivity"
+                    )
+                    Rabbit.appCurrentActivity?.get()?.startActivity(leakIntent)
                     Rabbit.uiManager.hideAllPage()
                 }
             )

@@ -12,6 +12,7 @@ interface RabbitMonitor {
         val BLOCK = MonitorInfo("block_monitor", "卡顿监控", true) //卡顿监控
         val FPS = MonitorInfo("fps_monitor", "FPS监控", true) //fps监控
         val MEMORY = MonitorInfo("memory_monitor", "内存监控", true) //fps监控
+        val TRAFFIC = MonitorInfo("traffic_monitor", "流量监控", true) //fps监控
     }
 
     class MonitorInfo(val name: String, val znName: String, val runInDebug: Boolean = true)
