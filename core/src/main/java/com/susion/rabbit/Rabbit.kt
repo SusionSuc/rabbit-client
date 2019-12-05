@@ -15,6 +15,7 @@ import com.susion.rabbit.exception.RabbitExceptionManager
 import com.susion.rabbit.net.RabbitHttpLogInterceptor
 import com.susion.rabbit.performance.RabbitMonitorManager
 import com.susion.rabbit.performance.core.RabbitAppSpeedInterceptor
+import com.susion.rabbit.report.RabbitDataReportCenter
 import com.susion.rabbit.ui.RabbitUiManager
 import com.susion.rabbit.utils.FloatingViewPermissionHelper
 import com.susion.rabbit.utils.RabbitActivityLifecycleWrapper
@@ -70,6 +71,7 @@ object Rabbit {
         RabbitExceptionManager.openGlobalExceptionCollector()
         RabbitMonitorManager.init(applicationContext, mConfig.monitorConfig)
         RabbitDbStorageManager.clearOldSessionData()
+        RabbitDataReportCenter.init(applicationContext)
         isInit = true
     }
 

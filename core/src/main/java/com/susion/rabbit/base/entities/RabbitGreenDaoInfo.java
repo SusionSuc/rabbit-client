@@ -5,4 +5,5 @@ package com.susion.rabbit.base.entities;
  */
 public interface RabbitGreenDaoInfo {
     public String getSortField();
+    long getLongTime();
 }

@@ -44,6 +44,11 @@ public class RabbitBlockFrameInfo implements RabbitGreenDaoInfo {
         return "time";
     }
 
+    @Override
+    public long getLongTime() {
+        return time;
+    }
+
     public Long getId() {
         return this.id;
     }

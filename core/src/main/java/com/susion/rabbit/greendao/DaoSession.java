@@ -9,6 +9,7 @@ import org.greenrobot.greendao.identityscope.IdentityScopeType;
 import org.greenrobot.greendao.internal.DaoConfig;
 
 import com.susion.rabbit.net.entities.RabbitHttpLogInfo;
+import com.susion.rabbit.report.entities.RabbitReportInfo;
 import com.susion.rabbit.performance.entities.RabbitBlockFrameInfo;
 import com.susion.rabbit.performance.entities.RabbitAppStartSpeedInfo;
 import com.susion.rabbit.performance.entities.RabbitPageSpeedInfo;
@@ -16,6 +17,7 @@ import com.susion.rabbit.performance.entities.RabbitMemoryInfo;
 import com.susion.rabbit.exception.entities.RabbitExceptionInfo;
 
 import com.susion.rabbit.greendao.RabbitHttpLogInfoDao;
+import com.susion.rabbit.greendao.RabbitReportInfoDao;
 import com.susion.rabbit.greendao.RabbitBlockFrameInfoDao;
 import com.susion.rabbit.greendao.RabbitAppStartSpeedInfoDao;
 import com.susion.rabbit.greendao.RabbitPageSpeedInfoDao;
@@ -32,6 +34,7 @@ import com.susion.rabbit.greendao.RabbitExceptionInfoDao;
 public class DaoSession extends AbstractDaoSession {
 
     private final DaoConfig rabbitHttpLogInfoDaoConfig;
+    private final DaoConfig rabbitReportInfoDaoConfig;
     private final DaoConfig rabbitBlockFrameInfoDaoConfig;
     private final DaoConfig rabbitAppStartSpeedInfoDaoConfig;
     private final DaoConfig rabbitPageSpeedInfoDaoConfig;
@@ -39,6 +42,7 @@ public class DaoSession extends AbstractDaoSession {
     private final DaoConfig rabbitExceptionInfoDaoConfig;
 
     private final RabbitHttpLogInfoDao rabbitHttpLogInfoDao;
+    private final RabbitReportInfoDao rabbitReportInfoDao;
     private final RabbitBlockFrameInfoDao rabbitBlockFrameInfoDao;
     private final RabbitAppStartSpeedInfoDao rabbitAppStartSpeedInfoDao;
     private final RabbitPageSpeedInfoDao rabbitPageSpeedInfoDao;
@@ -51,6 +55,9 @@ public class DaoSession extends AbstractDaoSession {
 
         rabbitHttpLogInfoDaoConfig = daoConfigMap.get(RabbitHttpLogInfoDao.class).clone();
         rabbitHttpLogInfoDaoConfig.initIdentityScope(type);
+
+        rabbitReportInfoDaoConfig = daoConfigMap.get(RabbitReportInfoDao.class).clone();
+        rabbitReportInfoDaoConfig.initIdentityScope(type);
 
         rabbitBlockFrameInfoDaoConfig = daoConfigMap.get(RabbitBlockFrameInfoDao.class).clone();
         rabbitBlockFrameInfoDaoConfig.initIdentityScope(type);
@@ -68,6 +75,7 @@ public class DaoSession extends AbstractDaoSession {
         rabbitExceptionInfoDaoConfig.initIdentityScope(type);
 
         rabbitHttpLogInfoDao = new RabbitHttpLogInfoDao(rabbitHttpLogInfoDaoConfig, this);
+        rabbitReportInfoDao = new RabbitReportInfoDao(rabbitReportInfoDaoConfig, this);
         rabbitBlockFrameInfoDao = new RabbitBlockFrameInfoDao(rabbitBlockFrameInfoDaoConfig, this);
         rabbitAppStartSpeedInfoDao = new RabbitAppStartSpeedInfoDao(rabbitAppStartSpeedInfoDaoConfig, this);
         rabbitPageSpeedInfoDao = new RabbitPageSpeedInfoDao(rabbitPageSpeedInfoDaoConfig, this);
@@ -75,6 +83,7 @@ public class DaoSession extends AbstractDaoSession {
         rabbitExceptionInfoDao = new RabbitExceptionInfoDao(rabbitExceptionInfoDaoConfig, this);
 
         registerDao(RabbitHttpLogInfo.class, rabbitHttpLogInfoDao);
+        registerDao(RabbitReportInfo.class, rabbitReportInfoDao);
         registerDao(RabbitBlockFrameInfo.class, rabbitBlockFrameInfoDao);
         registerDao(RabbitAppStartSpeedInfo.class, rabbitAppStartSpeedInfoDao);
         registerDao(RabbitPageSpeedInfo.class, rabbitPageSpeedInfoDao);
@@ -84,6 +93,7 @@ public class DaoSession extends AbstractDaoSession {
     
     public void clear() {
         rabbitHttpLogInfoDaoConfig.clearIdentityScope();
+        rabbitReportInfoDaoConfig.clearIdentityScope();
         rabbitBlockFrameInfoDaoConfig.clearIdentityScope();
         rabbitAppStartSpeedInfoDaoConfig.clearIdentityScope();
         rabbitPageSpeedInfoDaoConfig.clearIdentityScope();
@@ -93,6 +103,10 @@ public class DaoSession extends AbstractDaoSession {
 
     public RabbitHttpLogInfoDao getRabbitHttpLogInfoDao() {
         return rabbitHttpLogInfoDao;
+    }
+
+    public RabbitReportInfoDao getRabbitReportInfoDao() {
+        return rabbitReportInfoDao;
     }
 
     public RabbitBlockFrameInfoDao getRabbitBlockFrameInfoDao() {

@@ -45,6 +45,11 @@ public class RabbitMemoryInfo implements RabbitGreenDaoInfo {
         return "time";
     }
 
+    @Override
+    public long getLongTime() {
+        return time;
+    }
+
     public Long getId() {
         return this.id;
     }

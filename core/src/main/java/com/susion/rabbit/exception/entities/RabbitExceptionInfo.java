@@ -104,4 +104,10 @@ public class RabbitExceptionInfo implements RabbitGreenDaoInfo {
     public String getSortField() {
         return "time";
     }
+
+    @Override
+    public long getLongTime() {
+        return time;
+    }
+
 }

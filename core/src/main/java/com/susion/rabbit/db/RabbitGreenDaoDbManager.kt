@@ -34,13 +34,20 @@ internal class RabbitGreenDaoDbManage(val context: Context) {
         daoImpl.save(obj)
     }
 
-
     fun <T : Any> getDataById(clazz: Class<T>, id: Long): T? {
         return daoImpl(clazz)?.loadByRowId(id) ?: null
     }
 
     fun <T : Any> getDatas(clazz: Class<T>, condition: WhereCondition): List<T> {
         return daoImpl(clazz)?.queryBuilder()?.where(condition)?.list() as List<T>
+    }
+
+    fun <T : Any> deleteById(clazz: Class<T>, id: Long) {
+        daoImpl(clazz)?.deleteByKey(id)
+    }
+
+    fun <T : Any> allDataCount(clazz: Class<T>): Long {
+        return daoImpl(clazz)?.queryBuilder()?.count() ?: 0
     }
 
     fun <T : Any> getAllDataWithDescendingSort(clazz: Class<T>, sortField: String): List<T> {

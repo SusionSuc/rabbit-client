@@ -14,10 +14,12 @@ import com.susion.rabbit.db.RabbitDaoPluginProvider
  */
 class RabbitConfig(
     var isInDebug: Boolean = true,
+    var enableLog: Boolean = true,
     var entryFeatures: List<RabbitMainFeatureInfo> = ArrayList(),
     var daoProvider: List<RabbitDaoPluginProvider> = ArrayList(),
     var storageInOnSessionData: List<Class<Any>> = ArrayList(),
-    var monitorConfig: MonitorConfig = MonitorConfig()
+    var monitorConfig: MonitorConfig = MonitorConfig(),
+    var reportConfig: ReportConfig = ReportConfig()
 ) {
 
     /**
@@ -37,5 +39,14 @@ class RabbitConfig(
             var STANDARD_FRAME_NS = 16666666L
         }
     }
+
+    /**
+     * @property reportMonitorData 是否发送数据
+     * @property reportPath 数据上报的地址
+     * */
+    class ReportConfig(
+        var reportMonitorData: Boolean = false,
+        var reportPath: String = "http://www.susion-rabbit.com"
+    )
 
 }

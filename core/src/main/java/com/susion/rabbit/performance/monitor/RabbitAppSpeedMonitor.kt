@@ -7,6 +7,7 @@ import com.susion.rabbit.RabbitLog
 import com.susion.rabbit.db.RabbitDbStorageManager
 import com.susion.rabbit.performance.core.RabbitMonitor
 import com.susion.rabbit.performance.entities.*
+import com.susion.rabbit.report.RabbitDataReportCenter
 import com.susion.rabbit.tracer.RabbitTracerEventNotifier
 import com.susion.rabbit.utils.FileUtils
 
@@ -212,7 +213,7 @@ class RabbitAppSpeedMonitor : RabbitMonitor {
         }
     }
 
-    //应用测速信息记录
+    //应用启动测速信息记录
     private fun saveApplicationStartInfoToLocal(pageDrawFinishTime: Long, pageName: String) {
         if (!appSpeedCanRecord || pageName != entryActivityName) return
 

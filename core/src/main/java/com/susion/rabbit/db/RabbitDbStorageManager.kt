@@ -2,6 +2,7 @@ package com.susion.rabbit.db
 
 import com.susion.rabbit.Rabbit
 import com.susion.rabbit.base.entities.RabbitGreenDaoInfo
+import com.susion.rabbit.report.RabbitDataReportCenter
 import com.susion.rabbit.utils.runOnIoThread
 import com.susion.rabbit.utils.runOnIoThreadWithData
 import io.reactivex.disposables.Disposable
@@ -56,21 +57,34 @@ object RabbitDbStorageManager {
         })
     }
 
-    fun save(obj: RabbitGreenDaoInfo) {
+    fun save(obj: RabbitGreenDaoInfo, reportData:Boolean = true) {
         val dis = runOnIoThread({
             greenDaoDbManage.saveObj(obj)
         })
         disposableList.add(dis)
+        if (reportData){
+            RabbitDataReportCenter.report(obj, obj.longTime)
+        }
     }
 
-    fun saveSync(obj: RabbitGreenDaoInfo) {
+    fun saveSync(obj: RabbitGreenDaoInfo, reportData:Boolean = true) {
         greenDaoDbManage.saveObj(obj)
+        if (reportData){
+            RabbitDataReportCenter.report(obj, obj.longTime)
+        }
     }
 
     fun <T : Any> clearAllData(clazz: Class<T>) {
         runOnIoThread({ greenDaoDbManage.clearAllData(clazz) })
     }
 
+    fun <T : Any> delete(clazz: Class<T>, id: Long) {
+        greenDaoDbManage.deleteById(clazz, id)
+    }
+
+    fun <T : Any> dataCount(clazz: Class<T>): Long {
+        return greenDaoDbManage.allDataCount(clazz)
+    }
 
     fun destroy() {
         disposableList.forEach {
