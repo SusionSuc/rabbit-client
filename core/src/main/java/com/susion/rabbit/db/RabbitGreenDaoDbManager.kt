@@ -2,7 +2,6 @@ package com.susion.rabbit.db
 
 import android.content.Context
 import com.susion.rabbit.Rabbit
-import com.susion.rabbit.base.entities.RabbitGreenDaoInfo
 import com.susion.rabbit.exception.entities.RabbitExceptionInfo
 import com.susion.rabbit.greendao.DaoMaster
 import com.susion.rabbit.net.entities.RabbitHttpLogInfo
@@ -24,7 +23,7 @@ internal class RabbitGreenDaoDbManage(val context: Context) {
     private val DB_NAME = "rabbit"
     private val daoMap = HashMap<String, AbstractDao<Any, Long>>()
 
-    fun saveObj(obj: RabbitGreenDaoInfo) {
+    fun saveObj(obj: Any) {
         val daoImpl = daoImpl(obj.javaClass) ?: return
         val currentTotalCount = daoImpl.queryBuilder().count()
         if (currentTotalCount > MAX_DATA_COUNT) {
@@ -49,20 +48,28 @@ internal class RabbitGreenDaoDbManage(val context: Context) {
         return daoImpl(clazz)?.queryBuilder()?.count() ?: 0
     }
 
-    fun <T : Any> getAllDataWithDescendingSort(clazz: Class<T>, sortField: String): List<T> {
-        val dao = daoImpl(clazz)
-        val property = getProperties(dao, sortField)
-        return dao?.queryBuilder()?.orderDesc(property)?.build()?.list() as List<T>
-    }
-
-    fun <T : Any> getDataWithDescendingSort(
+    fun <T : Any> getDatasWithDescendingSort(
         clazz: Class<T>,
+        condition: WhereCondition? = null,
         sortField: String,
-        count: Int
+        count: Int = 0,
+        orderDesc: Boolean = false
     ): List<T> {
         val dao = daoImpl(clazz)
         val property = getProperties(dao, sortField)
-        return dao?.queryBuilder()?.orderDesc(property)?.limit(count)?.build()?.list() as List<T>
+        val queryBuilder = dao?.queryBuilder()
+        if (count != 0) {
+            queryBuilder?.limit(count)
+        }
+        if (orderDesc) {
+            queryBuilder?.orderDesc(property)
+        } else {
+            queryBuilder?.orderAsc(property)
+        }
+        if (condition != null) {
+            queryBuilder?.where(condition)
+        }
+        return queryBuilder?.build()?.list() as List<T>
     }
 
     fun <T : Any> getDataCount(clazz: Class<T>): Long {
@@ -122,6 +129,5 @@ internal class RabbitGreenDaoDbManage(val context: Context) {
             clearAllData(it)
         }
     }
-
 
 }

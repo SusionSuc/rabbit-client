@@ -42,8 +42,7 @@ class RabbitPageSpeedDetailPage(context: Context) : RabbitBasePage(context) {
         mRabbitSpeedDetailTvPageSRL.setOnRefreshListener {
             RabbitDbStorageManager.getAll(
                 RabbitPageSpeedInfo::class.java,
-                RabbitPageSpeedInfoDao.Properties.PageName,
-                pageName
+                condition = Pair(RabbitPageSpeedInfoDao.Properties.PageName, pageName)
             ) {
                 mRabbitSpeedDetailTvPageSRL.isRefreshing = false
                 renderUi(it)

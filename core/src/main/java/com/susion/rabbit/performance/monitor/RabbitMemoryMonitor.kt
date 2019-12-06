@@ -29,7 +29,7 @@ internal class RabbitMemoryMonitor : RabbitMonitor {
         override fun run() {
             val memInfo = getMemoryInfo()
 //            RabbitLog.d(TAG, "vm size : ${RabbitUiUtils.formatFileSize(memInfo.vmSize.toLong())}  native size : ${RabbitUiUtils.formatFileSize(memInfo.nativeSize.toLong())}")
-            RabbitDbStorageManager.save(memInfo)
+            RabbitDbStorageManager.save(memInfo,false)
             Rabbit.uiManager.updateUiFromAsyncThread(
                 RabbitUiManager.MSG_UPDATE_MEMORY_VALUE,
                 "${RabbitUiUtils.formatFileSize(memInfo.totalSize.toLong())} "
@@ -98,6 +98,7 @@ internal class RabbitMemoryMonitor : RabbitMonitor {
         memInfo.vmSize = (info.dalvikPss) * 1024   // 这个值比profiler中的 java 内存值小一些, Doesn't include other Dalvik overhead
         memInfo.nativeSize = info.nativePss * 1024
         memInfo.othersSize = info.otherPss * 1024 + info.totalSwappablePss * 1024
+        memInfo.time = System.currentTimeMillis()
 
         return memInfo
     }

@@ -1,17 +1,15 @@
 package com.susion.rabbit.performance.entities;
 
-import com.susion.rabbit.base.entities.RabbitGreenDaoInfo;
-
 import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Id;
 
 /**
  * susionwang at 2019-10-29
  */
 
 @Entity
-public class RabbitBlockFrameInfo implements RabbitGreenDaoInfo {
+public class RabbitBlockFrameInfo {
 
     @Id(autoincrement = true)
     public Long id;
@@ -37,16 +35,6 @@ public class RabbitBlockFrameInfo implements RabbitGreenDaoInfo {
 
     @Generated(hash = 2109034768)
     public RabbitBlockFrameInfo() {
-    }
-
-    @Override
-    public String getSortField() {
-        return "time";
-    }
-
-    @Override
-    public long getLongTime() {
-        return time;
     }
 
     public Long getId() {

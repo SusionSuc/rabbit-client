@@ -38,58 +38,60 @@ class RabbitMemoryComposePage(context: Context) : RabbitBasePage(context) {
     }
 
     private fun loadData() {
-        RabbitDbStorageManager.getDataWithDescendingSort(
+        RabbitDbStorageManager.getAll(
             RabbitMemoryInfo::class.java,
-            200
-        ) { memInfos ->
+            count = 200,
+            orderDesc = false,
+            loadResult = { memInfos ->
 
-            mRabbitMemComposePageSRL.isRefreshing = false
+                mRabbitMemComposePageSRL.isRefreshing = false
 
-            val avgMem = memInfos.map { it.totalSize }.average()
-            val avgVmMem = memInfos.map { it.vmSize }.average()
+                val avgMem = memInfos.map { it.totalSize }.average()
+                val avgVmMem = memInfos.map { it.vmSize }.average()
 
-            mRabbitMemComposePageTvAvgMem.text = RabbitUiUtils.formatFileSize(avgMem.toLong())
-            mRabbitMemComposePageTvAvgHeapMem.text = RabbitUiUtils.formatFileSize(avgVmMem.toLong())
+                mRabbitMemComposePageTvAvgMem.text = RabbitUiUtils.formatFileSize(avgMem.toLong())
+                mRabbitMemComposePageTvAvgHeapMem.text =
+                    RabbitUiUtils.formatFileSize(avgVmMem.toLong())
 
-            val totalSizes = ArrayList<Entry>()
-            memInfos.forEachIndexed { index, memInfo ->
-                totalSizes.add(Entry(index.toFloat(), formatSizeToMB(memInfo.totalSize)))
-            }
+                val totalSizes = ArrayList<Entry>()
+                memInfos.forEachIndexed { index, memInfo ->
+                    totalSizes.add(Entry(index.toFloat(), formatSizeToMB(memInfo.totalSize)))
+                }
 
-            val vmSizes = ArrayList<Entry>()
-            memInfos.forEachIndexed { index, memInfo ->
-                vmSizes.add(Entry(index.toFloat(), formatSizeToMB(memInfo.vmSize)))
-            }
+                val vmSizes = ArrayList<Entry>()
+                memInfos.forEachIndexed { index, memInfo ->
+                    vmSizes.add(Entry(index.toFloat(), formatSizeToMB(memInfo.vmSize)))
+                }
 
-            val nativeSizes = ArrayList<Entry>()
-            memInfos.forEachIndexed { index, memInfo ->
-                nativeSizes.add(Entry(index.toFloat(), formatSizeToMB(memInfo.nativeSize)))
-            }
+                val nativeSizes = ArrayList<Entry>()
+                memInfos.forEachIndexed { index, memInfo ->
+                    nativeSizes.add(Entry(index.toFloat(), formatSizeToMB(memInfo.nativeSize)))
+                }
 
-            val dataSets = ArrayList<ILineDataSet>()
-            val totalMemDatas = LineDataSet(totalSizes, "total mem").apply {
-                color = Color.parseColor("#00e676")
-                setDrawCircles(false)
-            }
+                val dataSets = ArrayList<ILineDataSet>()
+                val totalMemDatas = LineDataSet(totalSizes, "total mem").apply {
+                    color = Color.parseColor("#00e676")
+                    setDrawCircles(false)
+                }
 
-            val vmMemDatas = LineDataSet(vmSizes, "vm mem").apply {
-                color = Color.parseColor("#ff4081")
-                setDrawCircles(false)
-            }
+                val vmMemDatas = LineDataSet(vmSizes, "vm mem").apply {
+                    color = Color.parseColor("#ff4081")
+                    setDrawCircles(false)
+                }
 
-            val nativeMemDatas = LineDataSet(nativeSizes, "native mem").apply {
-                color = Color.parseColor("#aa00ff")
-                setDrawCircles(false)
-            }
+                val nativeMemDatas = LineDataSet(nativeSizes, "native mem").apply {
+                    color = Color.parseColor("#aa00ff")
+                    setDrawCircles(false)
+                }
 
-            dataSets.add(totalMemDatas)
-            dataSets.add(vmMemDatas)
-            dataSets.add(nativeMemDatas)
+                dataSets.add(totalMemDatas)
+                dataSets.add(vmMemDatas)
+                dataSets.add(nativeMemDatas)
 
-            mRabbitMemComposePageMemChart.data = LineData(dataSets)
+                mRabbitMemComposePageMemChart.data = LineData(dataSets)
 
-            mRabbitMemComposePageMemChart.invalidate()
-        }
+                mRabbitMemComposePageMemChart.invalidate()
+            })
     }
 
     private fun initChart(chart: LineChart) {

@@ -1,10 +1,8 @@
 package com.susion.rabbit.performance.entities;
 
-import com.susion.rabbit.base.entities.RabbitGreenDaoInfo;
-
 import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Keep;
 
 /**
@@ -12,7 +10,7 @@ import org.greenrobot.greendao.annotation.Keep;
  * 页面测速信息
  */
 @Entity
-public class RabbitPageSpeedInfo implements RabbitGreenDaoInfo {
+public class RabbitPageSpeedInfo  {
 
     @Id(autoincrement = true)
     public Long id;
@@ -67,15 +65,6 @@ public class RabbitPageSpeedInfo implements RabbitGreenDaoInfo {
         return fullDrawFinishTime - createStartTime;
     }
 
-    @Override
-    public String getSortField() {
-        return "time";
-    }
-
-    @Override
-    public long getLongTime() {
-        return time;
-    }
 
     public Long getId() {
         return this.id;

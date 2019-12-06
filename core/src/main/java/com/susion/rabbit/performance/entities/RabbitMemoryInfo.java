@@ -1,16 +1,14 @@
 package com.susion.rabbit.performance.entities;
 
-import com.susion.rabbit.base.entities.RabbitGreenDaoInfo;
-
 import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Id;
 
 /**
  * susionwang at 2019-12-03
  */
 @Entity
-public class RabbitMemoryInfo implements RabbitGreenDaoInfo {
+public class RabbitMemoryInfo  {
 
     @Id(autoincrement = true)
     public Long id;
@@ -38,16 +36,6 @@ public class RabbitMemoryInfo implements RabbitGreenDaoInfo {
 
     @Generated(hash = 1300157943)
     public RabbitMemoryInfo() {
-    }
-
-    @Override
-    public String getSortField() {
-        return "time";
-    }
-
-    @Override
-    public long getLongTime() {
-        return time;
     }
 
     public Long getId() {

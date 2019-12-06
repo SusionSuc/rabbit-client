@@ -27,13 +27,6 @@ internal object RabbitDataReportCenter {
     var appCurrentActivity: WeakReference<Activity?>? = null    //当前应用正在展示的Activity
     var deviceInfoStr = ""
     private val gson = Gson()
-    private val DB_THREAD = ThreadPoolExecutor(5, 10, 10, TimeUnit.SECONDS, LinkedBlockingDeque(),
-        ThreadFactory { r ->
-            Thread(r, "rabbit_report_db_thread_${System.currentTimeMillis()}")
-        }).apply {
-        allowCoreThreadTimeOut(true)
-    }
-
     private val REQUEST_THREAD = Executors.newFixedThreadPool(
         1
     ) { r -> Thread(r, "rabbit_report_request_thread") }
@@ -45,14 +38,15 @@ internal object RabbitDataReportCenter {
             when (msg.what) {
                 LOAD_POINT_TO_EMITER_QUEUE -> {
                     val loadDataCount = RabbitReportDataEmitterTask.EMITER_QUEUE_MAX_SIZE / 2
-                    RabbitDbStorageManager.getDataWithDescendingSort(
+                    RabbitDbStorageManager.getAll(
                         RabbitReportInfo::class.java,
-                        loadDataCount
-                    ) {
-                        dataEmitterTask.addPointsToEmitterQueue(it)
-                        RabbitLog.d(TAG, "load point from db! Emitter Start")
-                        startEmitterTask()
-                    }
+                        count = loadDataCount,
+                        sortField = "time",
+                        loadResult = {
+                            dataEmitterTask.addPointsToEmitterQueue(it)
+                            RabbitLog.d(TAG, "load point from db! Emitter Start")
+                            startEmitterTask()
+                        })
                 }
             }
         }
@@ -97,7 +91,7 @@ internal object RabbitDataReportCenter {
 
         RabbitLog.d(TAG, gson.toJson(reportInfo))
 
-        saveData2Db(reportInfo)
+        RabbitDbStorageManager.save(reportInfo, false) // 保存数据,防止丢失
 
         dataEmitterTask.addPoint(reportInfo)
 
@@ -110,15 +104,6 @@ internal object RabbitDataReportCenter {
             REQUEST_THREAD.execute {
                 dataEmitterTask.emitterPoints()
             }
-        }
-    }
-
-    /**
-     * 保存数据到数据库，防止丢失
-     * */
-    private fun saveData2Db(reportInfo: RabbitReportInfo) {
-        DB_THREAD.execute {
-            RabbitDbStorageManager.saveSync(reportInfo, false)
         }
     }
 

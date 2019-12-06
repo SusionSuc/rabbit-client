@@ -1,10 +1,8 @@
 package com.susion.rabbit.report.entities;
 
-import com.susion.rabbit.base.entities.RabbitGreenDaoInfo;
-
 import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Id;
 
 import java.util.Objects;
 
@@ -12,7 +10,7 @@ import java.util.Objects;
  * susionwang at 2019-12-05
  */
 @Entity
-public class RabbitReportInfo implements RabbitGreenDaoInfo {
+public class RabbitReportInfo  {
 
     @Id(autoincrement = true)
     public Long id;
@@ -105,15 +103,5 @@ public class RabbitReportInfo implements RabbitGreenDaoInfo {
 
     public void setDeviceInfoStr(String deviceInfoStr) {
         this.deviceInfoStr = deviceInfoStr;
-    }
-
-    @Override
-    public String getSortField() {
-        return "time";
-    }
-
-    @Override
-    public long getLongTime() {
-        return time;
     }
 }

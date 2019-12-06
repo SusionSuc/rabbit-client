@@ -1,18 +1,15 @@
 package com.susion.rabbit.exception.entities;
 
-import com.susion.rabbit.base.entities.RabbitGreenDaoInfo;
-
 import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Generated;
-import org.greenrobot.greendao.annotation.Keep;
+import org.greenrobot.greendao.annotation.Id;
 
 /**
  * susionwang at 2019-10-25
  */
 
 @Entity
-public class RabbitExceptionInfo implements RabbitGreenDaoInfo {
+public class RabbitExceptionInfo {
 
     @Id(autoincrement = true)
     public Long id;
@@ -97,17 +94,6 @@ public class RabbitExceptionInfo implements RabbitGreenDaoInfo {
 
     public void setTime(Long time) {
         this.time = time;
-    }
-
-    @Keep
-    @Override
-    public String getSortField() {
-        return "time";
-    }
-
-    @Override
-    public long getLongTime() {
-        return time;
     }
 
 }

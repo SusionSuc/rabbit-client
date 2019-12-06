@@ -1,16 +1,14 @@
 package com.susion.rabbit.performance.entities;
 
-import com.susion.rabbit.base.entities.RabbitGreenDaoInfo;
-
 import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Id;
 
 /**
  * susionwang at 2019-11-20
  */
 @Entity
-public class RabbitAppStartSpeedInfo implements RabbitGreenDaoInfo {
+public class RabbitAppStartSpeedInfo {
 
     @Id(autoincrement = true)
     public Long id;
@@ -25,7 +23,7 @@ public class RabbitAppStartSpeedInfo implements RabbitGreenDaoInfo {
 
     @Generated(hash = 1149395827)
     public RabbitAppStartSpeedInfo(Long id, long time, long createStartTime,
-            long createEndTime, long fullShowCostTime) {
+                                   long createEndTime, long fullShowCostTime) {
         this.id = id;
         this.time = time;
         this.createStartTime = createStartTime;
@@ -37,18 +35,8 @@ public class RabbitAppStartSpeedInfo implements RabbitGreenDaoInfo {
     public RabbitAppStartSpeedInfo() {
     }
 
-    public Long appCreateCost(){
+    public Long appCreateCost() {
         return createEndTime - createStartTime;
-    }
-
-    @Override
-    public String getSortField() {
-        return "time";
-    }
-
-    @Override
-    public long getLongTime() {
-        return time;
     }
 
     public Long getId() {

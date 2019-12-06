@@ -60,7 +60,6 @@ class RabbitAppStartSpeedDetailPage(context: Context) : RabbitBasePage(context) 
             mRabbitAppSpeedPageTvLogNumber.text = speedInfos.size.toString()
 
             renderChart(speedInfos)
-
         }
     }
 

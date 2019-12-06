@@ -15,42 +15,6 @@ import java.util.*
  * susionwang at 2019-09-24
  */
 
-internal fun runOnIoThread(runnable: () -> Unit, finishCallback: () -> Unit = {}): Disposable {
-    return Observable.create<Unit> {
-        try {
-            it.onNext(runnable())
-        } catch (e: Exception) {
-            it.onError(e)
-        }
-        it.onComplete()
-    }.subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe({
-            finishCallback()
-        }, {
-            finishCallback()
-        })
-}
-
-internal fun <T> runOnIoThreadWithData(
-    runnable: () -> T,
-    completeCallBack: (result: T) -> Unit
-): Disposable {
-    return Observable.create<T> {
-        try {
-            it.onNext(runnable())
-        } catch (e: Exception) {
-            it.onError(e)
-        }
-        it.onComplete()
-    }.subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe({
-            completeCallBack(it)
-        }, {
-        })
-}
-
 fun rabbitTimeFormat(time: Long?): String {
     if (time == null) return ""
     return SimpleDateFormat("MM/dd HH:mm:ss:SSS").format(Date(time))

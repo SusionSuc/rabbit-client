@@ -1,18 +1,15 @@
 package com.susion.rabbit.net.entities;
 
-import com.susion.rabbit.base.entities.RabbitGreenDaoInfo;
-
 import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Generated;
-import org.greenrobot.greendao.annotation.Keep;
+import org.greenrobot.greendao.annotation.Id;
 
 /**
  * susionwang at 2019-10-25
  */
 
 @Entity
-public class RabbitHttpLogInfo implements RabbitGreenDaoInfo {
+public class RabbitHttpLogInfo  {
 
     @Id(autoincrement = true)
     public Long id;
@@ -163,14 +160,4 @@ public class RabbitHttpLogInfo implements RabbitGreenDaoInfo {
         this.isSuccessRequest = isSuccessRequest;
     }
 
-    @Keep
-    @Override
-    public String getSortField() {
-        return "time";
-    }
-
-    @Override
-    public long getLongTime() {
-        return time;
-    }
 }
