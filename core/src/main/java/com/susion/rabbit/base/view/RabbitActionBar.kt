@@ -43,7 +43,7 @@ class RabbitActionBar : RelativeLayout {
             if (event?.keyCode == KeyEvent.KEYCODE_BACK && Rabbit.uiManager.pageIsShow()) {
                 actionListener?.onBackClick()
                 return@OnKeyListener true
-            }else{
+            } else {
                 return@OnKeyListener false
             }
         })
@@ -64,17 +64,10 @@ class RabbitActionBar : RelativeLayout {
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
         post {
-            mRabbitActionBarFakeEt.requestFocus()
+            if (!mRabbitActionBarFakeEt.hasFocus()){
+                mRabbitActionBarFakeEt.requestFocus()
+            }
         }
     }
-
-    fun hideQuickFinishBtn(){
-        mRabbitActionBarQuickHider.visibility = View.GONE
-    }
-
-    fun hideBackBtn(){
-        mDevToolsToolsBarIvBack.visibility = View.GONE
-    }
-
 
 }

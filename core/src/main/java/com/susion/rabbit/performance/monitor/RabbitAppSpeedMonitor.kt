@@ -4,7 +4,9 @@ import android.content.Context
 import com.google.gson.Gson
 import com.susion.rabbit.Rabbit
 import com.susion.rabbit.RabbitLog
+import com.susion.rabbit.config.RabbitSettings
 import com.susion.rabbit.db.RabbitDbStorageManager
+import com.susion.rabbit.performance.RabbitMonitorManager
 import com.susion.rabbit.performance.core.RabbitMonitor
 import com.susion.rabbit.performance.entities.*
 import com.susion.rabbit.report.RabbitDataReportCenter
@@ -135,7 +137,6 @@ internal class RabbitAppSpeedMonitor : RabbitMonitor {
             }
 
             override fun activityDrawFinish(activity: Any, time: Long) {
-                RabbitLog.d(TAG, "activityDrawFinish : ${ activity.javaClass.simpleName}")
                 saveAppPageSpeedInfoToLocal(time)
                 if (entryActivityName.isNotEmpty() && appSpeedCanRecord) {
                     saveApplicationStartInfoToLocal(time, activity.javaClass.simpleName)
@@ -208,7 +209,10 @@ internal class RabbitAppSpeedMonitor : RabbitMonitor {
             override fun applicationCreateTime(attachBaseContextTime: Long, createEndTime: Long) {
                 appSpeedInfo.createStartTime = attachBaseContextTime
                 appSpeedInfo.createEndTime = createEndTime
-                RabbitDbStorageManager.save(appSpeedInfo)
+                if (!RabbitMonitorManager.isAutoOpen(this@RabbitAppSpeedMonitor)){
+                    RabbitDbStorageManager.save(appSpeedInfo)
+                    RabbitLog.d(TAG, "monitorApplicationStart")
+                }
             }
         }
     }
@@ -223,12 +227,15 @@ internal class RabbitAppSpeedMonitor : RabbitMonitor {
                 appSpeedCanRecord = false
                 appSpeedInfo.fullShowCostTime = pageDrawFinishTime - appSpeedInfo.createStartTime
                 RabbitDbStorageManager.save(appSpeedInfo)
+                RabbitLog.d(TAG, "saveApplicationStartInfoToLocal")
             }
         } else {
             appSpeedCanRecord = false
             appSpeedInfo.fullShowCostTime = pageDrawFinishTime - appSpeedInfo.createStartTime
             RabbitDbStorageManager.save(appSpeedInfo)
+            RabbitLog.d(TAG, "saveApplicationStartInfoToLocal")
         }
+
     }
 
     //是否监控这个请求

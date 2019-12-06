@@ -6,14 +6,14 @@ import com.susion.rabbit.db.RabbitDaoPluginProvider
 /**
  * susionwang at 2019-10-14
  * rabbit 配置类
- * @property isInDebug 当前的包是否是debug包
+ * @property isDebug 当前的包是否是debug包
  * @property entryFeatures 自定义页面入口, 参考 [com.susion.rabbit.ui.page.RabbitEntryPage]
  * @property daoProvider 自定义数据库存储, support by green dao
  * @property storageInOnSessionData 每次打开app时需要清除哪些日志数据
  * @property monitorConfig  监控模块的配置
  */
 class RabbitConfig(
-    var isInDebug: Boolean = true,
+    var isDebug: Boolean = true,
     var enableLog: Boolean = true,
     var entryFeatures: List<RabbitMainFeatureInfo> = ArrayList(),
     var daoProvider: List<RabbitDaoPluginProvider> = ArrayList(),

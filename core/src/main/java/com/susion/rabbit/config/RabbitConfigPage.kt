@@ -22,7 +22,7 @@ class RabbitConfigPage(context: Context) : RabbitBasePage(context) {
         setTitle("功能配置")
 
         //监控相关的配置
-        RabbitMonitorManager.monitorList.forEach { monitor ->
+        RabbitMonitorManager.getMonitorList().forEach { monitor ->
             val monitorInfo = monitor.getMonitorInfo()
             val switchBtn = RabbitSwitchButton(context).apply {
                 LayoutParams(LayoutParams.MATCH_PARENT, RabbitUiUtils.dp2px(60f))

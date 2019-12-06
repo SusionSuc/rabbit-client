@@ -19,34 +19,39 @@ internal object RabbitMonitorManager {
     private var mContext: Application? = null
     private var initStatus = false
     private var mConfig: RabbitConfig.MonitorConfig = RabbitConfig.MonitorConfig()
-    private val monitorMap = HashMap<String, RabbitMonitor>().apply {
-        put(RabbitMonitor.APP_SPEED.name, RabbitAppSpeedMonitor())
-        put(RabbitMonitor.FPS.name, RabbitFPSMonitor())
-        put(RabbitMonitor.BLOCK.name, RabbitBlockMonitor())
-        put(RabbitMonitor.MEMORY.name, RabbitMemoryMonitor())
-//        put(RabbitMonitor.TRAFFIC.name, RabbitTrafficMonitor())
-    }
-
-    val monitorList = monitorMap.values.toList()
+    private val monitorMap = HashMap<String, RabbitMonitor>()
 
     fun init(context: Application, config: RabbitConfig.MonitorConfig) {
-        if (!isMainProcess(context)) return
-        if (initStatus) return
+        //只运行在主进程
+        if (!isMainProcess(context) || initStatus) return
 
         mConfig = config
         mContext = context
         initStatus = true
 
+        initMonitor()
+
         mConfig.autoOpenMonitors.forEach {
             RabbitSettings.setAutoOpenFlag(context, it, true)
         }
 
-        monitorList.forEach {
+        monitorMap.values.forEach {
             val autoOpen = RabbitSettings.autoOpen(context, it.getMonitorInfo().name)
             if (autoOpen) {
                 it.open(context)
-                RabbitLog.d("monitor auto open : ${it.getMonitorInfo().name} ")
+                RabbitLog.d(TAG, "monitor auto open : ${it.getMonitorInfo().name} ")
             }
+        }
+
+    }
+
+    private fun initMonitor() {
+        monitorMap.apply {
+            put(RabbitMonitor.APP_SPEED.name, RabbitAppSpeedMonitor())
+            put(RabbitMonitor.FPS.name, RabbitFPSMonitor())
+            put(RabbitMonitor.BLOCK.name, RabbitBlockMonitor())
+            put(RabbitMonitor.MEMORY.name, RabbitMemoryMonitor())
+//        put(RabbitMonitor.TRAFFIC.name, RabbitTrafficMonitor())
         }
     }
 
@@ -103,5 +108,12 @@ internal object RabbitMonitorManager {
         }
         return processName
     }
+
+    fun isAutoOpen(monitor: RabbitMonitor): Boolean {
+        if (mContext == null) return false
+        return RabbitSettings.autoOpen(mContext!!, monitor.getMonitorInfo().name)
+    }
+
+    fun getMonitorList() = monitorMap.values
 
 }
