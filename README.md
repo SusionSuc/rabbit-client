@@ -16,6 +16,15 @@
 
 >目前所有功能只能在debug下使用，没有经过线上验证！
 
+
+## 性能数据上报
+
+支持上报所有的检测数据。
+
+## Rabbit服务端
+
+>开发中
+
 **具体使用文档见Wiki**
 
 实现原理相关文章见:[Rabbit实现原理剖析](https://github.com/SusionSuc/AdvancedAndroid/blob/master/Rabbit%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/README.md)
