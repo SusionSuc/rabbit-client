@@ -1,0 +1,48 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply from: '../buildsystem/common-version.gradle'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'org.greenrobot.greendao' // apply plugin
+
+def uniqueVersion = rootProject.ext.versions
+
+android {
+    compileSdkVersion uniqueVersion.compileSdkVersion
+    buildToolsVersion uniqueVersion.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion uniqueVersion.minSdkVersion
+        targetSdkVersion uniqueVersion.targetSdkVersion
+    }
+
+    buildTypes {
+
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+}
+greendao {
+    schemaVersion 1004
+    daoPackage 'com.susion.rabbit.greendao'
+    targetGenDir 'src/main/java'
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${uniqueVersion.kotlinStdlibJdk7Version}"
+    implementation rootProject.ext.androidXDependencies.appcompat
+    implementation "org.greenrobot:greendao:${uniqueVersion.greenDaoVersion}"
+    implementation "com.google.code.gson:gson:${uniqueVersion.gsonVersion}"
+}

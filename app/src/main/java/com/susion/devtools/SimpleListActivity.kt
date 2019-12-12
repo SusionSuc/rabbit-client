@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.activity_simple_list_page.*
 class SimpleListActivity : RabbitBaseActivity() {
 
 
-    private val listAdapter=  object :RabbitRvAdapter<RabbitSimpleKvInfo>(ArrayList()){
+    private val listAdapter = object : RabbitRvAdapter<RabbitSimpleKvInfo>(ArrayList()) {
         override fun createItem(type: Int) = RabbitSimpleKVItemView(this@SimpleListActivity)
 
         override fun getItemType(data: RabbitSimpleKvInfo) = 0
@@ -23,10 +23,10 @@ class SimpleListActivity : RabbitBaseActivity() {
 
         setActionBar(mSimpleListPageActionBar)
         mSimpleListPageActionBar.setTitle("简单列表")
-        mSimpleListPageActionBar.hideQuickFinishBtn()
 
         listAdapter.data.addAll(getData())
-        mSimpleListPageRv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        mSimpleListPageRv.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         mSimpleListPageRv.adapter = listAdapter
     }
 

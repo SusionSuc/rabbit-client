@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".CustomApplication"
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/rabbit_icon_floating"
         android:label="@string/app_name"

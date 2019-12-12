@@ -1,0 +1,50 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply from: '../buildsystem/common-version.gradle'
+def uniqueVersion = rootProject.ext.versions
+
+android {
+    compileSdkVersion uniqueVersion.compileSdkVersion
+    buildToolsVersion uniqueVersion.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion uniqueVersion.minSdkVersion
+        targetSdkVersion uniqueVersion.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+
+dependencies {
+    api fileTree(include: ['*.jar'], dir: 'libs')
+    api project(':rabbit-gradle-interface')
+    api project(':rabbit-report')
+    api project(':rabbit-base')
+
+    implementation rootProject.ext.androidXDependencies.appcompat
+    implementation rootProject.ext.androidXDependencies.lifeExtensions
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${uniqueVersion.kotlinStdlibJdk7Version}"
+    implementation "com.github.bumptech.glide:glide:${uniqueVersion.glideVersion}"
+    implementation "com.squareup.retrofit2:retrofit:${uniqueVersion.retrofit2Version}"
+    implementation "io.reactivex.rxjava2:rxjava:${uniqueVersion.rx2javaVersion}"
+    implementation "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:${uniqueVersion.retrofit2RxJavaAdapterVersion}"
+    implementation "com.squareup.retrofit2:converter-gson:${uniqueVersion.retrofit2ConvertJson}"
+    implementation "io.reactivex.rxjava2:rxandroid:${uniqueVersion.rx2androidVersion}"
+    implementation "com.google.code.gson:gson:${uniqueVersion.gsonVersion}"
+    implementation "com.jakewharton.rxbinding3:rxbinding:${uniqueVersion.rxbinding3Version}"
+}

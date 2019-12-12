@@ -19,7 +19,7 @@ class RetrofitClient {
 
     init {
         okHttpClient = OkHttpClient.Builder()
-            .addInterceptor(Rabbit.getHttpLogInterceptor())
+            .addInterceptor(com.susion.rabbit.Rabbit.getHttpLogInterceptor())
             .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
             .readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
             .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)

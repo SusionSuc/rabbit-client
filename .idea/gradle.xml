@@ -8,11 +8,16 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/apk-analyzer" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/core" />
-            <option value="$PROJECT_DIR$/tracer-interface" />
-            <option value="$PROJECT_DIR$/tracer-transform" />
+            <option value="$PROJECT_DIR$/rabbit-api" />
+            <option value="$PROJECT_DIR$/rabbit-apk-analyzer" />
+            <option value="$PROJECT_DIR$/rabbit-base" />
+            <option value="$PROJECT_DIR$/rabbit-gradle-interface" />
+            <option value="$PROJECT_DIR$/rabbit-gradle-transform" />
+            <option value="$PROJECT_DIR$/rabbit-monitor" />
+            <option value="$PROJECT_DIR$/rabbit-report" />
+            <option value="$PROJECT_DIR$/rabbit-storage" />
+            <option value="$PROJECT_DIR$/rabbit-ui" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

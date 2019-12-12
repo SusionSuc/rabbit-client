@@ -1,0 +1,47 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply from: '../buildsystem/common-version.gradle'
+apply plugin: 'kotlin-kapt'
+def uniqueVersion = rootProject.ext.versions
+
+android {
+    compileSdkVersion uniqueVersion.compileSdkVersion
+    buildToolsVersion uniqueVersion.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion uniqueVersion.minSdkVersion
+        targetSdkVersion uniqueVersion.targetSdkVersion
+
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api project(':rabbit-base')
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${uniqueVersion.kotlinStdlibJdk7Version}"
+    implementation rootProject.ext.androidXDependencies.appcompat
+    implementation "io.reactivex.rxjava2:rxjava:${uniqueVersion.rx2javaVersion}"
+    implementation "io.reactivex.rxjava2:rxandroid:${uniqueVersion.rx2androidVersion}"
+    implementation "org.greenrobot:greendao:${uniqueVersion.greenDaoVersion}"
+}

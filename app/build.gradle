@@ -43,20 +43,18 @@ android {
 }
 
 dependencies {
+
+    api project(':rabbit-api')
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${uniqueVersion.kotlinStdlibJdk7Version}"
-
     implementation rootProject.ext.androidXDependencies.recyclerView
     implementation rootProject.ext.androidXDependencies.appcompat
-
-    api project(':core')
-
+    implementation "org.greenrobot:greendao:${uniqueVersion.greenDaoVersion}"
     implementation "com.squareup.retrofit2:retrofit:${uniqueVersion.retrofit2Version}"
     implementation "com.google.code.gson:gson:${uniqueVersion.gsonVersion}"
     implementation "io.reactivex.rxjava2:rxjava:${uniqueVersion.rx2javaVersion}"
     implementation "io.reactivex.rxjava2:rxandroid:${uniqueVersion.rx2androidVersion}"
     implementation "com.squareup.retrofit2:converter-gson:${uniqueVersion.retrofit2ConvertJson}"
     implementation "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:${uniqueVersion.retrofit2RxJavaAdapterVersion}"
-    debugImplementation "com.squareup.leakcanary:leakcanary-android:${uniqueVersion.leakCanaryVersion}"
-
 }

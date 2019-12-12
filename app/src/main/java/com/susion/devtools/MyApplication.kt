@@ -1,0 +1,38 @@
+package com.susion.devtools
+
+import android.app.Application
+import android.content.Context
+import android.util.Log
+import com.susion.rabbit.Rabbit
+import com.susion.rabbit.RabbitConfig
+import com.susion.rabbit.monitor.RabbitMonitor
+import com.susion.rabbit.report.RabbitReport
+
+/**
+ * susionwang at 2019-12-12
+ */
+class MyApplication : Application() {
+
+    override fun onCreate() {
+        super.onCreate()
+
+        val rabbitConfig = RabbitConfig()
+
+        rabbitConfig.isDebug = true
+        rabbitConfig.monitorConfig = RabbitMonitor.Config()
+        rabbitConfig.reportConfig = getReportConfig()
+
+        Rabbit.init(this, rabbitConfig)
+    }
+
+    private fun getReportConfig(): RabbitReport.ReportConfig {
+        val config = RabbitReport.ReportConfig()
+        return config
+    }
+
+    override fun attachBaseContext(base: Context) {
+        super.attachBaseContext(base)
+        Log.d("attachBaseContext", "called !!!")
+    }
+
+}

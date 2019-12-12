@@ -28,7 +28,6 @@ class MainActivity : RabbitBaseActivity() {
         setContentView(R.layout.activity_main)
 
         mDevToolsTestMainActionBar.setTitle("Rabbit")
-        mDevToolsTestMainActionBar.hideBackBtn()
         setBackListener(mDevToolsTestMainActionBar)
 
         requestPermission()
@@ -67,7 +66,7 @@ class MainActivity : RabbitBaseActivity() {
 
     override fun onStart() {
         super.onStart()
-        Rabbit.openDevTools(true, this)
+        com.susion.rabbit.Rabbit.openDevTools(true, this)
     }
 
     private fun sampleRequestNet() {
