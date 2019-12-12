@@ -7,6 +7,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ProcessLifecycleOwner
+import com.susion.rabbit.entities.RabbitHttpLogInfo
+import com.susion.rabbit.entities.RabbitMemoryInfo
 import com.susion.rabbit.monitor.RabbitMonitor
 import com.susion.rabbit.report.RabbitReport
 import com.susion.rabbit.storage.RabbitDbStorageManager
@@ -48,8 +50,25 @@ object Rabbit {
         if (!isMainProcess(application)) return
         mConfig = config
         RabbitLog.init(mConfig.enableLog)
-        RabbitReport.init(application, mConfig.reportConfig)
+
+        //上报配置
+        val reportConfig = mConfig.reportConfig
+        reportConfig.reportMonitorData = true
+        reportConfig.notReportDataFormat.apply {
+            add(RabbitMemoryInfo::class.java)
+            add(RabbitHttpLogInfo::class.java)
+        }
+        RabbitReport.init(application, reportConfig)
+
+        //存储配置
         RabbitStorage.init(application, mConfig.storageConfig)
+        RabbitStorage.eventListener = object : RabbitStorage.EventListener {
+            override fun onStorageData(obj: Any) {
+                RabbitReport.report(obj)
+            }
+        }
+
+        //监控配置
         RabbitMonitor.init(application, mConfig.monitorConfig)
         RabbitMonitor.eventListener = object : RabbitMonitor.UiEventListener {
             override fun updateUi(type: Int, value: Any) {
@@ -57,6 +76,7 @@ object Rabbit {
             }
         }
 
+        //ui 配置
         val uiConfig = mConfig.uiConfig
         uiConfig.monitorList = RabbitMonitor.getMonitorList()
         RabbitUi.init(application, uiConfig)
@@ -70,6 +90,7 @@ object Rabbit {
                 }
             }
         }
+
         isInit = true
         RabbitLog.d("init success!!")
     }

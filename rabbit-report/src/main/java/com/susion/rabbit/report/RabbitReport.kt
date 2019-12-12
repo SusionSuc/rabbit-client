@@ -18,7 +18,7 @@ import java.util.concurrent.*
 
 /**
  * susionwang at 2019-12-05
- * 数据上报中心
+ * 数据上报
  */
 object RabbitReport {
 
@@ -28,11 +28,11 @@ object RabbitReport {
      * */
     class ReportConfig(
         var reportMonitorData: Boolean = false,
-        var reportPath: String = "http://127.0.0.1:8000/apmdata/upload"
+        var reportPath: String = "http://127.0.0.1:8000/apmdata/upload",
+        var notReportDataFormat: HashSet<Class<*>> = HashSet()
     )
 
-
-    private val TAG = "rabbit-data-report"
+    private val TAG = javaClass.simpleName
     var application: Application? = null
     var mConfig: ReportConfig = ReportConfig()
     private var appCurrentActivity: WeakReference<Activity?>? = null    //当前应用正在展示的Activity
@@ -88,22 +88,26 @@ object RabbitReport {
         }
     }
 
-    fun report(info: Any, time: Long = System.currentTimeMillis()) {
+    fun report(info: Any) {
 
-        if (!RabbitReport.mConfig.reportMonitorData) return
+        if (!mConfig.reportMonitorData) return
+
+        if (mConfig.notReportDataFormat.contains(info.javaClass)) return
+
+//        RabbitLog.d(TAG, "report data format : ${info.javaClass.simpleName}")
 
         val infoJsonStr = gson.toJson(info)
 
         val reportInfo = RabbitReportInfo(
             infoJsonStr,
-            time,
+            System.currentTimeMillis(),
             appCurrentActivity?.get()?.javaClass?.simpleName ?: "",
             deviceInfoStr
         )
 
         RabbitLog.d(TAG, gson.toJson(reportInfo))
 
-//        RabbitDbStorageManager.save(reportInfo)
+        RabbitDbStorageManager.save(reportInfo, false)
 
         dataEmitterTask.addPoint(reportInfo)
 

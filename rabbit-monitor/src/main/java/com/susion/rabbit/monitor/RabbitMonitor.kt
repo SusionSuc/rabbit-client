@@ -112,7 +112,7 @@ object RabbitMonitor {
     private inline fun <reified T : RabbitMonitorProtocol> getMonitor(): T? {
         for (monitor in monitorMap.values) {
             if (monitor is T) {
-                return monitor as T
+                return monitor
             }
         }
         return null

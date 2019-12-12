@@ -13,6 +13,7 @@ object RabbitStorage {
     private val DB_NAME = "rabbit-apm"
     var mConfig = Config()
     var application: Application? = null
+    var eventListener:EventListener? = null
 
     fun init(application_: Application, config: Config) {
         application = application_
@@ -67,8 +68,7 @@ object RabbitStorage {
 
     class Config(
         var daoProvider: ArrayList<RabbitDaoPluginProvider> = ArrayList(),
-        var storageInOnSessionData: List<Class<Any>> = ArrayList(),
-        var eventListener: EventListener? = null
+        var storageInOnSessionData: List<Class<Any>> = ArrayList()
     )
 
     interface EventListener {
