@@ -16,12 +16,12 @@ import com.susion.rabbit.entities.RabbitApiInfo
 import com.susion.rabbit.entities.RabbitPageApiInfo
 import com.susion.rabbit.entities.RabbitPageSpeedInfo
 import com.susion.rabbit.entities.RabbitPageSpeedUiInfo
+import com.susion.rabbit.greendao.RabbitPageSpeedInfoDao
 import com.susion.rabbit.storage.RabbitDbStorageManager
 import com.susion.rabbit.utils.dp2px
 import kotlinx.android.synthetic.main.rabbit_page_page_speed_detail.view.*
 import java.lang.Exception
 import java.util.ArrayList
-
 
 /**
  * susionwang at 2019-10-29
@@ -37,14 +37,13 @@ class RabbitPageSpeedDetailPage(context: Context) : RabbitBasePage(context) {
         setTitle("页面测速详情")
         initChart(mRabbitSpeedDetailChart)
         mRabbitSpeedDetailTvPageSRL.setOnRefreshListener {
-            //TODO:
-//            RabbitDbStorageManager.getAll(
-//                RabbitPageSpeedInfo::class.java,
-//                condition = Pair(RabbitPageSpeedInfoDao.Properties.PageName, pageName)
-//            ) {
-//                mRabbitSpeedDetailTvPageSRL.isRefreshing = false
-//                renderUi(it)
-//            }
+            RabbitDbStorageManager.getAll(
+                RabbitPageSpeedInfo::class.java,
+                condition = Pair(RabbitPageSpeedInfoDao.Properties.PageName, pageName)
+            ) {
+                mRabbitSpeedDetailTvPageSRL.isRefreshing = false
+                renderUi(it)
+            }
         }
     }
 

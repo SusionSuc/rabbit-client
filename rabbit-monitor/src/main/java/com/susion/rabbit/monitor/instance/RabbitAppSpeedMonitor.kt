@@ -5,7 +5,7 @@ import com.google.gson.Gson
 import com.susion.rabbit.common.FileUtils
 import com.susion.rabbit.entities.*
 import com.susion.rabbit.monitor.RabbitMonitor
-import com.susion.rabbit.monitor.core.RabbitMonitorProtocol
+import com.susion.rabbit.RabbitMonitorProtocol
 import com.susion.rabbit.storage.RabbitDbStorageManager
 import com.susion.rabbit.tracer.RabbitTracerEventNotifier
 
@@ -15,7 +15,8 @@ import com.susion.rabbit.tracer.RabbitTracerEventNotifier
  * 1. 应用启动速度
  * 2. 页面启动速度、渲染速度
  */
-internal class RabbitAppSpeedMonitor(override var isOpen: Boolean = false) : RabbitMonitorProtocol {
+internal class RabbitAppSpeedMonitor(override var isOpen: Boolean = false) :
+    RabbitMonitorProtocol {
 
     private val TAG = javaClass.simpleName
 

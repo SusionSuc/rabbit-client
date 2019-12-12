@@ -4,7 +4,7 @@ import android.content.Context
 import com.susion.rabbit.common.toastInThread
 import com.susion.rabbit.entities.RabbitExceptionInfo
 import com.susion.rabbit.monitor.RabbitMonitor
-import com.susion.rabbit.monitor.core.RabbitMonitorProtocol
+import com.susion.rabbit.RabbitMonitorProtocol
 import com.susion.rabbit.storage.RabbitDbStorageManager
 import java.io.PrintWriter
 import java.io.StringWriter
@@ -12,7 +12,8 @@ import java.io.StringWriter
 /**
  * susionwang at 2019-12-12
  */
-class RabbitExceptionMonitor(override var isOpen: Boolean = false) : RabbitMonitorProtocol {
+class RabbitExceptionMonitor(override var isOpen: Boolean = false) :
+    RabbitMonitorProtocol {
 
     override fun open(context: Context) {
         val defaultExceptionHandler = Thread.getDefaultUncaughtExceptionHandler()

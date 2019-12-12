@@ -1,11 +1,9 @@
 package com.susion.rabbit.monitor
 
-import android.app.ActivityManager
 import android.app.Application
-import android.content.Context
 import com.susion.rabbit.RabbitLog
 import com.susion.rabbit.RabbitSettings
-import com.susion.rabbit.monitor.core.RabbitMonitorProtocol
+import com.susion.rabbit.RabbitMonitorProtocol
 import com.susion.rabbit.monitor.instance.*
 import com.susion.rabbit.monitor.instance.RabbitAppSpeedMonitor
 import com.susion.rabbit.monitor.instance.RabbitBlockMonitor
@@ -99,7 +97,9 @@ object RabbitMonitor {
         return RabbitSettings.autoOpen(application!!, monitor.getMonitorInfo().name)
     }
 
-    fun getMonitorList() = monitorMap.values
+    fun getMonitorList() = ArrayList<RabbitMonitorProtocol>().apply {
+        addAll(monitorMap.values)
+    }
 
     fun saveCrash(e: Throwable, thread: Thread) {
         getMonitor<RabbitExceptionMonitor>()?.saveCrash(e, thread)

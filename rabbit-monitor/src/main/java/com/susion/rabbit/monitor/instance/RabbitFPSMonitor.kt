@@ -4,14 +4,15 @@ import android.content.Context
 import com.susion.rabbit.RabbitUiEvent
 import com.susion.rabbit.monitor.RabbitMonitor
 import com.susion.rabbit.monitor.core.LazyChoreographerFrameUpdateMonitor
-import com.susion.rabbit.monitor.core.RabbitMonitorProtocol
+import com.susion.rabbit.RabbitMonitorProtocol
 import kotlin.math.min
 
 /**
  * susionwang at 2019-10-18
  * 监控 应用 FPS
  */
-internal class RabbitFPSMonitor(override var isOpen: Boolean = false) : LazyChoreographerFrameUpdateMonitor.FrameUpdateListener, RabbitMonitorProtocol {
+internal class RabbitFPSMonitor(override var isOpen: Boolean = false) : LazyChoreographerFrameUpdateMonitor.FrameUpdateListener,
+    RabbitMonitorProtocol {
 
     private val TAG = javaClass.simpleName
     private val frameTracer = LazyChoreographerFrameUpdateMonitor().apply {

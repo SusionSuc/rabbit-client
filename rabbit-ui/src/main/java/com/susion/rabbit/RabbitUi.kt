@@ -73,6 +73,7 @@ object RabbitUi {
 
     //当前应用正在展示的Activity
     var appCurrentActivity: WeakReference<Activity?>? = null
+    var eventListener: EventListener? = null
 
     fun init(application: Application, config: Config) {
         this.application = application
@@ -230,6 +231,13 @@ object RabbitUi {
 
     fun pageIsShow() = pageShowStatus == PAGE_SHOWING
 
-    class Config(var entryFeatures: List<RabbitMainFeatureInfo> = ArrayList())
+    class Config(
+        var entryFeatures: List<RabbitMainFeatureInfo> = ArrayList(),
+        var monitorList: List<RabbitMonitorProtocol> = ArrayList()
+    )
+
+    interface EventListener {
+        fun toggleMonitorStatus(monitor: RabbitMonitorProtocol, open: Boolean)
+    }
 
 }

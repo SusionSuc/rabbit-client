@@ -47,7 +47,6 @@ object Rabbit {
     fun init(config: RabbitConfig = RabbitConfig()) {
         if (!isMainProcess(application)) return
         mConfig = config
-        RabbitUi.init(application, mConfig.uiConfig)
         RabbitLog.init(mConfig.enableLog)
         RabbitReport.init(application, mConfig.reportConfig)
         RabbitStorage.init(application, mConfig.storageConfig)
@@ -55,6 +54,20 @@ object Rabbit {
         RabbitMonitor.eventListener = object : RabbitMonitor.UiEventListener {
             override fun updateUi(type: Int, value: Any) {
                 RabbitUi.updateUiFromAsyncThread(type, value)
+            }
+        }
+
+        val uiConfig = mConfig.uiConfig
+        uiConfig.monitorList = RabbitMonitor.getMonitorList()
+        RabbitUi.init(application, uiConfig)
+        RabbitUi.eventListener = object : RabbitUi.EventListener {
+            override fun toggleMonitorStatus(monitor: RabbitMonitorProtocol, open: Boolean) {
+                val monitorName = monitor.getMonitorInfo().name
+                if (open) {
+                    RabbitMonitor.openMonitor(monitorName)
+                } else {
+                    RabbitMonitor.closeMonitor(monitorName)
+                }
             }
         }
         isInit = true
@@ -136,6 +149,5 @@ object Rabbit {
         }
         return processName
     }
-
 
 }

@@ -10,7 +10,7 @@ import com.susion.rabbit.entities.RabbitBlockFrameInfo
 import com.susion.rabbit.entities.RabbitBlockStackTraceInfo
 import com.susion.rabbit.monitor.RabbitMonitor
 import com.susion.rabbit.monitor.core.ChoreographerFrameUpdateMonitor
-import com.susion.rabbit.monitor.core.RabbitMonitorProtocol
+import com.susion.rabbit.RabbitMonitorProtocol
 import com.susion.rabbit.storage.RabbitDbStorageManager
 import java.util.concurrent.TimeUnit
 

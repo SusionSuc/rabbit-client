@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import com.susion.rabbit.base.view.RabbitSwitchButton
 import com.susion.rabbit.base.RabbitBasePage
 import com.susion.rabbit.common.RabbitUiUtils
-import com.susion.rabbit.monitor.RabbitMonitor
 import kotlinx.android.synthetic.main.rabbit_page_config.view.*
 
 /**
@@ -21,28 +20,24 @@ class RabbitConfigPage(context: Context) : RabbitBasePage(context) {
         setTitle("功能配置")
 
         //监控相关的配置
-        RabbitMonitor.getMonitorList().forEach { monitor ->
+        RabbitUi.config.monitorList.forEach { monitor ->
             val monitorInfo = monitor.getMonitorInfo()
             val switchBtn = RabbitSwitchButton(context).apply {
                 LayoutParams(LayoutParams.MATCH_PARENT, RabbitUiUtils.dp2px(60f))
             }
             mConfigPageRootViewLl.addView(switchBtn)
-            switchBtn.checkedStatusChangeListener = object : RabbitSwitchButton.CheckedStatusChangeListener {
-                override fun checkedStatusChange(isChecked: Boolean) {
-                    if (isChecked) {
-                        RabbitMonitor.openMonitor(monitorInfo.name)
-                    } else {
-                        RabbitMonitor.closeMonitor(monitorInfo.name)
+            switchBtn.checkedStatusChangeListener =
+                object : RabbitSwitchButton.CheckedStatusChangeListener {
+                    override fun checkedStatusChange(isChecked: Boolean) {
+                        RabbitUi.eventListener?.toggleMonitorStatus(monitor, isChecked)
+                        RabbitSettings.setAutoOpenFlag(context, monitorInfo.name, isChecked)
                     }
-                    RabbitSettings.setAutoOpenFlag(context, monitorInfo.name, isChecked)
                 }
-            }
             switchBtn.refreshUi(
                 monitorInfo.znName,
                 RabbitSettings.autoOpen(context, monitorInfo.name)
             )
         }
-
     }
 
 }

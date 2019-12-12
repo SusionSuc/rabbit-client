@@ -10,14 +10,15 @@ import com.susion.rabbit.RabbitUiEvent
 import com.susion.rabbit.common.RabbitUiUtils
 import com.susion.rabbit.entities.RabbitMemoryInfo
 import com.susion.rabbit.monitor.RabbitMonitor
-import com.susion.rabbit.monitor.core.RabbitMonitorProtocol
+import com.susion.rabbit.RabbitMonitorProtocol
 import com.susion.rabbit.storage.RabbitDbStorageManager
 
 /**
  * susionwang at 2019-12-03
  * 内存监控
  */
-internal class RabbitMemoryMonitor(override var isOpen: Boolean = false) : RabbitMonitorProtocol {
+internal class RabbitMemoryMonitor(override var isOpen: Boolean = false) :
+    RabbitMonitorProtocol {
 
     private val TAG = javaClass.simpleName
     private var MEMORY_COLLECT_PERIOD = 10000L

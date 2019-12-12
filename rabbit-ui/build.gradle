@@ -32,7 +32,7 @@ android {
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
     api project(':rabbit-base')
-    api project(':rabbit-monitor')
+    api project(':rabbit-storage')
 
     implementation rootProject.ext.androidXDependencies.cardView
     implementation rootProject.ext.androidXDependencies.recyclerView
@@ -45,4 +45,5 @@ dependencies {
     implementation "com.google.code.gson:gson:${uniqueVersion.gsonVersion}"
     implementation "com.jakewharton.rxbinding3:rxbinding:${uniqueVersion.rxbinding3Version}"
     implementation "com.github.PhilJay:MPAndroidChart:${uniqueVersion.mpChartVersion}"
+    implementation "org.greenrobot:greendao:${uniqueVersion.greenDaoVersion}"
 }

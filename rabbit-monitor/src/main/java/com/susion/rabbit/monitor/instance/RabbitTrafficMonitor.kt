@@ -8,13 +8,14 @@ import android.net.ConnectivityManager
 import android.os.Build
 import com.susion.rabbit.RabbitLog
 import com.susion.rabbit.common.RabbitUiUtils
-import com.susion.rabbit.monitor.core.RabbitMonitorProtocol
+import com.susion.rabbit.RabbitMonitorProtocol
 
 /**
  * susionwang at 2019-12-04
  * 流量监控
  */
-internal class RabbitTrafficMonitor(override var isOpen: Boolean = false) : RabbitMonitorProtocol {
+internal class RabbitTrafficMonitor(override var isOpen: Boolean = false) :
+    RabbitMonitorProtocol {
 
     override fun open(context: Context) {
 
