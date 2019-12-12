@@ -1,5 +1,6 @@
 package com.susion.rabbit
 
+import android.app.ActivityManager
 import android.app.Application
 import android.content.Context
 import androidx.lifecycle.Lifecycle
@@ -20,7 +21,7 @@ import okhttp3.Interceptor
 object Rabbit {
 
     private var mConfig = RabbitConfig()
-    var application: Application? = null
+    lateinit var application: Application
     private var isInit = false
 
     private val applicationLifecycle = object : LifecycleObserver {
@@ -43,21 +44,21 @@ object Rabbit {
      * 打开Rabbit悬浮球调用 [openDevTools]
      * */
     @JvmStatic
-    fun init(applicationContext: Application, config_: RabbitConfig = RabbitConfig()) {
-        application = applicationContext
-        mConfig = config_
-        RabbitUi.init(applicationContext, mConfig.uiConfig)
+    fun init(config: RabbitConfig = RabbitConfig()) {
+        if (!isMainProcess(application)) return
+        mConfig = config
+        RabbitUi.init(application, mConfig.uiConfig)
         RabbitLog.init(mConfig.enableLog)
-        RabbitReport.init(applicationContext, mConfig.reportConfig)
-        RabbitStorage.init(applicationContext, mConfig.storageConfig)
-        RabbitMonitor.init(applicationContext, mConfig.monitorConfig)
-
-        RabbitMonitor.eventListener = object :RabbitMonitor.UiEventListener{
+        RabbitReport.init(application, mConfig.reportConfig)
+        RabbitStorage.init(application, mConfig.storageConfig)
+        RabbitMonitor.init(application, mConfig.monitorConfig)
+        RabbitMonitor.eventListener = object : RabbitMonitor.UiEventListener {
             override fun updateUi(type: Int, value: Any) {
                 RabbitUi.updateUiFromAsyncThread(type, value)
             }
         }
         isInit = true
+        RabbitLog.d("init success!!")
     }
 
     private fun listenLifeCycle() {
@@ -80,7 +81,7 @@ object Rabbit {
                     override fun confirmResult(confirm: Boolean) {
                         if (confirm) {
                             FloatingViewPermissionHelper.tryStartFloatingWindowPermission(
-                                application!!
+                                application
                             )
                         }
                     }
@@ -114,11 +115,27 @@ object Rabbit {
     fun autoOpen(context: Context) = RabbitSettings.autoOpenRabbit(context)
 
     fun enableAutoOpen(autoOpen: Boolean) {
-        if (application == null) return
-        RabbitSettings.autoOpenRabbit(
-            application!!,
-            autoOpen
+        RabbitSettings.autoOpenRabbit(application, autoOpen)
+    }
+
+    private fun isMainProcess(context: Context): Boolean {
+        return context.packageName == getCurrentProcessName(
+            context
         )
     }
+
+    private fun getCurrentProcessName(context: Context): String {
+        val pid = android.os.Process.myPid()
+        var processName = ""
+        val manager =
+            context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        for (process in manager.runningAppProcesses) {
+            if (process.pid == pid) {
+                processName = process.processName
+            }
+        }
+        return processName
+    }
+
 
 }

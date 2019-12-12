@@ -25,7 +25,7 @@ class MyApplication : Application() {
         }
         rabbitConfig.reportConfig = getReportConfig()
 
-        Rabbit.init(this, rabbitConfig)
+        Rabbit.init( rabbitConfig)
     }
 
     private fun getReportConfig(): RabbitReport.ReportConfig {

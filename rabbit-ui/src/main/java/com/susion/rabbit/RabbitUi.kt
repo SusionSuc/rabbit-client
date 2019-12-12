@@ -28,7 +28,6 @@ object RabbitUi {
     const val PAGE_HIDE = 2
     const val PAGE_SHOWING = 3
 
-
     private val uiHandler = object : Handler(Looper.getMainLooper()) {
         override fun handleMessage(msg: Message) {
             when (msg.what) {
@@ -59,7 +58,6 @@ object RabbitUi {
     private val floatingView by lazy {
         RabbitFloatingView(application!!)
     }
-
 
     //rabbit page
     private val pageList = ArrayList<RabbitPageProtocol>()

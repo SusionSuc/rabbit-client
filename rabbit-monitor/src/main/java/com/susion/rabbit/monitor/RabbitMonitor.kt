@@ -27,8 +27,7 @@ object RabbitMonitor {
     private val monitorMap = HashMap<String, RabbitMonitorProtocol>()
 
     fun init(context: Application, config: Config) {
-        //只运行在主进程
-        if (!isMainProcess(context) || initStatus) return
+        if (initStatus) return
 
         this.config = config
         application = context
@@ -93,25 +92,6 @@ object RabbitMonitor {
         if (appSpeedMonitor is RabbitAppSpeedMonitor) {
             appSpeedMonitor.markRequestFinish(requestUrl, costTime)
         }
-    }
-
-    private fun isMainProcess(context: Context): Boolean {
-        return context.packageName == getCurrentProcessName(
-            context
-        )
-    }
-
-    private fun getCurrentProcessName(context: Context): String {
-        val pid = android.os.Process.myPid()
-        var processName = ""
-        val manager =
-            context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-        for (process in manager.runningAppProcesses) {
-            if (process.pid == pid) {
-                processName = process.processName
-            }
-        }
-        return processName
     }
 
     fun isAutoOpen(monitor: RabbitMonitorProtocol): Boolean {
