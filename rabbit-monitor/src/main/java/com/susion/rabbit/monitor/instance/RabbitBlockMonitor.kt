@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit
 /**
  * 监控应用卡顿
  * */
-internal class RabbitBlockMonitor : ChoreographerFrameUpdateMonitor.FrameUpdateListener,
+internal class RabbitBlockMonitor(override var isOpen: Boolean = false) : ChoreographerFrameUpdateMonitor.FrameUpdateListener,
     RabbitMonitorProtocol {
 
     private var stackCollectHandler: Handler? = null
@@ -32,7 +32,6 @@ internal class RabbitBlockMonitor : ChoreographerFrameUpdateMonitor.FrameUpdateL
 
     private var monitorThread: HandlerThread? = null
     private val frameTracer = ChoreographerFrameUpdateMonitor()
-    private var isOpen = false
 
     //采集一次主线程堆栈, 【随机的， 因此并不一定是卡顿点, 不过抓住卡顿点的概率很大】
     private val blockStackCollectTask = object : Runnable {
@@ -67,8 +66,6 @@ internal class RabbitBlockMonitor : ChoreographerFrameUpdateMonitor.FrameUpdateL
         frameTracer.stopMonitorFrame()
         isOpen = false
     }
-
-    override fun isOpen() = isOpen
 
     override fun getMonitorInfo() = RabbitMonitorProtocol.BLOCK
 

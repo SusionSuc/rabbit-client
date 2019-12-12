@@ -11,7 +11,7 @@ import kotlin.math.min
  * susionwang at 2019-10-18
  * 监控 应用 FPS
  */
-internal class RabbitFPSMonitor : LazyChoreographerFrameUpdateMonitor.FrameUpdateListener, RabbitMonitorProtocol {
+internal class RabbitFPSMonitor(override var isOpen: Boolean = false) : LazyChoreographerFrameUpdateMonitor.FrameUpdateListener, RabbitMonitorProtocol {
 
     private val TAG = javaClass.simpleName
     private val frameTracer = LazyChoreographerFrameUpdateMonitor().apply {
@@ -25,7 +25,6 @@ internal class RabbitFPSMonitor : LazyChoreographerFrameUpdateMonitor.FrameUpdat
     private var totalFrameNumber: Long = 0
     private var lastTotalFrameNs: Long = 0
     private var lastTotalFrameNumber: Long = 0
-    private var isOpen = false
 
     fun init() {
         frameTracer.addFrameUpdateListener(this)
@@ -44,7 +43,6 @@ internal class RabbitFPSMonitor : LazyChoreographerFrameUpdateMonitor.FrameUpdat
         isOpen = false
     }
 
-    override fun isOpen() = isOpen
 
     override fun getMonitorInfo() = RabbitMonitorProtocol.FPS
 

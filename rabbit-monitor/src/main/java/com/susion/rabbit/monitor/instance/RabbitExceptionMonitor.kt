@@ -12,28 +12,28 @@ import java.io.StringWriter
 /**
  * susionwang at 2019-12-12
  */
-class RabbitExceptionMonitor : RabbitMonitorProtocol {
+class RabbitExceptionMonitor(override var isOpen: Boolean = false) : RabbitMonitorProtocol {
 
     override fun open(context: Context) {
         val defaultExceptionHandler = Thread.getDefaultUncaughtExceptionHandler()
         Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
             saveCrash(throwable, thread, defaultExceptionHandler)
         }
+        isOpen = true
     }
 
     override fun close() {
-
+        isOpen = false
     }
 
     override fun getMonitorInfo() = RabbitMonitorProtocol.EXCEPTION
-
-    override fun isOpen() = true
 
     fun saveCrash(
         e: Throwable,
         thread: Thread,
         defaultExceptionHandler: Thread.UncaughtExceptionHandler? = null
     ) {
+        if (!isOpen) return
         toastInThread("发生异常! 日志已保存", RabbitMonitor.application)
         Thread.sleep(1000) // 把toast给弹出来
         val exceptionInfo = translateThrowableToExceptionInfo(e, Thread.currentThread().name)
@@ -58,6 +58,5 @@ class RabbitExceptionMonitor : RabbitMonitorProtocol {
 
         return exceptionInfo
     }
-
 
 }

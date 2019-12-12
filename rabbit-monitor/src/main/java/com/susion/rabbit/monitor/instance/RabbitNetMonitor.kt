@@ -15,7 +15,7 @@ import okhttp3.Response
  * 1. 记录网络请求日志
  * 2. 记录某些指定的请求的时间
  */
-class RabbitNetMonitor : RabbitMonitorProtocol, Interceptor {
+class RabbitNetMonitor(override var isOpen: Boolean = false) : RabbitMonitorProtocol, Interceptor {
 
     private var startNs = System.nanoTime()
     private val TAG = javaClass.simpleName
@@ -25,7 +25,7 @@ class RabbitNetMonitor : RabbitMonitorProtocol, Interceptor {
 
         val response = chain.proceed(request)
 
-        if (!isOpen()) return response
+        if (!isOpen) return response
 
         monitorHttpLog(request, response)
 
@@ -45,10 +45,8 @@ class RabbitNetMonitor : RabbitMonitorProtocol, Interceptor {
                 RabbitDbStorageManager.save(logInfo)
             }
 
-
         } catch (e: Exception) {
             RabbitLog.d(TAG, "RabbitHttpLogInterceptor error : ${e.printStackTrace()}")
-
         }
     }
 
@@ -61,7 +59,6 @@ class RabbitNetMonitor : RabbitMonitorProtocol, Interceptor {
         try {
 
             val costTime = System.currentTimeMillis() - startTime
-
             RabbitMonitor.markRequestFinish(requestUrl, costTime)
 
         } catch (e: Exception) {
@@ -70,16 +67,14 @@ class RabbitNetMonitor : RabbitMonitorProtocol, Interceptor {
     }
 
     override fun open(context: Context) {
-
+        isOpen = true
     }
 
     override fun close() {
+        isOpen = false
     }
 
     override fun getMonitorInfo() = RabbitMonitorProtocol.NET
 
-    override fun isOpen(): Boolean {
-        return true
-    }
 
 }

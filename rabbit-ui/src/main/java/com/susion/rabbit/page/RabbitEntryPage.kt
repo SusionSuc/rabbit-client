@@ -49,7 +49,7 @@ class RabbitEntryPage(context: Context) : RabbitBasePage(context) {
         return ArrayList<RabbitMainFeatureInfo>().apply {
             add(
                 RabbitMainFeatureInfo(
-                    "Rabbit功能配置",
+                    "监控配置",
                     R.drawable.rabbit_icon_feature_setting,
                     RabbitConfigPage::class.java
                 )

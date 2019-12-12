@@ -15,7 +15,7 @@ import com.susion.rabbit.tracer.RabbitTracerEventNotifier
  * 1. 应用启动速度
  * 2. 页面启动速度、渲染速度
  */
-internal class RabbitAppSpeedMonitor : RabbitMonitorProtocol {
+internal class RabbitAppSpeedMonitor(override var isOpen: Boolean = false) : RabbitMonitorProtocol {
 
     private val TAG = javaClass.simpleName
 
@@ -39,26 +39,21 @@ internal class RabbitAppSpeedMonitor : RabbitMonitorProtocol {
     //第一个对用户有效的页面 【闪屏页 or 首页】
     private var entryActivityName = ""
 
-    //启动页面测试记录
-    private var pageSpeedMonitorEnable = false
-
     init {
         loadConfig()
         monitorApplicationStart()
     }
 
     override fun open(context: Context) {
-        pageSpeedMonitorEnable = true
+        isOpen = true
         monitorActivitySpeed()
         com.susion.rabbit.RabbitLog.d(TAG, "entryActivityName : $entryActivityName")
     }
 
     override fun close() {
-        pageSpeedMonitorEnable = false
+        isOpen = false
         RabbitTracerEventNotifier.eventNotifier = RabbitTracerEventNotifier.FakeEventListener()
     }
-
-    override fun isOpen() = pageSpeedMonitorEnable
 
     override fun getMonitorInfo() = RabbitMonitorProtocol.APP_SPEED
 

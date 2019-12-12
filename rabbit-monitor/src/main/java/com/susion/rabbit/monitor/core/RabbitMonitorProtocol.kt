@@ -25,6 +25,6 @@ interface RabbitMonitorProtocol {
 
     fun getMonitorInfo(): MonitorInfo
 
-    fun isOpen(): Boolean
+    var isOpen:Boolean
 
 }

@@ -6,6 +6,7 @@ import android.util.Log
 import com.susion.rabbit.Rabbit
 import com.susion.rabbit.RabbitConfig
 import com.susion.rabbit.monitor.RabbitMonitor
+import com.susion.rabbit.monitor.core.RabbitMonitorProtocol
 import com.susion.rabbit.report.RabbitReport
 
 /**
@@ -19,7 +20,9 @@ class MyApplication : Application() {
         val rabbitConfig = RabbitConfig()
 
         rabbitConfig.isDebug = true
-        rabbitConfig.monitorConfig = RabbitMonitor.Config()
+        rabbitConfig.monitorConfig = RabbitMonitor.Config().apply {
+            autoOpenMonitors = listOf(RabbitMonitorProtocol.NET.name, RabbitMonitorProtocol.EXCEPTION.name)
+        }
         rabbitConfig.reportConfig = getReportConfig()
 
         Rabbit.init(this, rabbitConfig)

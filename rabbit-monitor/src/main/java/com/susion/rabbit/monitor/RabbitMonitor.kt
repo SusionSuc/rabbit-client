@@ -71,7 +71,7 @@ object RabbitMonitor {
     }
 
     fun isOpen(name: String): Boolean {
-        return monitorMap[name]?.isOpen() ?: false
+        return monitorMap[name]?.isOpen ?: false
     }
 
     private fun assertInit() {

@@ -6,20 +6,20 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.os.Build
+import com.susion.rabbit.RabbitLog
 import com.susion.rabbit.common.RabbitUiUtils
 import com.susion.rabbit.monitor.core.RabbitMonitorProtocol
-
 
 /**
  * susionwang at 2019-12-04
  * 流量监控
  */
-internal class RabbitTrafficMonitor : RabbitMonitorProtocol {
+internal class RabbitTrafficMonitor(override var isOpen: Boolean = false) : RabbitMonitorProtocol {
 
     override fun open(context: Context) {
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            com.susion.rabbit.RabbitLog.e("不支持流量监控！")
+            RabbitLog.e("不支持流量监控！")
             return
         }
 
@@ -35,19 +35,17 @@ internal class RabbitTrafficMonitor : RabbitMonitorProtocol {
         val trafficBucket = NetworkStats.Bucket()
         trafficStatus.getNextBucket(trafficBucket)
 
-        com.susion.rabbit.RabbitLog.d("rx : ${RabbitUiUtils.formatFileSize(trafficBucket.rxBytes)}")
-        com.susion.rabbit.RabbitLog.d("tx : ${RabbitUiUtils.formatFileSize(trafficBucket.txBytes)}")
+        RabbitLog.d("rx : ${RabbitUiUtils.formatFileSize(trafficBucket.rxBytes)}")
+        RabbitLog.d("tx : ${RabbitUiUtils.formatFileSize(trafficBucket.txBytes)}")
 
-
+        isOpen = true
     }
 
     override fun close() {
-
+        isOpen = false
     }
 
     override fun getMonitorInfo() = RabbitMonitorProtocol.TRAFFIC
-
-    override fun isOpen() = false
 
     private fun getAppUid(context: Context): String {
         var uid = ""

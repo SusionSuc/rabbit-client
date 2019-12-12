@@ -17,10 +17,9 @@ import com.susion.rabbit.storage.RabbitDbStorageManager
  * susionwang at 2019-12-03
  * 内存监控
  */
-internal class RabbitMemoryMonitor : RabbitMonitorProtocol {
+internal class RabbitMemoryMonitor(override var isOpen: Boolean = false) : RabbitMonitorProtocol {
 
     private val TAG = javaClass.simpleName
-    private var isOpen = false
     private var MEMORY_COLLECT_PERIOD = 10000L
     private var mActivityManager: ActivityManager? = null
     private var memoryRefreshHandler: Handler? = null
@@ -102,7 +101,5 @@ internal class RabbitMemoryMonitor : RabbitMonitorProtocol {
 
         return memInfo
     }
-
-    override fun isOpen() = isOpen
 
 }
