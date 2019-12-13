@@ -1,5 +1,6 @@
 package com.susion.rabbit.utils
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
@@ -7,6 +8,7 @@ import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 import android.util.Log
+import android.view.WindowManager
 import com.susion.rabbit.common.DeviceUtils
 import com.susion.rabbit.utils.device.*
 
@@ -120,7 +122,7 @@ object FloatingViewPermissionHelper {
     /**
      * show confirm dialog
      */
-    fun showConfirmDialog(context: Context, result: OnConfirmResult) {
+    fun showConfirmDialog(context: Activity, result: OnConfirmResult) {
         val dialog = AlertDialog.Builder(context)
             .setCancelable(true)
             .setTitle("")
@@ -136,7 +138,6 @@ object FloatingViewPermissionHelper {
                 result.confirmResult(false)
                 dialog.dismiss()
             }.create()
-
         dialog.show()
     }
 

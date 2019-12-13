@@ -1,7 +1,6 @@
 package com.susion.devtools.net
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import com.susion.rabbit.Rabbit
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -19,7 +18,7 @@ class RetrofitClient {
 
     init {
         okHttpClient = OkHttpClient.Builder()
-            .addInterceptor(com.susion.rabbit.Rabbit.getHttpLogInterceptor())
+            .addInterceptor(com.susion.rabbit.Rabbit.getNetInterceptor())
             .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
             .readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
             .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)

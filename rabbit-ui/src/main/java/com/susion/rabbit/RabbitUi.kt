@@ -10,6 +10,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.FrameLayout
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.ProcessLifecycleOwner
 import com.susion.rabbit.base.RabbitMainFeatureInfo
 import com.susion.rabbit.common.RabbitActivityLifecycleWrapper
 import com.susion.rabbit.page.RabbitEntryPage
@@ -46,7 +50,7 @@ object RabbitUi {
     }
 
     var config: Config = Config()
-    var application: Application? = null
+    lateinit var application: Application
 
     //页面是否在展示
     private var pageShowStatus = PAGE_NULL
@@ -75,10 +79,24 @@ object RabbitUi {
     var appCurrentActivity: WeakReference<Activity?>? = null
     var eventListener: EventListener? = null
 
+    //应用可见性监控
+    private val applicationLifecycle = object : LifecycleObserver {
+        @OnLifecycleEvent(Lifecycle.Event.ON_START)
+        fun onForeground() {
+            showFloatingView()
+        }
+
+        @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+        fun onBackground() {
+            hideFloatingView()
+            hideAllPage()
+        }
+    }
+
     fun init(application: Application, config: Config) {
         this.application = application
         this.config = config
-        application.registerActivityLifecycleCallbacks(object :
+        RabbitUi.application.registerActivityLifecycleCallbacks(object :
             RabbitActivityLifecycleWrapper() {
             override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
                 appCurrentActivity = WeakReference(activity)
@@ -86,9 +104,14 @@ object RabbitUi {
         })
     }
 
+    private fun listenAppLifeCycle() {
+        ProcessLifecycleOwner.get().lifecycle.removeObserver(applicationLifecycle)
+        ProcessLifecycleOwner.get().lifecycle.addObserver(applicationLifecycle)
+    }
+
     private fun showRabbitEntryPage() {
         hideFloatingView()
-        val entryPage = RabbitEntryPage(application!!)
+        val entryPage = RabbitEntryPage(application)
         getWm().addView(pageContainer, getPageParams())
         pushPageToTopLevel(entryPage)
         showFloatingView()
@@ -191,6 +214,7 @@ object RabbitUi {
         if (floatingViewIsShow) return
         floatingViewIsShow = true
         floatingView.show()
+        listenAppLifeCycle()
     }
 
     fun hideFloatingView() {

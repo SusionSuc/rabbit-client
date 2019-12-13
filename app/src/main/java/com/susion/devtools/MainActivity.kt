@@ -66,7 +66,7 @@ class MainActivity : RabbitBaseActivity() {
 
     override fun onStart() {
         super.onStart()
-        com.susion.rabbit.Rabbit.openDevTools(true, this)
+        Rabbit.open(true, this)
     }
 
     private fun sampleRequestNet() {
