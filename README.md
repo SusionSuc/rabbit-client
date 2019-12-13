@@ -20,7 +20,7 @@
 
 ### 架构
 
->Rabbit采用组件化架构，各个组件直接完全解耦:
+>Rabbit客户端架构:
 
 ![](picture/rabbit-client-arc.png)
 
