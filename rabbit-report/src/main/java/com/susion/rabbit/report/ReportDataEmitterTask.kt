@@ -17,10 +17,10 @@ internal class ReportDataEmitterTask {
 
     private val TAG = "rabbit-data-report"
     private var sleepCount = 0
-    private val MAX_SLEEP_COUNT = 3
-    private val BATCH_EMITTER_NUMBER = 10
+    private val MAX_SLEEP_COUNT = 1
+    private val BATCH_EMITTER_NUMBER = 5
     private val CIRCLE_EMITTER_TIME = 5000L
-    private val MAX_EMITTER_FAILED_COUNT = 2
+    private val MAX_EMITTER_FAILED_COUNT = 1
     private val trackPointsList = CopyOnWriteArrayList<RabbitReportInfo>()
     private val listModifierLock = ReentrantLock() //防止对 trackPointsList 的并发修改
     private val trackRequest = ReportRequestManager()  //负责发射打点请求
@@ -116,7 +116,8 @@ internal class ReportDataEmitterTask {
                         it.infoStr,
                         it.time,
                         it.pageName,
-                        it.deviceInfoStr
+                        it.deviceInfoStr,
+                        it.type
                     )
                 )
             }

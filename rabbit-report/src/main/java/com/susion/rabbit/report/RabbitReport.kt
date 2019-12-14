@@ -28,7 +28,7 @@ object RabbitReport {
      * */
     class ReportConfig(
         var reportMonitorData: Boolean = false,
-        var reportPath: String = "http://127.0.0.1:8000/apmdata/upload",
+        var reportPath: String = "http://127.0.0.1:8000/apmdb/upload-log",
         var notReportDataFormat: HashSet<Class<*>> = HashSet()
     )
 
@@ -94,25 +94,24 @@ object RabbitReport {
 
         if (mConfig.notReportDataFormat.contains(info.javaClass)) return
 
-//        RabbitLog.d(TAG, "report data format : ${info.javaClass.simpleName}")
-
+        val dataType = info.javaClass.simpleName
         val infoJsonStr = gson.toJson(info)
 
         val reportInfo = RabbitReportInfo(
             infoJsonStr,
             System.currentTimeMillis(),
             appCurrentActivity?.get()?.javaClass?.simpleName ?: "",
-            deviceInfoStr
+            deviceInfoStr,
+            dataType
         )
 
-        RabbitLog.d(TAG, gson.toJson(reportInfo))
+        RabbitLog.d(TAG, "data type : $dataType report ${gson.toJson(reportInfo)}")
 
         RabbitDbStorageManager.save(reportInfo, false)
 
         dataEmitterTask.addPoint(reportInfo)
 
         startEmitterTask()
-
     }
 
     private fun startEmitterTask() {

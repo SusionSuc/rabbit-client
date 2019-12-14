@@ -40,21 +40,14 @@ public class RabbitReportInfo  {
     public RabbitReportInfo() {
     }
 
-    public RabbitReportInfo(String infoStr, Long time, String pageName, String deviceInfoStr) {
+    public RabbitReportInfo(String infoStr, Long time, String pageName, String deviceInfoStr, String type) {
         this.infoStr = infoStr;
         this.time = time;
         this.pageName = pageName;
         this.deviceInfoStr = deviceInfoStr;
+        this.type = type;
     }
 
-
-    public RabbitReportInfo(Long id, String infoStr, Long time, String pageName, String deviceInfoStr) {
-        this.id = id;
-        this.infoStr = infoStr;
-        this.time = time;
-        this.pageName = pageName;
-        this.deviceInfoStr = deviceInfoStr;
-    }
 
     @Override
     public boolean equals(Object o) {

@@ -68,7 +68,7 @@ internal class ReportRequestManager {
         points.forEachIndexed { index, pointInfo ->
             val strByteArr = gson.toJson(pointInfo).toByteArray()
             if (index != 0) {
-                bodyArg.append("|")
+                bodyArg.append("&")
                 bodyArg.append(getBase64Encode(strByteArr))
             } else {
                 bodyArg.append(getBase64Encode(strByteArr))
@@ -99,6 +99,6 @@ internal class ReportRequestManager {
     }
 
     @Keep
-    private class InnerRequestBody(val content: String, val type: String = "unknow")
+    private class InnerRequestBody(val content: String)
 
 }
