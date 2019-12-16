@@ -1,15 +1,18 @@
 package com.susion.rabbit.monitor
 
+import android.app.Activity
 import android.app.Application
 import com.susion.rabbit.RabbitLog
 import com.susion.rabbit.RabbitSettings
 import com.susion.rabbit.RabbitMonitorProtocol
+import com.susion.rabbit.common.RabbitActivityLifecycleWrapper
 import com.susion.rabbit.monitor.instance.*
 import com.susion.rabbit.monitor.instance.RabbitAppSpeedMonitor
 import com.susion.rabbit.monitor.instance.RabbitBlockMonitor
 import com.susion.rabbit.monitor.instance.RabbitFPSMonitor
 import com.susion.rabbit.monitor.instance.RabbitMemoryMonitor
 import okhttp3.Interceptor
+import java.lang.ref.WeakReference
 
 /**
  * susionwang at 2019-10-18
@@ -19,34 +22,27 @@ object RabbitMonitor {
 
     private val TAG = "rabbit-monitor"
     var application: Application? = null
-    private var initStatus = false
+    private var isInit = false
     var config: Config = Config()
     var eventListener: UiEventListener? = null
     private val monitorMap = HashMap<String, RabbitMonitorProtocol>()
+    private var appCurrentActivity: WeakReference<Activity?>? = null    //当前应用正在展示的Activity
+    private var pageChangeListeners = HashSet<PageChangeListener>()
 
-    fun init(context: Application, config: Config) {
-        if (initStatus) return
+    fun init(application: Application, config: Config) {
+        if (isInit) return
 
         this.config = config
-        application = context
-        initStatus = true
+        this.application = application
 
-        initMonitor()
-
-        this.config.autoOpenMonitors.forEach {
-            RabbitSettings.setAutoOpenFlag(context, it, true)
-        }
-
-        monitorMap.values.forEach {
-            val autoOpen = RabbitSettings.autoOpen(context, it.getMonitorInfo().name)
-            if (autoOpen) {
-                it.open(context)
-                RabbitLog.d(TAG, "monitor auto open : ${it.getMonitorInfo().name} ")
+        application.registerActivityLifecycleCallbacks(object : RabbitActivityLifecycleWrapper() {
+            override fun onActivityResumed(activity: Activity?) {
+                appCurrentActivity = WeakReference(activity)
+                pageChangeListeners.forEach { it.onPageShow() }
             }
-        }
-    }
+        })
 
-    private fun initMonitor() {
+        //所有的监控类型
         monitorMap.apply {
             put(RabbitMonitorProtocol.APP_SPEED.name, RabbitAppSpeedMonitor())
             put(RabbitMonitorProtocol.FPS.name, RabbitFPSMonitor())
@@ -55,6 +51,20 @@ object RabbitMonitor {
             put(RabbitMonitorProtocol.EXCEPTION.name, RabbitExceptionMonitor())
             put(RabbitMonitorProtocol.NET.name, RabbitNetMonitor())
         }
+
+        this.config.autoOpenMonitors.forEach {
+            RabbitSettings.setAutoOpenFlag(application, it, true)
+        }
+
+        monitorMap.values.forEach {
+            val autoOpen = RabbitSettings.autoOpen(application, it.getMonitorInfo().name)
+            if (autoOpen) {
+                it.open(application)
+                RabbitLog.d(TAG, "monitor auto open : ${it.getMonitorInfo().name} ")
+            }
+        }
+
+        isInit = true
     }
 
     fun openMonitor(name: String) {
@@ -72,7 +82,7 @@ object RabbitMonitor {
     }
 
     private fun assertInit() {
-        if (!initStatus) {
+        if (!isInit) {
             throw RuntimeException("RabbitMonitorProtocol not call open!")
         }
     }
@@ -109,6 +119,16 @@ object RabbitMonitor {
         return getMonitor<RabbitNetMonitor>() ?: RabbitNetMonitor()
     }
 
+    fun getCurrentPage() = appCurrentActivity?.get()?.javaClass?.simpleName ?: ""
+
+    fun addPageChangeListener(listener: PageChangeListener) {
+        pageChangeListeners.add(listener)
+    }
+
+    fun removePageChangeListener(listener: PageChangeListener) {
+        pageChangeListeners.remove(listener)
+    }
+
     private inline fun <reified T : RabbitMonitorProtocol> getMonitor(): T? {
         for (monitor in monitorMap.values) {
             if (monitor is T) {
@@ -119,17 +139,21 @@ object RabbitMonitor {
     }
 
     /**
-     * @property blockStackCollectPeriod 卡顿栈采集周期
-     * @property blockThreshold  卡顿检测阈值, 即卡顿多长时间算一次卡顿
+     * @property blockStackCollectPeriodNs 卡顿栈采集周期
+     * @property blockThresholdNs  卡顿检测阈值, 即卡顿多长时间算一次卡顿
      * @property autoOpenMonitors 自动打开的监控功能, name 取自 [com.susion.rabbit.performance.core.RabbitMonitor]
      * for example : [com.susion.rabbit.performance.core.RabbitMonitor.BLOCK.enName]
-     * @property memoryValueCollectPeriod 多长时间采集一次内存状态
+     * @property memoryValueCollectPeriodMs 多长时间采集一次内存状态
+     * @property fpsCollectThresholdNs fps采集周期，即多长时间计算一次FPS
+     * @property fpsReportPeriodS 上报FPS信息的周期, 用户与页面交互的累计时间。 10 还是挺长的 ！
      * */
     class Config(
-        var blockStackCollectPeriod: Long = STANDARD_FRAME_NS,
-        var blockThreshold: Long = STANDARD_FRAME_NS * 10,
+        var blockStackCollectPeriodNs: Long = STANDARD_FRAME_NS,
+        var blockThresholdNs: Long = STANDARD_FRAME_NS * 10,
         var autoOpenMonitors: List<String> = ArrayList(),
-        var memoryValueCollectPeriod: Long = 2000L
+        var memoryValueCollectPeriodMs: Long = 2000L,
+        var fpsCollectThresholdNs: Long = STANDARD_FRAME_NS * 10,
+        var fpsReportPeriodS: Long = 10
     ) {
         companion object {
             var STANDARD_FRAME_NS = 16666666L
@@ -138,6 +162,10 @@ object RabbitMonitor {
 
     interface UiEventListener {
         fun updateUi(type: Int, value: Any)
+    }
+
+    interface PageChangeListener {
+        fun onPageShow()
     }
 
 }

@@ -25,10 +25,10 @@ internal class RabbitBlockMonitor(override var isOpen: Boolean = false) : Choreo
 
     // 栈采集周期
     private val stackCollectPeriod = TimeUnit.MILLISECONDS.convert(
-        RabbitMonitor.config.blockStackCollectPeriod,
+        RabbitMonitor.config.blockStackCollectPeriodNs,
         TimeUnit.NANOSECONDS
     )
-    private val blockThreshold = RabbitMonitor.config.blockThreshold
+    private val blockThreshold = RabbitMonitor.config.blockThresholdNs
 
     private var monitorThread: HandlerThread? = null
     private val frameTracer = ChoreographerFrameUpdateMonitor()
@@ -79,6 +79,7 @@ internal class RabbitBlockMonitor(override var isOpen: Boolean = false) : Choreo
                 blockFrameStrackTraceStrList = Gson().toJson(blockStackTraces.values.toList())
                 blockIdentifier = getIdentifierByMaxCount(blockStackTraces)
                 time = System.currentTimeMillis()
+                blockPage = RabbitMonitor.getCurrentPage()
             }
             RabbitDbStorageManager.save(blockFrameInfo)
         }

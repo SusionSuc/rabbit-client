@@ -68,6 +68,13 @@ object RabbitStorage {
                     daoSession.rabbitReportInfoDao as AbstractDao<Any, Long>
                 )
             )
+
+            add(
+                RabbitDaoPluginProvider(
+                    RabbitFPSInfo::class.java as Class<Any>,
+                    daoSession.rabbitReportInfoDao as AbstractDao<Any, Long>
+                )
+            )
         }
         return daoProvider
     }

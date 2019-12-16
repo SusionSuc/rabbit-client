@@ -56,6 +56,7 @@ internal open class LazyChoreographerFrameUpdateMonitor {
     private var oneFrameEndTime = 0L
     private var startMonitorDoFrame = false
 
+
     fun init() {
         choreographer = Choreographer.getInstance()
         callbackQueueLock = RabbitReflectHelper.reflectField<Any>(choreographer, "mLock")

@@ -30,7 +30,7 @@
 
 ## Rabbit服务端
 
->开发中
+[开发中][RabbitServer](https://github.com/SusionSuc/RabbitServer)
 
 **具体使用文档见Wiki**
 

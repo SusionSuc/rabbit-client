@@ -18,19 +18,21 @@ public class RabbitBlockFrameInfo {
 
     public String blockIdentifier;
 
-
     public Long costTime;
 
     public Long time;
 
-    @Generated(hash = 1110232849)
+    public String blockPage;
+
+    @Generated(hash = 17500853)
     public RabbitBlockFrameInfo(Long id, String blockFrameStrackTraceStrList,
-            String blockIdentifier, Long costTime, Long time) {
+            String blockIdentifier, Long costTime, Long time, String blockPage) {
         this.id = id;
         this.blockFrameStrackTraceStrList = blockFrameStrackTraceStrList;
         this.blockIdentifier = blockIdentifier;
         this.costTime = costTime;
         this.time = time;
+        this.blockPage = blockPage;
     }
 
     @Generated(hash = 2109034768)
@@ -76,6 +78,14 @@ public class RabbitBlockFrameInfo {
 
     public void setTime(Long time) {
         this.time = time;
+    }
+
+    public String getBlockPage() {
+        return this.blockPage;
+    }
+
+    public void setBlockPage(String blockPage) {
+        this.blockPage = blockPage;
     }
 
 }

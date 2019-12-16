@@ -12,7 +12,6 @@ import com.susion.rabbit.common.DeviceUtils
 import com.susion.rabbit.common.RabbitActivityLifecycleWrapper
 import com.susion.rabbit.entities.RabbitDeviceInfo
 import com.susion.rabbit.entities.RabbitReportInfo
-import com.susion.rabbit.greendao.RabbitPageSpeedInfoDao
 import com.susion.rabbit.greendao.RabbitReportInfoDao
 import com.susion.rabbit.storage.RabbitDbStorageManager
 import java.lang.ref.WeakReference
@@ -35,22 +34,21 @@ object RabbitReport {
     )
 
     private val TAG = javaClass.simpleName
-    var application: Application? = null
+    lateinit var application: Application
     var mConfig: ReportConfig = ReportConfig()
     private var appCurrentActivity: WeakReference<Activity?>? = null    //当前应用正在展示的Activity
     private var deviceInfoStr = ""
-    private val gson = Gson()
     private val REQUEST_THREAD = Executors.newFixedThreadPool(
         1
     ) { r -> Thread(r, "rabbit_report_request_thread") }
 
-    private val dataEmitterTask = ReportDataEmitterTask()
+    private val dataEmitterTask = RabbitReportDataEmitterTask()
     private val LOAD_POINT_TO_EMITER_QUEUE = 1
     private val mHandler = object : Handler(Looper.getMainLooper()) {
         override fun handleMessage(msg: Message) {
             when (msg.what) {
                 LOAD_POINT_TO_EMITER_QUEUE -> {
-                    val loadDataCount = ReportDataEmitterTask.EMITER_QUEUE_MAX_SIZE / 2
+                    val loadDataCount = RabbitReportDataEmitterTask.EMITER_QUEUE_MAX_SIZE / 2
                     RabbitDbStorageManager.getAll(
                         RabbitReportInfo::class.java,
                         count = loadDataCount,
@@ -65,16 +63,16 @@ object RabbitReport {
         }
     }
 
-    fun init(application_: Application, config: ReportConfig) {
-        application = application_
+    fun init(app: Application, config: ReportConfig) {
+        application = app
         mConfig = config
-        application_.registerActivityLifecycleCallbacks(object : RabbitActivityLifecycleWrapper() {
+        application.registerActivityLifecycleCallbacks(object : RabbitActivityLifecycleWrapper() {
             override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
                 appCurrentActivity = WeakReference(activity)
             }
         })
-        deviceInfoStr = gson.toJson(getDeviceInfoX(application_))
-        dataEmitterTask.eventListener = object : ReportDataEmitterTask.EventListener {
+        deviceInfoStr = Gson().toJson(getDeviceInfoX(application))
+        dataEmitterTask.eventListener = object : RabbitReportDataEmitterTask.EventListener {
             override fun successEmitterPoint(pointInfo: RabbitReportInfo) {
                 RabbitDbStorageManager.delete(
                     RabbitReportInfo::class.java,
@@ -99,18 +97,9 @@ object RabbitReport {
 
         if (mConfig.notReportDataFormat.contains(info.javaClass)) return
 
-        val dataType = info.javaClass.simpleName
-        val infoJsonStr = gson.toJson(info)
+        val reportInfo = RabbitReportTransformCenter.createReportInfo(info)
 
-        val reportInfo = RabbitReportInfo(
-            infoJsonStr,
-            System.currentTimeMillis(),
-            appCurrentActivity?.get()?.javaClass?.simpleName ?: "",
-            deviceInfoStr,
-            dataType
-        )
-
-        RabbitLog.d(TAG, "data type : $dataType report ${gson.toJson(reportInfo)}")
+        RabbitLog.d(TAG, "report  ${reportInfo.type} data")
 
         RabbitDbStorageManager.save(reportInfo, false)
 
@@ -135,5 +124,9 @@ object RabbitReport {
             appVersionCode = DeviceUtils.getAppVersionCode(application) ?: ""
         }
     }
+
+    fun getCurrentPageName() = appCurrentActivity?.get()?.javaClass?.simpleName ?: ""
+
+    fun getDeviceInfoStr() = deviceInfoStr
 
 }
