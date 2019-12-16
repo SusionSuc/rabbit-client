@@ -13,7 +13,7 @@ object RabbitStorage {
     private val DB_NAME = "rabbit-apm"
     var mConfig = Config()
     var application: Application? = null
-    var eventListener:EventListener? = null
+    var eventListener: EventListener? = null
 
     fun init(application_: Application, config: Config) {
         application = application_
@@ -60,6 +60,12 @@ object RabbitStorage {
                 RabbitDaoPluginProvider(
                     RabbitExceptionInfo::class.java as Class<Any>,
                     daoSession.rabbitExceptionInfoDao as AbstractDao<Any, Long>
+                )
+            )
+            add(
+                RabbitDaoPluginProvider(
+                    RabbitReportInfo::class.java as Class<Any>,
+                    daoSession.rabbitReportInfoDao as AbstractDao<Any, Long>
                 )
             )
         }

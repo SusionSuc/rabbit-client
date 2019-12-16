@@ -35,6 +35,12 @@ internal class RabbitGreenDaoDbManage(val context: Context) {
         daoImpl(clazz)?.deleteByKey(id)
     }
 
+    fun <T : Any> delete(clazz: Class<T>, condition: WhereCondition) {
+        getDatas(clazz, condition).forEach {
+            daoImpl(clazz)?.delete(it)
+        }
+    }
+
     fun <T : Any> allDataCount(clazz: Class<T>): Long {
         return daoImpl(clazz)?.queryBuilder()?.count() ?: 0
     }

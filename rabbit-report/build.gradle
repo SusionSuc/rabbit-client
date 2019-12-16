@@ -39,4 +39,6 @@ dependencies {
     implementation "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:${uniqueVersion.retrofit2RxJavaAdapterVersion}"
     implementation "com.squareup.retrofit2:converter-gson:${uniqueVersion.retrofit2ConvertJson}"
     implementation "io.reactivex.rxjava2:rxandroid:${uniqueVersion.rx2androidVersion}"
+    implementation "org.greenrobot:greendao:${uniqueVersion.greenDaoVersion}"
+
 }

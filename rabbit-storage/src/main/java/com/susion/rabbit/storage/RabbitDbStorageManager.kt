@@ -57,19 +57,19 @@ object RabbitDbStorageManager {
         })
     }
 
-    fun save(obj: Any, notifyReportComponent:Boolean = true) {
+    fun save(obj: Any, notifyReportComponent: Boolean = true) {
         val dis = runOnDbThread({
             greenDaoDbManage.saveObj(obj)
         })
         disposableList.add(dis)
-        if (notifyReportComponent){
+        if (notifyReportComponent) {
             RabbitStorage.eventListener?.onStorageData(obj)
         }
     }
 
-    fun saveSync(obj: Any , notifyReportComponent:Boolean = true) {
+    fun saveSync(obj: Any, notifyReportComponent: Boolean = true) {
         greenDaoDbManage.saveObj(obj)
-        if (notifyReportComponent){
+        if (notifyReportComponent) {
             RabbitStorage.eventListener?.onStorageData(obj)
         }
     }
@@ -81,6 +81,13 @@ object RabbitDbStorageManager {
     fun <T : Any> delete(clazz: Class<T>, id: Long) {
         runOnDbThread({
             greenDaoDbManage.deleteById(clazz, id)
+        })
+    }
+
+
+    fun <T : Any> delete(clazz: Class<T>, condition: Pair<Property, String>) {
+        runOnDbThread({
+            greenDaoDbManage.delete(clazz, condition.first.eq(condition.second))
         })
     }
 

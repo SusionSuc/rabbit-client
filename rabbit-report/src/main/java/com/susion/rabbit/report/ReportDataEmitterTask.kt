@@ -140,10 +140,7 @@ internal class ReportDataEmitterTask {
                         copiedList.forEach {
                             val removeStatus = trackPointsList.remove(it)
                             if (!removeStatus) { // 没有正确把点从队列中删除
-                                RabbitLog.d(
-                                    TAG,
-                                    "remove emitter point status false!!  stop emitter"
-                                )
+                                RabbitLog.d(TAG, "remove emitter point status false!!  stop emitter")
                                 emitterWithError = true
                             }
                             eventListener?.successEmitterPoint(it)

@@ -2,6 +2,7 @@ package com.susion.rabbit.monitor.instance
 
 import android.content.Context
 import com.google.gson.Gson
+import com.susion.rabbit.RabbitLog
 import com.susion.rabbit.common.FileUtils
 import com.susion.rabbit.entities.*
 import com.susion.rabbit.monitor.RabbitMonitor
@@ -19,9 +20,7 @@ internal class RabbitAppSpeedMonitor(override var isOpen: Boolean = false) :
     RabbitMonitorProtocol {
 
     private val TAG = javaClass.simpleName
-
     private val ASSERT_FILE_NAME = "rabbit_speed_monitor.json"
-
     private var currentPageName: String = ""
     private val pageApiStatusInfo = HashMap<String, RabbitPageApiInfo>()
     private var configInfo = RabbitAppSpeedMonitorConfig()
@@ -32,10 +31,8 @@ internal class RabbitAppSpeedMonitor(override var isOpen: Boolean = false) :
     private var appSpeedCanRecord = false
     private var pageSpeedCanRecord = false
 
-    private var pageSpeedInfo: RabbitPageSpeedInfo =
-        RabbitPageSpeedInfo()
-    private var appSpeedInfo: RabbitAppStartSpeedInfo =
-        RabbitAppStartSpeedInfo()
+    private var pageSpeedInfo: RabbitPageSpeedInfo = RabbitPageSpeedInfo()
+    private var appSpeedInfo: RabbitAppStartSpeedInfo = RabbitAppStartSpeedInfo()
 
     //第一个对用户有效的页面 【闪屏页 or 首页】
     private var entryActivityName = ""
@@ -48,7 +45,7 @@ internal class RabbitAppSpeedMonitor(override var isOpen: Boolean = false) :
     override fun open(context: Context) {
         isOpen = true
         monitorActivitySpeed()
-        com.susion.rabbit.RabbitLog.d(TAG, "entryActivityName : $entryActivityName")
+        RabbitLog.d(TAG, "entryActivityName : $entryActivityName")
     }
 
     override fun close() {
@@ -80,7 +77,7 @@ internal class RabbitAppSpeedMonitor(override var isOpen: Boolean = false) :
             entryActivityName = configInfo.homeActivity
 
         } catch (e: Exception) {
-            com.susion.rabbit.RabbitLog.d(TAG, "loadConfig failed ${e.message} ")
+            RabbitLog.d(TAG, "loadConfig failed ${e.message} ")
         }
     }
 
@@ -102,6 +99,7 @@ internal class RabbitAppSpeedMonitor(override var isOpen: Boolean = false) :
 
             override fun applicationCreateTime(attachBaseContextTime: Long, createEndTime: Long) {
                 appSpeedCanRecord = true
+                appSpeedInfo.time = System.currentTimeMillis()
                 appSpeedInfo.createStartTime = attachBaseContextTime
                 appSpeedInfo.createEndTime = createEndTime
                 appSpeedInfo.fullShowCostTime = 0
@@ -142,7 +140,7 @@ internal class RabbitAppSpeedMonitor(override var isOpen: Boolean = false) :
                 if (pageSpeedInfo.inflateFinishTime == 0L) {
                     pageSpeedInfo.time = System.currentTimeMillis()
                     pageSpeedInfo.inflateFinishTime = drawFinishTime
-                    com.susion.rabbit.RabbitLog.d(
+                    RabbitLog.d(
                         TAG,
                         "$currentPageName page inflateFinishTime ---> cost time : ${drawFinishTime - pageSpeedInfo.createStartTime}"
                     )
@@ -151,7 +149,7 @@ internal class RabbitAppSpeedMonitor(override var isOpen: Boolean = false) :
                 val apiStatus = pageApiStatusInfo[currentPageName]
                 if (apiStatus != null) {
                     if (apiStatus.allApiRequestFinish()) {
-                        com.susion.rabbit.RabbitLog.d(
+                        RabbitLog.d(
                             TAG,
                             "$currentPageName page finish all request ---> cost time : ${drawFinishTime - pageSpeedInfo.createStartTime}"
                         )
@@ -199,11 +197,12 @@ internal class RabbitAppSpeedMonitor(override var isOpen: Boolean = false) :
     private fun monitorApplicationStart() {
         RabbitTracerEventNotifier.eventNotifier = object : RabbitTracerEventNotifier.TracerEvent {
             override fun applicationCreateTime(attachBaseContextTime: Long, createEndTime: Long) {
+                appSpeedInfo.time = System.currentTimeMillis()
                 appSpeedInfo.createStartTime = attachBaseContextTime
                 appSpeedInfo.createEndTime = createEndTime
                 if (!RabbitMonitor.isAutoOpen(this@RabbitAppSpeedMonitor)) {
                     RabbitDbStorageManager.save(appSpeedInfo)
-                    com.susion.rabbit.RabbitLog.d(TAG, "monitorApplicationStart")
+                    RabbitLog.d(TAG, "monitorApplicationStart")
                 }
             }
         }
@@ -219,15 +218,14 @@ internal class RabbitAppSpeedMonitor(override var isOpen: Boolean = false) :
                 appSpeedCanRecord = false
                 appSpeedInfo.fullShowCostTime = pageDrawFinishTime - appSpeedInfo.createStartTime
                 RabbitDbStorageManager.save(appSpeedInfo)
-                com.susion.rabbit.RabbitLog.d(TAG, "saveApplicationStartInfoToLocal")
+                RabbitLog.d(TAG, "saveApplicationStartInfoToLocal")
             }
         } else {
             appSpeedCanRecord = false
             appSpeedInfo.fullShowCostTime = pageDrawFinishTime - appSpeedInfo.createStartTime
             RabbitDbStorageManager.save(appSpeedInfo)
-            com.susion.rabbit.RabbitLog.d(TAG, "saveApplicationStartInfoToLocal")
+            RabbitLog.d(TAG, "saveApplicationStartInfoToLocal")
         }
-
     }
 
     //是否监控这个请求

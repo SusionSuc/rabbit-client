@@ -25,6 +25,23 @@ public class RabbitReportInfo  {
 
     public String type;
 
+    /**
+     * 必须是这两个字段
+     * */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RabbitReportInfo that = (RabbitReportInfo) o;
+        return Objects.equals(time, that.time) &&
+                Objects.equals(type, that.type);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(time, type);
+    }
+
     @Generated(hash = 230216145)
     public RabbitReportInfo(Long id, String infoStr, Long time, String pageName,
             String deviceInfoStr, String type) {
@@ -49,20 +66,6 @@ public class RabbitReportInfo  {
     }
 
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        RabbitReportInfo that = (RabbitReportInfo) o;
-        return Objects.equals(infoStr, that.infoStr) &&
-                Objects.equals(time, that.time) &&
-                Objects.equals(pageName, that.pageName);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(infoStr, time, pageName);
-    }
 
     public Long getId() {
         return this.id;

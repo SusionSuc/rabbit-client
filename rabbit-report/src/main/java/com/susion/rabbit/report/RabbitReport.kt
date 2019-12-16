@@ -12,6 +12,8 @@ import com.susion.rabbit.common.DeviceUtils
 import com.susion.rabbit.common.RabbitActivityLifecycleWrapper
 import com.susion.rabbit.entities.RabbitDeviceInfo
 import com.susion.rabbit.entities.RabbitReportInfo
+import com.susion.rabbit.greendao.RabbitPageSpeedInfoDao
+import com.susion.rabbit.greendao.RabbitReportInfoDao
 import com.susion.rabbit.storage.RabbitDbStorageManager
 import java.lang.ref.WeakReference
 import java.util.concurrent.*
@@ -74,7 +76,10 @@ object RabbitReport {
         deviceInfoStr = gson.toJson(getDeviceInfoX(application_))
         dataEmitterTask.eventListener = object : ReportDataEmitterTask.EventListener {
             override fun successEmitterPoint(pointInfo: RabbitReportInfo) {
-                RabbitDbStorageManager.delete(RabbitReportInfo::class.java, pointInfo.id)
+                RabbitDbStorageManager.delete(
+                    RabbitReportInfo::class.java,
+                    condition = Pair(RabbitReportInfoDao.Properties.Time, pointInfo.time.toString())
+                )
             }
 
             override fun pointQueueIsEmpty() {
