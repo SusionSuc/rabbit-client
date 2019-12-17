@@ -9,11 +9,9 @@ import android.telephony.TelephonyManager
 import android.text.TextUtils
 import android.util.Log
 import androidx.core.content.ContextCompat
-import java.io.BufferedReader
-import java.io.IOException
-import java.io.InputStreamReader
-import java.io.UnsupportedEncodingException
+import java.io.*
 import java.util.*
+
 
 /**
  * susionwang at 2019-09-23
@@ -245,5 +243,50 @@ object DeviceUtils {
         return name
     }
 
+    fun getMemorySize(context: Context): String {
+        try {
+            //1, 读取Android设备的内存信息文件内容
+            val fileReader = FileReader("/proc/meminfo")
+            BufferedReader(fileReader).use {
+                val size = it.readLine().replace("[^0-9.,]+".toRegex(), "").toLongOrNull() ?: 0
+                return RabbitUiUtils.formatFileSize(size * 1024)
+            }
+        } catch (e: FileNotFoundException) {
+            e.printStackTrace()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return "0"
+    }
+
+    /**
+     * Return whether device is rooted.
+     *
+     * @return `true`: yes<br></br>`false`: no
+     */
+    fun isDeviceRooted(): Boolean {
+        val su = "su"
+        val locations = arrayOf(
+            "/system/bin/",
+            "/system/xbin/",
+            "/sbin/",
+            "/system/sd/xbin/",
+            "/system/bin/failsafe/",
+            "/data/local/xbin/",
+            "/data/local/bin/",
+            "/data/local/",
+            "/system/sbin/",
+            "/usr/bin/",
+            "/vendor/bin/"
+        )
+        for (location in locations) {
+            if (File(location + su).exists()) {
+                return true
+            }
+        }
+        return false
+    }
 
 }

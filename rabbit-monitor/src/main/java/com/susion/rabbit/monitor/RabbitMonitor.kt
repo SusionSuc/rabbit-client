@@ -11,6 +11,7 @@ import com.susion.rabbit.monitor.instance.RabbitAppSpeedMonitor
 import com.susion.rabbit.monitor.instance.RabbitBlockMonitor
 import com.susion.rabbit.monitor.instance.RabbitFPSMonitor
 import com.susion.rabbit.monitor.instance.RabbitMemoryMonitor
+import com.susion.rabbit.storage.RabbitDbStorageManager
 import okhttp3.Interceptor
 import java.lang.ref.WeakReference
 
@@ -20,7 +21,7 @@ import java.lang.ref.WeakReference
  */
 object RabbitMonitor {
 
-    private val TAG = "rabbit-monitor"
+    private val TAG = javaClass.simpleName
     var application: Application? = null
     private var isInit = false
     var config: Config = Config()
@@ -34,6 +35,7 @@ object RabbitMonitor {
 
         this.config = config
         this.application = application
+        config.autoOpenMonitors.add(RabbitMonitorProtocol.USE_TIME.name)
 
         application.registerActivityLifecycleCallbacks(object : RabbitActivityLifecycleWrapper() {
             override fun onActivityResumed(activity: Activity?) {
@@ -50,6 +52,7 @@ object RabbitMonitor {
             put(RabbitMonitorProtocol.MEMORY.name, RabbitMemoryMonitor())
             put(RabbitMonitorProtocol.EXCEPTION.name, RabbitExceptionMonitor())
             put(RabbitMonitorProtocol.NET.name, RabbitNetMonitor())
+            put(RabbitMonitorProtocol.USE_TIME.name, RabbitAppUseTimeMonitor())
         }
 
         this.config.autoOpenMonitors.forEach {
@@ -138,11 +141,16 @@ object RabbitMonitor {
         return null
     }
 
+    fun getAppUseTimes(): Long {
+        return getMonitor<RabbitAppUseTimeMonitor>()?.getAppUseTimeS() ?: 0L
+    }
+
     /**
      * @property blockStackCollectPeriodNs 卡顿栈采集周期
      * @property blockThresholdNs  卡顿检测阈值, 即卡顿多长时间算一次卡顿
-     * @property autoOpenMonitors 自动打开的监控功能, name 取自 [com.susion.rabbit.performance.core.RabbitMonitor]
-     * for example : [com.susion.rabbit.performance.core.RabbitMonitor.BLOCK.enName]
+     * @property autoOpenMonitors
+     *      自动打开的监控功能, name 取自 [com.susion.rabbit.performance.core.RabbitMonitor]
+     *      for example : [com.susion.rabbit.performance.core.RabbitMonitor.BLOCK.enName]
      * @property memoryValueCollectPeriodMs 多长时间采集一次内存状态
      * @property fpsCollectThresholdNs fps采集周期，即多长时间计算一次FPS
      * @property fpsReportPeriodS 上报FPS信息的周期, 用户与页面交互的累计时间。 10 还是挺长的 ！
@@ -150,7 +158,7 @@ object RabbitMonitor {
     class Config(
         var blockStackCollectPeriodNs: Long = STANDARD_FRAME_NS,
         var blockThresholdNs: Long = STANDARD_FRAME_NS * 10,
-        var autoOpenMonitors: List<String> = ArrayList(),
+        var autoOpenMonitors: HashSet<String> = HashSet(),
         var memoryValueCollectPeriodMs: Long = 2000L,
         var fpsCollectThresholdNs: Long = STANDARD_FRAME_NS * 10,
         var fpsReportPeriodS: Long = 10

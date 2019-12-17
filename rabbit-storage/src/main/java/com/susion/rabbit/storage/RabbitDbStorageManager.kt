@@ -1,10 +1,7 @@
 package com.susion.rabbit.storage
 
-import com.susion.rabbit.RabbitLog
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
+import com.susion.rabbit.common.RabbitAsync
 import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import org.greenrobot.greendao.Property
 import java.util.concurrent.LinkedBlockingDeque
 import java.util.concurrent.ThreadFactory
@@ -19,7 +16,6 @@ import java.util.concurrent.TimeUnit
 object RabbitDbStorageManager {
 
     private val TAG = javaClass.simpleName
-
     private val disposableList = ArrayList<Disposable>()
     private val DB_THREAD = ThreadPoolExecutor(5, 10, 10, TimeUnit.SECONDS, LinkedBlockingDeque(),
         ThreadFactory { r ->
@@ -44,7 +40,7 @@ object RabbitDbStorageManager {
         orderDesc: Boolean = true,
         loadResult: (exceptionList: List<T>) -> Unit
     ) {
-        runOnDbThreadWithResultData({
+        RabbitAsync.asyncRunWithResult({
             greenDaoDbManage.getDatasWithDescendingSort(
                 ktClass,
                 condition?.first?.eq(condition.second),
@@ -52,15 +48,16 @@ object RabbitDbStorageManager {
                 count,
                 orderDesc
             )
-        }, {
+        }, DB_THREAD, {
             loadResult(it)
         })
     }
 
     fun save(obj: Any, notifyReportComponent: Boolean = true) {
-        val dis = runOnDbThread({
+        val dis = RabbitAsync.asyncRun({
             greenDaoDbManage.saveObj(obj)
-        })
+        }, DB_THREAD)
+
         disposableList.add(dis)
         if (notifyReportComponent) {
             RabbitStorage.eventListener?.onStorageData(obj)
@@ -75,20 +72,19 @@ object RabbitDbStorageManager {
     }
 
     fun <T : Any> clearAllData(clazz: Class<T>) {
-        runOnDbThread({ greenDaoDbManage.clearAllData(clazz) })
+        RabbitAsync.asyncRun({ greenDaoDbManage.clearAllData(clazz) }, DB_THREAD)
     }
 
     fun <T : Any> delete(clazz: Class<T>, id: Long) {
-        runOnDbThread({
+        RabbitAsync.asyncRun({
             greenDaoDbManage.deleteById(clazz, id)
-        })
+        }, DB_THREAD)
     }
 
-
     fun <T : Any> delete(clazz: Class<T>, condition: Pair<Property, String>) {
-        runOnDbThread({
+        RabbitAsync.asyncRun({
             greenDaoDbManage.delete(clazz, condition.first.eq(condition.second))
-        })
+        }, DB_THREAD)
     }
 
     fun <T : Any> dataCount(clazz: Class<T>): Long {
@@ -102,49 +98,9 @@ object RabbitDbStorageManager {
     }
 
     fun clearOldSessionData() {
-        runOnDbThread({
+        RabbitAsync.asyncRun({
             greenDaoDbManage.clearOldSessionData()
-        })
-    }
-
-    private fun runOnDbThread(runnable: () -> Unit, finishCallback: () -> Unit = {}): Disposable {
-        return Observable.create<Unit> {
-            try {
-                it.onNext(runnable())
-            } catch (e: Exception) {
-                it.onError(e)
-            }
-            it.onComplete()
-        }.subscribeOn(Schedulers.from(DB_THREAD)).observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                finishCallback()
-            }, {
-                finishCallback()
-                RabbitLog.d(TAG, "runOnDbThread load error")
-            })
-    }
-
-    /**
-     * 从数据库获取数据，然后在主线程回调
-     * */
-    private fun <T> runOnDbThreadWithResultData(
-        runnable: () -> T,
-        completeCallBack: (result: T) -> Unit
-    ): Disposable {
-        return Observable.create<T> {
-            try {
-                it.onNext(runnable())
-            } catch (e: Exception) {
-                it.onError(e)
-            }
-            it.onComplete()
-        }.subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                completeCallBack(it)
-            }, {
-                RabbitLog.d(TAG, "runOnDbThreadWithResultData load error")
-            })
+        }, DB_THREAD)
     }
 
 }

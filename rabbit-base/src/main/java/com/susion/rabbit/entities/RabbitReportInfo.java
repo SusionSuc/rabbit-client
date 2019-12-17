@@ -4,13 +4,15 @@ import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 
 import java.util.Objects;
+
 import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Keep;
 
 /**
  * susionwang at 2019-12-05
  */
 @Entity
-public class RabbitReportInfo  {
+public class RabbitReportInfo {
 
     @Id(autoincrement = true)
     public Long id;
@@ -19,15 +21,40 @@ public class RabbitReportInfo  {
 
     public Long time;
 
-    public String pageName;
-
     public String deviceInfoStr;
 
     public String type;
 
+    public long useTime;
+
+    @Keep
+    public RabbitReportInfo(String infoStr, Long time,
+                            String deviceInfoStr, String type, long appUseTime) {
+        this.infoStr = infoStr;
+        this.time = time;
+        this.deviceInfoStr = deviceInfoStr;
+        this.type = type;
+        this.useTime = appUseTime;
+    }
+
+    @Generated(hash = 1889523049)
+    public RabbitReportInfo(Long id, String infoStr, Long time,
+                            String deviceInfoStr, String type, long useTime) {
+        this.id = id;
+        this.infoStr = infoStr;
+        this.time = time;
+        this.deviceInfoStr = deviceInfoStr;
+        this.type = type;
+        this.useTime = useTime;
+    }
+
+    @Generated(hash = 2125059637)
+    public RabbitReportInfo() {
+    }
+
     /**
      * 必须是这两个字段
-     * */
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -41,31 +68,6 @@ public class RabbitReportInfo  {
     public int hashCode() {
         return Objects.hash(time, type);
     }
-
-    @Generated(hash = 230216145)
-    public RabbitReportInfo(Long id, String infoStr, Long time, String pageName,
-            String deviceInfoStr, String type) {
-        this.id = id;
-        this.infoStr = infoStr;
-        this.time = time;
-        this.pageName = pageName;
-        this.deviceInfoStr = deviceInfoStr;
-        this.type = type;
-    }
-
-    @Generated(hash = 2125059637)
-    public RabbitReportInfo() {
-    }
-
-    public RabbitReportInfo(String infoStr, Long time, String pageName, String deviceInfoStr, String type) {
-        this.infoStr = infoStr;
-        this.time = time;
-        this.pageName = pageName;
-        this.deviceInfoStr = deviceInfoStr;
-        this.type = type;
-    }
-
-
 
     public Long getId() {
         return this.id;
@@ -91,14 +93,6 @@ public class RabbitReportInfo  {
         this.time = time;
     }
 
-    public String getPageName() {
-        return this.pageName;
-    }
-
-    public void setPageName(String pageName) {
-        this.pageName = pageName;
-    }
-
     public String getDeviceInfoStr() {
         return this.deviceInfoStr;
     }
@@ -113,6 +107,14 @@ public class RabbitReportInfo  {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public long getUseTime() {
+        return this.useTime;
+    }
+
+    public void setUseTime(long useTime) {
+        this.useTime = useTime;
     }
 
 

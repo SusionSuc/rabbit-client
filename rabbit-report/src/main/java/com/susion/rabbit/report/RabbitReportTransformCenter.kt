@@ -10,14 +10,20 @@ import com.susion.rabbit.report.entities.RabbitSimpleBlockInfo
  */
 object RabbitReportTransformCenter {
 
-    fun createReportInfo(info: Any): RabbitReportInfo {
-        return RabbitReportInfo(
+    fun createReportInfo(info: Any, appUseTime: Long): RabbitReportInfo {
+        val reportInfo =  RabbitReportInfo(
             getRealInfoStr(info),
             System.currentTimeMillis(),
-            RabbitReport.getCurrentPageName(),
             RabbitReport.getDeviceInfoStr(),
-            getDataType(info)
+            getDataType(info),
+            appUseTime
         )
+
+        if (reportInfo.deviceInfoStr.isEmpty()){
+            reportInfo.deviceInfoStr = "{}"
+        }
+
+        return reportInfo
     }
 
     private fun getDataType(info: Any): String {

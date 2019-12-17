@@ -21,11 +21,12 @@ class MyApplication : Application() {
 
         rabbitConfig.isDebug = true
         rabbitConfig.monitorConfig = RabbitMonitor.Config().apply {
-            autoOpenMonitors = listOf(RabbitMonitorProtocol.NET.name, RabbitMonitorProtocol.EXCEPTION.name)
+            autoOpenMonitors =
+                hashSetOf(RabbitMonitorProtocol.NET.name, RabbitMonitorProtocol.EXCEPTION.name)
         }
         rabbitConfig.reportConfig = getReportConfig()
 
-        Rabbit.init( rabbitConfig)
+        Rabbit.init(rabbitConfig)
     }
 
     private fun getReportConfig(): RabbitReport.ReportConfig {

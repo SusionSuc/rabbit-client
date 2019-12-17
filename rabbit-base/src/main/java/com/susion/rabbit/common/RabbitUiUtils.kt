@@ -89,10 +89,9 @@ object RabbitUiUtils {
             size < 1024 * 1024 * 1024 -> {
                 formater.format("%.2f MB", size / 1024f / 1024f).toString()
             }
-            size < 1024 * 1024 * 1024 * 1024 -> {
+            else -> {
                 formater.format("%.2f GB", size / 1024f / 1024f / 1024f).toString()
             }
-            else -> ""
         }
     }
 

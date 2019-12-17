@@ -15,9 +15,15 @@ interface RabbitMonitorProtocol {
         val TRAFFIC = MonitorInfo("traffic_monitor", "流量监控", true) //网络监控
         val EXCEPTION = MonitorInfo("exception_monitor", "异常监控", true)
         val NET = MonitorInfo("net_monitor", "网络监控", true)
+        val USE_TIME = MonitorInfo("use_time", "使用时长监控", true, showInExternal = false)
     }
 
-    class MonitorInfo(val name: String, val znName: String, val runInDebug: Boolean = true)
+    class MonitorInfo(
+        val name: String,
+        val znName: String,
+        val runInDebug: Boolean = true,
+        val showInExternal: Boolean = true
+    )
 
     fun open(context: Context)
 

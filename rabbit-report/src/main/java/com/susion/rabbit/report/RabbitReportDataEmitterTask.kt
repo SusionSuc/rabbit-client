@@ -115,9 +115,9 @@ internal class RabbitReportDataEmitterTask {
                         it.id,
                         it.infoStr,
                         it.time,
-                        it.pageName,
                         it.deviceInfoStr,
-                        it.type
+                        it.type,
+                        it.useTime
                     )
                 )
             }

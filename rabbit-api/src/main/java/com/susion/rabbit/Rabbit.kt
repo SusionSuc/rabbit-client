@@ -43,7 +43,7 @@ object Rabbit {
         RabbitStorage.init(application, mConfig.storageConfig)
         RabbitStorage.eventListener = object : RabbitStorage.EventListener {
             override fun onStorageData(obj: Any) {
-                RabbitReport.report(obj)
+                RabbitReport.report(obj, RabbitMonitor.getAppUseTimes())
             }
         }
 

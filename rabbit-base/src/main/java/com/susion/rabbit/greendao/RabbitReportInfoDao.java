@@ -27,9 +27,9 @@ public class RabbitReportInfoDao extends AbstractDao<RabbitReportInfo, Long> {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property InfoStr = new Property(1, String.class, "infoStr", false, "INFO_STR");
         public final static Property Time = new Property(2, Long.class, "time", false, "TIME");
-        public final static Property PageName = new Property(3, String.class, "pageName", false, "PAGE_NAME");
-        public final static Property DeviceInfoStr = new Property(4, String.class, "deviceInfoStr", false, "DEVICE_INFO_STR");
-        public final static Property Type = new Property(5, String.class, "type", false, "TYPE");
+        public final static Property DeviceInfoStr = new Property(3, String.class, "deviceInfoStr", false, "DEVICE_INFO_STR");
+        public final static Property Type = new Property(4, String.class, "type", false, "TYPE");
+        public final static Property UseTime = new Property(5, long.class, "useTime", false, "USE_TIME");
     }
 
 
@@ -48,9 +48,9 @@ public class RabbitReportInfoDao extends AbstractDao<RabbitReportInfo, Long> {
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"INFO_STR\" TEXT," + // 1: infoStr
                 "\"TIME\" INTEGER," + // 2: time
-                "\"PAGE_NAME\" TEXT," + // 3: pageName
-                "\"DEVICE_INFO_STR\" TEXT," + // 4: deviceInfoStr
-                "\"TYPE\" TEXT);"); // 5: type
+                "\"DEVICE_INFO_STR\" TEXT," + // 3: deviceInfoStr
+                "\"TYPE\" TEXT," + // 4: type
+                "\"USE_TIME\" INTEGER NOT NULL );"); // 5: useTime
     }
 
     /** Drops the underlying database table. */
@@ -78,20 +78,16 @@ public class RabbitReportInfoDao extends AbstractDao<RabbitReportInfo, Long> {
             stmt.bindLong(3, time);
         }
  
-        String pageName = entity.getPageName();
-        if (pageName != null) {
-            stmt.bindString(4, pageName);
-        }
- 
         String deviceInfoStr = entity.getDeviceInfoStr();
         if (deviceInfoStr != null) {
-            stmt.bindString(5, deviceInfoStr);
+            stmt.bindString(4, deviceInfoStr);
         }
  
         String type = entity.getType();
         if (type != null) {
-            stmt.bindString(6, type);
+            stmt.bindString(5, type);
         }
+        stmt.bindLong(6, entity.getUseTime());
     }
 
     @Override
@@ -113,20 +109,16 @@ public class RabbitReportInfoDao extends AbstractDao<RabbitReportInfo, Long> {
             stmt.bindLong(3, time);
         }
  
-        String pageName = entity.getPageName();
-        if (pageName != null) {
-            stmt.bindString(4, pageName);
-        }
- 
         String deviceInfoStr = entity.getDeviceInfoStr();
         if (deviceInfoStr != null) {
-            stmt.bindString(5, deviceInfoStr);
+            stmt.bindString(4, deviceInfoStr);
         }
  
         String type = entity.getType();
         if (type != null) {
-            stmt.bindString(6, type);
+            stmt.bindString(5, type);
         }
+        stmt.bindLong(6, entity.getUseTime());
     }
 
     @Override
@@ -140,9 +132,9 @@ public class RabbitReportInfoDao extends AbstractDao<RabbitReportInfo, Long> {
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // infoStr
             cursor.isNull(offset + 2) ? null : cursor.getLong(offset + 2), // time
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // pageName
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // deviceInfoStr
-            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5) // type
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // deviceInfoStr
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // type
+            cursor.getLong(offset + 5) // useTime
         );
         return entity;
     }
@@ -152,9 +144,9 @@ public class RabbitReportInfoDao extends AbstractDao<RabbitReportInfo, Long> {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setInfoStr(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setTime(cursor.isNull(offset + 2) ? null : cursor.getLong(offset + 2));
-        entity.setPageName(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
-        entity.setDeviceInfoStr(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
-        entity.setType(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setDeviceInfoStr(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setType(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setUseTime(cursor.getLong(offset + 5));
      }
     
     @Override

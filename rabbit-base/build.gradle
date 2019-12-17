@@ -34,7 +34,7 @@ android {
     }
 }
 greendao {
-    schemaVersion 1005
+    schemaVersion 1006
     daoPackage 'com.susion.rabbit.greendao'
     targetGenDir 'src/main/java'
 }
@@ -45,4 +45,6 @@ dependencies {
     implementation rootProject.ext.androidXDependencies.appcompat
     implementation "org.greenrobot:greendao:${uniqueVersion.greenDaoVersion}"
     implementation "com.google.code.gson:gson:${uniqueVersion.gsonVersion}"
+    implementation "io.reactivex.rxjava2:rxjava:${uniqueVersion.rx2javaVersion}"
+    implementation "io.reactivex.rxjava2:rxandroid:${uniqueVersion.rx2androidVersion}"
 }
