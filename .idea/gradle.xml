@@ -9,7 +9,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/rabbit-api" />
+            <option value="$PROJECT_DIR$/rabbit" />
             <option value="$PROJECT_DIR$/rabbit-apk-analyzer" />
             <option value="$PROJECT_DIR$/rabbit-base" />
             <option value="$PROJECT_DIR$/rabbit-gradle-interface" />

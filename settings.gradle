@@ -1,3 +1,3 @@
-include ':app', ':rabbit-ui', ':rabbit-gradle-transform', ':rabbit-gradle-interface', ':rabbit-apk-analyzer', ':rabbit-report', ':rabbit-storage', ':rabbit-base', ':rabbit-monitor', ':rabbit-api'
+include ':app', ':rabbit-ui', ':rabbit-gradle-transform', ':rabbit-gradle-interface', ':rabbit-apk-analyzer', ':rabbit-report', ':rabbit-storage', ':rabbit-base', ':rabbit-monitor', ':rabbit'
 rootProject.name='Rabbit'
 
