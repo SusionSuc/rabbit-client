@@ -20,19 +20,11 @@
 
 >目前所有功能只能在debug下使用，没有经过线上验证！
 
-### 架构
+# 性能数据上报 & 服务端
 
->Rabbit客户端架构:
+计划支持上报所有的检测数据。
 
-![](picture/rabbit-client-arc.png)
-
-# 性能数据上报
-
-支持上报所有的检测数据。
-
-# Rabbit服务端
-
-[开发中][RabbitServer](https://github.com/SusionSuc/RabbitServer)
+[RabbitServer](https://github.com/SusionSuc/RabbitServer)正在开发中。
 
 # 使用文档
 
@@ -71,4 +63,8 @@ Rabbit.init(config)
 
 >**更具体的使用文档后续会更新在wiki中**
 
+# 架构
 
+>客户端架构
+
+![](picture/rabbit-client-arc.png)
