@@ -3,6 +3,7 @@ package com.susion.rabbit.report
 import com.google.gson.Gson
 import com.susion.rabbit.entities.*
 import com.susion.rabbit.report.entities.RabbitSimpleBlockInfo
+import com.susion.rabbit.report.entities.RabbitSimpleExceptionInfo
 
 /**
  * susionwang at 2019-12-16
@@ -11,7 +12,7 @@ import com.susion.rabbit.report.entities.RabbitSimpleBlockInfo
 object RabbitReportTransformCenter {
 
     fun createReportInfo(info: Any, appUseTime: Long): RabbitReportInfo {
-        val reportInfo =  RabbitReportInfo(
+        val reportInfo = RabbitReportInfo(
             getRealInfoStr(info),
             System.currentTimeMillis(),
             RabbitReport.getDeviceInfoStr(),
@@ -19,7 +20,7 @@ object RabbitReportTransformCenter {
             appUseTime
         )
 
-        if (reportInfo.deviceInfoStr.isEmpty()){
+        if (reportInfo.deviceInfoStr.isEmpty()) {
             reportInfo.deviceInfoStr = "{}"
         }
 
@@ -32,6 +33,7 @@ object RabbitReportTransformCenter {
             is RabbitAppStartSpeedInfo -> "app_start"
             is RabbitBlockFrameInfo -> "block_info"
             is RabbitFPSInfo -> "fps_info"
+            is RabbitExceptionInfo -> "exception_info"
             else -> "undefine"
         }
     }
@@ -55,6 +57,18 @@ object RabbitReportTransformCenter {
                             info.blockIdentifier
                         )
                     )
+            }
+
+            is RabbitExceptionInfo -> {
+                infoStr = gson.toJson(
+                    RabbitSimpleExceptionInfo(
+                        info.time,
+                        info.exceptionName,
+                        info.simpleMessage,
+                        info.threadName,
+                        info.pageName
+                    )
+                )
             }
         }
         return infoStr

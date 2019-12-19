@@ -28,9 +28,9 @@ public class RabbitExceptionInfoDao extends AbstractDao<RabbitExceptionInfo, Lon
         public final static Property CrashTraceStr = new Property(1, String.class, "crashTraceStr", false, "CRASH_TRACE_STR");
         public final static Property SimpleMessage = new Property(2, String.class, "simpleMessage", false, "SIMPLE_MESSAGE");
         public final static Property ThreadName = new Property(3, String.class, "threadName", false, "THREAD_NAME");
-        public final static Property CurrentSystemVersion = new Property(4, String.class, "currentSystemVersion", false, "CURRENT_SYSTEM_VERSION");
-        public final static Property ExceptionName = new Property(5, String.class, "exceptionName", false, "EXCEPTION_NAME");
-        public final static Property Time = new Property(6, Long.class, "time", false, "TIME");
+        public final static Property ExceptionName = new Property(4, String.class, "exceptionName", false, "EXCEPTION_NAME");
+        public final static Property Time = new Property(5, Long.class, "time", false, "TIME");
+        public final static Property PageName = new Property(6, String.class, "pageName", false, "PAGE_NAME");
     }
 
 
@@ -50,9 +50,9 @@ public class RabbitExceptionInfoDao extends AbstractDao<RabbitExceptionInfo, Lon
                 "\"CRASH_TRACE_STR\" TEXT," + // 1: crashTraceStr
                 "\"SIMPLE_MESSAGE\" TEXT," + // 2: simpleMessage
                 "\"THREAD_NAME\" TEXT," + // 3: threadName
-                "\"CURRENT_SYSTEM_VERSION\" TEXT," + // 4: currentSystemVersion
-                "\"EXCEPTION_NAME\" TEXT," + // 5: exceptionName
-                "\"TIME\" INTEGER);"); // 6: time
+                "\"EXCEPTION_NAME\" TEXT," + // 4: exceptionName
+                "\"TIME\" INTEGER," + // 5: time
+                "\"PAGE_NAME\" TEXT);"); // 6: pageName
     }
 
     /** Drops the underlying database table. */
@@ -85,19 +85,19 @@ public class RabbitExceptionInfoDao extends AbstractDao<RabbitExceptionInfo, Lon
             stmt.bindString(4, threadName);
         }
  
-        String currentSystemVersion = entity.getCurrentSystemVersion();
-        if (currentSystemVersion != null) {
-            stmt.bindString(5, currentSystemVersion);
-        }
- 
         String exceptionName = entity.getExceptionName();
         if (exceptionName != null) {
-            stmt.bindString(6, exceptionName);
+            stmt.bindString(5, exceptionName);
         }
  
         Long time = entity.getTime();
         if (time != null) {
-            stmt.bindLong(7, time);
+            stmt.bindLong(6, time);
+        }
+ 
+        String pageName = entity.getPageName();
+        if (pageName != null) {
+            stmt.bindString(7, pageName);
         }
     }
 
@@ -125,19 +125,19 @@ public class RabbitExceptionInfoDao extends AbstractDao<RabbitExceptionInfo, Lon
             stmt.bindString(4, threadName);
         }
  
-        String currentSystemVersion = entity.getCurrentSystemVersion();
-        if (currentSystemVersion != null) {
-            stmt.bindString(5, currentSystemVersion);
-        }
- 
         String exceptionName = entity.getExceptionName();
         if (exceptionName != null) {
-            stmt.bindString(6, exceptionName);
+            stmt.bindString(5, exceptionName);
         }
  
         Long time = entity.getTime();
         if (time != null) {
-            stmt.bindLong(7, time);
+            stmt.bindLong(6, time);
+        }
+ 
+        String pageName = entity.getPageName();
+        if (pageName != null) {
+            stmt.bindString(7, pageName);
         }
     }
 
@@ -153,9 +153,9 @@ public class RabbitExceptionInfoDao extends AbstractDao<RabbitExceptionInfo, Lon
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // crashTraceStr
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // simpleMessage
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // threadName
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // currentSystemVersion
-            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // exceptionName
-            cursor.isNull(offset + 6) ? null : cursor.getLong(offset + 6) // time
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // exceptionName
+            cursor.isNull(offset + 5) ? null : cursor.getLong(offset + 5), // time
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6) // pageName
         );
         return entity;
     }
@@ -166,9 +166,9 @@ public class RabbitExceptionInfoDao extends AbstractDao<RabbitExceptionInfo, Lon
         entity.setCrashTraceStr(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setSimpleMessage(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setThreadName(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
-        entity.setCurrentSystemVersion(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
-        entity.setExceptionName(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
-        entity.setTime(cursor.isNull(offset + 6) ? null : cursor.getLong(offset + 6));
+        entity.setExceptionName(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setTime(cursor.isNull(offset + 5) ? null : cursor.getLong(offset + 5));
+        entity.setPageName(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
      }
     
     @Override

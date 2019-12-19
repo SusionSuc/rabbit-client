@@ -36,7 +36,6 @@ object RabbitReport {
     private val TAG = javaClass.simpleName
     lateinit var application: Application
     var mConfig: ReportConfig = ReportConfig()
-    private var appCurrentActivity: WeakReference<Activity?>? = null    //当前应用正在展示的Activity
     private var deviceInfoStr = ""
     private val REQUEST_THREAD = Executors.newFixedThreadPool(
         1
@@ -68,11 +67,6 @@ object RabbitReport {
         mConfig = config
 
         config.notReportDataFormat.add(RabbitReportInfo::class.java)
-        application.registerActivityLifecycleCallbacks(object : RabbitActivityLifecycleWrapper() {
-            override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
-                appCurrentActivity = WeakReference(activity)
-            }
-        })
 
         RabbitAsync.asyncRun({
             deviceInfoStr = Gson().toJson(getDeviceInfo(application))

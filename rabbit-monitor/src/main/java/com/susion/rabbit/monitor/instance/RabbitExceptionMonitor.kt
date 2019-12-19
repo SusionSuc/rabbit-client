@@ -39,6 +39,7 @@ class RabbitExceptionMonitor(override var isOpen: Boolean = false) :
         Thread.sleep(1000) // 把toast给弹出来
         val exceptionInfo = translateThrowableToExceptionInfo(e, Thread.currentThread().name)
         RabbitDbStorageManager.saveSync(exceptionInfo)
+        Thread.sleep(1500)
         defaultExceptionHandler?.uncaughtException(thread, e)
     }
 
@@ -55,6 +56,7 @@ class RabbitExceptionMonitor(override var isOpen: Boolean = false) :
             simpleMessage = e.message ?: ""
             threadName = currentThread
             time = System.currentTimeMillis()
+            pageName = RabbitMonitor.getCurrentPage()
         }
 
         return exceptionInfo

@@ -122,7 +122,7 @@ object RabbitMonitor {
         return getMonitor<RabbitNetMonitor>() ?: RabbitNetMonitor()
     }
 
-    fun getCurrentPage() = appCurrentActivity?.get()?.javaClass?.simpleName ?: ""
+    fun getCurrentPage() = appCurrentActivity?.get()?.javaClass?.name ?: ""
 
     fun addPageChangeListener(listener: PageChangeListener) {
         pageChangeListeners.add(listener)
