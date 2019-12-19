@@ -1,7 +1,7 @@
 package com.susion.rabbit.monitor.utils
 
 import com.google.gson.Gson
-import com.susion.rabbit.entities.RabbitHttpLogInfo
+import com.susion.rabbit.base.entities.RabbitHttpLogInfo
 import okhttp3.Headers
 import okhttp3.MediaType
 import okhttp3.Request
@@ -20,7 +20,7 @@ internal object RabbitHttpResponseParser {
 
     private val TAG = javaClass.simpleName
 
-    fun parserResponse(request: Request, response: Response, startTime: Long): RabbitHttpLogInfo {
+    fun parserResponse(request: Request, response: Response, startTime: Long): com.susion.rabbit.base.entities.RabbitHttpLogInfo {
         return when {
             isSuccessResponse(response.code()) -> parseSuccessHttpLog(
                 response,
@@ -39,8 +39,8 @@ internal object RabbitHttpResponseParser {
         response: Response,
         request: Request,
         startTime: Long
-    ): RabbitHttpLogInfo {
-        val logInfo = RabbitHttpLogInfo()
+    ): com.susion.rabbit.base.entities.RabbitHttpLogInfo {
+        val logInfo = com.susion.rabbit.base.entities.RabbitHttpLogInfo()
         val reqHttpUrl = request.url()
 
         logInfo.apply {
@@ -63,8 +63,8 @@ internal object RabbitHttpResponseParser {
         response: Response,
         request: Request,
         startTime: Long
-    ): RabbitHttpLogInfo {
-        val logInfo = RabbitHttpLogInfo()
+    ): com.susion.rabbit.base.entities.RabbitHttpLogInfo {
+        val logInfo = com.susion.rabbit.base.entities.RabbitHttpLogInfo()
         val responseBody = response.body()
         val contentLength = responseBody!!.contentLength()
         val bodySize =

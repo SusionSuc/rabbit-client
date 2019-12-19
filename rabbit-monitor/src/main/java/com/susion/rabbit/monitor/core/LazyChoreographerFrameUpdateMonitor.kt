@@ -1,6 +1,7 @@
 package com.susion.rabbit.monitor.core
 
 import android.view.Choreographer
+import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.monitor.utils.RabbitReflectHelper
 import java.lang.reflect.Method
 
@@ -186,7 +187,7 @@ internal open class LazyChoreographerFrameUpdateMonitor {
                 method?.invoke(callbackQueues!![type], -1, callback, null)
             }
         } catch (e: Exception) {
-            com.susion.rabbit.RabbitLog.e(TAG, e.toString())
+            RabbitLog.e(TAG, e.toString())
         }
     }
 

@@ -1,6 +1,6 @@
 package com.susion.rabbit.storage
 
-import com.susion.rabbit.common.RabbitAsync
+import com.susion.rabbit.base.common.RabbitAsync
 import io.reactivex.disposables.Disposable
 import org.greenrobot.greendao.Property
 import java.util.concurrent.LinkedBlockingDeque
@@ -40,7 +40,7 @@ object RabbitDbStorageManager {
         orderDesc: Boolean = true,
         loadResult: (exceptionList: List<T>) -> Unit
     ) {
-        RabbitAsync.asyncRunWithResult({
+        com.susion.rabbit.base.common.RabbitAsync.asyncRunWithResult({
             greenDaoDbManage.getDatasWithDescendingSort(
                 ktClass,
                 condition?.first?.eq(condition.second),
@@ -54,7 +54,7 @@ object RabbitDbStorageManager {
     }
 
     fun save(obj: Any) {
-        val dis = RabbitAsync.asyncRun({
+        val dis = com.susion.rabbit.base.common.RabbitAsync.asyncRun({
             greenDaoDbManage.saveObj(obj)
         }, DB_THREAD)
 
@@ -68,17 +68,17 @@ object RabbitDbStorageManager {
     }
 
     fun <T : Any> clearAllData(clazz: Class<T>) {
-        RabbitAsync.asyncRun({ greenDaoDbManage.clearAllData(clazz) }, DB_THREAD)
+        com.susion.rabbit.base.common.RabbitAsync.asyncRun({ greenDaoDbManage.clearAllData(clazz) }, DB_THREAD)
     }
 
     fun <T : Any> delete(clazz: Class<T>, id: Long) {
-        RabbitAsync.asyncRun({
+        com.susion.rabbit.base.common.RabbitAsync.asyncRun({
             greenDaoDbManage.deleteById(clazz, id)
         }, DB_THREAD)
     }
 
     fun <T : Any> delete(clazz: Class<T>, condition: Pair<Property, String>) {
-        RabbitAsync.asyncRun({
+        com.susion.rabbit.base.common.RabbitAsync.asyncRun({
             greenDaoDbManage.delete(clazz, condition.first.eq(condition.second))
         }, DB_THREAD)
     }
@@ -94,7 +94,7 @@ object RabbitDbStorageManager {
     }
 
     fun clearOldSessionData() {
-        RabbitAsync.asyncRun({
+        com.susion.rabbit.base.common.RabbitAsync.asyncRun({
             greenDaoDbManage.clearOldSessionData()
         }, DB_THREAD)
     }

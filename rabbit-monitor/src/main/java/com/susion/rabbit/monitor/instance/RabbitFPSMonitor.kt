@@ -1,12 +1,11 @@
 package com.susion.rabbit.monitor.instance
 
 import android.content.Context
-import com.susion.rabbit.RabbitLog
-import com.susion.rabbit.RabbitUiEvent
+import com.susion.rabbit.base.RabbitLog
+import com.susion.rabbit.base.RabbitUiEvent
 import com.susion.rabbit.monitor.RabbitMonitor
 import com.susion.rabbit.monitor.core.LazyChoreographerFrameUpdateMonitor
-import com.susion.rabbit.RabbitMonitorProtocol
-import com.susion.rabbit.entities.RabbitFPSInfo
+import com.susion.rabbit.base.RabbitMonitorProtocol
 import com.susion.rabbit.storage.RabbitDbStorageManager
 import java.util.concurrent.TimeUnit
 import kotlin.math.min
@@ -98,7 +97,7 @@ internal class RabbitFPSMonitor(override var isOpen: Boolean = false) :
     private fun saveFpsInfo() {
         if (fpsList.isEmpty()) return
         RabbitLog.d(TAG, "saveFpsInfo --->")
-        val fpsInfo = RabbitFPSInfo()
+        val fpsInfo = com.susion.rabbit.base.entities.RabbitFPSInfo()
         fpsInfo.maxFps = fpsList.max() ?: 0
         fpsInfo.minFps = fpsList.min() ?: 0
         fpsInfo.avgFps = fpsList.average().toInt()

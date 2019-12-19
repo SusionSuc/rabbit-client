@@ -1,7 +1,7 @@
 package com.susion.rabbit.report
 
 import com.google.gson.Gson
-import com.susion.rabbit.entities.*
+import com.susion.rabbit.base.entities.*
 import com.susion.rabbit.report.entities.RabbitSimpleBlockInfo
 import com.susion.rabbit.report.entities.RabbitSimpleExceptionInfo
 

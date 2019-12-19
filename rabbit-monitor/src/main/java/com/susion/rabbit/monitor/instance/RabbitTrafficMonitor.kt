@@ -6,9 +6,9 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.os.Build
-import com.susion.rabbit.RabbitLog
-import com.susion.rabbit.common.RabbitUiUtils
-import com.susion.rabbit.RabbitMonitorProtocol
+import com.susion.rabbit.base.RabbitLog
+import com.susion.rabbit.base.RabbitMonitorProtocol
+import com.susion.rabbit.base.common.RabbitUiUtils
 
 /**
  * susionwang at 2019-12-04

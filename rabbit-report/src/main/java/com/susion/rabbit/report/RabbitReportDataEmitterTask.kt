@@ -1,7 +1,6 @@
 package com.susion.rabbit.report
 
-import com.susion.rabbit.RabbitLog
-import com.susion.rabbit.entities.RabbitReportInfo
+import com.susion.rabbit.base.RabbitLog
 import java.util.concurrent.CopyOnWriteArrayList
 import java.util.concurrent.locks.ReentrantLock
 
@@ -21,7 +20,7 @@ internal class RabbitReportDataEmitterTask {
     private val BATCH_EMITTER_NUMBER = 5
     private val CIRCLE_EMITTER_TIME = 5000L
     private val MAX_EMITTER_FAILED_COUNT = 1
-    private val trackPointsList = CopyOnWriteArrayList<RabbitReportInfo>()
+    private val trackPointsList = CopyOnWriteArrayList<com.susion.rabbit.base.entities.RabbitReportInfo>()
     private val listModifierLock = ReentrantLock() //防止对 trackPointsList 的并发修改
     private val trackRequest = RabbitReportRequestManager()  //负责发射打点请求
     var eventListener: EventListener? = null
@@ -29,7 +28,7 @@ internal class RabbitReportDataEmitterTask {
     private var emitterFailedCount = 0
 
     //run in main thread
-    fun addPointsToEmitterQueue(points: List<RabbitReportInfo>) {
+    fun addPointsToEmitterQueue(points: List<com.susion.rabbit.base.entities.RabbitReportInfo>) {
         listModifierLock.lock()
         try {
             trackPointsList.addAll(points)
@@ -38,7 +37,7 @@ internal class RabbitReportDataEmitterTask {
         }
     }
 
-    fun addPoint(pointInfo: RabbitReportInfo) {
+    fun addPoint(pointInfo: com.susion.rabbit.base.entities.RabbitReportInfo) {
         listModifierLock.lock()
         try {
             //避免堆积大量的点
@@ -106,12 +105,12 @@ internal class RabbitReportDataEmitterTask {
             if (trackPointsList.size <= BATCH_EMITTER_NUMBER) trackPointsList.size else BATCH_EMITTER_NUMBER
 
         //copy出来一份, 防止并发操作引起异常
-        val copiedList = ArrayList<RabbitReportInfo>()
+        val copiedList = ArrayList<com.susion.rabbit.base.entities.RabbitReportInfo>()
         listModifierLock.lock()
         try {
             trackPointsList.subList(0, lastPointIndex).forEach {
                 copiedList.add(
-                    RabbitReportInfo(
+                    com.susion.rabbit.base.entities.RabbitReportInfo(
                         it.id,
                         it.infoStr,
                         it.time,
@@ -176,6 +175,6 @@ internal class RabbitReportDataEmitterTask {
 
     interface EventListener {
         fun pointQueueIsEmpty()
-        fun successEmitterPoint(pointInfo: RabbitReportInfo)
+        fun successEmitterPoint(pointInfo: com.susion.rabbit.base.entities.RabbitReportInfo)
     }
 }

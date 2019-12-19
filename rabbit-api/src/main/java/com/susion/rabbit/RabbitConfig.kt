@@ -3,6 +3,7 @@ package com.susion.rabbit
 import com.susion.rabbit.monitor.RabbitMonitor
 import com.susion.rabbit.report.RabbitReport
 import com.susion.rabbit.storage.RabbitStorage
+import com.susion.rabbit.ui.RabbitUi
 
 /**
  * susionwang at 2019-10-14

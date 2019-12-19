@@ -1,21 +1,15 @@
 package com.susion.rabbit.report
 
-import android.app.Activity
 import android.app.Application
-import android.os.*
+import android.os.Build
+import android.os.Handler
+import android.os.Looper
+import android.os.Message
 import com.google.gson.Gson
-import com.susion.rabbit.RabbitLog
-import com.susion.rabbit.common.DeviceUtils
-import com.susion.rabbit.common.RabbitActivityLifecycleWrapper
-import com.susion.rabbit.common.RabbitAsync
-import com.susion.rabbit.common.RomUtils
-import com.susion.rabbit.entities.RabbitDeviceInfo
-import com.susion.rabbit.entities.RabbitReportInfo
-import com.susion.rabbit.greendao.RabbitReportInfoDao
+import com.susion.rabbit.base.RabbitLog
+import com.susion.rabbit.base.entities.RabbitDeviceInfo
 import com.susion.rabbit.storage.RabbitDbStorageManager
-import java.lang.StringBuilder
-import java.lang.ref.WeakReference
-import java.util.concurrent.*
+import java.util.concurrent.Executors
 
 /**
  * susionwang at 2019-12-05
@@ -49,7 +43,7 @@ object RabbitReport {
                 LOAD_POINT_TO_EMITER_QUEUE -> {
                     val loadDataCount = RabbitReportDataEmitterTask.EMITER_QUEUE_MAX_SIZE / 2
                     RabbitDbStorageManager.getAll(
-                        RabbitReportInfo::class.java,
+                        com.susion.rabbit.base.entities.RabbitReportInfo::class.java,
                         count = loadDataCount,
                         sortField = "time",
                         loadResult = {
@@ -66,24 +60,24 @@ object RabbitReport {
         application = app
         mConfig = config
 
-        config.notReportDataFormat.add(RabbitReportInfo::class.java)
+        config.notReportDataFormat.add(com.susion.rabbit.base.entities.RabbitReportInfo::class.java)
 
-        RabbitAsync.asyncRun({
+        com.susion.rabbit.base.common.RabbitAsync.asyncRun({
             deviceInfoStr = Gson().toJson(getDeviceInfo(application))
             RabbitLog.d(TAG, "device info : $deviceInfoStr")
         })
 
         dataEmitterTask.eventListener = object : RabbitReportDataEmitterTask.EventListener {
-            override fun successEmitterPoint(pointInfo: RabbitReportInfo) {
+            override fun successEmitterPoint(pointInfo: com.susion.rabbit.base.entities.RabbitReportInfo) {
                 RabbitDbStorageManager.delete(
-                    RabbitReportInfo::class.java,
-                    condition = Pair(RabbitReportInfoDao.Properties.Time, pointInfo.time.toString())
+                    com.susion.rabbit.base.entities.RabbitReportInfo::class.java,
+                    condition = Pair(com.susion.rabbit.base.greendao.RabbitReportInfoDao.Properties.Time, pointInfo.time.toString())
                 )
             }
 
             override fun pointQueueIsEmpty() {
                 val currentDbPointCount =
-                    RabbitDbStorageManager.dataCount(RabbitReportInfo::class.java)
+                    RabbitDbStorageManager.dataCount(com.susion.rabbit.base.entities.RabbitReportInfo::class.java)
                 RabbitLog.d(TAG, "pointQueueIsEmpty db point : $currentDbPointCount")
                 if (currentDbPointCount > 0) {
                     mHandler.sendEmptyMessage(LOAD_POINT_TO_EMITER_QUEUE)
@@ -121,7 +115,7 @@ object RabbitReport {
     }
 
     private fun getDeviceInfo(application: Application): RabbitDeviceInfo {
-        val roomInfo = RomUtils.getRomInfo()
+        val roomInfo = com.susion.rabbit.base.common.RomUtils.getRomInfo()
         val supportCpuAbi = StringBuilder()
         Build.SUPPORTED_ABIS.forEachIndexed { index, abi ->
             if (index != 0) {
@@ -130,13 +124,13 @@ object RabbitReport {
             supportCpuAbi.append(abi)
         }
         return RabbitDeviceInfo().apply {
-            deviceName = DeviceUtils.getDeviceName()
-            deviceId = DeviceUtils.getDeviceId(application)
+            deviceName = com.susion.rabbit.base.common.DeviceUtils.getDeviceName()
+            deviceId = com.susion.rabbit.base.common.DeviceUtils.getDeviceId(application)
             systemVersion = Build.VERSION.RELEASE
-            memorySize = DeviceUtils.getMemorySize(application)
+            memorySize = com.susion.rabbit.base.common.DeviceUtils.getMemorySize(application)
             rom = "${roomInfo.name}/${roomInfo.version}"
-            appVersionCode = "${DeviceUtils.getAppVersionCode(application)}"
-            isRoot = DeviceUtils.isDeviceRooted()
+            appVersionCode = "${com.susion.rabbit.base.common.DeviceUtils.getAppVersionCode(application)}"
+            isRoot = com.susion.rabbit.base.common.DeviceUtils.isDeviceRooted()
             supportAbi = supportCpuAbi.toString()
             manufacturer = Build.MANUFACTURER
         }

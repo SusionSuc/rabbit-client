@@ -39,7 +39,7 @@
         android:layout_marginTop="10dp"
         android:background="@color/rabbit_divider_line" />
 
-    <com.susion.rabbit.view.json.JsonRecyclerView
+    <com.susion.rabbit.ui.view.json.JsonRecyclerView
         android:id="@+id/mHttpLogDetailJsonView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

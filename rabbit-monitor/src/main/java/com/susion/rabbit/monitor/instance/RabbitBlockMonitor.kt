@@ -5,12 +5,11 @@ import android.os.Handler
 import android.os.HandlerThread
 import android.os.Looper
 import com.google.gson.Gson
-import com.susion.rabbit.common.toastInThread
-import com.susion.rabbit.entities.RabbitBlockFrameInfo
-import com.susion.rabbit.entities.RabbitBlockStackTraceInfo
 import com.susion.rabbit.monitor.RabbitMonitor
 import com.susion.rabbit.monitor.core.ChoreographerFrameUpdateMonitor
-import com.susion.rabbit.RabbitMonitorProtocol
+import com.susion.rabbit.base.RabbitMonitorProtocol
+import com.susion.rabbit.base.common.toastInThread
+import com.susion.rabbit.base.entities.RabbitBlockStackTraceInfo
 import com.susion.rabbit.storage.RabbitDbStorageManager
 import java.util.concurrent.TimeUnit
 
@@ -73,7 +72,7 @@ internal class RabbitBlockMonitor(override var isOpen: Boolean = false) : Choreo
         stackCollectHandler?.removeCallbacks(blockStackCollectTask)
         if (frameCostNs > blockThreshold && blockStackTraces.isNotEmpty()) {
             toastInThread("检测到卡顿!!", RabbitMonitor.application)
-            val blockFrameInfo = RabbitBlockFrameInfo()
+            val blockFrameInfo = com.susion.rabbit.base.entities.RabbitBlockFrameInfo()
             blockFrameInfo.apply {
                 costTime = frameCostNs
                 blockFrameStrackTraceStrList = Gson().toJson(blockStackTraces.values.toList())

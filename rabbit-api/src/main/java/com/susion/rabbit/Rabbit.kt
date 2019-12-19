@@ -3,13 +3,15 @@ package com.susion.rabbit
 import android.app.Activity
 import android.app.Application
 import android.content.Context
-import com.susion.rabbit.common.RabbitUtils
-import com.susion.rabbit.entities.RabbitHttpLogInfo
-import com.susion.rabbit.entities.RabbitMemoryInfo
+import com.susion.rabbit.base.RabbitLog
+import com.susion.rabbit.base.RabbitMonitorProtocol
+import com.susion.rabbit.base.RabbitSettings
+import com.susion.rabbit.base.common.RabbitUtils
 import com.susion.rabbit.monitor.RabbitMonitor
 import com.susion.rabbit.report.RabbitReport
 import com.susion.rabbit.storage.RabbitStorage
-import com.susion.rabbit.utils.FloatingViewPermissionHelper
+import com.susion.rabbit.ui.RabbitUi
+import com.susion.rabbit.ui.utils.FloatingViewPermissionHelper
 import okhttp3.Interceptor
 
 /**
@@ -34,8 +36,8 @@ object Rabbit {
         val reportConfig = mConfig.reportConfig
         reportConfig.reportMonitorData = true
         reportConfig.notReportDataFormat.apply {
-            add(RabbitMemoryInfo::class.java)
-            add(RabbitHttpLogInfo::class.java)
+            add(com.susion.rabbit.base.entities.RabbitMemoryInfo::class.java)
+            add(com.susion.rabbit.base.entities.RabbitHttpLogInfo::class.java)
         }
         RabbitReport.init(application, reportConfig)
 
@@ -91,7 +93,9 @@ object Rabbit {
                 object : FloatingViewPermissionHelper.OnConfirmResult {
                     override fun confirmResult(confirm: Boolean) {
                         if (confirm) {
-                            FloatingViewPermissionHelper.tryStartFloatingWindowPermission(application)
+                            FloatingViewPermissionHelper.tryStartFloatingWindowPermission(
+                                application
+                            )
                         }
                     }
                 })

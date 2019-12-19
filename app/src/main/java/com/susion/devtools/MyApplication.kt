@@ -6,7 +6,7 @@ import android.util.Log
 import com.susion.rabbit.Rabbit
 import com.susion.rabbit.RabbitConfig
 import com.susion.rabbit.monitor.RabbitMonitor
-import com.susion.rabbit.RabbitMonitorProtocol
+import com.susion.rabbit.base.RabbitMonitorProtocol
 import com.susion.rabbit.report.RabbitReport
 
 /**

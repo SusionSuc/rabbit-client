@@ -2,7 +2,7 @@ package com.susion.devtools
 
 import android.content.Intent
 import android.os.Bundle
-import com.susion.rabbit.base.RabbitBaseActivity
+import com.susion.rabbit.ui.base.RabbitBaseActivity
 import kotlinx.android.synthetic.main.activity_tracer_test.*
 
 class TracerTestActivity : RabbitBaseActivity() {

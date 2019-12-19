@@ -1,9 +1,9 @@
 package com.susion.rabbit.monitor.instance
 
 import android.content.Context
-import com.susion.rabbit.RabbitLog
+import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.monitor.RabbitMonitor
-import com.susion.rabbit.RabbitMonitorProtocol
+import com.susion.rabbit.base.RabbitMonitorProtocol
 import com.susion.rabbit.monitor.utils.RabbitHttpResponseParser
 import com.susion.rabbit.storage.RabbitDbStorageManager
 import okhttp3.Interceptor

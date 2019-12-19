@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <com.susion.rabbit.base.view.RabbitActionBar
+    <com.susion.rabbit.ui.base.view.RabbitActionBar
         android:id="@+id/mDevToolsTestMainActionBar"
         android:layout_width="match_parent"
         android:layout_height="45dp" />

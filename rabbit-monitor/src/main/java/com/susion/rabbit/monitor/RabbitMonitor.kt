@@ -2,16 +2,14 @@ package com.susion.rabbit.monitor
 
 import android.app.Activity
 import android.app.Application
-import com.susion.rabbit.RabbitLog
-import com.susion.rabbit.RabbitSettings
-import com.susion.rabbit.RabbitMonitorProtocol
-import com.susion.rabbit.common.RabbitActivityLifecycleWrapper
+import com.susion.rabbit.base.RabbitLog
+import com.susion.rabbit.base.RabbitSettings
+import com.susion.rabbit.base.RabbitMonitorProtocol
 import com.susion.rabbit.monitor.instance.*
 import com.susion.rabbit.monitor.instance.RabbitAppSpeedMonitor
 import com.susion.rabbit.monitor.instance.RabbitBlockMonitor
 import com.susion.rabbit.monitor.instance.RabbitFPSMonitor
 import com.susion.rabbit.monitor.instance.RabbitMemoryMonitor
-import com.susion.rabbit.storage.RabbitDbStorageManager
 import okhttp3.Interceptor
 import java.lang.ref.WeakReference
 
@@ -37,7 +35,7 @@ object RabbitMonitor {
         this.application = application
         config.autoOpenMonitors.add(RabbitMonitorProtocol.USE_TIME.name)
 
-        application.registerActivityLifecycleCallbacks(object : RabbitActivityLifecycleWrapper() {
+        application.registerActivityLifecycleCallbacks(object : com.susion.rabbit.base.common.RabbitActivityLifecycleWrapper() {
             override fun onActivityResumed(activity: Activity?) {
                 appCurrentActivity = WeakReference(activity)
                 pageChangeListeners.forEach { it.onPageShow() }

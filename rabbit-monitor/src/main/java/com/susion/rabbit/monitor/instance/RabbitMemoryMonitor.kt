@@ -6,11 +6,10 @@ import android.os.Debug
 import android.os.Handler
 import android.os.HandlerThread
 import android.os.Process
-import com.susion.rabbit.RabbitUiEvent
-import com.susion.rabbit.common.RabbitUiUtils
-import com.susion.rabbit.entities.RabbitMemoryInfo
+import com.susion.rabbit.base.RabbitUiEvent
 import com.susion.rabbit.monitor.RabbitMonitor
-import com.susion.rabbit.RabbitMonitorProtocol
+import com.susion.rabbit.base.RabbitMonitorProtocol
+import com.susion.rabbit.base.common.RabbitUiUtils
 import com.susion.rabbit.storage.RabbitDbStorageManager
 
 /**
@@ -62,7 +61,7 @@ internal class RabbitMemoryMonitor(override var isOpen: Boolean = false) :
 
     override fun getMonitorInfo() = RabbitMonitorProtocol.MEMORY
 
-    private fun getMemoryInfo(): RabbitMemoryInfo {
+    private fun getMemoryInfo(): com.susion.rabbit.base.entities.RabbitMemoryInfo {
 //        return getMemoryByActivityManager()
         return getMemoryInfoInDebug()
     }
@@ -88,11 +87,11 @@ internal class RabbitMemoryMonitor(override var isOpen: Boolean = false) :
     /**
      * 只能用在debug model,
      * */
-    private fun getMemoryInfoInDebug(): RabbitMemoryInfo {
+    private fun getMemoryInfoInDebug(): com.susion.rabbit.base.entities.RabbitMemoryInfo {
         val info = Debug.MemoryInfo()
         Debug.getMemoryInfo(info)
 
-        val memInfo = RabbitMemoryInfo()
+        val memInfo = com.susion.rabbit.base.entities.RabbitMemoryInfo()
         memInfo.totalSize = (info.totalPss) * 1024 // 这个值比profiler中的total大一些
         memInfo.vmSize =
             (info.dalvikPss) * 1024   // 这个值比profiler中的 java 内存值小一些, Doesn't include other Dalvik overhead

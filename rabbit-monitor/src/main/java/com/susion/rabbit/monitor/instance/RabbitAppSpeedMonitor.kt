@@ -2,11 +2,13 @@ package com.susion.rabbit.monitor.instance
 
 import android.content.Context
 import com.google.gson.Gson
-import com.susion.rabbit.RabbitLog
-import com.susion.rabbit.common.FileUtils
-import com.susion.rabbit.entities.*
+import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.monitor.RabbitMonitor
-import com.susion.rabbit.RabbitMonitorProtocol
+import com.susion.rabbit.base.RabbitMonitorProtocol
+import com.susion.rabbit.base.common.FileUtils
+import com.susion.rabbit.base.entities.RabbitApiInfo
+import com.susion.rabbit.base.entities.RabbitAppSpeedMonitorConfig
+import com.susion.rabbit.base.entities.RabbitPageApiInfo
 import com.susion.rabbit.storage.RabbitDbStorageManager
 import com.susion.rabbit.tracer.RabbitTracerEventNotifier
 
@@ -31,8 +33,10 @@ internal class RabbitAppSpeedMonitor(override var isOpen: Boolean = false) :
     private var appSpeedCanRecord = false
     private var pageSpeedCanRecord = false
 
-    private var pageSpeedInfo: RabbitPageSpeedInfo = RabbitPageSpeedInfo()
-    private var appSpeedInfo: RabbitAppStartSpeedInfo = RabbitAppStartSpeedInfo()
+    private var pageSpeedInfo: com.susion.rabbit.base.entities.RabbitPageSpeedInfo =
+        com.susion.rabbit.base.entities.RabbitPageSpeedInfo()
+    private var appSpeedInfo: com.susion.rabbit.base.entities.RabbitAppStartSpeedInfo =
+        com.susion.rabbit.base.entities.RabbitAppStartSpeedInfo()
 
     //第一个对用户有效的页面 【闪屏页 or 首页】
     private var entryActivityName = ""
@@ -112,7 +116,7 @@ internal class RabbitAppSpeedMonitor(override var isOpen: Boolean = false) :
             override fun activityCreateStart(activity: Any, time: Long) {
                 currentPageName = activity.javaClass.simpleName
                 pageSpeedCanRecord = true
-                pageSpeedInfo = RabbitPageSpeedInfo()
+                pageSpeedInfo = com.susion.rabbit.base.entities.RabbitPageSpeedInfo()
                 pageSpeedInfo.pageName = activity.javaClass.name
                 pageSpeedInfo.createStartTime = time
                 resetPageApiRequestStatus(activity.javaClass.simpleName)
