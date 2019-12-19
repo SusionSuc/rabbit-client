@@ -1,4 +1,4 @@
-package com.susion.devtools.net
+package com.susion.rabbit.demo.net
 
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -11,7 +11,8 @@ import retrofit2.http.GET
 class DevToolsTestApiModel {
 
     fun getAllGameList(): Observable<Any> {
-        return RetrofitClient.getApiService(ApiServices::class.java).requestTestList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        return RetrofitClient.getApiService(ApiServices::class.java)
+            .requestTestList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
     }
 
     interface ApiServices{

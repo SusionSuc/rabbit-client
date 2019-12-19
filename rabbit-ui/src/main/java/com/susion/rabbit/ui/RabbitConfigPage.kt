@@ -2,7 +2,6 @@ package com.susion.rabbit.ui
 
 import android.content.Context
 import android.view.ViewGroup
-import com.susion.rabbit.R
 import com.susion.rabbit.base.RabbitSettings
 import com.susion.rabbit.base.common.RabbitUiUtils
 import com.susion.rabbit.ui.base.view.RabbitSwitchButton

@@ -4,8 +4,8 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import com.susion.rabbit.R
 import com.susion.rabbit.base.entities.RabbitAppStartSpeedTotalInfo
+import com.susion.rabbit.ui.R
 import com.susion.rabbit.ui.RabbitUi
 import com.susion.rabbit.ui.base.adapter.RabbitAdapterItemView
 import com.susion.rabbit.ui.page.RabbitAppStartSpeedDetailPage

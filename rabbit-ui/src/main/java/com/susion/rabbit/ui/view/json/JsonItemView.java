@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.susion.rabbit.R;
+import com.susion.rabbit.ui.R;
 
 /**
  * Created by yuyuhang on 2017/11/29.

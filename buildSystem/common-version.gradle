@@ -2,7 +2,7 @@ rootProject.ext {
     versions = [
             versionCode                  : 1000000,
             versionName                  : "1.0.0",
-            applicationId                : "com.susion.rabbit",
+            applicationId                : "com.susion.rabbit.demo",
             minSdkVersion                : 21,
             compileSdkVersion            : 28,
             targetSdkVersion             : 28,

@@ -21,26 +21,26 @@ public class DaoMaster extends AbstractDaoMaster {
 
     /** Creates underlying database table using DAOs. */
     public static void createAllTables(Database db, boolean ifNotExists) {
-        RabbitAppStartSpeedInfoDao.createTable(db, ifNotExists);
-        RabbitBlockFrameInfoDao.createTable(db, ifNotExists);
-        RabbitExceptionInfoDao.createTable(db, ifNotExists);
-        RabbitFPSInfoDao.createTable(db, ifNotExists);
         RabbitHttpLogInfoDao.createTable(db, ifNotExists);
-        RabbitMemoryInfoDao.createTable(db, ifNotExists);
-        RabbitPageSpeedInfoDao.createTable(db, ifNotExists);
+        RabbitBlockFrameInfoDao.createTable(db, ifNotExists);
         RabbitReportInfoDao.createTable(db, ifNotExists);
+        RabbitAppStartSpeedInfoDao.createTable(db, ifNotExists);
+        RabbitExceptionInfoDao.createTable(db, ifNotExists);
+        RabbitPageSpeedInfoDao.createTable(db, ifNotExists);
+        RabbitMemoryInfoDao.createTable(db, ifNotExists);
+        RabbitFPSInfoDao.createTable(db, ifNotExists);
     }
 
     /** Drops underlying database table using DAOs. */
     public static void dropAllTables(Database db, boolean ifExists) {
-        RabbitAppStartSpeedInfoDao.dropTable(db, ifExists);
-        RabbitBlockFrameInfoDao.dropTable(db, ifExists);
-        RabbitExceptionInfoDao.dropTable(db, ifExists);
-        RabbitFPSInfoDao.dropTable(db, ifExists);
         RabbitHttpLogInfoDao.dropTable(db, ifExists);
-        RabbitMemoryInfoDao.dropTable(db, ifExists);
-        RabbitPageSpeedInfoDao.dropTable(db, ifExists);
+        RabbitBlockFrameInfoDao.dropTable(db, ifExists);
         RabbitReportInfoDao.dropTable(db, ifExists);
+        RabbitAppStartSpeedInfoDao.dropTable(db, ifExists);
+        RabbitExceptionInfoDao.dropTable(db, ifExists);
+        RabbitPageSpeedInfoDao.dropTable(db, ifExists);
+        RabbitMemoryInfoDao.dropTable(db, ifExists);
+        RabbitFPSInfoDao.dropTable(db, ifExists);
     }
 
     /**
@@ -59,14 +59,14 @@ public class DaoMaster extends AbstractDaoMaster {
 
     public DaoMaster(Database db) {
         super(db, SCHEMA_VERSION);
-        registerDaoClass(RabbitAppStartSpeedInfoDao.class);
-        registerDaoClass(RabbitBlockFrameInfoDao.class);
-        registerDaoClass(RabbitExceptionInfoDao.class);
-        registerDaoClass(RabbitFPSInfoDao.class);
         registerDaoClass(RabbitHttpLogInfoDao.class);
-        registerDaoClass(RabbitMemoryInfoDao.class);
-        registerDaoClass(RabbitPageSpeedInfoDao.class);
+        registerDaoClass(RabbitBlockFrameInfoDao.class);
         registerDaoClass(RabbitReportInfoDao.class);
+        registerDaoClass(RabbitAppStartSpeedInfoDao.class);
+        registerDaoClass(RabbitExceptionInfoDao.class);
+        registerDaoClass(RabbitPageSpeedInfoDao.class);
+        registerDaoClass(RabbitMemoryInfoDao.class);
+        registerDaoClass(RabbitFPSInfoDao.class);
     }
 
     public DaoSession newSession() {

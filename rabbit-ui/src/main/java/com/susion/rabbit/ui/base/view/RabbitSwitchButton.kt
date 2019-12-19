@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.CompoundButton
 import android.widget.RelativeLayout
-import com.susion.rabbit.R
+import com.susion.rabbit.ui.R
 import com.susion.rabbit.ui.utils.dp2px
 import kotlinx.android.synthetic.main.rabbit_view_switch_btn.view.*
 

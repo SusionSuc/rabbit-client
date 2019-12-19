@@ -10,7 +10,6 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.google.gson.Gson
-import com.susion.rabbit.R
 import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.ui.base.RabbitBasePage
 import com.susion.rabbit.base.entities.RabbitApiInfo
@@ -18,6 +17,7 @@ import com.susion.rabbit.base.entities.RabbitPageApiInfo
 import com.susion.rabbit.base.entities.RabbitPageSpeedInfo
 import com.susion.rabbit.base.entities.RabbitPageSpeedUiInfo
 import com.susion.rabbit.storage.RabbitDbStorageManager
+import com.susion.rabbit.ui.R
 import com.susion.rabbit.ui.utils.dp2px
 import kotlinx.android.synthetic.main.rabbit_page_page_speed_detail.view.*
 import java.lang.Exception

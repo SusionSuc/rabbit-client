@@ -2,9 +2,9 @@ package com.susion.rabbit.ui.page
 
 import android.content.Context
 import android.view.View
-import com.susion.rabbit.R
 import com.susion.rabbit.ui.base.RabbitBasePage
 import com.susion.rabbit.base.entities.RabbitHttpLogInfo
+import com.susion.rabbit.ui.R
 import com.susion.rabbit.ui.utils.showToast
 import kotlinx.android.synthetic.main.rabbit_page_http_log_detail.view.*
 import java.text.SimpleDateFormat

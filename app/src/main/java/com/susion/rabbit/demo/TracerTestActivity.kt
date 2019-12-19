@@ -1,4 +1,4 @@
-package com.susion.devtools
+package com.susion.rabbit.demo
 
 import android.content.Intent
 import android.os.Bundle

@@ -6,7 +6,7 @@ import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import android.view.Window
-import com.susion.rabbit.R
+import com.susion.rabbit.ui.R
 import com.susion.rabbit.ui.base.view.RabbitActionBar
 
 /**

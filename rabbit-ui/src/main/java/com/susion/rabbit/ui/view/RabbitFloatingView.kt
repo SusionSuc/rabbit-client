@@ -7,8 +7,8 @@ import android.os.Build
 import android.view.*
 import android.view.animation.LinearInterpolator
 import android.widget.LinearLayout
-import com.susion.rabbit.R
 import com.susion.rabbit.base.common.RabbitUiUtils
+import com.susion.rabbit.ui.R
 import com.susion.rabbit.ui.RabbitUi
 import com.susion.rabbit.ui.utils.getColor
 import kotlinx.android.synthetic.main.rabbit_view_floating.view.*

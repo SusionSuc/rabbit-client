@@ -7,11 +7,11 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
-import com.susion.rabbit.R
 import com.susion.rabbit.base.common.RabbitUiUtils
 import com.susion.rabbit.base.entities.RabbitMemoryInfo
 import com.susion.rabbit.ui.base.RabbitBasePage
 import com.susion.rabbit.storage.RabbitDbStorageManager
+import com.susion.rabbit.ui.R
 import com.susion.rabbit.ui.utils.dp2px
 import kotlinx.android.synthetic.main.rabbit_page_memory_compose.view.*
 

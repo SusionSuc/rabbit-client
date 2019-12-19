@@ -1,12 +1,12 @@
 package com.susion.rabbit.ui.page
 
 import android.content.Context
-import com.susion.rabbit.R
 import com.susion.rabbit.ui.base.RabbitBasePage
 import com.susion.rabbit.ui.base.adapter.RabbitRvAdapter
 import com.susion.rabbit.base.entities.RabbitExceptionInfo
 import com.susion.rabbit.ui.view.ExceptionLogPreviewItemView
 import com.susion.rabbit.storage.RabbitDbStorageManager
+import com.susion.rabbit.ui.R
 import kotlinx.android.synthetic.main.rabbit_page_exception_list.view.*
 
 /**

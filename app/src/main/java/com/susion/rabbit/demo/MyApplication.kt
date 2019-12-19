@@ -1,4 +1,4 @@
-package com.susion.devtools
+package com.susion.rabbit.demo
 
 import android.app.Application
 import android.content.Context

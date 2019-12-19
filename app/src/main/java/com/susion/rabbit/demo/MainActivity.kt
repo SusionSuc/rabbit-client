@@ -1,4 +1,4 @@
-package com.susion.devtools
+package com.susion.rabbit.demo
 
 import android.Manifest
 import android.content.Intent
@@ -8,7 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.core.app.ActivityCompat
-import com.susion.devtools.net.DevToolsTestApiModel
+import com.susion.rabbit.demo.net.DevToolsTestApiModel
 import com.susion.rabbit.Rabbit
 import com.susion.rabbit.ui.base.RabbitBaseActivity
 import kotlinx.android.synthetic.main.activity_main.*

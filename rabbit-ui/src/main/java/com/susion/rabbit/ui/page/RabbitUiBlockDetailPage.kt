@@ -5,7 +5,6 @@ import android.content.Context
 import android.view.ViewGroup
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.susion.rabbit.R
 import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.ui.base.RabbitBasePage
 import com.susion.rabbit.ui.base.adapter.RabbitAdapterItemView
@@ -14,6 +13,7 @@ import com.susion.rabbit.ui.base.view.RabbitSimpleKVItemView
 import com.susion.rabbit.ui.base.view.RabbitSimpleKvInfo
 import com.susion.rabbit.base.entities.RabbitBlockFrameInfo
 import com.susion.rabbit.base.entities.RabbitBlockStackTraceInfo
+import com.susion.rabbit.ui.R
 import com.susion.rabbit.ui.view.RabbitBlockStackTraceView
 import kotlinx.android.synthetic.main.rabbit_page_ui_block.view.*
 import java.util.concurrent.TimeUnit

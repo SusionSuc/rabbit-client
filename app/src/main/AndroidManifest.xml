@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.susion.devtools">
+    package="com.susion.rabbit.demo">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".MyApplication"
+        android:name="com.susion.rabbit.demo.MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/rabbit_icon_floating"
         android:label="@string/app_name"
@@ -16,15 +16,15 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <activity android:name=".net.TransformTestActivity" />
+        <activity android:name="com.susion.rabbit.demo.net.TransformTestActivity" />
         <activity
-            android:name=".TracerTestActivity"
+            android:name="com.susion.rabbit.demo.TracerTestActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".SimpleListActivity"
+            android:name="com.susion.rabbit.demo.SimpleListActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.susion.rabbit.demo.MainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

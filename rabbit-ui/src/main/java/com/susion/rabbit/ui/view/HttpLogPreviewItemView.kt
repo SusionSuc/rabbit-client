@@ -3,10 +3,10 @@ package com.susion.rabbit.ui.view
 import android.content.Context
 import android.view.LayoutInflater
 import android.widget.RelativeLayout
-import com.susion.rabbit.R
 import com.susion.rabbit.base.common.RabbitUiUtils
 import com.susion.rabbit.base.common.rabbitTimeFormat
 import com.susion.rabbit.base.entities.RabbitHttpLogInfo
+import com.susion.rabbit.ui.R
 import com.susion.rabbit.ui.RabbitUi
 import com.susion.rabbit.ui.base.adapter.RabbitAdapterItemView
 import com.susion.rabbit.ui.page.RabbitHttpLogDetailPage

@@ -12,7 +12,7 @@ import com.susion.rabbit.ui.utils.getColor
 /**
  * Created by susion on 2018/8/14.
  */
-class RabbitSimpleLineDecoration : androidx.recyclerview.widget.RecyclerView.ItemDecoration {
+class RabbitSimpleLineDecoration :RecyclerView.ItemDecoration {
 
     lateinit var mDividerPaint: Paint
     private var mDividerHeight: Int = 0

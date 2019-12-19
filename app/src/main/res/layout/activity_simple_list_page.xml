@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".SimpleListActivity">
+    tools:context="com.susion.rabbit.demo.SimpleListActivity">
 
     <com.susion.rabbit.ui.base.view.RabbitActionBar
         android:id="@+id/mSimpleListPageActionBar"

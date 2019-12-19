@@ -6,7 +6,7 @@ import android.content.Intent
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
-import com.susion.rabbit.R
+import com.susion.rabbit.ui.R
 import com.susion.rabbit.ui.base.RabbitMainFeatureInfo
 import com.susion.rabbit.ui.base.adapter.RabbitRvAdapter
 import com.susion.rabbit.ui.base.view.RabbitMainFeatureView

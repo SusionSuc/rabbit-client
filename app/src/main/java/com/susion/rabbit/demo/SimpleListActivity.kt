@@ -1,4 +1,4 @@
-package com.susion.devtools
+package com.susion.rabbit.demo
 
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager

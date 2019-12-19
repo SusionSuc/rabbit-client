@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.susion.rabbit.R
+import com.susion.rabbit.ui.R
 import com.susion.rabbit.ui.base.adapter.RabbitAdapterItemView
 import com.susion.rabbit.ui.utils.dp2px
 import com.susion.rabbit.ui.utils.getColor

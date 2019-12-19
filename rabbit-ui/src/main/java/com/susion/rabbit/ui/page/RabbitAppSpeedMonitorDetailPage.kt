@@ -2,7 +2,6 @@ package com.susion.rabbit.ui.page
 
 import android.content.Context
 import android.view.ViewGroup
-import com.susion.rabbit.R
 import com.susion.rabbit.ui.base.RabbitBasePage
 import com.susion.rabbit.ui.base.adapter.RabbitAdapterItemView
 import com.susion.rabbit.ui.base.adapter.RabbitRvAdapter
@@ -11,6 +10,7 @@ import com.susion.rabbit.base.entities.RabbitPageSpeedUiInfo
 import com.susion.rabbit.ui.view.RabbitAppSpeedInfoView
 import com.susion.rabbit.ui.view.RabbitPageSpeedUiItemView
 import com.susion.rabbit.storage.RabbitDbStorageManager
+import com.susion.rabbit.ui.R
 import kotlinx.android.synthetic.main.rabbit_page_ui_block_list.view.*
 
 /**

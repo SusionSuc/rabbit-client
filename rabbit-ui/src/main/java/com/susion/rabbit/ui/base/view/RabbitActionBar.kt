@@ -6,7 +6,7 @@ import android.util.AttributeSet
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.widget.RelativeLayout
-import com.susion.rabbit.R
+import com.susion.rabbit.ui.R
 import com.susion.rabbit.ui.RabbitUi
 import com.susion.rabbit.ui.utils.dp2px
 import com.susion.rabbit.ui.utils.getDrawable

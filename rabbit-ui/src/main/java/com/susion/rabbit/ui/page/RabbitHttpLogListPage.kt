@@ -2,12 +2,12 @@ package com.susion.rabbit.ui.page
 
 import android.content.Context
 import android.view.ViewGroup
-import com.susion.rabbit.R
 import com.susion.rabbit.ui.base.RabbitBasePage
 import com.susion.rabbit.ui.base.adapter.RabbitRvAdapter
 import com.susion.rabbit.base.entities.RabbitHttpLogInfo
 import com.susion.rabbit.ui.view.HttpLogPreviewItemView
 import com.susion.rabbit.storage.RabbitDbStorageManager
+import com.susion.rabbit.ui.R
 import kotlinx.android.synthetic.main.rabbit_page_http_log_list.view.*
 
 /**
@@ -17,10 +17,10 @@ import kotlinx.android.synthetic.main.rabbit_page_http_log_list.view.*
 class RabbitHttpLogListPage(context: Context) : RabbitBasePage(context) {
 
     private val logsAdapter by lazy {
-        object : RabbitRvAdapter<com.susion.rabbit.base.entities.RabbitHttpLogInfo>(ArrayList()) {
+        object : RabbitRvAdapter<RabbitHttpLogInfo>(ArrayList()) {
             override fun createItem(type: Int) =
                 HttpLogPreviewItemView(context)
-            override fun getItemType(data: com.susion.rabbit.base.entities.RabbitHttpLogInfo) = 0
+            override fun getItemType(data: RabbitHttpLogInfo) = 0
         }
     }
 
@@ -42,7 +42,7 @@ class RabbitHttpLogListPage(context: Context) : RabbitBasePage(context) {
     }
 
     private fun loadData() {
-        RabbitDbStorageManager.getAll(com.susion.rabbit.base.entities.RabbitHttpLogInfo::class.java) {
+        RabbitDbStorageManager.getAll(RabbitHttpLogInfo::class.java) {
             mHttpLogListSPL.isRefreshing = false
             if (it.isNotEmpty()) {
                 logsAdapter.data.clear()

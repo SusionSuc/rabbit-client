@@ -1,4 +1,4 @@
-package com.susion.devtools.net
+package com.susion.rabbit.demo.net
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import okhttp3.OkHttpClient
@@ -38,7 +38,8 @@ class RetrofitClient {
             if (instance == null) {
                 synchronized(RetrofitClient::class) {
                     if (instance == null) {
-                        instance = RetrofitClient()
+                        instance =
+                            RetrofitClient()
                     }
                 }
             }

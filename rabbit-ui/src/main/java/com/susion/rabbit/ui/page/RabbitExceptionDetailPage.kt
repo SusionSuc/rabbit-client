@@ -5,9 +5,9 @@ import android.graphics.Color
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
-import com.susion.rabbit.R
 import com.susion.rabbit.base.common.RabbitUiUtils
 import com.susion.rabbit.base.entities.RabbitExceptionInfo
+import com.susion.rabbit.ui.R
 import com.susion.rabbit.ui.base.RabbitBasePage
 import com.susion.rabbit.ui.utils.showToast
 import kotlinx.android.synthetic.main.rabbit_page_exception_detail.view.*
