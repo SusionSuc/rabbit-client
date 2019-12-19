@@ -52,6 +52,15 @@ dependencies {
 }
 ```
 
+>对于`rabbit-tracer-transform`, 目前只建议在`debug`包中生效,可以采用下面的方式:
+```
+def taskName = getGradle().getStartParameter().taskNames.toString().toLowerCase()
+if (taskName.contains("debug")){
+    print("apply rabbit transform ! ---->")
+    apply plugin: 'rabbit-tracer-transform'
+}
+```
+
 ## 配置
 
 ```
