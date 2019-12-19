@@ -66,6 +66,8 @@ object RabbitReport {
     fun init(app: Application, config: ReportConfig) {
         application = app
         mConfig = config
+
+        config.notReportDataFormat.add(RabbitReportInfo::class.java)
         application.registerActivityLifecycleCallbacks(object : RabbitActivityLifecycleWrapper() {
             override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
                 appCurrentActivity = WeakReference(activity)
@@ -109,7 +111,7 @@ object RabbitReport {
 
         RabbitLog.d(TAG, "report  ${reportInfo.type} data  use time : $useTime")
 
-        RabbitDbStorageManager.save(reportInfo, false)
+        RabbitDbStorageManager.save(reportInfo)
 
         dataEmitterTask.addPoint(reportInfo)
 

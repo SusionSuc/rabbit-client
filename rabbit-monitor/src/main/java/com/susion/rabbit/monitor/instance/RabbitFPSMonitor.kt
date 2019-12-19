@@ -104,7 +104,7 @@ internal class RabbitFPSMonitor(override var isOpen: Boolean = false) :
         fpsInfo.avgFps = fpsList.average().toInt()
         fpsInfo.pageName = RabbitMonitor.getCurrentPage()
         fpsInfo.time = System.currentTimeMillis()
-        RabbitDbStorageManager.save(fpsInfo, true)
+        RabbitDbStorageManager.save(fpsInfo)
         fpsList.clear()
     }
 

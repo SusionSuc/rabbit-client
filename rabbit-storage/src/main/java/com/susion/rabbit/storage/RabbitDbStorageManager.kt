@@ -53,22 +53,18 @@ object RabbitDbStorageManager {
         })
     }
 
-    fun save(obj: Any, notifyReportComponent: Boolean = true) {
+    fun save(obj: Any) {
         val dis = RabbitAsync.asyncRun({
             greenDaoDbManage.saveObj(obj)
         }, DB_THREAD)
 
         disposableList.add(dis)
-        if (notifyReportComponent) {
-            RabbitStorage.eventListener?.onStorageData(obj)
-        }
+        RabbitStorage.eventListener?.onStorageData(obj)
     }
 
-    fun saveSync(obj: Any, notifyReportComponent: Boolean = true) {
+    fun saveSync(obj: Any) {
         greenDaoDbManage.saveObj(obj)
-        if (notifyReportComponent) {
-            RabbitStorage.eventListener?.onStorageData(obj)
-        }
+        RabbitStorage.eventListener?.onStorageData(obj)
     }
 
     fun <T : Any> clearAllData(clazz: Class<T>) {
