@@ -12,3 +12,8 @@
 /captures
 .externalNativeBuild
 .cxx
+
+/**/build/
+.settings/*
+
+**/.settings/
