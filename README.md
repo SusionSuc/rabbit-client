@@ -38,7 +38,9 @@
 
 >根目录`build.gradle`
 ```
+dependencies {
     classpath 'com.susion:rabbit-gradle-transform:0.0.3'
+}
 ```
 
 >应用build.gradle
