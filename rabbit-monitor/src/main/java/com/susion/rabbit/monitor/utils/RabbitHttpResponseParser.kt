@@ -20,7 +20,7 @@ internal object RabbitHttpResponseParser {
 
     private val TAG = javaClass.simpleName
 
-    fun parserResponse(request: Request, response: Response, startTime: Long): com.susion.rabbit.base.entities.RabbitHttpLogInfo {
+    fun parserResponse(request: Request, response: Response, startTime: Long): RabbitHttpLogInfo {
         return when {
             isSuccessResponse(response.code()) -> parseSuccessHttpLog(
                 response,
@@ -39,8 +39,8 @@ internal object RabbitHttpResponseParser {
         response: Response,
         request: Request,
         startTime: Long
-    ): com.susion.rabbit.base.entities.RabbitHttpLogInfo {
-        val logInfo = com.susion.rabbit.base.entities.RabbitHttpLogInfo()
+    ): RabbitHttpLogInfo {
+        val logInfo = RabbitHttpLogInfo()
         val reqHttpUrl = request.url()
 
         logInfo.apply {
@@ -63,8 +63,8 @@ internal object RabbitHttpResponseParser {
         response: Response,
         request: Request,
         startTime: Long
-    ): com.susion.rabbit.base.entities.RabbitHttpLogInfo {
-        val logInfo = com.susion.rabbit.base.entities.RabbitHttpLogInfo()
+    ): RabbitHttpLogInfo {
+        val logInfo = RabbitHttpLogInfo()
         val responseBody = response.body()
         val contentLength = responseBody!!.contentLength()
         val bodySize =
@@ -159,5 +159,23 @@ internal object RabbitHttpResponseParser {
     private fun isSuccessResponse(code: Int) = code == 200
 
     private fun isErrorResponse(code: Int) = code in 400..599
+
+    fun createExceptionLog(request: Request, e: Exception): RabbitHttpLogInfo {
+        val logInfo = RabbitHttpLogInfo()
+        val reqHttpUrl = request.url()
+        logInfo.apply {
+            host = reqHttpUrl.host()
+            path = reqHttpUrl.encodedPath()
+            requestParamsMapString = getUrlRequestParams(request)
+            requestBody = ""
+            responseStr = e.message
+            tookTime = 0
+            requestType = request.method()
+            isExceptionRequest = true
+            responseCode =  e.message
+            time = System.currentTimeMillis()
+        }
+        return logInfo
+    }
 
 }

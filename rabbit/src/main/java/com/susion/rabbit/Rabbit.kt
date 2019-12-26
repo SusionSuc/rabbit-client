@@ -7,6 +7,8 @@ import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.RabbitMonitorProtocol
 import com.susion.rabbit.base.RabbitSettings
 import com.susion.rabbit.base.common.RabbitUtils
+import com.susion.rabbit.base.entities.RabbitHttpLogInfo
+import com.susion.rabbit.base.entities.RabbitMemoryInfo
 import com.susion.rabbit.monitor.RabbitMonitor
 import com.susion.rabbit.report.RabbitReport
 import com.susion.rabbit.storage.RabbitStorage
@@ -36,8 +38,8 @@ object Rabbit {
         val reportConfig = mConfig.reportConfig
         reportConfig.reportMonitorData = true
         reportConfig.notReportDataFormat.apply {
-            add(com.susion.rabbit.base.entities.RabbitMemoryInfo::class.java)
-            add(com.susion.rabbit.base.entities.RabbitHttpLogInfo::class.java)
+            add(RabbitMemoryInfo::class.java)
+            add(RabbitHttpLogInfo::class.java)
         }
         RabbitReport.init(application, reportConfig)
 

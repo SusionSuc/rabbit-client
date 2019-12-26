@@ -1,6 +1,7 @@
 package com.susion.rabbit.demo.net
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import com.susion.rabbit.Rabbit
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -13,12 +14,12 @@ class RetrofitClient {
 
     var okHttpClient: OkHttpClient? = null
     private var retrofit: Retrofit?
-    private val DEFAULT_TIMEOUT: Long = 10
+    private val DEFAULT_TIMEOUT: Long = 2
     private val url = "https://wanandroid.com"
 
     init {
         okHttpClient = OkHttpClient.Builder()
-            .addInterceptor(com.susion.rabbit.Rabbit.getNetInterceptor())
+            .addInterceptor(Rabbit.getNetInterceptor())
             .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
             .readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
             .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)

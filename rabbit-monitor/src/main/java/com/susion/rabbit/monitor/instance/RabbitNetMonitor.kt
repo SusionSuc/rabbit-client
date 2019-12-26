@@ -20,23 +20,30 @@ class RabbitNetMonitor(override var isOpen: Boolean = false) : RabbitMonitorProt
     private var startNs = System.nanoTime()
     private val TAG = javaClass.simpleName
 
-    override fun intercept(chain: Interceptor.Chain): Response {
+    override fun intercept(chain: Interceptor.Chain): Response? {
         val request = chain.request()
 
-        val response = chain.proceed(request)
+        try {
+            val response = chain.proceed(request)
 
-        if (!isOpen) return response
+            if (!isOpen) return response
 
-        monitorHttpLog(request, response)
+            monitorHttpLog(request, response)
 
-        monitorHttpCostTime(request, response)
+            monitorHttpCostTime(request, response)
 
-        return response
+            return response
+
+        }catch (e:Exception){
+
+            RabbitDbStorageManager.save(RabbitHttpResponseParser.createExceptionLog(request, e))
+
+            throw e
+        }
     }
 
     private fun monitorHttpLog(request: Request, response: Response) {
         try {
-
             startNs = System.nanoTime()
 
             val logInfo = RabbitHttpResponseParser.parserResponse(request, response, startNs)

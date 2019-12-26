@@ -26,13 +26,19 @@ public class RabbitHttpLogInfo  {
     public Long time;
     public Long tookTime;
     public boolean isSuccessRequest;
+    public boolean isExceptionRequest;
 
-    @Generated(hash = 1040931302)
+
+
+    public RabbitHttpLogInfo() {
+    }
+
+    @Generated(hash = 1095309258)
     public RabbitHttpLogInfo(Long id, String host, String path, String requestBody,
             String responseStr, String size, String requestType,
             String responseContentType, String responseCode,
             String requestParamsMapString, Long time, Long tookTime,
-            boolean isSuccessRequest) {
+            boolean isSuccessRequest, boolean isExceptionRequest) {
         this.id = id;
         this.host = host;
         this.path = path;
@@ -46,10 +52,7 @@ public class RabbitHttpLogInfo  {
         this.time = time;
         this.tookTime = tookTime;
         this.isSuccessRequest = isSuccessRequest;
-    }
-
-    @Generated(hash = 156866563)
-    public RabbitHttpLogInfo() {
+        this.isExceptionRequest = isExceptionRequest;
     }
 
     public boolean isvalid(){
@@ -159,5 +162,15 @@ public class RabbitHttpLogInfo  {
     public void setIsSuccessRequest(boolean isSuccessRequest) {
         this.isSuccessRequest = isSuccessRequest;
     }
+
+    public boolean getIsExceptionRequest() {
+        return this.isExceptionRequest;
+    }
+
+    public void setIsExceptionRequest(boolean isExceptionRequest) {
+        this.isExceptionRequest = isExceptionRequest;
+    }
+
+
 
 }

@@ -73,6 +73,7 @@ class MainActivity : RabbitBaseActivity() {
         val dis = DevToolsTestApiModel().getAllGameList().subscribe({
             val a = 1
         }, {
+            Rabbit.saveCrashLog(it)
             Log.d(TAG, "error : ${it.message}")
         })
     }

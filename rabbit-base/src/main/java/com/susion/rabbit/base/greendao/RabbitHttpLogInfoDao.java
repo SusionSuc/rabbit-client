@@ -37,6 +37,7 @@ public class RabbitHttpLogInfoDao extends AbstractDao<RabbitHttpLogInfo, Long> {
         public final static Property Time = new Property(10, Long.class, "time", false, "TIME");
         public final static Property TookTime = new Property(11, Long.class, "tookTime", false, "TOOK_TIME");
         public final static Property IsSuccessRequest = new Property(12, boolean.class, "isSuccessRequest", false, "IS_SUCCESS_REQUEST");
+        public final static Property IsExceptionRequest = new Property(13, boolean.class, "isExceptionRequest", false, "IS_EXCEPTION_REQUEST");
     }
 
 
@@ -64,7 +65,8 @@ public class RabbitHttpLogInfoDao extends AbstractDao<RabbitHttpLogInfo, Long> {
                 "\"REQUEST_PARAMS_MAP_STRING\" TEXT," + // 9: requestParamsMapString
                 "\"TIME\" INTEGER," + // 10: time
                 "\"TOOK_TIME\" INTEGER," + // 11: tookTime
-                "\"IS_SUCCESS_REQUEST\" INTEGER NOT NULL );"); // 12: isSuccessRequest
+                "\"IS_SUCCESS_REQUEST\" INTEGER NOT NULL ," + // 12: isSuccessRequest
+                "\"IS_EXCEPTION_REQUEST\" INTEGER NOT NULL );"); // 13: isExceptionRequest
     }
 
     /** Drops the underlying database table. */
@@ -137,6 +139,7 @@ public class RabbitHttpLogInfoDao extends AbstractDao<RabbitHttpLogInfo, Long> {
             stmt.bindLong(12, tookTime);
         }
         stmt.bindLong(13, entity.getIsSuccessRequest() ? 1L: 0L);
+        stmt.bindLong(14, entity.getIsExceptionRequest() ? 1L: 0L);
     }
 
     @Override
@@ -203,6 +206,7 @@ public class RabbitHttpLogInfoDao extends AbstractDao<RabbitHttpLogInfo, Long> {
             stmt.bindLong(12, tookTime);
         }
         stmt.bindLong(13, entity.getIsSuccessRequest() ? 1L: 0L);
+        stmt.bindLong(14, entity.getIsExceptionRequest() ? 1L: 0L);
     }
 
     @Override
@@ -225,7 +229,8 @@ public class RabbitHttpLogInfoDao extends AbstractDao<RabbitHttpLogInfo, Long> {
             cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // requestParamsMapString
             cursor.isNull(offset + 10) ? null : cursor.getLong(offset + 10), // time
             cursor.isNull(offset + 11) ? null : cursor.getLong(offset + 11), // tookTime
-            cursor.getShort(offset + 12) != 0 // isSuccessRequest
+            cursor.getShort(offset + 12) != 0, // isSuccessRequest
+            cursor.getShort(offset + 13) != 0 // isExceptionRequest
         );
         return entity;
     }
@@ -245,6 +250,7 @@ public class RabbitHttpLogInfoDao extends AbstractDao<RabbitHttpLogInfo, Long> {
         entity.setTime(cursor.isNull(offset + 10) ? null : cursor.getLong(offset + 10));
         entity.setTookTime(cursor.isNull(offset + 11) ? null : cursor.getLong(offset + 11));
         entity.setIsSuccessRequest(cursor.getShort(offset + 12) != 0);
+        entity.setIsExceptionRequest(cursor.getShort(offset + 13) != 0);
      }
     
     @Override

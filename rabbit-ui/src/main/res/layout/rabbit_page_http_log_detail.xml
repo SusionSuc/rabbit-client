@@ -39,10 +39,24 @@
         android:layout_marginTop="10dp"
         android:background="@color/rabbit_divider_line" />
 
-    <com.susion.rabbit.ui.view.json.JsonRecyclerView
-        android:id="@+id/mHttpLogDetailJsonView"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="10dp" />
+        android:layout_height="match_parent">
+        <com.susion.rabbit.ui.view.json.JsonRecyclerView
+            android:id="@+id/mHttpLogDetailJsonView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp" />
+
+        <TextView
+            android:id="@+id/mHttpLogDetailExceptionInfoStr"
+            android:textSize="14dp"
+            android:padding="10dp"
+            android:textColor="@color/rabbit_divider_line"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </FrameLayout>
+
 
 </LinearLayout>

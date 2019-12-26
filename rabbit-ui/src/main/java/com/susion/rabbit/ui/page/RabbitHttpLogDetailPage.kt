@@ -2,6 +2,7 @@ package com.susion.rabbit.ui.page
 
 import android.content.Context
 import android.view.View
+import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.ui.base.RabbitBasePage
 import com.susion.rabbit.base.entities.RabbitHttpLogInfo
 import com.susion.rabbit.ui.R
@@ -24,14 +25,17 @@ class RabbitHttpLogDetailPage(context: Context) : RabbitBasePage(context) {
 
     override fun setEntryParams(logInfo: Any){
 
-        if (logInfo !is com.susion.rabbit.base.entities.RabbitHttpLogInfo) return
+        if (logInfo !is RabbitHttpLogInfo) return
 
         if (!logInfo.isvalid()){
             showToast(context, "log日志文件已损坏!")
             return
         }
 
+        RabbitLog.d("enter RabbitHttpLogDetailPage show")
+
         mHttpLogDetailTvRequestPath.text = "${logInfo?.path?:""}   ${getTime(logInfo?.time?:0L)}"
+
         if (logInfo.requestParamsMapString.isNotEmpty()){
             mHttpLogDetailTvRequestParams.visibility = View.VISIBLE
             mHttpLogDetailTvRequestParams.text = logInfo.requestParamsMapString
@@ -46,10 +50,17 @@ class RabbitHttpLogDetailPage(context: Context) : RabbitBasePage(context) {
             mHttpLogDetailTvRequestBody.visibility = View.GONE
         }
 
-        if (logInfo.responseStr.isNotEmpty()){
-            mHttpLogDetailJsonView.bindJson(logInfo.responseStr)
+        if (logInfo.isExceptionRequest){
+            mHttpLogDetailExceptionInfoStr.visibility = View.VISIBLE
+            mHttpLogDetailJsonView.visibility = View.GONE
+            mHttpLogDetailExceptionInfoStr.text = logInfo.responseStr
+        }else{
+            mHttpLogDetailExceptionInfoStr.visibility = View.GONE
+            mHttpLogDetailJsonView.visibility = View.VISIBLE
+            if (logInfo.responseStr.isNotEmpty()){
+                mHttpLogDetailJsonView.bindJson(logInfo.responseStr)
+            }
         }
-
     }
 
     private fun getTime(time:Long):String{
