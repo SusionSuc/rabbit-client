@@ -31,7 +31,7 @@ internal class RabbitApplicationProvider : ContentProvider() {
 
     override fun onCreate(): Boolean {
         Rabbit.application = context!!.applicationContext as Application
-        RabbitLog.d(TAG, "init rabbit application")
+        RabbitLog.d("set rabbit application")
         return true
     }
 

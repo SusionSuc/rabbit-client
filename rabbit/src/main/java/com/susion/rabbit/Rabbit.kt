@@ -27,8 +27,14 @@ object Rabbit {
     private var isInit = false
 
     @JvmStatic
-    fun init(config: RabbitConfig = RabbitConfig()) {
-        if (!RabbitUtils.isMainProcess(application)) return
+    fun config(config: RabbitConfig) {
+
+        try {
+            if (!RabbitUtils.isMainProcess(application)) return
+        } catch (e: Throwable) {
+            RabbitLog.d("config error :${e.message}")
+            return
+        }
 
         mConfig = config
 
@@ -75,7 +81,7 @@ object Rabbit {
         }
 
         isInit = true
-        RabbitLog.d("init success!!")
+        RabbitLog.d("config success!!")
     }
 
     /**

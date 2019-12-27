@@ -7,7 +7,7 @@ apply plugin: 'rabbit-tracer-transform'
 def uniqueVersion = rootProject.ext.versions
 
 rabbitConfig{
-    monitorPkgNamePrefixList = ['com.susion.devtools', 'bbbb']
+    monitorPkgNamePrefixList = ['com.susion.rabbit.demo', 'bbbb']
 }
 
 android {

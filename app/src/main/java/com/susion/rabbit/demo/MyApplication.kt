@@ -5,6 +5,7 @@ import android.content.Context
 import android.util.Log
 import com.susion.rabbit.Rabbit
 import com.susion.rabbit.RabbitConfig
+import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.monitor.RabbitMonitor
 import com.susion.rabbit.base.RabbitMonitorProtocol
 import com.susion.rabbit.report.RabbitReport
@@ -17,6 +18,8 @@ class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
+
+        RabbitLog.d("MyApplication onCreate ")
         val rabbitConfig = RabbitConfig()
 
         rabbitConfig.isDebug = true
@@ -26,7 +29,7 @@ class MyApplication : Application() {
         }
         rabbitConfig.reportConfig = getReportConfig()
 
-        Rabbit.init(rabbitConfig)
+        Rabbit.config(rabbitConfig)
     }
 
     private fun getReportConfig(): RabbitReport.ReportConfig {

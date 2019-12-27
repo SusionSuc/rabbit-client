@@ -40,7 +40,7 @@ object RabbitDbStorageManager {
         orderDesc: Boolean = true,
         loadResult: (exceptionList: List<T>) -> Unit
     ) {
-        com.susion.rabbit.base.common.RabbitAsync.asyncRunWithResult({
+        RabbitAsync.asyncRunWithResult({
             greenDaoDbManage.getDatasWithDescendingSort(
                 ktClass,
                 condition?.first?.eq(condition.second),
@@ -54,7 +54,7 @@ object RabbitDbStorageManager {
     }
 
     fun save(obj: Any) {
-        val dis = com.susion.rabbit.base.common.RabbitAsync.asyncRun({
+        val dis = RabbitAsync.asyncRun({
             greenDaoDbManage.saveObj(obj)
         }, DB_THREAD)
 
@@ -68,17 +68,17 @@ object RabbitDbStorageManager {
     }
 
     fun <T : Any> clearAllData(clazz: Class<T>) {
-        com.susion.rabbit.base.common.RabbitAsync.asyncRun({ greenDaoDbManage.clearAllData(clazz) }, DB_THREAD)
+        RabbitAsync.asyncRun({ greenDaoDbManage.clearAllData(clazz) }, DB_THREAD)
     }
 
     fun <T : Any> delete(clazz: Class<T>, id: Long) {
-        com.susion.rabbit.base.common.RabbitAsync.asyncRun({
+        RabbitAsync.asyncRun({
             greenDaoDbManage.deleteById(clazz, id)
         }, DB_THREAD)
     }
 
     fun <T : Any> delete(clazz: Class<T>, condition: Pair<Property, String>) {
-        com.susion.rabbit.base.common.RabbitAsync.asyncRun({
+        RabbitAsync.asyncRun({
             greenDaoDbManage.delete(clazz, condition.first.eq(condition.second))
         }, DB_THREAD)
     }
@@ -94,7 +94,7 @@ object RabbitDbStorageManager {
     }
 
     fun clearOldSessionData() {
-        com.susion.rabbit.base.common.RabbitAsync.asyncRun({
+        RabbitAsync.asyncRun({
             greenDaoDbManage.clearOldSessionData()
         }, DB_THREAD)
     }
