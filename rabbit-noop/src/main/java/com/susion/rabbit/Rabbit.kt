@@ -27,8 +27,6 @@ object Rabbit {
             return
         }
 
-        Log.d("rabbit-noop", "config ... ")
-
         //base ui config
         val uiConfig = config.uiConfig
         RabbitUi.init(application, uiConfig)
@@ -55,19 +53,14 @@ object Rabbit {
     }
 
     fun getNetInterceptor(): Interceptor {
-        return object : Interceptor {
-            override fun intercept(chain: Interceptor.Chain): Response {
-                return chain.proceed(chain.request())
-            }
-
-        }
+        return Interceptor { chain -> chain.proceed(chain.request()) }
     }
 
     fun saveCrashLog(it: Throwable?) {
 
     }
 
-    fun isMainProcess(context: Context): Boolean {
+    private fun isMainProcess(context: Context): Boolean {
         return context.packageName == getCurrentProcessName(
             context
         )

@@ -29,7 +29,6 @@ object Rabbit {
 
     @JvmStatic
     fun config(config: RabbitConfig) {
-
         try {
             if (!RabbitUtils.isMainProcess(application)) return
         } catch (e: Throwable) {
@@ -51,22 +50,22 @@ object Rabbit {
         RabbitReport.init(application, reportConfig)
 
         //存储配置
-        RabbitStorage.init(application, mConfig.storageConfig)
         RabbitStorage.eventListener = object : RabbitStorage.EventListener {
             override fun onStorageData(obj: Any) {
                 RabbitReport.report(obj, RabbitMonitor.getAppUseTimes())
             }
         }
+        RabbitStorage.init(application, mConfig.storageConfig)
 
         //监控配置
-        RabbitMonitor.init(application, mConfig.monitorConfig)
         RabbitMonitor.eventListener = object : RabbitMonitor.UiEventListener {
             override fun updateUi(type: Int, value: Any) {
                 RabbitUi.updateUiFromAsyncThread(type, value)
             }
         }
+        RabbitMonitor.init(application, mConfig.monitorConfig)
 
-        // monitor ui config
+        // 监控UI
         val monitorUiConfig = RabbitMonitorUi.Config()
         monitorUiConfig.monitorList = RabbitMonitor.getMonitorList()
         RabbitMonitorUi.init(application, monitorUiConfig)
@@ -81,7 +80,7 @@ object Rabbit {
             }
         }
 
-        //base ui config
+        //基本UI
         val uiConfig = mConfig.uiConfig
         uiConfig.entryFeatures.addAll(RabbitMonitorUi.defaultSupportFeatures())
         RabbitUi.init(application, uiConfig)
@@ -91,7 +90,7 @@ object Rabbit {
     }
 
     /**
-     * 需要Activity Token来展示Dialog
+     * 需要Activity Window Token来展示Dialog
      * */
     fun open(requestPermission: Boolean = true, activity: Activity) {
 

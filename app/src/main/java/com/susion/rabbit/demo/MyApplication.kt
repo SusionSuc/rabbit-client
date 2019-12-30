@@ -21,38 +21,25 @@ class MyApplication : Application() {
         super.onCreate()
 
         val rabbitConfig = RabbitConfig()
-
         rabbitConfig.isDebug = true
         rabbitConfig.monitorConfig = RabbitMonitor.Config().apply {
             autoOpenMonitors =
                 hashSetOf(RabbitMonitorProtocol.NET.name, RabbitMonitorProtocol.EXCEPTION.name)
         }
-        rabbitConfig.reportConfig = getReportConfig()
 
+        // 自定义UI面板入口
         val uiConfig = RabbitUi.Config()
-        uiConfig.entryFeatures = arrayListOf<RabbitMainFeatureInfo>(
+        uiConfig.entryFeatures = arrayListOf(
             RabbitMainFeatureInfo(
                 "业务面板",
                 R.mipmap.ic_launcher,
                 CustomBusinessPage::class.java
             )
         )
-
         rabbitConfig.uiConfig = uiConfig
 
-        Log.d("rabbit-noop", "MyApplication onCreate ")
-
         Rabbit.config(rabbitConfig)
-    }
 
-    private fun getReportConfig(): RabbitReport.ReportConfig {
-        val config = RabbitReport.ReportConfig()
-        return config
-    }
-
-    override fun attachBaseContext(base: Context) {
-        super.attachBaseContext(base)
-        Log.d("attachBaseContext", "called !!!")
     }
 
 }
