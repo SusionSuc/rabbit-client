@@ -1,6 +1,6 @@
 # Rabbit
 
-**Rabbit目标是成为一个全面、简单易用的`APM`系统, 目前处于开发阶段,各个功能都在不断完善中,有任何意见欢迎提`issue`或者`mr`**
+**Rabbit目标是成为一个全面、简单易用的`APM`系统。**
 
 # 客户端功能
 
@@ -55,8 +55,11 @@ Rabbit.config(config)
 
 # 架构
 
->客户端架构
+>整个代码项目代码结构如下图:
 
 ![](picture/rabbit-client-arc.png)
+
+
+**由于目前处于开发阶段,各个功能都在不断完善中,有任何意见欢迎提`issue`或者`mr`,也欢迎你加入到`rabbit`的开发中。**
 
 >实现原理相关文章见:[Rabbit实现原理剖析](https://github.com/SusionSuc/AdvancedAndroid/blob/master/Rabbit%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/README.md)
