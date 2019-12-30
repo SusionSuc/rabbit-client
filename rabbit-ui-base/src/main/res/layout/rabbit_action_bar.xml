@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="45dp"
+    tools:parentTag="RelativeLayout">
+
+    <ImageView
+        android:id="@+id/mDevToolsToolsBarIvBack"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="15dp"
+        android:padding="5dp"
+        android:src="@drawable/rabbit_icon_back" />
+
+    <TextView
+        android:id="@+id/mDevToolsToolsBarTvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="5dp"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:maxLines="10"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:textColor="@color/rabbit_black"
+        android:textSize="17dp"
+        android:textStyle="bold" />
+
+
+    <EditText
+        android:layout_centerInParent="true"
+        android:id="@+id/mRabbitActionBarFakeEt"
+        android:layout_width="0.5px"
+        android:layout_height="0.5px" />
+
+</merge>

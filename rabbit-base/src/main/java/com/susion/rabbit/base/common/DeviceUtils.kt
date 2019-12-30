@@ -20,38 +20,6 @@ object DeviceUtils {
 
     private val TAG = "DeviceUtils"
 
-    /**
-     * get version of emui
-     */
-    fun getEmuiVersion(): Double {
-        try {
-            val emuiVersion =
-                com.susion.rabbit.base.common.DeviceUtils.getSystemProperty("ro.build.version.emui")
-            val version = emuiVersion!!.substring(emuiVersion.indexOf("_") + 1)
-            return java.lang.Double.parseDouble(version)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-
-        return 4.0
-    }
-
-    /**
-     * get xiaomi version of emui
-     */
-    fun getMiuiVersion(): Int {
-        val version =
-            com.susion.rabbit.base.common.DeviceUtils.getSystemProperty("ro.miui.ui.version.name")
-        if (version != null) {
-            try {
-                return Integer.parseInt(version.substring(1))
-            } catch (e: Exception) {
-                Log.e(com.susion.rabbit.base.common.DeviceUtils.TAG, "get miui version code error, version : $version")
-            }
-
-        }
-        return -1
-    }
 
     /**
      * get system property for "ro.build.version.emui"
@@ -65,14 +33,22 @@ object DeviceUtils {
             line = input.readLine()
             input.close()
         } catch (ex: IOException) {
-            Log.e(com.susion.rabbit.base.common.DeviceUtils.TAG, "Unable to read sysprop $propName", ex)
+            Log.e(
+                com.susion.rabbit.base.common.DeviceUtils.TAG,
+                "Unable to read sysprop $propName",
+                ex
+            )
             return null
         } finally {
             if (input != null) {
                 try {
                     input.close()
                 } catch (e: IOException) {
-                    Log.e(com.susion.rabbit.base.common.DeviceUtils.TAG, "Exception while closing InputStream", e)
+                    Log.e(
+                        com.susion.rabbit.base.common.DeviceUtils.TAG,
+                        "Exception while closing InputStream",
+                        e
+                    )
                 }
 
             }
@@ -80,44 +56,6 @@ object DeviceUtils {
         return line
     }
 
-    /**
-     * checking if is huawei rom
-     */
-    fun checkIsHuaweiRom(): Boolean {
-        return Build.MANUFACTURER.contains("HUAWEI")
-    }
-
-    /**
-     * checking if is miui rom
-     */
-    fun checkIsMiuiRom(): Boolean {
-        return !TextUtils.isEmpty(com.susion.rabbit.base.common.DeviceUtils.getSystemProperty("ro.miui.ui.version.name"))
-    }
-
-    /**
-     * checking if is meizu rom
-     */
-    fun checkIsMeizuRom(): Boolean {
-        val meizuFlymeOSFlag =
-            com.susion.rabbit.base.common.DeviceUtils.getSystemProperty("ro.build.display.id")
-        return if (TextUtils.isEmpty(meizuFlymeOSFlag)) {
-            false
-        } else meizuFlymeOSFlag!!.contains("flyme") || meizuFlymeOSFlag.toLowerCase().contains("flyme")
-    }
-
-    /**
-     * checking if is 360 rom
-     */
-    fun checkIs360Rom(): Boolean {
-        return Build.MANUFACTURER.contains("QiKU") || Build.MANUFACTURER.contains("360")
-    }
-
-    /**
-     * checking if is oppo rom
-     */
-    fun checkIsOppoRom(): Boolean {
-        return Build.MANUFACTURER.contains("OPPO") || Build.MANUFACTURER.contains("oppo")
-    }
 
     fun getDeviceName(): String {
         val manufacturer = if (Build.MANUFACTURER == null) "" else Build.MANUFACTURER
@@ -153,8 +91,14 @@ object DeviceUtils {
         if (com.susion.rabbit.base.common.DeviceUtils.uuid == null) {
             synchronized(com.susion.rabbit.base.common.DeviceUtils::class.java) {
                 if (com.susion.rabbit.base.common.DeviceUtils.uuid == null) {
-                    val prefs = context.getSharedPreferences(com.susion.rabbit.base.common.DeviceUtils.PREFS_FILE, 0)
-                    val id = prefs.getString(com.susion.rabbit.base.common.DeviceUtils.PREFS_DEVICE_ID, null)
+                    val prefs = context.getSharedPreferences(
+                        com.susion.rabbit.base.common.DeviceUtils.PREFS_FILE,
+                        0
+                    )
+                    val id = prefs.getString(
+                        com.susion.rabbit.base.common.DeviceUtils.PREFS_DEVICE_ID,
+                        null
+                    )
                     if (id != null) {
                         // Use the ids previously computed and stored in the prefs file
                         com.susion.rabbit.base.common.DeviceUtils.uuid = UUID.fromString(id)
@@ -171,20 +115,24 @@ object DeviceUtils {
                             } else {
                                 val deviceId =
                                     com.susion.rabbit.base.common.DeviceUtils.getIMEIId(context)
-                                com.susion.rabbit.base.common.DeviceUtils.uuid = if (deviceId != null && !android.text.TextUtils.equals(
-                                        deviceId,
-                                        "unknow"
+                                com.susion.rabbit.base.common.DeviceUtils.uuid =
+                                    if (deviceId != null && !android.text.TextUtils.equals(
+                                            deviceId,
+                                            "unknow"
+                                        )
                                     )
-                                )
-                                    UUID.nameUUIDFromBytes(deviceId!!.toByteArray(charset("utf8")))
-                                else
-                                    UUID.randomUUID()
+                                        UUID.nameUUIDFromBytes(deviceId!!.toByteArray(charset("utf8")))
+                                    else
+                                        UUID.randomUUID()
                             }
                         } catch (e: UnsupportedEncodingException) {
                             e.printStackTrace()
                         }
 
-                        prefs.edit().putString(com.susion.rabbit.base.common.DeviceUtils.PREFS_DEVICE_ID, com.susion.rabbit.base.common.DeviceUtils.uuid.toString()).apply()
+                        prefs.edit().putString(
+                            com.susion.rabbit.base.common.DeviceUtils.PREFS_DEVICE_ID,
+                            com.susion.rabbit.base.common.DeviceUtils.uuid.toString()
+                        ).apply()
                     }
                 }
             }
@@ -250,7 +198,7 @@ object DeviceUtils {
             val fileReader = FileReader("/proc/meminfo")
             BufferedReader(fileReader).use {
                 val size = it.readLine().replace("[^0-9.,]+".toRegex(), "").toLongOrNull() ?: 0
-                return com.susion.rabbit.base.common.RabbitUiUtils.formatFileSize(size * 1024)
+                return formatFileSize(size * 1024)
             }
         } catch (e: FileNotFoundException) {
             e.printStackTrace()
@@ -288,6 +236,23 @@ object DeviceUtils {
             }
         }
         return false
+    }
+
+    private fun formatFileSize(size: Long): String {
+        if (size <= 0) return ""
+        val formater = Formatter()
+        return when {
+            size < 1024 -> size.toString() + "B"
+            size < 1024 * 1024 -> {
+                formater.format("%.2f KB", size / 1024f).toString()
+            }
+            size < 1024 * 1024 * 1024 -> {
+                formater.format("%.2f MB", size / 1024f / 1024f).toString()
+            }
+            else -> {
+                formater.format("%.2f GB", size / 1024f / 1024f / 1024f).toString()
+            }
+        }
     }
 
 }

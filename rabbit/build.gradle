@@ -34,7 +34,8 @@ dependencies {
     api project(':rabbit-report')
     api project(':rabbit-base')
     api project(':rabbit-monitor')
-    api project(':rabbit-ui')
+    api project(':rabbit-ui-monitor')
+    api project(':rabbit-ui-base')
 
     implementation rootProject.ext.androidXDependencies.appcompat
     implementation rootProject.ext.androidXDependencies.lifeExtensions

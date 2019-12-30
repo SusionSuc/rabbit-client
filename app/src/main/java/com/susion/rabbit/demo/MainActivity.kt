@@ -27,9 +27,6 @@ class MainActivity : RabbitBaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        mDevToolsTestMainActionBar.setTitle("Rabbit")
-        setBackListener(mDevToolsTestMainActionBar)
-
         requestPermission()
 
         mDevToolsTestTvRequestNet.setOnClickListener {

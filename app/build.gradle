@@ -2,15 +2,21 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply from: '../buildsystem/common-version.gradle'
+apply from: '../buildsystem/rabbit-plugin.gradle'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'rabbit-tracer-transform'
+
 def uniqueVersion = rootProject.ext.versions
 
-rabbitConfig{
-    monitorPkgNamePrefixList = ['com.susion.rabbit.demo', 'bbbb']
-}
 
 android {
+    signingConfigs {
+        rabit {
+            storeFile file('/Users/susionwang/Documents/code/rabbit/rabbit-client/key-store')
+            storePassword 'susion2015'
+            keyAlias = 'rabbit'
+            keyPassword 'susion2015'
+        }
+    }
     compileSdkVersion uniqueVersion.compileSdkVersion
     buildToolsVersion uniqueVersion.buildToolsVersion
 
@@ -34,6 +40,8 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.rabit
+
         }
     }
     compileOptions {
@@ -44,7 +52,8 @@ android {
 
 dependencies {
 
-    api project(':rabbit')
+    debugApi project(':rabbit')
+    releaseApi project(':rabbit-noop')
 
 //    implementation 'com.susion:rabbit:0.0.3'
 

@@ -43,7 +43,6 @@ interface RabbitMonitorProtocol {
         val USE_TIME = MonitorInfo(
             "use_time",
             "使用时长监控",
-            true,
             showInExternal = false
         )
     }
@@ -51,7 +50,6 @@ interface RabbitMonitorProtocol {
     class MonitorInfo(
         val name: String,
         val znName: String,
-        val runInDebug: Boolean = true,
         val showInExternal: Boolean = true
     )
 

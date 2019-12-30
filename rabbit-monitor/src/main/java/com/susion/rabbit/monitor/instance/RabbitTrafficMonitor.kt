@@ -8,7 +8,7 @@ import android.net.ConnectivityManager
 import android.os.Build
 import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.RabbitMonitorProtocol
-import com.susion.rabbit.base.common.RabbitUiUtils
+import com.susion.rabbit.ui.base.utils.RabbitUiUtils
 
 /**
  * susionwang at 2019-12-04
@@ -36,8 +36,8 @@ internal class RabbitTrafficMonitor(override var isOpen: Boolean = false) :
         val trafficBucket = NetworkStats.Bucket()
         trafficStatus.getNextBucket(trafficBucket)
 
-        RabbitLog.d("rx : ${RabbitUiUtils.formatFileSize(trafficBucket.rxBytes)}")
-        RabbitLog.d("tx : ${RabbitUiUtils.formatFileSize(trafficBucket.txBytes)}")
+        RabbitLog.d("rx : ${com.susion.rabbit.ui.base.utils.RabbitUiUtils.formatFileSize(trafficBucket.rxBytes)}")
+        RabbitLog.d("tx : ${com.susion.rabbit.ui.base.utils.RabbitUiUtils.formatFileSize(trafficBucket.txBytes)}")
 
         isOpen = true
     }

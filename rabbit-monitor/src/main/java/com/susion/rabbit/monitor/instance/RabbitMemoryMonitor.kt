@@ -6,10 +6,10 @@ import android.os.Debug
 import android.os.Handler
 import android.os.HandlerThread
 import android.os.Process
-import com.susion.rabbit.base.RabbitUiEvent
+import com.susion.rabbit.ui.base.RabbitUiEvent
 import com.susion.rabbit.monitor.RabbitMonitor
 import com.susion.rabbit.base.RabbitMonitorProtocol
-import com.susion.rabbit.base.common.RabbitUiUtils
+import com.susion.rabbit.ui.base.utils.RabbitUiUtils
 import com.susion.rabbit.storage.RabbitDbStorageManager
 
 /**
@@ -29,8 +29,8 @@ internal class RabbitMemoryMonitor(override var isOpen: Boolean = false) :
             val memInfo = getMemoryInfo()
 //            RabbitLog.d(TAG, "vm size : ${RabbitUiUtils.formatFileSize(memInfo.vmSize.toLong())}  native size : ${RabbitUiUtils.formatFileSize(memInfo.nativeSize.toLong())}")
             RabbitDbStorageManager.save(memInfo)
-            val eventType = RabbitUiEvent.MSG_UPDATE_MEMORY_VALUE
-            val memoryStr = "${RabbitUiUtils.formatFileSize(memInfo.totalSize.toLong())} "
+            val eventType = com.susion.rabbit.ui.base.RabbitUiEvent.MSG_UPDATE_MEMORY_VALUE
+            val memoryStr = "${com.susion.rabbit.ui.base.utils.RabbitUiUtils.formatFileSize(memInfo.totalSize.toLong())} "
             RabbitMonitor.eventListener?.updateUi(eventType, memoryStr)
             memoryRefreshHandler?.postDelayed(this, MEMORY_COLLECT_PERIOD)
         }
@@ -53,7 +53,7 @@ internal class RabbitMemoryMonitor(override var isOpen: Boolean = false) :
         monitorThread?.quitSafely()
         monitorThread = null
         RabbitMonitor.eventListener?.updateUi(
-            RabbitUiEvent.MSG_UPDATE_MEMORY_VALUE,
+            com.susion.rabbit.ui.base.RabbitUiEvent.MSG_UPDATE_MEMORY_VALUE,
             ""
         )
         isOpen = false

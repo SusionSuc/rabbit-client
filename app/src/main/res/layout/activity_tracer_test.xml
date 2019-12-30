@@ -7,10 +7,37 @@
     android:orientation="vertical"
     tools:context="com.susion.rabbit.demo.TracerTestActivity">
 
-    <com.susion.rabbit.ui.base.view.RabbitActionBar
-        android:id="@+id/mTracerPageActionBar"
+
+    <RelativeLayout
+        android:background="@color/colorPrimary"
         android:layout_width="match_parent"
-        android:layout_height="45dp" />
+        android:layout_height="45dp">
+
+        <ImageView
+            android:id="@+id/mDemoIvBack"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            android:padding="5dp"
+            android:src="@drawable/rabbit_icon_back" />
+
+        <TextView
+            android:id="@+id/mDemoTvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="5dp"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="10"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:textColor="#333333"
+            android:textSize="17dp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/mTracerPageTvSimpleList"
@@ -19,7 +46,7 @@
         android:layout_marginStart="15dp"
         android:gravity="left|center_vertical"
         android:text="简单列表"
-        android:textColor="@color/rabbit_black"
+        android:textColor="#333333"
         android:textSize="18dp" />
 
     <View
@@ -36,7 +63,7 @@
         android:layout_marginStart="15dp"
         android:gravity="left|center_vertical"
         android:text="卡顿2秒"
-        android:textColor="@color/rabbit_black"
+        android:textColor="#333333"
         android:textSize="18dp" />
 
     <View

@@ -12,8 +12,9 @@ import com.susion.rabbit.base.entities.RabbitMemoryInfo
 import com.susion.rabbit.monitor.RabbitMonitor
 import com.susion.rabbit.report.RabbitReport
 import com.susion.rabbit.storage.RabbitStorage
-import com.susion.rabbit.ui.RabbitUi
-import com.susion.rabbit.ui.utils.FloatingViewPermissionHelper
+import com.susion.rabbit.ui.base.RabbitUi
+import com.susion.rabbit.ui.base.utils.FloatingViewPermissionHelper
+import com.susion.rabbit.ui.monitor.RabbitMonitorUi
 import okhttp3.Interceptor
 
 /**
@@ -65,11 +66,11 @@ object Rabbit {
             }
         }
 
-        //ui 配置
-        val uiConfig = mConfig.uiConfig
-        uiConfig.monitorList = RabbitMonitor.getMonitorList()
-        RabbitUi.init(application, uiConfig)
-        RabbitUi.eventListener = object : RabbitUi.EventListener {
+        // monitor ui config
+        val monitorUiConfig = RabbitMonitorUi.Config()
+        monitorUiConfig.monitorList = RabbitMonitor.getMonitorList()
+        RabbitMonitorUi.init(application, monitorUiConfig)
+        RabbitMonitorUi.eventListener = object : RabbitMonitorUi.EventListener {
             override fun toggleMonitorStatus(monitor: RabbitMonitorProtocol, open: Boolean) {
                 val monitorName = monitor.getMonitorInfo().name
                 if (open) {
@@ -79,6 +80,11 @@ object Rabbit {
                 }
             }
         }
+
+        //base ui config
+        val uiConfig = mConfig.uiConfig
+        uiConfig.entryFeatures.addAll(RabbitMonitorUi.defaultSupportFeatures())
+        RabbitUi.init(application, uiConfig)
 
         isInit = true
         RabbitLog.d("config success!!")

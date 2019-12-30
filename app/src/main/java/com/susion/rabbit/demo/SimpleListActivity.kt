@@ -10,7 +10,6 @@ import kotlinx.android.synthetic.main.activity_simple_list_page.*
 
 class SimpleListActivity : RabbitBaseActivity() {
 
-
     private val listAdapter = object : RabbitRvAdapter<RabbitSimpleKvInfo>(ArrayList()) {
         override fun createItem(type: Int) =
             RabbitSimpleKVItemView(this@SimpleListActivity)
