@@ -4,8 +4,6 @@
 
 **[使用文档](./documents/README.md)**
 
-**由于目前处于开发阶段,各个功能都在不断完善中,有任何意见欢迎提`issue`或者`mr`,也欢迎你加入到`rabbit`的开发中。**
-
 # 功能简介
 
 目前主要包括下面功能:
@@ -20,6 +18,7 @@
 8. apk内容分析与优化
 9. 应用内存分析
 
+**rabbit支持上报所有性能监控数据,详情见使用文档**
 
 # 项目架构
 
@@ -29,3 +28,13 @@
 
 
 >实现原理相关文章见:[Rabbit实现原理剖析](https://github.com/SusionSuc/AdvancedAndroid/blob/master/Rabbit%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/README.md)
+
+# 开发计划
+
+目前服务端功能正在开发中，详见:
+
+[rabbit-server](https://github.com/SusionSuc/rabbit-server) : 数据存储于管理后台(`python/django`)
+
+[rabbit-admin](https://github.com/SusionSuc/rabbit-admin) : web端管理后台(vue)
+
+如果你对这两个项目有兴趣，欢迎联系我来一块开发~

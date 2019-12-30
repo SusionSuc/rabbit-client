@@ -5,6 +5,7 @@
 - [应用测速功能](./speed-monitor.md)
 - [网络日志监控](./net-log-monitor.md)
 - [卡顿日志监控](./block-log-monitor.md)
+- [数据上报](./data-report.md)
 - [其他监控功能](./others-monitor.md)
 
 ## 引入方法
