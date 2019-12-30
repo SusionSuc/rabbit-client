@@ -3,10 +3,8 @@ package com.susion.rabbit.ui.monitor
 import android.content.Context
 import android.view.ViewGroup
 import com.susion.rabbit.base.RabbitSettings
-import com.susion.rabbit.ui.R
 import com.susion.rabbit.ui.base.RabbitBasePage
 import com.susion.rabbit.ui.base.utils.RabbitUiUtils
-import com.susion.rabbit.ui.base.RabbitUi
 import kotlinx.android.synthetic.main.rabbit_page_config.view.*
 
 /**

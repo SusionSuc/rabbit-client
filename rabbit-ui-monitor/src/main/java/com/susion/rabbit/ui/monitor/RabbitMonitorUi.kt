@@ -4,7 +4,6 @@ import android.app.Application
 import android.content.ComponentName
 import android.content.Intent
 import com.susion.rabbit.base.RabbitMonitorProtocol
-import com.susion.rabbit.ui.R
 import com.susion.rabbit.ui.base.RabbitMainFeatureInfo
 import com.susion.rabbit.ui.base.RabbitUi
 import com.susion.rabbit.ui.monitor.page.*

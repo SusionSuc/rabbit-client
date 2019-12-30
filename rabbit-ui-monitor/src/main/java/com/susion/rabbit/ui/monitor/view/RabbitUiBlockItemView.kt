@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.susion.rabbit.base.common.rabbitSimpleTimeFormat
 import com.susion.rabbit.base.entities.RabbitBlockFrameInfo
-import com.susion.rabbit.ui.R
 import com.susion.rabbit.ui.base.RabbitUi
-import com.susion.rabbit.ui.monitor.page.RabbitUiBlockDetailPage
 import com.susion.rabbit.ui.base.throttleFirstClick
+import com.susion.rabbit.ui.monitor.R
+import com.susion.rabbit.ui.monitor.page.RabbitUiBlockDetailPage
 import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.rabbit_view_ui_block_item.view.*
 
@@ -27,7 +27,7 @@ class RabbitUiBlockItemView(context: Context) : LinearLayout(context),
     }
 
     @SuppressLint("SetTextI18n")
-    override fun bindData(blockInfo: com.susion.rabbit.base.entities.RabbitBlockFrameInfo, position: Int) {
+    override fun bindData(blockInfo: RabbitBlockFrameInfo, position: Int) {
 //        val ms = TimeUnit.MILLISECONDS.convert(blockInfo.tr , TimeUnit.NANOSECONDS)
         mRabbitUiBlockItemViewTvLine1.text = "time:${rabbitSimpleTimeFormat(
             blockInfo.time

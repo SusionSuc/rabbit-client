@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import com.susion.rabbit.base.entities.RabbitHttpLogInfo
 import com.susion.rabbit.ui.monitor.view.HttpLogPreviewItemView
 import com.susion.rabbit.storage.RabbitDbStorageManager
-import com.susion.rabbit.ui.R
+import com.susion.rabbit.ui.monitor.R
 import kotlinx.android.synthetic.main.rabbit_page_http_log_list.view.*
 
 /**

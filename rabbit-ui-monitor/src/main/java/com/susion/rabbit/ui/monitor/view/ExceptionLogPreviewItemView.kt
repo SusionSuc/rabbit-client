@@ -6,12 +6,12 @@ import android.view.View
 import android.widget.RelativeLayout
 import com.susion.rabbit.base.common.rabbitTimeFormat
 import com.susion.rabbit.base.entities.RabbitExceptionInfo
-import com.susion.rabbit.ui.R
 import com.susion.rabbit.ui.base.RabbitUi
 import com.susion.rabbit.ui.monitor.page.RabbitExceptionDetailPage
 import com.susion.rabbit.ui.base.dp2px
 import com.susion.rabbit.ui.base.getDrawable
 import com.susion.rabbit.ui.base.throttleFirstClick
+import com.susion.rabbit.ui.monitor.R
 import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.rabbit_view_exception_log_pre_view_item.view.*
 

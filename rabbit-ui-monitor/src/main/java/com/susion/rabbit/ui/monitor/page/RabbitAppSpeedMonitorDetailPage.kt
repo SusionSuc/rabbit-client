@@ -7,7 +7,7 @@ import com.susion.rabbit.base.entities.RabbitPageSpeedUiInfo
 import com.susion.rabbit.ui.monitor.view.RabbitAppSpeedInfoView
 import com.susion.rabbit.ui.monitor.view.RabbitPageSpeedUiItemView
 import com.susion.rabbit.storage.RabbitDbStorageManager
-import com.susion.rabbit.ui.R
+import com.susion.rabbit.ui.monitor.R
 import kotlinx.android.synthetic.main.rabbit_page_ui_block_list.view.*
 
 /**

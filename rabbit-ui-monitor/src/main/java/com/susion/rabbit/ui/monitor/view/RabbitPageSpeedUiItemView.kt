@@ -5,12 +5,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.susion.rabbit.base.entities.RabbitPageSpeedUiInfo
-import com.susion.rabbit.ui.R
 import com.susion.rabbit.ui.base.RabbitUi
 import com.susion.rabbit.ui.monitor.page.RabbitPageSpeedDetailPage
 import com.susion.rabbit.ui.base.dp2px
 import com.susion.rabbit.ui.base.getDrawable
 import com.susion.rabbit.ui.base.throttleFirstClick
+import com.susion.rabbit.ui.monitor.R
 import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.rabbit_view_ui_block_item.view.*
 

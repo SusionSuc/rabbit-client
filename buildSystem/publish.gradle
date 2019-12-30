@@ -5,7 +5,7 @@ publish {
     repoName = 'rabbit'          // Binary上新建的仓库名（Repository）
     groupId = 'com.susion'               // 依赖名compile 'x:y:z'中的包名x
     artifactId = ARTIFACT_ID               // 依赖名compile 'x:y:z'中的项目名y
-    publishVersion = '0.0.6'            // 依赖名compile 'x:y:z'中的版本号z
+    publishVersion = '0.0.7.1'            // 依赖名compile 'x:y:z'中的版本号z
     desc = 'android apm client'              // 对该开源组件的说明
     website = 'https://github.com/SusionSuc/Rabbit'  // VCS地址，即填写项目上传的Github地址
 }

@@ -7,8 +7,8 @@ import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import com.susion.rabbit.ui.base.utils.RabbitUiUtils
 import com.susion.rabbit.base.entities.RabbitExceptionInfo
-import com.susion.rabbit.ui.R
 import com.susion.rabbit.ui.base.showToast
+import com.susion.rabbit.ui.monitor.R
 import kotlinx.android.synthetic.main.rabbit_page_exception_detail.view.*
 
 /**

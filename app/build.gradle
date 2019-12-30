@@ -11,10 +11,10 @@ def uniqueVersion = rootProject.ext.versions
 android {
     signingConfigs {
         rabit {
-            storeFile file('/Users/susionwang/Documents/code/rabbit/rabbit-client/key-store')
-            storePassword 'susion2015'
+            storeFile file('/Users/susionwang/Documents/code/rabbit/rabbit-client/key-store.jks')
+            storePassword 'rabbit'
             keyAlias = 'rabbit'
-            keyPassword 'susion2015'
+            keyPassword 'rabbit'
         }
     }
     compileSdkVersion uniqueVersion.compileSdkVersion
@@ -52,10 +52,10 @@ android {
 
 dependencies {
 
-    debugApi project(':rabbit')
-    releaseApi project(':rabbit-noop')
+//    debugApi project(':rabbit')
+//    releaseApi project(':rabbit-noop')
 
-//    implementation 'com.susion:rabbit:0.0.3'
+    implementation rootProject.ext.rabbitDependence
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${uniqueVersion.kotlinStdlibJdk7Version}"

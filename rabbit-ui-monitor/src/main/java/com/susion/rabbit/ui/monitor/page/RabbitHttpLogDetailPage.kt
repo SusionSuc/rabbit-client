@@ -4,8 +4,8 @@ import android.content.Context
 import android.view.View
 import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.entities.RabbitHttpLogInfo
-import com.susion.rabbit.ui.R
 import com.susion.rabbit.ui.base.showToast
+import com.susion.rabbit.ui.monitor.R
 import kotlinx.android.synthetic.main.rabbit_page_http_log_detail.view.*
 import java.text.SimpleDateFormat
 import java.util.*

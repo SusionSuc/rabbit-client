@@ -6,11 +6,7 @@ import android.util.AttributeSet
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.widget.RelativeLayout
-import com.susion.rabbit.ui.R
-import com.susion.rabbit.ui.base.RabbitUi
-import com.susion.rabbit.ui.base.dp2px
-import com.susion.rabbit.ui.base.getDrawable
-import com.susion.rabbit.ui.base.throttleFirstClick
+import com.susion.rabbit.ui.base.*
 import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.rabbit_action_bar.view.*
 

@@ -7,7 +7,7 @@ import android.os.Build
 import android.view.*
 import android.view.animation.LinearInterpolator
 import android.widget.LinearLayout
-import com.susion.rabbit.ui.R
+import com.susion.rabbit.ui.base.R
 import com.susion.rabbit.ui.base.RabbitUi
 import com.susion.rabbit.ui.base.getColor
 import com.susion.rabbit.ui.base.utils.RabbitUiUtils

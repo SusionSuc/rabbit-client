@@ -8,8 +8,8 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.susion.rabbit.storage.RabbitDbStorageManager
-import com.susion.rabbit.ui.R
 import com.susion.rabbit.ui.base.dp2px
+import com.susion.rabbit.ui.monitor.R
 import kotlinx.android.synthetic.main.rabbit_page_app_start_speed_detail.view.*
 import java.util.*
 

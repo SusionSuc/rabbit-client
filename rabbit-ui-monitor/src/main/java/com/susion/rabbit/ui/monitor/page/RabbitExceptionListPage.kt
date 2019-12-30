@@ -4,7 +4,7 @@ import android.content.Context
 import com.susion.rabbit.base.entities.RabbitExceptionInfo
 import com.susion.rabbit.ui.monitor.view.ExceptionLogPreviewItemView
 import com.susion.rabbit.storage.RabbitDbStorageManager
-import com.susion.rabbit.ui.R
+import com.susion.rabbit.ui.monitor.R
 import kotlinx.android.synthetic.main.rabbit_page_exception_list.view.*
 
 /**

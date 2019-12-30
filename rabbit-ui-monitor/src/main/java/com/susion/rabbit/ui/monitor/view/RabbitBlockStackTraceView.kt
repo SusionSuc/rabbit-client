@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.susion.rabbit.base.entities.RabbitBlockStackTraceInfo
-import com.susion.rabbit.ui.R
 import com.susion.rabbit.ui.base.dp2px
 import com.susion.rabbit.ui.base.getDrawable
+import com.susion.rabbit.ui.monitor.R
 import kotlinx.android.synthetic.main.rabbit_view_block_frame_item.view.*
 import java.lang.StringBuilder
 

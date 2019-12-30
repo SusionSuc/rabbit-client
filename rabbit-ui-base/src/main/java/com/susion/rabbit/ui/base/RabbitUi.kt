@@ -14,7 +14,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ProcessLifecycleOwner
-import com.susion.rabbit.ui.R
 import com.susion.rabbit.ui.base.page.RabbitEntryPage
 import com.susion.rabbit.ui.base.utils.SimpleActivityLifecycleWrapper
 import com.susion.rabbit.ui.base.view.RabbitFloatingView

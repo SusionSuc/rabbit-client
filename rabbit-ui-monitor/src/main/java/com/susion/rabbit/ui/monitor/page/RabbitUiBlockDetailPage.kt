@@ -8,7 +8,7 @@ import com.google.gson.reflect.TypeToken
 import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.entities.RabbitBlockFrameInfo
 import com.susion.rabbit.base.entities.RabbitBlockStackTraceInfo
-import com.susion.rabbit.ui.R
+import com.susion.rabbit.ui.monitor.R
 import com.susion.rabbit.ui.monitor.view.RabbitBlockStackTraceView
 import kotlinx.android.synthetic.main.rabbit_page_ui_block.view.*
 import java.util.concurrent.TimeUnit

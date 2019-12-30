@@ -16,8 +16,8 @@ import com.susion.rabbit.base.entities.RabbitPageApiInfo
 import com.susion.rabbit.base.entities.RabbitPageSpeedInfo
 import com.susion.rabbit.base.entities.RabbitPageSpeedUiInfo
 import com.susion.rabbit.storage.RabbitDbStorageManager
-import com.susion.rabbit.ui.R
 import com.susion.rabbit.ui.base.dp2px
+import com.susion.rabbit.ui.monitor.R
 import kotlinx.android.synthetic.main.rabbit_page_page_speed_detail.view.*
 import java.lang.Exception
 import java.util.ArrayList

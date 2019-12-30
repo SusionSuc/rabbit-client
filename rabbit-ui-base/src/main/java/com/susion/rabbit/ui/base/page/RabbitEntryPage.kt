@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.susion.rabbit.ui.R
+import com.susion.rabbit.ui.base.R
 import com.susion.rabbit.ui.base.RabbitBasePage
 import com.susion.rabbit.ui.base.RabbitMainFeatureInfo
 import com.susion.rabbit.ui.base.adapter.RabbitRvAdapter
