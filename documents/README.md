@@ -71,4 +71,18 @@ Rabbit.config(config)
 相关支持配置见:[RabbitConfig](https://github.com/SusionSuc/Rabbit/blob/master/rabbit/src/main/java/com/susion/rabbit/RabbitConfig.kt),各项配置具体含义会在每个功能的文档中做详细的介绍。
 
 
+## 监控功能开关配置
+
+可能通过配置来决定`rabbit`打开哪些监控:
+
+```
+val autoOpenMonitors = hashSetOf(RabbitMonitorProtocol.NET.name, RabbitMonitorProtocol.EXCEPTION.name)
+
+rabbitConfig.monitorConfig.autoOpenMonitors.addAll(autoOpenMonitors)
+
+Rabbit.config(rabbitConfig)
+```
+
+通过上面配置会自动打开**网络日志监控**和**异常日志监控**功能
+
 

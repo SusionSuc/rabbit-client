@@ -56,7 +56,7 @@ apply plugin: 'rabbit-tracer-transform'
 
 ## 应用冷启动测速
 
-如果你通过`rabbit_speed_monitor.json`配置`home_activity`和`home_activity`的完全渲染事件，那么`Application`创建到`home_activity`的**MainActivity的网络请求结束首次渲染**耗时就是应用的冷启动耗时:
+如果你通过`rabbit_speed_monitor.json`配置`home_activity`和`home_activity`的完全渲染事件，那么从`Application`创建到`home_activity`的**MainActivity的网络请求结束首次渲染**耗时就是应用的冷启动耗时:
 
 ![pic2](./picture/app_speed.png)
 
