@@ -1,6 +1,9 @@
 package com.susion.rabbit.storage
 
 import android.app.Application
+import com.susion.rabbit.base.entities.RabbitBlockFrameInfo
+import com.susion.rabbit.base.entities.RabbitHttpLogInfo
+import com.susion.rabbit.base.entities.RabbitMemoryInfo
 import com.susion.rabbit.base.greendao.DaoMaster
 import org.greenrobot.greendao.AbstractDao
 
@@ -18,6 +21,11 @@ object RabbitStorage {
         application = application_
         mConfig = config
         mConfig.daoProvider.addAll(getFixedDaoProvider())
+        mConfig.storageInOnSessionData.addAll(ArrayList<Class<Any>>().apply {
+            add(RabbitHttpLogInfo::class.java as Class<Any>)
+            add(RabbitBlockFrameInfo::class.java as Class<Any>)
+            add(RabbitMemoryInfo::class.java as Class<Any>)
+        })
         RabbitDbStorageManager.clearOldSessionData()
     }
 
@@ -85,7 +93,7 @@ object RabbitStorage {
 
     class Config(
         var daoProvider: ArrayList<RabbitDaoPluginProvider> = ArrayList(),
-        var storageInOnSessionData: List<Class<Any>> = ArrayList()
+        var storageInOnSessionData: ArrayList<Class<Any>> = ArrayList()
     )
 
     interface EventListener {

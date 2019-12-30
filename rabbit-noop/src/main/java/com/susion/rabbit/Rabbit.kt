@@ -5,6 +5,10 @@ import android.app.ActivityManager
 import android.app.Application
 import android.content.Context
 import android.util.Log
+import com.susion.rabbit.base.RabbitSettings
+import com.susion.rabbit.monitor.RabbitMonitor
+import com.susion.rabbit.report.RabbitReport
+import com.susion.rabbit.storage.RabbitStorage
 import com.susion.rabbit.ui.base.RabbitUi
 import com.susion.rabbit.ui.base.utils.FloatingViewPermissionHelper
 import okhttp3.Interceptor
@@ -30,6 +34,9 @@ object Rabbit {
         //base ui config
         val uiConfig = config.uiConfig
         RabbitUi.init(application, uiConfig)
+
+        //存储配置
+        RabbitStorage.init(application, config.storageConfig)
     }
 
     fun open(requestPermission: Boolean = true, activity: Activity) {
@@ -77,5 +84,11 @@ object Rabbit {
             }
         }
         return processName
+    }
+
+    fun autoOpen(context: Context) = RabbitSettings.autoOpenRabbit(context)
+
+    fun enableAutoOpen(autoOpen: Boolean) {
+        RabbitSettings.autoOpenRabbit(application, autoOpen)
     }
 }
