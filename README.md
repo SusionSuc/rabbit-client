@@ -2,9 +2,7 @@
 
 **Rabbit目标是成为一个全面、简单易用的`APM`系统, 目前处于开发阶段,各个功能都在不断完善中,有任何意见欢迎提`issue`或者`mr`**
 
->实现原理相关文章见:[Rabbit实现原理剖析](https://github.com/SusionSuc/AdvancedAndroid/blob/master/Rabbit%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/README.md)
-
-# 客户端
+# 客户端功能
 
 目前主要包括下面功能:
 
@@ -18,15 +16,7 @@
 8. apk内容分析与优化
 9. 应用内存分析
 
->目前所有功能只能在debug下使用，没有经过线上验证！
-
-# 性能数据上报 & 服务端
-
-计划支持上报所有的检测数据。
-
-[RabbitServer](https://github.com/SusionSuc/RabbitServer)正在开发中。
-
-# 使用文档
+# 引入
 
 >根目录`build.gradle`
 ```
@@ -40,11 +30,12 @@ dependencies {
 apply plugin: 'rabbit-tracer-transform' //引入插件
 
 dependencies {
-    implementation 'com.susion:rabbit:0.0.3'
-}
+    debugImplementation "com.susion:rabbit:0.0.5"  
+    releaseImplementation "com.susion:rabbit-noop:0.0.5" // release 下不做任何操作
+} 
 ```
 
->对于`rabbit-tracer-transform`, 目前只建议在`debug`包中生效,可以采用下面的方式:
+>对于`rabbit-tracer-transform`, 可以采用下面的方式是之只在`debug`下生效:
 ```
 def taskName = getGradle().getStartParameter().taskNames.toString().toLowerCase()
 if (taskName.contains("debug")){
@@ -53,18 +44,19 @@ if (taskName.contains("debug")){
 }
 ```
 
-## 配置
+## 引入配置
 
 ```
-Rabbit.init(config)
+Rabbit.config(config)
 ```
 
 >相关支持配置见: [RabbitConfig](https://github.com/SusionSuc/Rabbit/blob/master/rabbit/src/main/java/com/susion/rabbit/RabbitConfig.kt)
 
->**更具体的使用文档后续会更新在wiki中**
 
 # 架构
 
 >客户端架构
 
 ![](picture/rabbit-client-arc.png)
+
+>实现原理相关文章见:[Rabbit实现原理剖析](https://github.com/SusionSuc/AdvancedAndroid/blob/master/Rabbit%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/README.md)
