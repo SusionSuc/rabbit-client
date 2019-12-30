@@ -17,3 +17,5 @@
 .settings/*
 
 **/.settings/
+
+.idea/
