@@ -71,8 +71,30 @@ Rabbit.config(config)
 
 相关支持配置见:[RabbitConfig](https://github.com/SusionSuc/Rabbit/blob/master/rabbit/src/main/java/com/susion/rabbit/RabbitConfig.kt),各项配置具体含义会在每个功能的文档中做详细的介绍。
 
+## 基本使用
+
+`rabbit`依赖于悬浮窗权限来展示各种监控数据，可以调用下面方法来打开`rabbit`:
+
+>Rabbit.kt
+```
+fun open(requestPermission: Boolean = true, activity: Activity)
+```
+
+即`Rabbit.open(true, this)`, 这个方法会主动申请悬浮窗权限。如果有权限的话会打开`rabbit`浮标:
+
+![pic1](./picture/rabbit-float.png)
+
+点击`rabbit`浮标即可进入`rabbit`面板:
+
+![pic2](./picture/rabbit-entry.jpg)
+
+这样可以看到`rabbit`各项功能的入口。 
+
+**可以通过再次点击`rabbit`浮标来关闭`rabbit`浮窗。**
 
 ## 监控功能开关配置
+
+### 通过代码配置
 
 可能通过配置来决定`rabbit`打开哪些监控:
 
@@ -84,5 +106,11 @@ rabbitConfig.monitorConfig.autoOpenMonitors.addAll(autoOpenMonitors)
 Rabbit.config(rabbitConfig)
 ```
 >上面配置会自动打开**网络日志监控**和**异常日志监控**功能
+
+### UI配置
+
+当然也可以在UI浮窗中配置各项功能打开与否。点击**监控配置**即可看到具体功能配置页面:
+
+![pic3](./picture/rabbit-config.jpg)
 
 
