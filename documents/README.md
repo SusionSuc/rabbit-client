@@ -1,6 +1,6 @@
 # Rabbit使用文档
 
->文档索引
+## 文档索引
 
 - [应用测速](./speed-monitor.md)
 - [网络日志监控](./net-log-monitor.md)
@@ -11,9 +11,7 @@
 - [接入自定义业务面板](./cutom-page.md)
 - [数据上报](./data-report.md)
 
->基本引入方法
-
-## 引入方法
+## 基本使用
 
 >根目录`build.gradle`
 ```
@@ -75,7 +73,7 @@ Rabbit.config(config)
 
 相关支持配置见:[RabbitConfig](https://github.com/SusionSuc/Rabbit/blob/master/rabbit/src/main/java/com/susion/rabbit/RabbitConfig.kt),各项配置具体含义会在每个功能的文档中做详细的介绍。
 
-## 基本使用
+### 打开rabbit
 
 `rabbit`使用悬浮窗来展示各种监控数据，因此需要悬浮窗权限。可以调用下面方法来打开`rabbit`:
 
@@ -94,9 +92,9 @@ fun open(requestPermission: Boolean = true, activity: Activity)
 
 **可以通过再次点击`rabbit`浮标来关闭`rabbit`浮窗。**
 
-## 监控功能开关配置
+### 监控功能开关配置
 
-### 通过代码配置
+#### 通过代码配置
 
 可以通过代码配置来`rabbit`各项监控的打开与否:
 
@@ -109,7 +107,7 @@ Rabbit.config(rabbitConfig)
 ```
 >上面配置会自动打开**网络日志监控**和**异常日志监控**功能
 
-### UI配置
+#### UI配置
 
 当然也可以在UI浮窗中配置各项功能打开与否。点击**监控配置**即可看到具体功能配置页面:
 

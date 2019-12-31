@@ -1,6 +1,6 @@
 # 自定义页面
 
-`rabbit`依托于浮窗来与用户交互。考虑到很多app都会有一些debug页面，`rabbit`提供了一套API来把一些你自定义的页面接入到`rabbit`浮窗中。
+`rabbit`依托于浮窗来与用户交互。考虑到很多app都会有一些debug页面，`rabbit`提供了一套API可以把一些你自定义的页面接入到`rabbit`浮窗中。
 
 
 ## 自定义rabbit页面
@@ -28,11 +28,11 @@ class CustomBusinessPage(context: Context) : RabbitBasePage(context) {
 }
 ```
 
-- getLayoutResId() : 页面布局
+- getLayoutResId() : 页面布局, 如果没有可以传`INVALID_RES_ID`
 - init代码块 : 初始化页面UI
 - setEntryParams : 页面跳转的参数
 
-**由于`rabbit`展示在window上，它所能提供的上下文并不是`Activity`,如果你需要`Activity`的话，则可以调用`RabbitUi.appCurrentActivity`**
+**由于`rabbit`展示在window上，它所能提供的上下文并不是`Activity`,如果你需要`Activity`的话，可以调用`RabbitUi.appCurrentActivity`来获取当前应用的页面上下文。**
 
 
 ## 接入到rabbit中
