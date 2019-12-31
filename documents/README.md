@@ -2,11 +2,12 @@
 
 ## 文档索引
 
-- [应用测速功能](./speed-monitor.md)
+- [应用测速](./speed-monitor.md)
 - [网络日志监控](./net-log-monitor.md)
 - [卡顿日志监控](./block-log-monitor.md)
+- [FPS和内存监控](./memory-fps-monitor.md)
+- [异常与内存泄漏捕获](./others-monitor.md)
 - [数据上报](./data-report.md)
-- [其他监控功能](./others-monitor.md)
 
 ## 引入方法
 
@@ -82,7 +83,6 @@ rabbitConfig.monitorConfig.autoOpenMonitors.addAll(autoOpenMonitors)
 
 Rabbit.config(rabbitConfig)
 ```
-
-通过上面配置会自动打开**网络日志监控**和**异常日志监控**功能
+>上面配置会自动打开**网络日志监控**和**异常日志监控**功能
 
 

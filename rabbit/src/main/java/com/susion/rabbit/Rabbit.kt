@@ -40,15 +40,6 @@ object Rabbit {
 
         RabbitLog.init(mConfig.enableLog)
 
-        //上报配置
-        val reportConfig = mConfig.reportConfig
-        reportConfig.reportMonitorData = true
-        reportConfig.notReportDataFormat.apply {
-            add(RabbitMemoryInfo::class.java)
-            add(RabbitHttpLogInfo::class.java)
-        }
-        RabbitReport.init(application, reportConfig)
-
         //存储配置
         RabbitStorage.eventListener = object : RabbitStorage.EventListener {
             override fun onStorageData(obj: Any) {
@@ -64,6 +55,16 @@ object Rabbit {
             }
         }
         RabbitMonitor.init(application, mConfig.monitorConfig)
+
+        //上报配置
+        val reportConfig = mConfig.reportConfig
+        reportConfig.reportMonitorData = true
+        reportConfig.notReportDataFormat.apply {
+            add(RabbitMemoryInfo::class.java)
+            add(RabbitHttpLogInfo::class.java)
+        }
+        reportConfig.fpsReportPeriodS = mConfig.monitorConfig.fpsReportPeriodS
+        RabbitReport.init(application, reportConfig)
 
         // 监控UI
         val monitorUiConfig = RabbitMonitorUi.Config()

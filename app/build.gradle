@@ -52,10 +52,10 @@ android {
 
 dependencies {
 
-//    debugApi project(':rabbit')
-//    releaseApi project(':rabbit-noop')
+    debugApi project(':rabbit')
+    releaseApi project(':rabbit-noop')
 
-    implementation rootProject.ext.rabbitDependence
+//    implementation rootProject.ext.rabbitDependence
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${uniqueVersion.kotlinStdlibJdk7Version}"

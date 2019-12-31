@@ -7,7 +7,10 @@ import android.os.Looper
 import android.os.Message
 import com.google.gson.Gson
 import com.susion.rabbit.base.RabbitLog
+import com.susion.rabbit.base.common.DeviceUtils
+import com.susion.rabbit.base.common.RabbitAsync
 import com.susion.rabbit.base.entities.RabbitDeviceInfo
+import com.susion.rabbit.base.entities.RabbitReportInfo
 import com.susion.rabbit.storage.RabbitDbStorageManager
 import java.util.concurrent.Executors
 
@@ -24,7 +27,8 @@ object RabbitReport {
     class ReportConfig(
         var reportMonitorData: Boolean = false,
         var reportPath: String = "http://127.0.0.1:8000/apmdb/upload-log",
-        var notReportDataFormat: HashSet<Class<*>> = HashSet()
+        var notReportDataFormat: HashSet<Class<*>> = HashSet(),
+        var fpsReportPeriodS: Long = 10
     )
 
     private val TAG = javaClass.simpleName
@@ -43,7 +47,7 @@ object RabbitReport {
                 LOAD_POINT_TO_EMITER_QUEUE -> {
                     val loadDataCount = RabbitReportDataEmitterTask.EMITER_QUEUE_MAX_SIZE / 2
                     RabbitDbStorageManager.getAll(
-                        com.susion.rabbit.base.entities.RabbitReportInfo::class.java,
+                        RabbitReportInfo::class.java,
                         count = loadDataCount,
                         sortField = "time",
                         loadResult = {
@@ -60,24 +64,24 @@ object RabbitReport {
         application = app
         mConfig = config
 
-        config.notReportDataFormat.add(com.susion.rabbit.base.entities.RabbitReportInfo::class.java)
+        config.notReportDataFormat.add(RabbitReportInfo::class.java)
 
-        com.susion.rabbit.base.common.RabbitAsync.asyncRun({
+        RabbitAsync.asyncRun({
             deviceInfoStr = Gson().toJson(getDeviceInfo(application))
             RabbitLog.d(TAG, "device info : $deviceInfoStr")
         })
 
         dataEmitterTask.eventListener = object : RabbitReportDataEmitterTask.EventListener {
-            override fun successEmitterPoint(pointInfo: com.susion.rabbit.base.entities.RabbitReportInfo) {
+            override fun successEmitterPoint(pointInfo: RabbitReportInfo) {
                 RabbitDbStorageManager.delete(
-                    com.susion.rabbit.base.entities.RabbitReportInfo::class.java,
+                    RabbitReportInfo::class.java,
                     condition = Pair(com.susion.rabbit.base.greendao.RabbitReportInfoDao.Properties.Time, pointInfo.time.toString())
                 )
             }
 
             override fun pointQueueIsEmpty() {
                 val currentDbPointCount =
-                    RabbitDbStorageManager.dataCount(com.susion.rabbit.base.entities.RabbitReportInfo::class.java)
+                    RabbitDbStorageManager.dataCount(RabbitReportInfo::class.java)
                 RabbitLog.d(TAG, "pointQueueIsEmpty db point : $currentDbPointCount")
                 if (currentDbPointCount > 0) {
                     mHandler.sendEmptyMessage(LOAD_POINT_TO_EMITER_QUEUE)
@@ -124,13 +128,13 @@ object RabbitReport {
             supportCpuAbi.append(abi)
         }
         return RabbitDeviceInfo().apply {
-            deviceName = com.susion.rabbit.base.common.DeviceUtils.getDeviceName()
-            deviceId = com.susion.rabbit.base.common.DeviceUtils.getDeviceId(application)
+            deviceName = DeviceUtils.getDeviceName()
+            deviceId = DeviceUtils.getDeviceId(application)
             systemVersion = Build.VERSION.RELEASE
-            memorySize = com.susion.rabbit.base.common.DeviceUtils.getMemorySize(application)
+            memorySize = DeviceUtils.getMemorySize(application)
             rom = "${roomInfo.name}/${roomInfo.version}"
-            appVersionCode = "${com.susion.rabbit.base.common.DeviceUtils.getAppVersionCode(application)}"
-            isRoot = com.susion.rabbit.base.common.DeviceUtils.isDeviceRooted()
+            appVersionCode = "${DeviceUtils.getAppVersionCode(application)}"
+            isRoot = DeviceUtils.isDeviceRooted()
             supportAbi = supportCpuAbi.toString()
             manufacturer = Build.MANUFACTURER
         }

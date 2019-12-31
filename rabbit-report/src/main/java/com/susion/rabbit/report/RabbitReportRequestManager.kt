@@ -4,6 +4,7 @@ import android.util.Base64
 import androidx.annotation.Keep
 import com.google.gson.Gson
 import com.susion.rabbit.base.RabbitLog
+import com.susion.rabbit.base.entities.RabbitReportInfo
 import okhttp3.*
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -27,7 +28,7 @@ internal class RabbitReportRequestManager {
         .protocols(Collections.unmodifiableList(listOf(Protocol.HTTP_1_1)))
         .build()
 
-    fun postTrackRequest(points: List<com.susion.rabbit.base.entities.RabbitReportInfo>, requestListener: TrackRequestListener) {
+    fun postTrackRequest(points: List<RabbitReportInfo>, requestListener: TrackRequestListener) {
 
         val trackUrl = RabbitReport.mConfig.reportPath
 
@@ -60,7 +61,7 @@ internal class RabbitReportRequestManager {
         }
     }
 
-    private fun buildPostBody(points: List<com.susion.rabbit.base.entities.RabbitReportInfo>): RequestBody {
+    private fun buildPostBody(points: List<RabbitReportInfo>): RequestBody {
 
         val bodyArg = StringBuilder()
 

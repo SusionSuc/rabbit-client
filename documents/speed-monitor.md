@@ -1,13 +1,19 @@
 # 应用测速功能
 
-应用测速可以分为下面4个功能:
+该功能目前主要分为下面几个点:
 
 1. Application创建耗时
 2. 页面测速
 3. 应用冷启动测速
 4. 页面网络请求耗时监控
 
-测速功能主要是通过编译期字节码插桩来完成的，需要引入自定义的gradle插件:
+>为了方便理解每一段耗时统计的含义,可以先尝试理解下图:
+
+![pic22](./picture/rabbit-speed-time.png)
+
+## 使用
+
+测速功能主要是通过编译期字节码插桩来完成的，因此需要引入自定义的gradle插件:
 
 >根build.gradle
 ```
@@ -19,21 +25,10 @@ classpath 'com.susion:rabbit-gradle-transform:0.0.3'
 apply plugin: 'rabbit-tracer-transform'
 ```
 
-## Application创建耗时
+### 配置
 
-`rabbit`会统计应用的`Applicaiton.onCreate()`方法耗时。
+目前可以通过在`assets`目录下提供`rabbit_speed_monitor.json`文件来配置测速功能, 比如:
 
-## 页面测速
-
-对于页面测速的统计主要分为3段:
-
-1. `Activity.onCreate`耗时
-2. `Activity`首次inflate耗时
-3. `Activity`网络请求结束首次渲染耗时
-
-对于**Activity网络请求结束首次渲染耗时**,需要应用在`assets`目录下提供`rabbit_speed_monitor.json`文件:
-
->比如:
 ```
 {
   "home_activity": "MainActivity",
@@ -50,21 +45,21 @@ apply plugin: 'rabbit-tracer-transform'
 }
 ```
 
-对于**MainActivity网络请求结束首次渲染耗时**定义就是: `api/xxx1`和`api/xxx2`请求结束后引发的页面渲染事件。上面对于`ForumContainerActivity`的统计结果如下图:
+`home_activity`:它指定了应用的入口`Activity`, 主要和应用冷启动逻辑相关联，如果配置的此项，那么冷启动耗时可以测量到上图的中**T6**。
 
+`page_list`: 用来配置每一个测速页面。当配置的`api`中的接口都请求完成后就会触发这个页面的**T6**点。
+
+## 统计示例
+
+最终生成的测速结果如下图:
+
+>页面渲染
 ![pic1](./picture/page_render_speed.png)
 
-## 应用冷启动测速
-
-如果你通过`rabbit_speed_monitor.json`配置`home_activity`和`home_activity`的完全渲染事件，那么从`Application`创建到`home_activity`的**MainActivity的网络请求结束首次渲染**耗时就是应用的冷启动耗时:
-
+>应用冷启动
 ![pic2](./picture/app_speed.png)
 
-
-## 网络请求耗时
-
-可以在`rabbit_speed_monitor.json`文件中配置每个页面需要监控的网络请求，最终会生成如下统计结果:
-
+>网络耗时监控
 ![pic3](picture/page_request_speed.png)
 
 

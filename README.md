@@ -22,10 +22,7 @@
 
 # 项目架构
 
->整个代码项目代码结构如下图:
-
-![](picture/rabbit-client-arc.png)
-
+![](./documents/picture/rabbit-client-arc.png)
 
 >实现原理相关文章见:[Rabbit实现原理剖析](https://github.com/SusionSuc/AdvancedAndroid/blob/master/Rabbit%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/README.md)
 
@@ -33,8 +30,8 @@
 
 目前服务端功能正在开发中，详见:
 
-[rabbit-server](https://github.com/SusionSuc/rabbit-server) : 数据存储于管理后台(`python/django`)
+[rabbit-server](https://github.com/SusionSuc/rabbit-server) : 存储客户端上报的数据(`python/django`)
 
 [rabbit-admin](https://github.com/SusionSuc/rabbit-admin) : web端管理后台(vue)
 
-如果你对这两个项目有兴趣，欢迎联系我来一块开发~
+**如果你对这项目感兴趣的话，欢迎一块维护**
