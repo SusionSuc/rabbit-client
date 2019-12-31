@@ -38,4 +38,4 @@
 
 # License
 
-Rabbit is under the MIT license. See the [LICENSE] file for details
+Rabbit is under the MIT license. See the [LICENSE](./LICENSE) file for details
