@@ -54,6 +54,7 @@ rabbitConfig.reportConfig.notReportDataFormat.addAll(hashSetOf(RabbitExceptionIn
 - type : 指定上报的数据类型
 - deviceInfoStr : 设备信息, 格式json字符串
 - infoStr: 该类型的数据的具体内容, 格式为json字符串
+- useTime: 应用当前使用时长
 
 ### 数据类型
 

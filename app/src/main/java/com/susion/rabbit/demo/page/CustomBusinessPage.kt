@@ -4,6 +4,7 @@ import android.content.Context
 import android.widget.TextView
 import com.susion.rabbit.demo.R
 import com.susion.rabbit.ui.base.RabbitBasePage
+import com.susion.rabbit.ui.base.RabbitUi
 import com.susion.rabbit.ui.base.getDrawable
 
 /**
@@ -13,6 +14,10 @@ class CustomBusinessPage(context: Context) : RabbitBasePage(context) {
 
     override fun getLayoutResId() = INVALID_RES_ID
 
+    override fun setEntryParams(params: Any) {
+        super.setEntryParams(params)
+    }
+
     init {
         background = getDrawable(context, R.color.rabbit_white)
         addView(TextView(context).apply {
@@ -20,6 +25,7 @@ class CustomBusinessPage(context: Context) : RabbitBasePage(context) {
             textSize = 20f
         })
 
+        RabbitUi.appCurrentActivity
         setTitle("自定义业务面板")
     }
 

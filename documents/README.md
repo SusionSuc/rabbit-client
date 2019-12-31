@@ -1,13 +1,17 @@
 # Rabbit使用文档
 
-## 文档索引
+>文档索引
 
 - [应用测速](./speed-monitor.md)
 - [网络日志监控](./net-log-monitor.md)
 - [卡顿日志监控](./block-log-monitor.md)
 - [FPS和内存监控](./memory-fps-monitor.md)
 - [异常与内存泄漏捕获](./others-monitor.md)
+- [apk包分析](./app-analyzer.md)
+- [接入自定义业务面板](./cutom-page.md)
 - [数据上报](./data-report.md)
+
+>基本引入方法
 
 ## 引入方法
 
@@ -73,7 +77,7 @@ Rabbit.config(config)
 
 ## 基本使用
 
-`rabbit`依赖于悬浮窗权限来展示各种监控数据，可以调用下面方法来打开`rabbit`:
+`rabbit`使用悬浮窗来展示各种监控数据，因此需要悬浮窗权限。可以调用下面方法来打开`rabbit`:
 
 >Rabbit.kt
 ```
@@ -84,11 +88,9 @@ fun open(requestPermission: Boolean = true, activity: Activity)
 
 ![pic1](./picture/rabbit-float.png)
 
-点击`rabbit`浮标即可进入`rabbit`面板:
+点击`rabbit`浮标即可进入`rabbit`面板即可看到各项功能入口:
 
 ![pic2](./picture/rabbit-entry.jpg)
-
-这样可以看到`rabbit`各项功能的入口。 
 
 **可以通过再次点击`rabbit`浮标来关闭`rabbit`浮窗。**
 
@@ -96,7 +98,7 @@ fun open(requestPermission: Boolean = true, activity: Activity)
 
 ### 通过代码配置
 
-可能通过配置来决定`rabbit`打开哪些监控:
+可以通过代码配置来`rabbit`各项监控的打开与否:
 
 ```
 val autoOpenMonitors = hashSetOf(RabbitMonitorProtocol.NET.name, RabbitMonitorProtocol.EXCEPTION.name)
@@ -112,5 +114,8 @@ Rabbit.config(rabbitConfig)
 当然也可以在UI浮窗中配置各项功能打开与否。点击**监控配置**即可看到具体功能配置页面:
 
 ![pic3](./picture/rabbit-config.jpg)
+
+
+
 
 
