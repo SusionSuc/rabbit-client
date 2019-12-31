@@ -1,6 +1,7 @@
-# Rabbit
 
-**Rabbit目标是成为一个全面、简单易用的`APM`系统**
+![pic1](documents/picture/rabbit-header.png)
+
+**Rabbit的目标是成为一个全面、简单易用的`APM`系统**
 
 **[使用文档](./documents/README.md)**
 
@@ -34,4 +35,7 @@
 
 [rabbit-admin](https://github.com/SusionSuc/rabbit-admin) : web端管理后台(vue)
 
-**如果你对这项目感兴趣的话，欢迎一块维护**
+
+# License
+
+Rabbit is under the MIT license. See the [LICENSE] file for details
