@@ -21,10 +21,6 @@
 
 **rabbit支持上报所有性能监控数据,详情见使用文档**
 
-# 项目架构
-
-![](./documents/picture/rabbit-client-arc.png)
-
 >实现原理相关文章见:[Rabbit实现原理剖析](https://github.com/SusionSuc/AdvancedAndroid/blob/master/Rabbit%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/README.md)
 
 # 开发计划

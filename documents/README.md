@@ -114,6 +114,12 @@ Rabbit.config(rabbitConfig)
 ![pic3](./picture/rabbit-config.jpg)
 
 
+## 项目架构
+
+![](./picture/rabbit-client-arc.png)
+
+
+
 
 
 
