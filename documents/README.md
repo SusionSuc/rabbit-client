@@ -3,7 +3,7 @@
 ## 文档索引
 
 - [应用测速](./speed-monitor.md)
-- [慢函数检测]./slow-method-monitor.md)
+- [慢函数检测](./slow-method-monitor.md)
 - [网络日志监控](./net-log-monitor.md)
 - [卡顿日志监控](./block-log-monitor.md)
 - [FPS和内存监控](./memory-fps-monitor.md)
