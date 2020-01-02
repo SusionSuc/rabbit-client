@@ -34,7 +34,7 @@ object DeviceUtils {
             input.close()
         } catch (ex: IOException) {
             Log.e(
-                com.susion.rabbit.base.common.DeviceUtils.TAG,
+                DeviceUtils.TAG,
                 "Unable to read sysprop $propName",
                 ex
             )
@@ -45,7 +45,7 @@ object DeviceUtils {
                     input.close()
                 } catch (e: IOException) {
                     Log.e(
-                        com.susion.rabbit.base.common.DeviceUtils.TAG,
+                        DeviceUtils.TAG,
                         "Exception while closing InputStream",
                         e
                     )
@@ -61,9 +61,9 @@ object DeviceUtils {
         val manufacturer = if (Build.MANUFACTURER == null) "" else Build.MANUFACTURER
         val model = if (Build.MODEL == null) "" else Build.MODEL
         return if (model.startsWith(manufacturer)) {
-            com.susion.rabbit.base.common.DeviceUtils.capitalize(model)
+            capitalize(model)
         } else {
-            com.susion.rabbit.base.common.DeviceUtils.capitalize(manufacturer) + " " + model
+            capitalize(manufacturer) + " " + model
         }
     }
 
@@ -88,35 +88,35 @@ object DeviceUtils {
         if (context == null) {
             return ""
         }
-        if (com.susion.rabbit.base.common.DeviceUtils.uuid == null) {
-            synchronized(com.susion.rabbit.base.common.DeviceUtils::class.java) {
-                if (com.susion.rabbit.base.common.DeviceUtils.uuid == null) {
+        if (uuid == null) {
+            synchronized(DeviceUtils::class.java) {
+                if (uuid == null) {
                     val prefs = context.getSharedPreferences(
-                        com.susion.rabbit.base.common.DeviceUtils.PREFS_FILE,
+                        PREFS_FILE,
                         0
                     )
                     val id = prefs.getString(
-                        com.susion.rabbit.base.common.DeviceUtils.PREFS_DEVICE_ID,
+                        PREFS_DEVICE_ID,
                         null
                     )
                     if (id != null) {
                         // Use the ids previously computed and stored in the prefs file
-                        com.susion.rabbit.base.common.DeviceUtils.uuid = UUID.fromString(id)
+                        uuid = UUID.fromString(id)
                     } else {
                         val androidId =
-                            com.susion.rabbit.base.common.DeviceUtils.getAndroidId(context)
+                            getAndroidId(context)
                         // Use the Android ID unless it's broken, in which case fallback on deviceId,
                         // unless it's not isEmpty, then fallback on a random number which we store
                         // to a prefs file
                         try {
-                            if (!android.text.TextUtils.isEmpty(androidId) && "9774d56d682e549c" != androidId) {
-                                com.susion.rabbit.base.common.DeviceUtils.uuid =
+                            if (!TextUtils.isEmpty(androidId) && "9774d56d682e549c" != androidId) {
+                                uuid =
                                     UUID.nameUUIDFromBytes(androidId.toByteArray(charset("utf8")))
                             } else {
                                 val deviceId =
-                                    com.susion.rabbit.base.common.DeviceUtils.getIMEIId(context)
-                                com.susion.rabbit.base.common.DeviceUtils.uuid =
-                                    if (deviceId != null && !android.text.TextUtils.equals(
+                                    getIMEIId(context)
+                                uuid =
+                                    if (deviceId != null && !TextUtils.equals(
                                             deviceId,
                                             "unknow"
                                         )
@@ -130,14 +130,14 @@ object DeviceUtils {
                         }
 
                         prefs.edit().putString(
-                            com.susion.rabbit.base.common.DeviceUtils.PREFS_DEVICE_ID,
-                            com.susion.rabbit.base.common.DeviceUtils.uuid.toString()
+                            PREFS_DEVICE_ID,
+                            uuid.toString()
                         ).apply()
                     }
                 }
             }
         }
-        return com.susion.rabbit.base.common.DeviceUtils.uuid.toString()
+        return uuid.toString()
     }
 
     @SuppressLint("MissingPermission")

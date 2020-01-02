@@ -32,6 +32,7 @@ dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':rabbit-ui-base')
     implementation project(':rabbit-storage')
+    implementation project(':rabbit-base')
 
     implementation rootProject.ext.androidXDependencies.cardView
     implementation rootProject.ext.androidXDependencies.recyclerView

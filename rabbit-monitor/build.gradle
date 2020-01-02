@@ -29,13 +29,13 @@ android {
     }
 }
 
-
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
-    api project(':rabbit-gradle-interface')
-    api project(':rabbit-report')
-    api project(':rabbit-base')
-    api project(':rabbit-ui-base')
+    implementation project(':rabbit-gradle-interface')
+    implementation project(':rabbit-report')
+    implementation project(':rabbit-base')
+    implementation project(':rabbit-ui-base')
+    implementation project(':rabbit-storage')
 
     implementation rootProject.ext.androidXDependencies.appcompat
     implementation rootProject.ext.androidXDependencies.lifeExtensions

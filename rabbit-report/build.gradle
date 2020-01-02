@@ -31,8 +31,8 @@ android {
 
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
-    api project(':rabbit-storage')
-    api project(':rabbit-base')
+    implementation project(':rabbit-storage')
+    implementation project(':rabbit-base')
     implementation rootProject.ext.androidXDependencies.appcompat
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${uniqueVersion.kotlinStdlibJdk7Version}"
     implementation "com.squareup.retrofit2:retrofit:${uniqueVersion.retrofit2Version}"

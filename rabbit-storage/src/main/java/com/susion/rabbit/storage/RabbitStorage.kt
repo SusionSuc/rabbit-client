@@ -1,9 +1,7 @@
 package com.susion.rabbit.storage
 
 import android.app.Application
-import com.susion.rabbit.base.entities.RabbitBlockFrameInfo
-import com.susion.rabbit.base.entities.RabbitHttpLogInfo
-import com.susion.rabbit.base.entities.RabbitMemoryInfo
+import com.susion.rabbit.base.entities.*
 import com.susion.rabbit.base.greendao.DaoMaster
 import org.greenrobot.greendao.AbstractDao
 
@@ -40,50 +38,50 @@ object RabbitStorage {
         val daoProvider = ArrayList<RabbitDaoPluginProvider>().apply {
             add(
                 RabbitDaoPluginProvider(
-                    com.susion.rabbit.base.entities.RabbitBlockFrameInfo::class.java as Class<Any>,
+                    RabbitBlockFrameInfo::class.java as Class<Any>,
                     daoSession.rabbitBlockFrameInfoDao as AbstractDao<Any, Long>
                 )
             )
             add(
                 RabbitDaoPluginProvider(
-                    com.susion.rabbit.base.entities.RabbitHttpLogInfo::class.java as Class<Any>,
+                    RabbitHttpLogInfo::class.java as Class<Any>,
                     daoSession.rabbitHttpLogInfoDao as AbstractDao<Any, Long>
                 )
             )
             add(
                 RabbitDaoPluginProvider(
-                    com.susion.rabbit.base.entities.RabbitAppStartSpeedInfo::class.java as Class<Any>,
+                    RabbitAppStartSpeedInfo::class.java as Class<Any>,
                     daoSession.rabbitAppStartSpeedInfoDao as AbstractDao<Any, Long>
                 )
             )
             add(
                 RabbitDaoPluginProvider(
-                    com.susion.rabbit.base.entities.RabbitPageSpeedInfo::class.java as Class<Any>,
+                    RabbitPageSpeedInfo::class.java as Class<Any>,
                     daoSession.rabbitPageSpeedInfoDao as AbstractDao<Any, Long>
                 )
             )
             add(
                 RabbitDaoPluginProvider(
-                    com.susion.rabbit.base.entities.RabbitMemoryInfo::class.java as Class<Any>,
+                    RabbitMemoryInfo::class.java as Class<Any>,
                     daoSession.rabbitMemoryInfoDao as AbstractDao<Any, Long>
                 )
             )
             add(
                 RabbitDaoPluginProvider(
-                    com.susion.rabbit.base.entities.RabbitExceptionInfo::class.java as Class<Any>,
+                    RabbitExceptionInfo::class.java as Class<Any>,
                     daoSession.rabbitExceptionInfoDao as AbstractDao<Any, Long>
                 )
             )
             add(
                 RabbitDaoPluginProvider(
-                    com.susion.rabbit.base.entities.RabbitReportInfo::class.java as Class<Any>,
+                    RabbitReportInfo::class.java as Class<Any>,
                     daoSession.rabbitReportInfoDao as AbstractDao<Any, Long>
                 )
             )
 
             add(
                 RabbitDaoPluginProvider(
-                    com.susion.rabbit.base.entities.RabbitFPSInfo::class.java as Class<Any>,
+                    RabbitFPSInfo::class.java as Class<Any>,
                     daoSession.rabbitReportInfoDao as AbstractDao<Any, Long>
                 )
             )

@@ -2,7 +2,6 @@ package com.susion.rabbit.demo
 
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.susion.rabbit.ui.base.RabbitBaseActivity
 import com.susion.rabbit.ui.base.adapter.RabbitRvAdapter
 import com.susion.rabbit.ui.base.view.RabbitSimpleKVItemView
 import com.susion.rabbit.ui.base.view.RabbitSimpleKvInfo
