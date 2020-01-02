@@ -161,7 +161,7 @@ object RabbitMonitor {
         var memoryValueCollectPeriodMs: Long = 2000L,
         var fpsCollectThresholdNs: Long = STANDARD_FRAME_NS * 10,
         var fpsReportPeriodS: Long = 10,
-        var slowMethodPeriodMs:Long = 10
+        var slowMethodPeriodMs:Long = 500
     ) {
         companion object {
             var STANDARD_FRAME_NS = 16666666L

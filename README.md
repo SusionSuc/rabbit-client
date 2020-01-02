@@ -14,6 +14,7 @@
 7. 内存泄漏检测(LeakCanary)
 8. apk内容分析与优化
 9. 应用内存分析
+10. 慢函数检测 
 
 >rabbit支持上报所有性能监控数据,详情见[使用文档](./documents/README.md)
 

@@ -3,6 +3,7 @@
 ## 文档索引
 
 - [应用测速](./speed-monitor.md)
+- [慢函数检测]./slow-method-monitor.md)
 - [网络日志监控](./net-log-monitor.md)
 - [卡顿日志监控](./block-log-monitor.md)
 - [FPS和内存监控](./memory-fps-monitor.md)
@@ -11,12 +12,13 @@
 - [接入自定义业务面板](./cutom-page.md)
 - [数据上报](./data-report.md)
 
+
 ## 基本使用
 
 >根目录`build.gradle`
 ```
 dependencies {
-    classpath 'com.susion:rabbit-gradle-transform:0.0.3'
+    classpath 'com.susion:rabbit-gradle-transform:0.0.8'
 }
 ```
 
@@ -25,8 +27,8 @@ dependencies {
 apply plugin: 'rabbit-tracer-transform' //引入插件
 
 dependencies {
-    debugImplementation "com.susion:rabbit:0.0.7.1"  
-    releaseImplementation "com.susion:rabbit-noop:0.0.7.1" // release 下不做任何操作
+    debugImplementation "com.susion:rabbit:0.0.8"  
+    releaseImplementation "com.susion:rabbit-noop:0.0.8" // release 下不做任何操作
 } 
 ```
 
@@ -48,7 +50,8 @@ if(inDebug){
     apply plugin: 'rabbit-tracer-transform'
 
     rabbitConfig {
-        monitorPkgNamePrefixList = ['com.susion.rabbit.demo']
+        methodMonitorPkgs = ['com.susion.rabbit.demo']
+        pageSpeedMonitorPkgs = ['com.susion.rabbit.demo']
     }
 
     rabbitDepen = "com.susion:rabbit:$rabbitVersion"
