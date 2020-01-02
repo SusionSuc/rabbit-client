@@ -1,7 +1,9 @@
-package com.susion.rabbit.demo
+package com.susion.rabbit.demo.page
 
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.susion.rabbit.demo.R
+import com.susion.rabbit.demo.RabbitBaseActivity
 import com.susion.rabbit.ui.base.adapter.RabbitRvAdapter
 import com.susion.rabbit.ui.base.view.RabbitSimpleKVItemView
 import com.susion.rabbit.ui.base.view.RabbitSimpleKvInfo
@@ -27,6 +29,7 @@ class SimpleListActivity : RabbitBaseActivity() {
         mSimpleListPageRv.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         mSimpleListPageRv.adapter = listAdapter
+        Thread.sleep(1000)
     }
 
     private fun getData(): List<RabbitSimpleKvInfo> {

@@ -8,7 +8,7 @@ import com.susion.rabbit.tracer.transform.core.context.TransformContext
 import com.susion.rabbit.tracer.transform.core.rxentension.className
 import com.susion.rabbit.tracer.transform.core.rxentension.find
 import com.susion.rabbit.tracer.transform.utils.ComponentHandler
-import com.susion.rabbit.tracer.transform.utils.RabbitTransformPrinter
+import com.susion.rabbit.tracer.transform.utils.RabbitTransformUtils
 import org.objectweb.asm.Opcodes
 import org.objectweb.asm.tree.*
 import javax.xml.parsers.SAXParserFactory
@@ -39,7 +39,6 @@ class AppStartSpeedMeasureTransform : RabbitClassTransformer {
             parser.parse(manifest, handler)
             applications.addAll(handler.applications)
         }
-
     }
 
     override fun transform(context: TransformContext, klass: ClassNode): ClassNode {
@@ -68,7 +67,7 @@ class AppStartSpeedMeasureTransform : RabbitClassTransformer {
 
         onCreateMethod.instructions?.find(Opcodes.RETURN)?.apply {
 
-            RabbitTransformPrinter.p("insert code to  ${onCreateMethod.name} --- ${this.opcode}")
+            RabbitTransformUtils.print("insert code to  ${onCreateMethod.name} --- ${this.opcode}")
 
             onCreateMethod.instructions?.insertBefore(
                 this,
@@ -95,7 +94,7 @@ class AppStartSpeedMeasureTransform : RabbitClassTransformer {
 
         attachMethod.instructions?.find(Opcodes.ALOAD)?.apply {
 
-            RabbitTransformPrinter.p("insert code to  ${attachMethod.name} --- ${klass.name}")
+            RabbitTransformUtils.print("insert code to  ${attachMethod.name} --- ${klass.name}")
 
             attachMethod.instructions?.insertBefore(
                 this,
@@ -112,7 +111,7 @@ class AppStartSpeedMeasureTransform : RabbitClassTransformer {
 
 
     private fun getAttachBaseContextMethod(klass: ClassNode): MethodNode {
-        RabbitTransformPrinter.p("new Attach Method --> super class name : ${klass.superName}  --->")
+        RabbitTransformUtils.print("new Attach Method --> super class name : ${klass.superName}  --->")
         return MethodNode(
             Opcodes.ACC_PROTECTED,
             METHOD_ATTACH_CONTEXT_NAME,
@@ -139,7 +138,7 @@ class AppStartSpeedMeasureTransform : RabbitClassTransformer {
     }
 
     private fun getOnCreateMethod(klass: ClassNode): MethodNode {
-        RabbitTransformPrinter.p("new getOnCreateMethod Method --> super class name : ${klass.superName}  --->")
+        RabbitTransformUtils.print("new getOnCreateMethod Method --> super class name : ${klass.superName}  --->")
         return MethodNode(
             Opcodes.ACC_PUBLIC,
             METHOD_ON_CREATE_NAME,

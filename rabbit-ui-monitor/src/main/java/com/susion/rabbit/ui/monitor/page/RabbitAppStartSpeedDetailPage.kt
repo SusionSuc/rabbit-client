@@ -8,6 +8,7 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.susion.rabbit.storage.RabbitDbStorageManager
+import com.susion.rabbit.ui.base.RabbitBasePage
 import com.susion.rabbit.ui.base.dp2px
 import com.susion.rabbit.ui.monitor.R
 import kotlinx.android.synthetic.main.rabbit_page_app_start_speed_detail.view.*
@@ -18,7 +19,7 @@ import java.util.*
  * susionwang at 2019-10-29
  * 应用启动相关数据详情页
  */
-class RabbitAppStartSpeedDetailPage(context: Context) : com.susion.rabbit.ui.base.RabbitBasePage(context) {
+class RabbitAppStartSpeedDetailPage(context: Context) : RabbitBasePage(context) {
 
     override fun getLayoutResId() = R.layout.rabbit_page_app_start_speed_detail
 

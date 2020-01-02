@@ -12,6 +12,7 @@ import com.susion.rabbit.base.entities.RabbitMemoryInfo
 import com.susion.rabbit.monitor.RabbitMonitor
 import com.susion.rabbit.report.RabbitReport
 import com.susion.rabbit.storage.RabbitStorage
+import com.susion.rabbit.tracer.RabbitPluginConfig
 import com.susion.rabbit.ui.base.RabbitUi
 import com.susion.rabbit.ui.base.utils.FloatingViewPermissionHelper
 import com.susion.rabbit.ui.monitor.RabbitMonitorUi
@@ -38,6 +39,10 @@ object Rabbit {
 
         mConfig = config
 
+        //加载 gradle plugin config
+        RabbitPluginConfig.loadConfig()
+
+        // init log
         RabbitLog.init(mConfig.enableLog)
 
         //存储配置

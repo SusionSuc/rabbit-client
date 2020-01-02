@@ -38,12 +38,19 @@ interface RabbitMonitorProtocol {
             "异常监控",
             true
         )
-        val NET =
-            MonitorInfo("net_monitor", "网络监控", true)
+
+        val NET = MonitorInfo("net_monitor", "网络监控", true)
+
         val USE_TIME = MonitorInfo(
             "use_time",
             "使用时长监控",
             showInExternal = false
+        )
+
+        val METHOD_TRACE = MonitorInfo(
+            "method_trace",
+            "慢函数监控",
+            showInExternal = true
         )
     }
 

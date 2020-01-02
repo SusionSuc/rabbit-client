@@ -2,18 +2,21 @@ package com.susion.rabbit.ui.monitor.page
 
 import android.content.Context
 import android.view.ViewGroup
+import com.susion.rabbit.base.entities.RabbitAppStartSpeedInfo
 import com.susion.rabbit.base.entities.RabbitAppStartSpeedTotalInfo
+import com.susion.rabbit.base.entities.RabbitPageSpeedInfo
 import com.susion.rabbit.base.entities.RabbitPageSpeedUiInfo
 import com.susion.rabbit.ui.monitor.view.RabbitAppSpeedInfoView
 import com.susion.rabbit.ui.monitor.view.RabbitPageSpeedUiItemView
 import com.susion.rabbit.storage.RabbitDbStorageManager
+import com.susion.rabbit.ui.base.RabbitBasePage
 import com.susion.rabbit.ui.monitor.R
 import kotlinx.android.synthetic.main.rabbit_page_ui_block_list.view.*
 
 /**
  * susionwang at 2019-10-29
  */
-class RabbitAppSpeedMonitorDetailPage(context: Context) : com.susion.rabbit.ui.base.RabbitBasePage(context) {
+class RabbitAppSpeedMonitorDetailPage(context: Context) : RabbitBasePage(context) {
 
     private val logsAdapter by lazy {
         object : com.susion.rabbit.ui.base.adapter.RabbitRvAdapter<Any>(ArrayList()) {
@@ -53,7 +56,7 @@ class RabbitAppSpeedMonitorDetailPage(context: Context) : com.susion.rabbit.ui.b
 
     private fun loadData() {
 
-        RabbitDbStorageManager.getAll(com.susion.rabbit.base.entities.RabbitAppStartSpeedInfo::class.java) { speedInfos ->
+        RabbitDbStorageManager.getAll(RabbitAppStartSpeedInfo::class.java) { speedInfos ->
 
             val info = RabbitAppStartSpeedTotalInfo().apply {
                 avgOnCreateTime =
@@ -63,7 +66,7 @@ class RabbitAppSpeedMonitorDetailPage(context: Context) : com.susion.rabbit.ui.b
                 count = speedInfos.size.toString()
             }
 
-            RabbitDbStorageManager.getAll(com.susion.rabbit.base.entities.RabbitPageSpeedInfo::class.java) {
+            RabbitDbStorageManager.getAll(RabbitPageSpeedInfo::class.java) {
                 mUiBlockPageSRL.isRefreshing = false
 
                 val pageSpeedMap = LinkedHashMap<String, RabbitPageSpeedUiInfo>()

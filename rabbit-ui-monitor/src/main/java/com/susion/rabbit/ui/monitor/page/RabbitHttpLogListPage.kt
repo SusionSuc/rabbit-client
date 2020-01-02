@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import com.susion.rabbit.base.entities.RabbitHttpLogInfo
 import com.susion.rabbit.ui.monitor.view.HttpLogPreviewItemView
 import com.susion.rabbit.storage.RabbitDbStorageManager
+import com.susion.rabbit.ui.base.RabbitBasePage
 import com.susion.rabbit.ui.monitor.R
 import kotlinx.android.synthetic.main.rabbit_page_http_log_list.view.*
 
@@ -12,7 +13,7 @@ import kotlinx.android.synthetic.main.rabbit_page_http_log_list.view.*
  * susionwang at 2019-10-21
  */
 
-class RabbitHttpLogListPage(context: Context) : com.susion.rabbit.ui.base.RabbitBasePage(context) {
+class RabbitHttpLogListPage(context: Context) : RabbitBasePage(context) {
 
     private val logsAdapter by lazy {
         object : com.susion.rabbit.ui.base.adapter.RabbitRvAdapter<RabbitHttpLogInfo>(ArrayList()) {

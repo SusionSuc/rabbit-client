@@ -1,15 +1,16 @@
 //debug 模式下才使用rabbit
 def taskName = getGradle().getStartParameter().taskNames.toString().toLowerCase()
 def inDebug = taskName.contains("debug")
-def rabbitVersion = "0.0.7.3"
+def rabbitVersion = "0.0.7.4"
 def rabbitDepen = "com.susion:rabbit-noop:$rabbitVersion"
 
-if(inDebug){
+if (inDebug) {
     print("apply rabbit transform ! ---->")
     apply plugin: 'rabbit-tracer-transform'
 
     rabbitConfig {
-        monitorPkgNamePrefixList = ['com.susion.rabbit.demo']
+        pageSpeedMonitorPkgs = ['com.susion.rabbit.demo']
+        methodMonitorPkgs = ['com.susion.rabbit.demo', 'com.susion.rabbit.demo.page']
     }
 
     rabbitDepen = "com.susion:rabbit:$rabbitVersion"

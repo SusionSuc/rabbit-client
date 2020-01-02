@@ -31,7 +31,7 @@ object RabbitAsync {
                 finishCallback()
             }, {
                 finishCallback()
-                RabbitLog.d(com.susion.rabbit.base.common.RabbitAsync.TAG, "asyncRun error")
+                RabbitLog.d(TAG, "asyncRun error")
             })
     }
 
@@ -51,7 +51,7 @@ object RabbitAsync {
             .subscribe({
                 completeCallBack(it)
             }, {
-                RabbitLog.d(com.susion.rabbit.base.common.RabbitAsync.TAG, "asyncRun error")
+                RabbitLog.d(TAG, "asyncRun error")
             })
     }
 
@@ -72,7 +72,7 @@ object RabbitAsync {
             .subscribe({
                 completeCallBack(it)
             }, {
-                RabbitLog.d(com.susion.rabbit.base.common.RabbitAsync.TAG, "asyncRun error")
+                RabbitLog.d(TAG, "asyncRun error")
             })
     }
 
@@ -93,7 +93,7 @@ object RabbitAsync {
                 finishCallback()
             }, {
                 finishCallback()
-                RabbitLog.d(com.susion.rabbit.base.common.RabbitAsync.TAG, "asyncRun  error")
+                RabbitLog.d(TAG, "asyncRun  error")
             })
     }
 

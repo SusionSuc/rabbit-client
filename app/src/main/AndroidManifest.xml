@@ -18,10 +18,10 @@
 
         <activity android:name="com.susion.rabbit.demo.net.TransformTestActivity" />
         <activity
-            android:name="com.susion.rabbit.demo.TracerTestActivity"
+            android:name="com.susion.rabbit.demo.page.TracerTestActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.susion.rabbit.demo.SimpleListActivity"
+            android:name="com.susion.rabbit.demo.page.SimpleListActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name="com.susion.rabbit.demo.MainActivity"

@@ -8,6 +8,9 @@ import com.google.gson.reflect.TypeToken
 import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.entities.RabbitBlockFrameInfo
 import com.susion.rabbit.base.entities.RabbitBlockStackTraceInfo
+import com.susion.rabbit.ui.base.RabbitBasePage
+import com.susion.rabbit.ui.base.adapter.RabbitAdapterItemView
+import com.susion.rabbit.ui.base.adapter.RabbitRvAdapter
 import com.susion.rabbit.ui.monitor.R
 import com.susion.rabbit.ui.monitor.view.RabbitBlockStackTraceView
 import kotlinx.android.synthetic.main.rabbit_page_ui_block.view.*
@@ -17,11 +20,11 @@ import java.util.concurrent.TimeUnit
  * susionwang at 2019-10-21
  */
 
-class RabbitUiBlockDetailPage(context: Context) : com.susion.rabbit.ui.base.RabbitBasePage(context) {
+class RabbitUiBlockDetailPage(context: Context) : RabbitBasePage(context) {
 
     private val logsAdapter by lazy {
-        object : com.susion.rabbit.ui.base.adapter.RabbitRvAdapter<Any>(ArrayList()) {
-            override fun createItem(type: Int): com.susion.rabbit.ui.base.adapter.RabbitAdapterItemView<*> {
+        object : RabbitRvAdapter<Any>(ArrayList()) {
+            override fun createItem(type: Int): RabbitAdapterItemView<*> {
                 return when (type) {
                     1 -> com.susion.rabbit.ui.base.view.RabbitSimpleKVItemView(context)
                     else -> RabbitBlockStackTraceView(context)

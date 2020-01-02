@@ -7,7 +7,10 @@ package com.susion.rabbit.tracer
 object RabbitTracerEventNotifier {
 
     @JvmField
-    var eventNotifier: TracerEvent = FakeEventListener()
+    var appSpeedNotifier: TracerEvent = FakeEventListener()
+
+    @JvmField
+    var methodCostNotifier:MethodCostEvent = FakeMethodCostListener()
 
     interface TracerEvent {
         fun applicationCreateTime(attachBaseContextTime:Long, createEndTime:Long){}
@@ -17,6 +20,12 @@ object RabbitTracerEventNotifier {
         fun activityResumeEnd(activity: Any, time: Long){}
     }
 
+    interface MethodCostEvent{
+        fun methodCost(method:String, time:Long){}
+    }
+
     class FakeEventListener:TracerEvent
+
+    class FakeMethodCostListener:MethodCostEvent
 
 }

@@ -51,6 +51,7 @@ object RabbitMonitor {
             put(RabbitMonitorProtocol.EXCEPTION.name, RabbitExceptionMonitor())
             put(RabbitMonitorProtocol.NET.name, RabbitNetMonitor())
             put(RabbitMonitorProtocol.USE_TIME.name, RabbitAppUseTimeMonitor())
+            put(RabbitMonitorProtocol.METHOD_TRACE.name, RabbitMethodMonitor())
         }
 
         this.config.autoOpenMonitors.forEach {
@@ -159,7 +160,8 @@ object RabbitMonitor {
         var autoOpenMonitors: HashSet<String> = HashSet(),
         var memoryValueCollectPeriodMs: Long = 2000L,
         var fpsCollectThresholdNs: Long = STANDARD_FRAME_NS * 10,
-        var fpsReportPeriodS: Long = 10
+        var fpsReportPeriodS: Long = 10,
+        var slowMethodPeriodMs:Long = 10
     ) {
         companion object {
             var STANDARD_FRAME_NS = 16666666L

@@ -10,6 +10,7 @@ import android.view.View
 import androidx.core.app.ActivityCompat
 import com.susion.rabbit.demo.net.DevToolsTestApiModel
 import com.susion.rabbit.Rabbit
+import com.susion.rabbit.demo.page.TracerTestActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : RabbitBaseActivity() {

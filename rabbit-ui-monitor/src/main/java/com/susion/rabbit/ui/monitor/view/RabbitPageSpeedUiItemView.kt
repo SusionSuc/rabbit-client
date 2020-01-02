@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.susion.rabbit.base.entities.RabbitPageSpeedUiInfo
 import com.susion.rabbit.ui.base.RabbitUi
+import com.susion.rabbit.ui.base.adapter.RabbitAdapterItemView
 import com.susion.rabbit.ui.monitor.page.RabbitPageSpeedDetailPage
 import com.susion.rabbit.ui.base.dp2px
 import com.susion.rabbit.ui.base.getDrawable
@@ -18,7 +19,7 @@ import kotlinx.android.synthetic.main.rabbit_view_ui_block_item.view.*
  * susionwang at 2019-09-25
  */
 class RabbitPageSpeedUiItemView(context: Context) : LinearLayout(context),
-    com.susion.rabbit.ui.base.adapter.RabbitAdapterItemView<RabbitPageSpeedUiInfo> {
+    RabbitAdapterItemView<RabbitPageSpeedUiInfo> {
 
     init {
         LayoutInflater.from(context).inflate(R.layout.rabbit_view_ui_block_item, this)

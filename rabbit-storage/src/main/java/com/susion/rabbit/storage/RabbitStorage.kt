@@ -85,6 +85,13 @@ object RabbitStorage {
                     daoSession.rabbitReportInfoDao as AbstractDao<Any, Long>
                 )
             )
+
+            add(
+                RabbitDaoPluginProvider(
+                    RabbitSlowMethodInfo::class.java as Class<Any>,
+                    daoSession.rabbitSlowMethodInfoDao as AbstractDao<Any, Long>
+                )
+            )
         }
         return daoProvider
     }

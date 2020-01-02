@@ -35,7 +35,7 @@ android {
     }
 }
 greendao {
-    schemaVersion 1007
+    schemaVersion 1008
     daoPackage 'com.susion.rabbit.base.greendao'
     targetGenDir 'src/main/java'
 }

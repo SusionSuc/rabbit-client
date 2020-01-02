@@ -8,7 +8,7 @@ import com.susion.rabbit.tracer.transform.core.context.TransformContext
 import com.susion.rabbit.tracer.transform.core.rxentension.className
 import com.susion.rabbit.tracer.transform.core.rxentension.find
 import com.susion.rabbit.tracer.transform.utils.ComponentHandler
-import com.susion.rabbit.tracer.transform.utils.RabbitTransformPrinter
+import com.susion.rabbit.tracer.transform.utils.RabbitTransformUtils
 import org.objectweb.asm.Opcodes
 import org.objectweb.asm.tree.*
 import javax.xml.parsers.SAXParserFactory
@@ -56,7 +56,7 @@ class ActivitySpeedMonitorTransform : RabbitClassTransformer {
 
     override fun transform(context: TransformContext, klass: ClassNode): ClassNode {
 
-        if (!activityList.contains(klass.className) || !prefixInConfig(klass)) {
+        if (!activityList.contains(klass.className) || !RabbitTransformUtils.classInPkgList(klass.className, GlobalConfig.pageSpeedMonitorPkgs)) {
             return klass
         }
 
@@ -68,36 +68,19 @@ class ActivitySpeedMonitorTransform : RabbitClassTransformer {
 
     }
 
-    private fun prefixInConfig(klass: ClassNode): Boolean {
-
-        val className = klass.className
-
-        val configList = GlobalConfig.monitorPkgNamePrefixList
-
-        if (configList.isEmpty()) return true
-
-        configList.forEach {
-            if (className.startsWith(it)) {
-                return true
-            }
-        }
-
-        return false
-    }
-
     private fun insertCodeToActivityOnCreate(klass: ClassNode) {
         val onCreateMethod = klass.methods?.find {
             "${it.name}${it.desc}" == "$METHOD_ON_CREATE_NAME$METHOD_ONCREATE_DESC"
         } ?: return
 
         onCreateMethod.instructions?.find(Opcodes.RETURN)?.apply {
-            RabbitTransformPrinter.p("ActivitySpeedMonitorTransform : insert code to wrap activity content view ---> ${klass.name}")
+            RabbitTransformUtils.print("ActivitySpeedMonitorTransform : insert code to wrap activity content view ---> ${klass.name}")
             onCreateMethod.instructions?.insertBefore(this, VarInsnNode(Opcodes.ALOAD, 0)) //参数
             onCreateMethod.instructions?.insertBefore(this, getWrapSpeedViewMethod())
         }
 
         onCreateMethod.instructions?.find(Opcodes.ALOAD)?.apply {
-            RabbitTransformPrinter.p("ActivitySpeedMonitorTransform : insert code to on activity create ---> ${klass.name}")
+            RabbitTransformUtils.print("ActivitySpeedMonitorTransform : insert code to on activity create ---> ${klass.name}")
             onCreateMethod.instructions?.insertBefore(this, VarInsnNode(Opcodes.ALOAD, 0)) //参数
             onCreateMethod.instructions?.insertBefore(this, getAcCreateStateMethod())
         }
@@ -114,7 +97,7 @@ class ActivitySpeedMonitorTransform : RabbitClassTransformer {
         }
 
         onResumeMethod.instructions?.find(Opcodes.RETURN)?.apply {
-            RabbitTransformPrinter.p("insert code to  ${onResumeMethod.name} --- ${klass.name}")
+            RabbitTransformUtils.print("insert code to  ${onResumeMethod.name} --- ${klass.name}")
             onResumeMethod.instructions?.insertBefore(this, VarInsnNode(Opcodes.ALOAD, 0)) //参数
             onResumeMethod.instructions?.insertBefore(this, getAcResumeStateMethod())
         }
@@ -147,7 +130,7 @@ class ActivitySpeedMonitorTransform : RabbitClassTransformer {
     )
 
     private fun getDefaultOnResumeMethod(klass: ClassNode): MethodNode {
-        RabbitTransformPrinter.p("new onResume() Method --> super class name : ${klass.superName}  --->")
+        RabbitTransformUtils.print("new onResume() Method --> super class name : ${klass.superName}  --->")
         return MethodNode(
             Opcodes.ACC_PROTECTED,
             METHOD_ON_RESUME_NAME,

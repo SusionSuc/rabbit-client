@@ -91,6 +91,14 @@ object RabbitMonitorUi {
                     RabbitMemoryComposePage::class.java
                 )
             )
+
+            add(
+                RabbitMainFeatureInfo(
+                    "慢函数",
+                    R.drawable.rabbit_icon_slow_method,
+                    RabbitSlowMethodListPage::class.java
+                )
+            )
         }
     }
 

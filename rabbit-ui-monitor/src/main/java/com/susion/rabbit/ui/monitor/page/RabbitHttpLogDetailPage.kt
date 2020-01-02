@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.View
 import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.entities.RabbitHttpLogInfo
+import com.susion.rabbit.ui.base.RabbitBasePage
 import com.susion.rabbit.ui.base.showToast
 import com.susion.rabbit.ui.monitor.R
 import kotlinx.android.synthetic.main.rabbit_page_http_log_detail.view.*
@@ -14,7 +15,7 @@ import java.util.*
  * susionwang at 2019-10-21
  */
 
-class RabbitHttpLogDetailPage(context: Context) : com.susion.rabbit.ui.base.RabbitBasePage(context) {
+class RabbitHttpLogDetailPage(context: Context) : RabbitBasePage(context) {
 
     override fun getLayoutResId() = R.layout.rabbit_page_http_log_detail
 

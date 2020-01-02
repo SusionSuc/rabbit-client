@@ -1,7 +1,9 @@
-package com.susion.rabbit.demo
+package com.susion.rabbit.demo.page
 
 import android.content.Intent
 import android.os.Bundle
+import com.susion.rabbit.demo.R
+import com.susion.rabbit.demo.RabbitBaseActivity
 import kotlinx.android.synthetic.main.activity_tracer_test.*
 
 class TracerTestActivity : RabbitBaseActivity() {

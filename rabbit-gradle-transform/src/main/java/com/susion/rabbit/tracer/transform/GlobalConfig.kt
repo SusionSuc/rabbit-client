@@ -5,6 +5,8 @@ package com.susion.rabbit.tracer.transform
  */
 object GlobalConfig {
 
-    var monitorPkgNamePrefixList:List<String> = ArrayList<String>()
+    var pageSpeedMonitorPkgs:List<String> = ArrayList<String>()
+
+    var methodMonitorPkgs:List<String> = ArrayList<String>()
 
 }

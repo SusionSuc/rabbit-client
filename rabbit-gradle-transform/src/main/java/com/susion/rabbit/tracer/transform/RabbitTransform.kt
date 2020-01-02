@@ -7,7 +7,7 @@ import com.android.build.gradle.internal.pipeline.TransformManager
 import com.android.builder.model.AndroidProject
 import com.susion.rabbit.tracer.transform.core.context.RabbitTransformInvocation
 import com.susion.rabbit.tracer.transform.core.rxentension.file
-import com.susion.rabbit.tracer.transform.utils.RabbitTransformPrinter
+import com.susion.rabbit.tracer.transform.utils.RabbitTransformUtils
 import java.util.concurrent.TimeUnit
 
 /**
@@ -28,7 +28,7 @@ class RabbitTransform : Transform() {
 
         if (transformInvocation == null) return
 
-        RabbitTransformPrinter.p("rabbit RabbitTransform run ")
+        RabbitTransformUtils.print("rabbit RabbitTransform run ")
 
         RabbitTransformInvocation(transformInvocation).apply {
             if (isIncremental) {

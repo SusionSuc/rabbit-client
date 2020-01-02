@@ -18,7 +18,7 @@ public class AppStartTracer {
     }
 
     public static void recordApplicationCreateEnd() {
-        RabbitTracerEventNotifier.eventNotifier.applicationCreateTime(appAttachBaseContextTime, System.currentTimeMillis());
+        RabbitTracerEventNotifier.appSpeedNotifier.applicationCreateTime(appAttachBaseContextTime, System.currentTimeMillis());
     }
 
 }

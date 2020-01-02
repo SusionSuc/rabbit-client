@@ -10,6 +10,7 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.susion.rabbit.ui.base.utils.RabbitUiUtils
 import com.susion.rabbit.base.entities.RabbitMemoryInfo
 import com.susion.rabbit.storage.RabbitDbStorageManager
+import com.susion.rabbit.ui.base.RabbitBasePage
 import com.susion.rabbit.ui.base.dp2px
 import com.susion.rabbit.ui.monitor.R
 import kotlinx.android.synthetic.main.rabbit_page_memory_compose.view.*
@@ -17,7 +18,7 @@ import kotlinx.android.synthetic.main.rabbit_page_memory_compose.view.*
 /**
  * susionwang at 2019-12-03
  */
-class RabbitMemoryComposePage(context: Context) : com.susion.rabbit.ui.base.RabbitBasePage(context) {
+class RabbitMemoryComposePage(context: Context) : RabbitBasePage(context) {
 
     override fun getLayoutResId() = R.layout.rabbit_page_memory_compose
 

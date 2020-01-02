@@ -6,9 +6,7 @@ import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.monitor.RabbitMonitor
 import com.susion.rabbit.base.RabbitMonitorProtocol
 import com.susion.rabbit.base.common.FileUtils
-import com.susion.rabbit.base.entities.RabbitApiInfo
-import com.susion.rabbit.base.entities.RabbitAppSpeedMonitorConfig
-import com.susion.rabbit.base.entities.RabbitPageApiInfo
+import com.susion.rabbit.base.entities.*
 import com.susion.rabbit.storage.RabbitDbStorageManager
 import com.susion.rabbit.tracer.RabbitTracerEventNotifier
 
@@ -33,10 +31,8 @@ internal class RabbitAppSpeedMonitor(override var isOpen: Boolean = false) :
     private var appSpeedCanRecord = false
     private var pageSpeedCanRecord = false
 
-    private var pageSpeedInfo: com.susion.rabbit.base.entities.RabbitPageSpeedInfo =
-        com.susion.rabbit.base.entities.RabbitPageSpeedInfo()
-    private var appSpeedInfo: com.susion.rabbit.base.entities.RabbitAppStartSpeedInfo =
-        com.susion.rabbit.base.entities.RabbitAppStartSpeedInfo()
+    private var pageSpeedInfo: RabbitPageSpeedInfo = RabbitPageSpeedInfo()
+    private var appSpeedInfo: RabbitAppStartSpeedInfo = RabbitAppStartSpeedInfo()
 
     //第一个对用户有效的页面 【闪屏页 or 首页】
     private var entryActivityName = ""
@@ -54,7 +50,7 @@ internal class RabbitAppSpeedMonitor(override var isOpen: Boolean = false) :
 
     override fun close() {
         isOpen = false
-        RabbitTracerEventNotifier.eventNotifier = RabbitTracerEventNotifier.FakeEventListener()
+        RabbitTracerEventNotifier.appSpeedNotifier = RabbitTracerEventNotifier.FakeEventListener()
     }
 
     override fun getMonitorInfo() = RabbitMonitorProtocol.APP_SPEED
@@ -99,7 +95,7 @@ internal class RabbitAppSpeedMonitor(override var isOpen: Boolean = false) :
     }
 
     private fun monitorActivitySpeed() {
-        RabbitTracerEventNotifier.eventNotifier = object : RabbitTracerEventNotifier.TracerEvent {
+        RabbitTracerEventNotifier.appSpeedNotifier = object : RabbitTracerEventNotifier.TracerEvent {
 
             override fun applicationCreateTime(attachBaseContextTime: Long, createEndTime: Long) {
                 appSpeedCanRecord = true
@@ -116,7 +112,7 @@ internal class RabbitAppSpeedMonitor(override var isOpen: Boolean = false) :
             override fun activityCreateStart(activity: Any, time: Long) {
                 currentPageName = activity.javaClass.simpleName
                 pageSpeedCanRecord = true
-                pageSpeedInfo = com.susion.rabbit.base.entities.RabbitPageSpeedInfo()
+                pageSpeedInfo = RabbitPageSpeedInfo()
                 pageSpeedInfo.pageName = activity.javaClass.name
                 pageSpeedInfo.createStartTime = time
                 resetPageApiRequestStatus(activity.javaClass.simpleName)
@@ -199,7 +195,7 @@ internal class RabbitAppSpeedMonitor(override var isOpen: Boolean = false) :
     }
 
     private fun monitorApplicationStart() {
-        RabbitTracerEventNotifier.eventNotifier = object : RabbitTracerEventNotifier.TracerEvent {
+        RabbitTracerEventNotifier.appSpeedNotifier = object : RabbitTracerEventNotifier.TracerEvent {
             override fun applicationCreateTime(attachBaseContextTime: Long, createEndTime: Long) {
                 appSpeedInfo.time = System.currentTimeMillis()
                 appSpeedInfo.createStartTime = attachBaseContextTime

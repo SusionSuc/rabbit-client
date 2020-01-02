@@ -46,11 +46,11 @@ public class ActivitySpeedMonitor extends FrameLayout {
     @Override
     protected void dispatchDraw(Canvas canvas) {
         super.dispatchDraw(canvas);
-        RabbitTracerEventNotifier.eventNotifier.activityDrawFinish(getContext(), System.currentTimeMillis());
+        RabbitTracerEventNotifier.appSpeedNotifier.activityDrawFinish(getContext(), System.currentTimeMillis());
     }
 
     public static void wrapperViewOnActivityCreateEnd(Activity activity) {
-        RabbitTracerEventNotifier.eventNotifier.activityCreateEnd(activity, System.currentTimeMillis());
+        RabbitTracerEventNotifier.appSpeedNotifier.activityCreateEnd(activity, System.currentTimeMillis());
         ViewGroup contentView = activity.findViewById(android.R.id.content);
         //这里存在问题，强制取第0个View，可能会导致渲染完成时机取的不正确
         if (contentView != null && contentView.getChildCount() >= 1 && contentView instanceof FrameLayout) {
@@ -76,11 +76,11 @@ public class ActivitySpeedMonitor extends FrameLayout {
     }
 
     public static void activityCreateStart(Activity activity) {
-        RabbitTracerEventNotifier.eventNotifier.activityCreateStart(activity, System.currentTimeMillis());
+        RabbitTracerEventNotifier.appSpeedNotifier.activityCreateStart(activity, System.currentTimeMillis());
     }
 
     public static void activityResumeEnd(Activity activity) {
-        RabbitTracerEventNotifier.eventNotifier.activityResumeEnd(activity, System.currentTimeMillis());
+        RabbitTracerEventNotifier.appSpeedNotifier.activityResumeEnd(activity, System.currentTimeMillis());
     }
 
     public static void replaceParent(View view, ViewGroup oldParent, ViewGroup newParent) {

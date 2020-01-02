@@ -33,6 +33,7 @@ dependencies {
     implementation project(':rabbit-ui-base')
     implementation project(':rabbit-storage')
     implementation project(':rabbit-base')
+    implementation project(':rabbit-gradle-interface')
 
     implementation rootProject.ext.androidXDependencies.cardView
     implementation rootProject.ext.androidXDependencies.recyclerView
