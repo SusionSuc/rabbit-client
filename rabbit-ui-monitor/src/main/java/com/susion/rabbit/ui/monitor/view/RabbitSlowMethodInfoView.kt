@@ -18,13 +18,13 @@ import com.susion.rabbit.ui.monitor.entities.RabbitSlowMethodUiInfo
 class RabbitSlowMethodInfoView (context: Context) : LinearLayout(context), RabbitAdapterItemView<RabbitSlowMethodUiInfo> {
 
     private val tvClassName = TextView(context).apply {
-        setTextSize(TypedValue.COMPLEX_UNIT_DIP, 17f)
+        setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14f)
         setTextColor(getColor(context, R.color.rabbit_black))
         layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
     }
 
     private val tvMethodDesc = TextView(context).apply {
-        setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15f)
+        setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12f)
         setTextColor(getColor(context, R.color.rabbit_black))
         layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT).apply {
             topMargin = dp2px(5f)

@@ -31,8 +31,7 @@ class RabbitActionBar : RelativeLayout {
             LayoutParams.MATCH_PARENT,
             dp2px(45f)
         )
-        background =
-            getDrawable(context, R.drawable.rabbit_action_bar_coner_rect)
+        background = getDrawable(context, R.color.rabbit_material_promary)
         mDevToolsToolsBarIvBack.throttleFirstClick(Consumer {
             actionListener?.onBackClick()
         })

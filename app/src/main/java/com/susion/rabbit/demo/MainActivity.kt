@@ -47,7 +47,12 @@ class MainActivity : RabbitBaseActivity() {
             }
         }
 
+        mSlowMethodTv.setOnClickListener {
+            startActivity(Intent(this, MethodCostTraceActivity::class.java))
+        }
+
     }
+
 
     private fun requestPermission() {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {

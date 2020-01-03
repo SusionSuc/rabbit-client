@@ -47,8 +47,7 @@ object RabbitUi {
         }
     }
 
-    var config: com.susion.rabbit.base.config.RabbitUiConfig =
-        com.susion.rabbit.base.config.RabbitUiConfig()
+    var config: RabbitUiConfig = RabbitUiConfig()
     lateinit var application: Application
 
     //页面是否在展示
@@ -70,14 +69,12 @@ object RabbitUi {
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
             )
-            background =
-                getDrawable(context, R.color.rabbit_transparent_black)
+            background = getDrawable(context, R.color.rabbit_transparent_black)
         }
     }
 
     //当前应用正在展示的Activity
     var appCurrentActivity: WeakReference<Activity?>? = null
-
 
     //应用可见性监控
     private val applicationLifecycle = object : LifecycleObserver {
@@ -93,12 +90,15 @@ object RabbitUi {
         }
     }
 
-    fun init(application: Application, config: com.susion.rabbit.base.config.RabbitUiConfig = com.susion.rabbit.base.config.RabbitUiConfig()) {
+    fun init(application: Application, config: RabbitUiConfig = RabbitUiConfig()) {
         this.application = application
         this.config = config
         this.application.registerActivityLifecycleCallbacks(object :
             SimpleActivityLifecycleWrapper() {
             override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
+                appCurrentActivity = WeakReference(activity)
+            }
+            override fun onActivityResumed(activity: Activity?) {
                 appCurrentActivity = WeakReference(activity)
             }
         })

@@ -36,29 +36,35 @@ class MethodCostMonitorTransform : RabbitClassTransformer {
     private fun insertMethodTraceCode(klass: ClassNode) {
 
         for (method in klass.methods) {
-            //超两行的函数才统计
-            if (notTraceMethods.contains(method.name) && method.instructions.size() > 2) {
+
+            val abstractMethod = (method.access and Opcodes.ACC_ABSTRACT) == Opcodes.ACC_ABSTRACT
+
+            //函数太短的话不统计
+            if (notTraceMethods.contains(method.name) || method.instructions.size() < 3 || abstractMethod) {
                 continue
             }
 
             val methodName = "${klass.name.replace("/", ".")}&${method.name}()"
-            val isStaticMethod = (method.access and Opcodes.ACC_STATIC )== Opcodes.ACC_STATIC
-            method.instructions?.find(Opcodes.RETURN)?.apply {
-                if (!isStaticMethod){
-                    method.instructions?.insertBefore(this, VarInsnNode(Opcodes.ALOAD, 0))
+            val firstInstruction =  method.instructions?.find(Opcodes.INVOKESPECIAL) ?: method.instructions.get(0)
+
+            val returnInstruction =  method.instructions?.find(Opcodes.RETURN)
+            val isStaticMethod = (method.access and Opcodes.ACC_STATIC) == Opcodes.ACC_STATIC
+
+            if (firstInstruction != null && returnInstruction != null){
+
+                RabbitTransformUtils.print("MethodCostMonitorTransform -> trace method  $methodName")
+                //trace method start
+                method.instructions?.insert(firstInstruction, getMethodRecordStartMethod())
+
+                //trace method end
+                if (!isStaticMethod) {
+                    method.instructions?.insertBefore(returnInstruction, VarInsnNode(Opcodes.ALOAD, 0))
                 }
-                method.instructions?.insertBefore(this, LdcInsnNode(methodName)) //参数
-                method.instructions?.insertBefore(this, getMethodRecordEndMethod())
+                method.instructions?.insertBefore(returnInstruction, LdcInsnNode(methodName)) //参数
+                method.instructions?.insertBefore(returnInstruction, getMethodRecordEndMethod())
             }
-
-            method.instructions?.find(Opcodes.ALOAD)?.apply {
-                method.instructions?.insertBefore(this, getMethodRecordStartMethod())
-            }
-
-            RabbitTransformUtils.print("MethodCostMonitorTransform -> trace method $methodName")
         }
     }
-
 
     private fun getMethodRecordStartMethod(): MethodInsnNode {
         return MethodInsnNode(

@@ -34,7 +34,7 @@ dependencies {
 
 
 group 'com.susion.rabbit.transform'
-version '0.0.7.9.10'
+version '0.0.8.4'
 
 uploadArchives {
     repositories {

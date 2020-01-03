@@ -97,7 +97,7 @@ class ActivitySpeedMonitorTransform : RabbitClassTransformer {
         }
 
         onResumeMethod.instructions?.find(Opcodes.RETURN)?.apply {
-            RabbitTransformUtils.print("insert code to  ${onResumeMethod.name} --- ${klass.name}")
+            RabbitTransformUtils.print("ActivitySpeedMonitorTransform: insert code to  ${onResumeMethod.name} --- ${klass.name}")
             onResumeMethod.instructions?.insertBefore(this, VarInsnNode(Opcodes.ALOAD, 0)) //参数
             onResumeMethod.instructions?.insertBefore(this, getAcResumeStateMethod())
         }
@@ -130,7 +130,7 @@ class ActivitySpeedMonitorTransform : RabbitClassTransformer {
     )
 
     private fun getDefaultOnResumeMethod(klass: ClassNode): MethodNode {
-        RabbitTransformUtils.print("new onResume() Method --> super class name : ${klass.superName}  --->")
+        RabbitTransformUtils.print("ActivitySpeedMonitorTransform: new onResume() Method --> super class name : ${klass.superName}  --->")
         return MethodNode(
             Opcodes.ACC_PROTECTED,
             METHOD_ON_RESUME_NAME,

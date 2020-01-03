@@ -1,6 +1,7 @@
 package com.susion.rabbit.monitor.instance
 
 import android.content.Context
+import android.os.Looper
 import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.RabbitMonitorProtocol
 import com.susion.rabbit.base.entities.RabbitSlowMethodInfo
@@ -20,8 +21,9 @@ class RabbitMethodMonitor(override var isOpen: Boolean = false) : RabbitMonitorP
 
     private val methodCostListener = object : RabbitTracerEventNotifier.MethodCostEvent {
         override fun methodCost(methodStr: String, time: Long) {
-            RabbitLog.d(TAG, "methodCost --> $methodStr -> $time ms")
-            if (time > slowMethodThreshold) {
+            //主线程消耗过多时间
+            RabbitLog.d(TAG, "trace method--> $methodStr $time ms")
+            if (time > slowMethodThreshold && Thread.currentThread().name == Looper.getMainLooper().thread.name) {
                 saveSlowMethod(methodStr, time)
             }
         }

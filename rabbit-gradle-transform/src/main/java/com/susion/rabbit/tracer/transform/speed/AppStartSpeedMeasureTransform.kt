@@ -67,7 +67,7 @@ class AppStartSpeedMeasureTransform : RabbitClassTransformer {
 
         onCreateMethod.instructions?.find(Opcodes.RETURN)?.apply {
 
-            RabbitTransformUtils.print("insert code to  ${onCreateMethod.name} --- ${this.opcode}")
+            RabbitTransformUtils.print("AppStartSpeedMeasureTransform: insert code to  ${onCreateMethod.name} --- ${this.opcode}")
 
             onCreateMethod.instructions?.insertBefore(
                 this,

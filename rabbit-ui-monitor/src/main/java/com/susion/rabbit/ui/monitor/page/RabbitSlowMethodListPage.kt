@@ -108,9 +108,9 @@ class RabbitSlowMethodListPage(context: Context) : RabbitBasePage(context) {
                     }
                 }
             }
-
+            
             adapter.data.clear()
-            adapter.data.addAll(groupInfos)
+            adapter.data.addAll(groupInfos.filter { it.methodCount > 0 && it.slowMethodRecord > 0 })
             adapter.notifyDataSetChanged()
 
         })

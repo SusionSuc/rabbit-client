@@ -31,11 +31,9 @@ class RabbitPluginConfigTransform : RabbitClassTransformer {
 
     private fun loadMethodPkgConfig(klass: ClassNode) {
         val method = klass.methods.find { it.name == RabbitPluginConfig.METHOD_INJECT_METHOD_PKGS }
-        RabbitTransformUtils.print("config name :${klass.name}   injectMethodPkgsMethod : ${method?.name}")
-        RabbitTransformUtils.print(" GlobalConfig.methodMonitorPkgs size : ${GlobalConfig.methodMonitorPkgs.size}")
         method?.instructions?.find(Opcodes.RETURN)?.apply {
-            GlobalConfig.methodMonitorPkgs.forEach {name->
-                RabbitTransformUtils.print("🍎 RabbitPluginConfigTransform  add method pkg : $name")
+            GlobalConfig.methodMonitorPkgs.forEach { name ->
+                RabbitTransformUtils.print("RabbitPluginConfigTransform:  add method pkg : $name")
 //                method.instructions?.insertBefore(this, VarInsnNode(Opcodes.ALOAD, 0))   调静态方法不需要这玩意， 这个是this
                 method.instructions?.insertBefore(this, LdcInsnNode(name))
                 method.instructions?.insertBefore(this, getAddMethodPkgMethod())
@@ -43,7 +41,7 @@ class RabbitPluginConfigTransform : RabbitClassTransformer {
         }
     }
 
-    private fun getAddMethodPkgMethod():MethodInsnNode{
+    private fun getAddMethodPkgMethod(): MethodInsnNode {
         return MethodInsnNode(
             Opcodes.INVOKESTATIC,
             RabbitPluginConfig.CLASS_PATH,
