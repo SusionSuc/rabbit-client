@@ -11,7 +11,7 @@ import com.susion.rabbit.base.common.DeviceUtils
 import com.susion.rabbit.base.common.RabbitAsync
 import com.susion.rabbit.base.entities.RabbitDeviceInfo
 import com.susion.rabbit.base.entities.RabbitReportInfo
-import com.susion.rabbit.config.RabbitReportConfig
+import com.susion.rabbit.base.config.RabbitReportConfig
 import com.susion.rabbit.storage.RabbitDbStorageManager
 import java.util.concurrent.Executors
 
@@ -23,7 +23,8 @@ object RabbitReport {
 
     private val TAG = javaClass.simpleName
     lateinit var application: Application
-    var mConfig: RabbitReportConfig = RabbitReportConfig()
+    var mConfig: RabbitReportConfig =
+        RabbitReportConfig()
     private var deviceInfoStr = ""
     private val REQUEST_THREAD = Executors.newFixedThreadPool(
         1

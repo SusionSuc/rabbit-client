@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.RelativeLayout
+import com.susion.rabbit.base.config.RabbitMainFeatureInfo
 import com.susion.rabbit.ui.base.*
 import com.susion.rabbit.ui.base.adapter.RabbitAdapterItemView
 import io.reactivex.functions.Consumer
@@ -13,11 +14,10 @@ import kotlinx.android.synthetic.main.rabbit_view_main_feature_view.view.*
  * susionwang at 2019-10-12
  */
 
-class RabbitMainFeatureView : RelativeLayout,
-    RabbitAdapterItemView<com.susion.rabbit.config.RabbitMainFeatureInfo> {
+class RabbitMainFeatureView : RelativeLayout, RabbitAdapterItemView<RabbitMainFeatureInfo> {
 
-    var clickListener:ClickListener? = null
-    lateinit var mFeatureInfo: com.susion.rabbit.config.RabbitMainFeatureInfo
+    var clickListener: ClickListener? = null
+    lateinit var mFeatureInfo: RabbitMainFeatureInfo
 
     constructor(context: Context) : super(context) {
         initView()
@@ -29,7 +29,8 @@ class RabbitMainFeatureView : RelativeLayout,
 
     private fun initView() {
         LayoutInflater.from(context).inflate(R.layout.rabbit_view_main_feature_view, this)
-        layoutParams = MarginLayoutParams(LayoutParams.MATCH_PARENT,
+        layoutParams = MarginLayoutParams(
+            LayoutParams.MATCH_PARENT,
             dp2px(50f)
         ).apply {
             topMargin = dp2px(10f)
@@ -39,13 +40,13 @@ class RabbitMainFeatureView : RelativeLayout,
         throttleFirstClick(Consumer {
             clickListener?.onClick()
             RabbitUi.openPage(mFeatureInfo.pageClass)
-            if (mFeatureInfo.pageClass == null){
+            if (mFeatureInfo.pageClass == null) {
                 mFeatureInfo.action()
             }
         })
     }
 
-    override fun bindData(fearureInfo: com.susion.rabbit.config.RabbitMainFeatureInfo, position: Int) {
+    override fun bindData(fearureInfo: RabbitMainFeatureInfo, position: Int) {
         mFeatureInfo = fearureInfo
         mDevToolsMainFeatureTvName.text = fearureInfo.name
         mDevToolsMainFeatureIvIcon.setImageDrawable(
@@ -56,7 +57,7 @@ class RabbitMainFeatureView : RelativeLayout,
         )
     }
 
-    interface ClickListener{
+    interface ClickListener {
         fun onClick()
     }
 

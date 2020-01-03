@@ -1,7 +1,7 @@
 package com.susion.rabbit.storage
 
 import android.content.Context
-import com.susion.rabbit.config.RabbitDaoProviderConfig
+import com.susion.rabbit.base.config.RabbitDaoProviderConfig
 import org.greenrobot.greendao.AbstractDao
 import org.greenrobot.greendao.Property
 import org.greenrobot.greendao.query.WhereCondition

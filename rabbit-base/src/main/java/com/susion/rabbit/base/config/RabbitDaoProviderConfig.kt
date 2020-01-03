@@ -1,4 +1,4 @@
-package com.susion.rabbit.config
+package com.susion.rabbit.base.config
 
 import org.greenrobot.greendao.AbstractDao
 

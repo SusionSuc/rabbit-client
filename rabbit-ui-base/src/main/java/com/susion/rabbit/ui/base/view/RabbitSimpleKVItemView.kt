@@ -19,14 +19,14 @@ import com.susion.rabbit.ui.base.getDrawable
  * susionwang at 2019-10-12
  */
 
-class RabbitSimpleKvInfo(val key:String, val value:String, val type:Int = 1)
+class RabbitSimpleKvInfo(val key: String, val value: String, val type: Int = 1)
 
 class RabbitSimpleKVItemView : LinearLayout,
     RabbitAdapterItemView<RabbitSimpleKvInfo> {
 
     private val tvKey = TextView(context).apply {
         layoutParams = LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT).apply {
-            weight =0.4f
+            weight = 0.4f
         }
         setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15f)
         setTextColor(getColor(context, R.color.rabbit_black))
@@ -36,7 +36,7 @@ class RabbitSimpleKVItemView : LinearLayout,
 
     private val tvValue = TextView(context).apply {
         layoutParams = LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT).apply {
-            weight =0.6f
+            weight = 0.6f
         }
         setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15f)
         setTextColor(getColor(context, R.color.rabbit_black))
@@ -60,7 +60,7 @@ class RabbitSimpleKVItemView : LinearLayout,
     override fun bindData(kvInfo: RabbitSimpleKvInfo, position: Int) {
         tvKey.text = kvInfo.key
         tvValue.text = kvInfo.value
-        val textColor = when(kvInfo.type){
+        val textColor = when (kvInfo.type) {
             1 -> Color.BLACK
             2 -> Color.LTGRAY
             else -> Color.BLUE
@@ -74,7 +74,8 @@ class RabbitSimpleKVItemView : LinearLayout,
         addView(dividerLine)
         addView(tvValue)
         orientation = HORIZONTAL
-        layoutParams = MarginLayoutParams(LayoutParams.MATCH_PARENT,
+        layoutParams = MarginLayoutParams(
+            LayoutParams.MATCH_PARENT,
             dp2px(40f)
         )
     }

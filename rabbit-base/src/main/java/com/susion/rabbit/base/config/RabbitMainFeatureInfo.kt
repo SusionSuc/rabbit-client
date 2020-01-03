@@ -1,4 +1,4 @@
-package com.susion.rabbit.config
+package com.susion.rabbit.base.config
 
 import androidx.annotation.DrawableRes
 import android.view.View

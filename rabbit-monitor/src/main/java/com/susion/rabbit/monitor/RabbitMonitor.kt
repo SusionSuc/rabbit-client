@@ -5,7 +5,7 @@ import android.app.Application
 import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.RabbitSettings
 import com.susion.rabbit.base.RabbitMonitorProtocol
-import com.susion.rabbit.config.RabbitMonitorConfig
+import com.susion.rabbit.base.config.RabbitMonitorConfig
 import com.susion.rabbit.monitor.instance.*
 import com.susion.rabbit.monitor.instance.RabbitAppSpeedMonitor
 import com.susion.rabbit.monitor.instance.RabbitBlockMonitor
@@ -23,7 +23,8 @@ object RabbitMonitor {
     private val TAG = javaClass.simpleName
     var application: Application? = null
     private var isInit = false
-    var config: RabbitMonitorConfig = RabbitMonitorConfig()
+    var config: RabbitMonitorConfig =
+        RabbitMonitorConfig()
     var eventListener: UiEventListener? = null
     private val monitorMap = HashMap<String, RabbitMonitorProtocol>()
     private var appCurrentActivity: WeakReference<Activity?>? = null    //当前应用正在展示的Activity

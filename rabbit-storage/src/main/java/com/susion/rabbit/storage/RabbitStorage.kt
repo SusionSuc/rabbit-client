@@ -3,8 +3,8 @@ package com.susion.rabbit.storage
 import android.app.Application
 import com.susion.rabbit.base.entities.*
 import com.susion.rabbit.base.greendao.DaoMaster
-import com.susion.rabbit.config.RabbitDaoProviderConfig
-import com.susion.rabbit.config.RabbitStorageConfig
+import com.susion.rabbit.base.config.RabbitDaoProviderConfig
+import com.susion.rabbit.base.config.RabbitStorageConfig
 import org.greenrobot.greendao.AbstractDao
 
 /**

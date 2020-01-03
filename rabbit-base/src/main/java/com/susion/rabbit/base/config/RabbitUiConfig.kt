@@ -1,4 +1,4 @@
-package com.susion.rabbit.config
+package com.susion.rabbit.base.config
 
 /**
  * susionwang at 2020-01-03

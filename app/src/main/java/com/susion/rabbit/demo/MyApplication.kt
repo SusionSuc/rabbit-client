@@ -3,9 +3,9 @@ package com.susion.rabbit.demo
 import android.app.Application
 import com.susion.rabbit.Rabbit
 import com.susion.rabbit.base.RabbitMonitorProtocol
-import com.susion.rabbit.config.RabbitConfig
+import com.susion.rabbit.base.config.RabbitConfig
 import com.susion.rabbit.demo.page.CustomBusinessPage
-import com.susion.rabbit.config.RabbitMainFeatureInfo
+import com.susion.rabbit.base.config.RabbitMainFeatureInfo
 
 /**
  * susionwang at 2019-12-12

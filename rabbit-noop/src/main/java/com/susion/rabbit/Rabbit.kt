@@ -5,7 +5,7 @@ import android.app.ActivityManager
 import android.app.Application
 import android.content.Context
 import com.susion.rabbit.base.RabbitSettings
-import com.susion.rabbit.config.RabbitConfig
+import com.susion.rabbit.base.config.RabbitConfig
 import com.susion.rabbit.storage.RabbitStorage
 import com.susion.rabbit.ui.base.RabbitUi
 import com.susion.rabbit.ui.base.utils.FloatingViewPermissionHelper

@@ -37,5 +37,4 @@ dependencies {
     api project(':rabbit-ui-base')
     api project(':rabbit-base')
     api project(':rabbit-storage')
-    api project(':rabbit-config')
 }

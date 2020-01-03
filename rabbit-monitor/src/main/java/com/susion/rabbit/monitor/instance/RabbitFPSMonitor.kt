@@ -5,7 +5,7 @@ import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.monitor.RabbitMonitor
 import com.susion.rabbit.monitor.core.LazyChoreographerFrameUpdateMonitor
 import com.susion.rabbit.base.RabbitMonitorProtocol
-import com.susion.rabbit.config.RabbitMonitorConfig
+import com.susion.rabbit.base.config.RabbitMonitorConfig
 import com.susion.rabbit.storage.RabbitDbStorageManager
 import com.susion.rabbit.ui.base.RabbitUiEvent
 import java.util.concurrent.TimeUnit

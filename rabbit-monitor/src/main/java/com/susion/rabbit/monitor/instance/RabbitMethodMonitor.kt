@@ -20,6 +20,7 @@ class RabbitMethodMonitor(override var isOpen: Boolean = false) : RabbitMonitorP
 
     private val methodCostListener = object : RabbitTracerEventNotifier.MethodCostEvent {
         override fun methodCost(methodStr: String, time: Long) {
+            RabbitLog.d(TAG, "methodCost --> $methodStr -> $time ms")
             if (time > slowMethodThreshold) {
                 saveSlowMethod(methodStr, time)
             }
