@@ -75,7 +75,7 @@ object Rabbit {
         // 监控UI
         val monitorUiConfig = RabbitMonitorUi.Config()
         monitorUiConfig.monitorList = RabbitMonitor.getMonitorList()
-        RabbitMonitorUi.init(application, monitorUiConfig)
+        RabbitMonitorUi.init(monitorUiConfig)
         RabbitMonitorUi.eventListener = object : RabbitMonitorUi.EventListener {
             override fun toggleMonitorStatus(monitor: RabbitMonitorProtocol, open: Boolean) {
                 val monitorName = monitor.getMonitorInfo().name

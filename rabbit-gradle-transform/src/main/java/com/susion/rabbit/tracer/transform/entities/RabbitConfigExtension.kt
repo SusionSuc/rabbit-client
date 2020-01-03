@@ -6,5 +6,4 @@ package com.susion.rabbit.tracer.transform.entities
 open class RabbitConfigExtension {
     var pageSpeedMonitorPkgs:List<String> = ArrayList<String>()
     var methodMonitorPkgs:List<String> = ArrayList<String>()
-
 }

@@ -22,7 +22,6 @@ class RabbitMethodMonitor(override var isOpen: Boolean = false) : RabbitMonitorP
     private val methodCostListener = object : RabbitTracerEventNotifier.MethodCostEvent {
         override fun methodCost(methodStr: String, time: Long) {
             //主线程消耗过多时间
-            RabbitLog.d(TAG, "trace method--> $methodStr $time ms")
             if (time > slowMethodThreshold && Thread.currentThread().name == Looper.getMainLooper().thread.name) {
                 saveSlowMethod(methodStr, time)
             }

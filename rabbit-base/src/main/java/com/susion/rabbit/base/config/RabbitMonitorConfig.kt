@@ -1,5 +1,7 @@
 package com.susion.rabbit.base.config
 
+import com.susion.rabbit.base.entities.RabbitAppSpeedMonitorConfig
+
 /**
  * susionwang at 2020-01-03
  */
@@ -18,7 +20,8 @@ class RabbitMonitorConfig(
     var memoryValueCollectPeriodMs: Long = 2000L,
     var fpsCollectThresholdNs: Long = STANDARD_FRAME_NS * 10,
     var fpsReportPeriodS: Long = 10,
-    var slowMethodPeriodMs:Long = 15
+    var slowMethodPeriodMs:Long = 15,
+    var monitorSpeedList: RabbitAppSpeedMonitorConfig = RabbitAppSpeedMonitorConfig()
 ) {
     companion object {
         var STANDARD_FRAME_NS = 16666666L

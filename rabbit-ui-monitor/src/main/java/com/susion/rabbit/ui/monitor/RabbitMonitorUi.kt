@@ -21,7 +21,7 @@ object RabbitMonitorUi {
         var monitorList: List<RabbitMonitorProtocol> = ArrayList()
     )
 
-    fun init(application: Application, config: Config) {
+    fun init(config: Config) {
         this.config = config
     }
 
@@ -47,7 +47,7 @@ object RabbitMonitorUi {
             )
             add(
                 RabbitMainFeatureInfo(
-                    "异常日志", R.drawable.rabbit_icon_exception_face,
+                    "异常日志", R.drawable.rabbit_icon_exception,
                     RabbitExceptionListPage::class.java
                 )
             )
@@ -76,7 +76,7 @@ object RabbitMonitorUi {
                     //隐私启动，显示调用会在release构建时有问题
                     val leakIntent = Intent()
                     leakIntent.component = ComponentName(
-                        "com.mihoyo.hyperion",
+                        "com.susion.rabbit.demo",
                         "leakcanary.internal.activity.LeakActivity"
                     )
                     RabbitUi.appCurrentActivity?.get()?.startActivity(leakIntent)

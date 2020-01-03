@@ -27,9 +27,8 @@
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/mRabbitSlowMethodChart"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="300dp"
                 android:layout_margin="10dp" />
-
 
             <TextView
                 android:layout_width="match_parent"
