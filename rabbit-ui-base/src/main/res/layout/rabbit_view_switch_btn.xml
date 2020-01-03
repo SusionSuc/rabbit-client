@@ -18,7 +18,7 @@
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/mRabbitSwitchBtnSc"
-        android:theme="@style/Theme.AppCompat.Light"
+        android:theme="@style/MySwitchTheme"
         android:layout_centerVertical="true"
         android:layout_marginEnd="16dp"
         android:layout_alignParentEnd="true"

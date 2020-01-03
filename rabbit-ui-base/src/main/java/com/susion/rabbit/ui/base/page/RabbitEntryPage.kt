@@ -15,14 +15,16 @@ import com.susion.rabbit.ui.base.view.RabbitMainFeatureView
  * susionwang at 2019-10-21
  * 入口View
  */
-class RabbitEntryPage(context: Context, val defaultSupportFeatures:ArrayList<com.susion.rabbit.base.config.RabbitMainFeatureInfo>) : RabbitBasePage(context) {
+class RabbitEntryPage(
+    context: Context,
+    val defaultSupportFeatures: ArrayList<RabbitMainFeatureInfo>
+) : RabbitBasePage(context) {
 
     private val rv = RecyclerView(context)
     private val featuresAdapter by lazy {
-        object : RabbitRvAdapter<com.susion.rabbit.base.config.RabbitMainFeatureInfo>(defaultSupportFeatures) {
-            override fun createItem(type: Int) =
-                RabbitMainFeatureView(context)
-            override fun getItemType(data: com.susion.rabbit.base.config.RabbitMainFeatureInfo) = 0
+        object : RabbitRvAdapter<RabbitMainFeatureInfo>(defaultSupportFeatures) {
+            override fun createItem(type: Int) = RabbitMainFeatureView(context)
+            override fun getItemType(data: RabbitMainFeatureInfo) = 0
         }
     }
 
