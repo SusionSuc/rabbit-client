@@ -11,6 +11,7 @@ import com.susion.rabbit.base.common.DeviceUtils
 import com.susion.rabbit.base.common.RabbitAsync
 import com.susion.rabbit.base.entities.RabbitDeviceInfo
 import com.susion.rabbit.base.entities.RabbitReportInfo
+import com.susion.rabbit.config.RabbitReportConfig
 import com.susion.rabbit.storage.RabbitDbStorageManager
 import java.util.concurrent.Executors
 
@@ -20,20 +21,9 @@ import java.util.concurrent.Executors
  */
 object RabbitReport {
 
-    /**
-     * @property reportMonitorData 是否发送数据
-     * @property reportPath 数据上报的地址
-     * */
-    class ReportConfig(
-        var reportMonitorData: Boolean = false,
-        var reportPath: String = "http://127.0.0.1:8000/apmdb/upload-log",
-        var notReportDataFormat: HashSet<Class<*>> = HashSet(),
-        var fpsReportPeriodS: Long = 10
-    )
-
     private val TAG = javaClass.simpleName
     lateinit var application: Application
-    var mConfig: ReportConfig = ReportConfig()
+    var mConfig: RabbitReportConfig = RabbitReportConfig()
     private var deviceInfoStr = ""
     private val REQUEST_THREAD = Executors.newFixedThreadPool(
         1
@@ -60,7 +50,7 @@ object RabbitReport {
         }
     }
 
-    fun init(app: Application, config: ReportConfig) {
+    fun init(app: Application, config: RabbitReportConfig) {
         application = app
         mConfig = config
 

@@ -39,6 +39,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':rabbit-base')
+    implementation project(':rabbit-config')
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${uniqueVersion.kotlinStdlibJdk7Version}"
     implementation rootProject.ext.androidXDependencies.appcompat

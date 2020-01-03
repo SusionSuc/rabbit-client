@@ -36,14 +36,17 @@ class MethodCostMonitorTransform : RabbitClassTransformer {
     private fun insertMethodTraceCode(klass: ClassNode) {
 
         for (method in klass.methods) {
-            if (notTraceMethods.contains(method.name) && method.instructions.size() > 1) {
+            //超两行的函数才统计
+            if (notTraceMethods.contains(method.name) && method.instructions.size() > 2) {
                 continue
             }
 
             val methodName = "${klass.name.replace("/", ".")}&${method.name}()"
-            RabbitTransformUtils.print("MethodCostMonitorTransform : insert code to method : $methodName")
+            val isStaticMethod = (method.access and Opcodes.ACC_STATIC )== Opcodes.ACC_STATIC
             method.instructions?.find(Opcodes.RETURN)?.apply {
-                method.instructions?.insertBefore(this, VarInsnNode(Opcodes.ALOAD, 0))
+                if (!isStaticMethod){
+                    method.instructions?.insertBefore(this, VarInsnNode(Opcodes.ALOAD, 0))
+                }
                 method.instructions?.insertBefore(this, LdcInsnNode(methodName)) //参数
                 method.instructions?.insertBefore(this, getMethodRecordEndMethod())
             }
@@ -51,6 +54,8 @@ class MethodCostMonitorTransform : RabbitClassTransformer {
             method.instructions?.find(Opcodes.ALOAD)?.apply {
                 method.instructions?.insertBefore(this, getMethodRecordStartMethod())
             }
+
+            RabbitTransformUtils.print("MethodCostMonitorTransform -> trace method $methodName")
         }
     }
 

@@ -1,6 +1,7 @@
 package com.susion.rabbit.storage
 
 import android.content.Context
+import com.susion.rabbit.config.RabbitDaoProviderConfig
 import org.greenrobot.greendao.AbstractDao
 import org.greenrobot.greendao.Property
 import org.greenrobot.greendao.query.WhereCondition
@@ -96,7 +97,7 @@ internal class RabbitGreenDaoDbManage(val context: Context) {
 
     private fun <T> getDaoFromProvider(
         entitiesClass: Class<T>,
-        daoProvider: List<RabbitDaoPluginProvider>
+        daoProvider: List<RabbitDaoProviderConfig>
     ): AbstractDao<Any, Long>? {
         daoProvider.forEach {
             if (it.clazz.simpleName == entitiesClass.simpleName) {

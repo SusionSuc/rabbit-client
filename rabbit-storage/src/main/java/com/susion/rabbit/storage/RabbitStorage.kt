@@ -3,6 +3,8 @@ package com.susion.rabbit.storage
 import android.app.Application
 import com.susion.rabbit.base.entities.*
 import com.susion.rabbit.base.greendao.DaoMaster
+import com.susion.rabbit.config.RabbitDaoProviderConfig
+import com.susion.rabbit.config.RabbitStorageConfig
 import org.greenrobot.greendao.AbstractDao
 
 /**
@@ -11,11 +13,11 @@ import org.greenrobot.greendao.AbstractDao
 object RabbitStorage {
 
     private val DB_NAME = "rabbit-apm"
-    var mConfig = Config()
+    var mConfig = RabbitStorageConfig()
     var application: Application? = null
     var eventListener: EventListener? = null
 
-    fun init(application_: Application, config: Config) {
+    fun init(application_: Application, config: RabbitStorageConfig) {
         application = application_
         mConfig = config
         mConfig.daoProvider.addAll(getFixedDaoProvider())
@@ -27,7 +29,7 @@ object RabbitStorage {
         RabbitDbStorageManager.clearOldSessionData()
     }
 
-    private fun getFixedDaoProvider(): List<RabbitDaoPluginProvider> {
+    private fun getFixedDaoProvider(): List<RabbitDaoProviderConfig> {
         val daoSession =
             com.susion.rabbit.base.greendao.DaoMaster(
                 DaoMaster.DevOpenHelper(
@@ -35,59 +37,59 @@ object RabbitStorage {
                     DB_NAME
                 ).writableDb
             ).newSession()
-        val daoProvider = ArrayList<RabbitDaoPluginProvider>().apply {
+        val daoProvider = ArrayList<RabbitDaoProviderConfig>().apply {
             add(
-                RabbitDaoPluginProvider(
+                RabbitDaoProviderConfig(
                     RabbitBlockFrameInfo::class.java as Class<Any>,
                     daoSession.rabbitBlockFrameInfoDao as AbstractDao<Any, Long>
                 )
             )
             add(
-                RabbitDaoPluginProvider(
+                RabbitDaoProviderConfig(
                     RabbitHttpLogInfo::class.java as Class<Any>,
                     daoSession.rabbitHttpLogInfoDao as AbstractDao<Any, Long>
                 )
             )
             add(
-                RabbitDaoPluginProvider(
+                RabbitDaoProviderConfig(
                     RabbitAppStartSpeedInfo::class.java as Class<Any>,
                     daoSession.rabbitAppStartSpeedInfoDao as AbstractDao<Any, Long>
                 )
             )
             add(
-                RabbitDaoPluginProvider(
+                RabbitDaoProviderConfig(
                     RabbitPageSpeedInfo::class.java as Class<Any>,
                     daoSession.rabbitPageSpeedInfoDao as AbstractDao<Any, Long>
                 )
             )
             add(
-                RabbitDaoPluginProvider(
+                RabbitDaoProviderConfig(
                     RabbitMemoryInfo::class.java as Class<Any>,
                     daoSession.rabbitMemoryInfoDao as AbstractDao<Any, Long>
                 )
             )
             add(
-                RabbitDaoPluginProvider(
+                RabbitDaoProviderConfig(
                     RabbitExceptionInfo::class.java as Class<Any>,
                     daoSession.rabbitExceptionInfoDao as AbstractDao<Any, Long>
                 )
             )
             add(
-                RabbitDaoPluginProvider(
+                RabbitDaoProviderConfig(
                     RabbitReportInfo::class.java as Class<Any>,
                     daoSession.rabbitReportInfoDao as AbstractDao<Any, Long>
                 )
             )
 
             add(
-                RabbitDaoPluginProvider(
+                RabbitDaoProviderConfig(
                     RabbitFPSInfo::class.java as Class<Any>,
                     daoSession.rabbitReportInfoDao as AbstractDao<Any, Long>
                 )
             )
 
             add(
-                RabbitDaoPluginProvider(
+                RabbitDaoProviderConfig(
                     RabbitSlowMethodInfo::class.java as Class<Any>,
                     daoSession.rabbitSlowMethodInfoDao as AbstractDao<Any, Long>
                 )
@@ -95,11 +97,6 @@ object RabbitStorage {
         }
         return daoProvider
     }
-
-    class Config(
-        var daoProvider: ArrayList<RabbitDaoPluginProvider> = ArrayList(),
-        var storageInOnSessionData: ArrayList<Class<Any>> = ArrayList()
-    )
 
     interface EventListener {
         fun onStorageData(obj: Any)

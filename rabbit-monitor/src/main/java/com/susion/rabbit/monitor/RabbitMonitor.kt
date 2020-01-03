@@ -5,6 +5,7 @@ import android.app.Application
 import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.RabbitSettings
 import com.susion.rabbit.base.RabbitMonitorProtocol
+import com.susion.rabbit.config.RabbitMonitorConfig
 import com.susion.rabbit.monitor.instance.*
 import com.susion.rabbit.monitor.instance.RabbitAppSpeedMonitor
 import com.susion.rabbit.monitor.instance.RabbitBlockMonitor
@@ -22,13 +23,13 @@ object RabbitMonitor {
     private val TAG = javaClass.simpleName
     var application: Application? = null
     private var isInit = false
-    var config: Config = Config()
+    var config: RabbitMonitorConfig = RabbitMonitorConfig()
     var eventListener: UiEventListener? = null
     private val monitorMap = HashMap<String, RabbitMonitorProtocol>()
     private var appCurrentActivity: WeakReference<Activity?>? = null    //当前应用正在展示的Activity
     private var pageChangeListeners = HashSet<PageChangeListener>()
 
-    fun init(application: Application, config: Config) {
+    fun init(application: Application, config: RabbitMonitorConfig) {
         if (isInit) return
 
         this.config = config
@@ -142,30 +143,6 @@ object RabbitMonitor {
 
     fun getAppUseTimes(): Long {
         return getMonitor<RabbitAppUseTimeMonitor>()?.getAppUseTimeS() ?: 0L
-    }
-
-    /**
-     * @property blockStackCollectPeriodNs 卡顿栈采集周期
-     * @property blockThresholdNs  卡顿检测阈值, 即卡顿多长时间算一次卡顿
-     * @property autoOpenMonitors
-     *      自动打开的监控功能, name 取自 [com.susion.rabbit.performance.core.RabbitMonitor]
-     *      for example : [com.susion.rabbit.performance.core.RabbitMonitor.BLOCK.enName]
-     * @property memoryValueCollectPeriodMs 多长时间采集一次内存状态
-     * @property fpsCollectThresholdNs fps采集周期，即多长时间计算一次FPS
-     * @property fpsReportPeriodS 上报FPS信息的周期, 用户与页面交互的累计时间。 10 还是挺长的 ！
-     * */
-    class Config(
-        var blockStackCollectPeriodNs: Long = STANDARD_FRAME_NS,
-        var blockThresholdNs: Long = STANDARD_FRAME_NS * 10,
-        var autoOpenMonitors: HashSet<String> = HashSet(),
-        var memoryValueCollectPeriodMs: Long = 2000L,
-        var fpsCollectThresholdNs: Long = STANDARD_FRAME_NS * 10,
-        var fpsReportPeriodS: Long = 10,
-        var slowMethodPeriodMs:Long = 500
-    ) {
-        companion object {
-            var STANDARD_FRAME_NS = 16666666L
-        }
     }
 
     interface UiEventListener {

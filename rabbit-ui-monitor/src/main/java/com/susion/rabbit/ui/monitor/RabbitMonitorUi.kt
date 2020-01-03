@@ -4,7 +4,7 @@ import android.app.Application
 import android.content.ComponentName
 import android.content.Intent
 import com.susion.rabbit.base.RabbitMonitorProtocol
-import com.susion.rabbit.ui.base.RabbitMainFeatureInfo
+import com.susion.rabbit.config.RabbitMainFeatureInfo
 import com.susion.rabbit.ui.base.RabbitUi
 import com.susion.rabbit.ui.monitor.page.*
 
@@ -29,30 +29,30 @@ object RabbitMonitorUi {
         fun toggleMonitorStatus(monitor: RabbitMonitorProtocol, open: Boolean)
     }
 
-    fun defaultSupportFeatures(): ArrayList<RabbitMainFeatureInfo> {
-        return ArrayList<RabbitMainFeatureInfo>().apply {
+    fun defaultSupportFeatures(): ArrayList<com.susion.rabbit.config.RabbitMainFeatureInfo> {
+        return ArrayList<com.susion.rabbit.config.RabbitMainFeatureInfo>().apply {
             add(
-                RabbitMainFeatureInfo(
+                com.susion.rabbit.config.RabbitMainFeatureInfo(
                     "监控配置",
                     R.drawable.rabbit_icon_feature_setting,
                     RabbitMonitorConfigPage::class.java
                 )
             )
             add(
-                RabbitMainFeatureInfo(
+                com.susion.rabbit.config.RabbitMainFeatureInfo(
                     "网络日志",
                     R.drawable.rabbit_icon_http,
                     RabbitHttpLogListPage::class.java
                 )
             )
             add(
-                RabbitMainFeatureInfo(
+                com.susion.rabbit.config.RabbitMainFeatureInfo(
                     "异常日志", R.drawable.rabbit_icon_exception_face,
                     RabbitExceptionListPage::class.java
                 )
             )
             add(
-                RabbitMainFeatureInfo(
+                com.susion.rabbit.config.RabbitMainFeatureInfo(
                     "卡顿日志",
                     R.drawable.rabbit_icon_block,
                     RabbitUiBlockListPage::class.java
@@ -60,7 +60,7 @@ object RabbitMonitorUi {
             )
 
             add(
-                RabbitMainFeatureInfo(
+                com.susion.rabbit.config.RabbitMainFeatureInfo(
                     "应用测速",
                     R.drawable.rabbit_icon_speed,
                     RabbitAppSpeedMonitorDetailPage::class.java
@@ -68,7 +68,7 @@ object RabbitMonitorUi {
             )
 
             add(
-                RabbitMainFeatureInfo(
+                com.susion.rabbit.config.RabbitMainFeatureInfo(
                     "内存泄漏",
                     R.drawable.rabbit_icon_memory_leak,
                     null
@@ -85,7 +85,7 @@ object RabbitMonitorUi {
             )
 
             add(
-                RabbitMainFeatureInfo(
+                com.susion.rabbit.config.RabbitMainFeatureInfo(
                     "内存分析",
                     R.drawable.rabbit_icon_memory_compose,
                     RabbitMemoryComposePage::class.java
@@ -93,7 +93,7 @@ object RabbitMonitorUi {
             )
 
             add(
-                RabbitMainFeatureInfo(
+                com.susion.rabbit.config.RabbitMainFeatureInfo(
                     "慢函数",
                     R.drawable.rabbit_icon_slow_method,
                     RabbitSlowMethodListPage::class.java

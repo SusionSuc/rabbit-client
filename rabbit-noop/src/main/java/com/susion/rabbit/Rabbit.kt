@@ -4,15 +4,12 @@ import android.app.Activity
 import android.app.ActivityManager
 import android.app.Application
 import android.content.Context
-import android.util.Log
 import com.susion.rabbit.base.RabbitSettings
-import com.susion.rabbit.monitor.RabbitMonitor
-import com.susion.rabbit.report.RabbitReport
+import com.susion.rabbit.config.RabbitConfig
 import com.susion.rabbit.storage.RabbitStorage
 import com.susion.rabbit.ui.base.RabbitUi
 import com.susion.rabbit.ui.base.utils.FloatingViewPermissionHelper
 import okhttp3.Interceptor
-import okhttp3.Response
 
 /**
  * susionwang at 2019-09-23

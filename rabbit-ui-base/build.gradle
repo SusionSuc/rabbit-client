@@ -31,6 +31,7 @@ android {
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
 
+    api project(":rabbit-config")
     implementation rootProject.ext.androidXDependencies.recyclerView
     implementation rootProject.ext.androidXDependencies.appcompat
     implementation rootProject.ext.androidXDependencies.lifeExtensions

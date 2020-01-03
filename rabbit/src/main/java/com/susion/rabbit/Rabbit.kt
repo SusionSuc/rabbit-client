@@ -9,6 +9,7 @@ import com.susion.rabbit.base.RabbitSettings
 import com.susion.rabbit.base.common.RabbitUtils
 import com.susion.rabbit.base.entities.RabbitHttpLogInfo
 import com.susion.rabbit.base.entities.RabbitMemoryInfo
+import com.susion.rabbit.config.RabbitConfig
 import com.susion.rabbit.monitor.RabbitMonitor
 import com.susion.rabbit.report.RabbitReport
 import com.susion.rabbit.storage.RabbitStorage

@@ -5,6 +5,7 @@ import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.monitor.RabbitMonitor
 import com.susion.rabbit.monitor.core.LazyChoreographerFrameUpdateMonitor
 import com.susion.rabbit.base.RabbitMonitorProtocol
+import com.susion.rabbit.config.RabbitMonitorConfig
 import com.susion.rabbit.storage.RabbitDbStorageManager
 import com.susion.rabbit.ui.base.RabbitUiEvent
 import java.util.concurrent.TimeUnit
@@ -23,12 +24,12 @@ internal class RabbitFPSMonitor(override var isOpen: Boolean = false) :
         init()
     }
 
-    private var frameIntervalNs: Long = RabbitMonitor.Config.STANDARD_FRAME_NS
+    private var frameIntervalNs: Long = RabbitMonitorConfig.STANDARD_FRAME_NS
     private val FPS_COLLECT_PERIOD = RabbitMonitor.config.fpsCollectThresholdNs
     private val FPS_COLLECT_NUMBER = (TimeUnit.NANOSECONDS.convert(
         RabbitMonitor.config.fpsReportPeriodS,
         TimeUnit.SECONDS
-    )) / (RabbitMonitor.Config.STANDARD_FRAME_NS)  // 多少帧记录一次数据
+    )) / (RabbitMonitorConfig.STANDARD_FRAME_NS)  // 多少帧记录一次数据
     private var totalFrameNs: Long = 0
     private var totalFrameNumber: Long = 0
     private var lastTotalFrameNs: Long = 0

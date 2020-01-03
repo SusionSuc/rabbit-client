@@ -14,6 +14,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ProcessLifecycleOwner
+import com.susion.rabbit.config.RabbitUiConfig
 import com.susion.rabbit.ui.base.page.RabbitEntryPage
 import com.susion.rabbit.ui.base.utils.SimpleActivityLifecycleWrapper
 import com.susion.rabbit.ui.base.view.RabbitFloatingView
@@ -46,7 +47,7 @@ object RabbitUi {
         }
     }
 
-    var config: Config = Config()
+    var config: RabbitUiConfig = RabbitUiConfig()
     lateinit var application: Application
 
     //页面是否在展示
@@ -91,7 +92,7 @@ object RabbitUi {
         }
     }
 
-    fun init(application: Application, config: Config = Config()) {
+    fun init(application: Application, config: RabbitUiConfig = RabbitUiConfig()) {
         this.application = application
         this.config = config
         this.application.registerActivityLifecycleCallbacks(object :
@@ -262,9 +263,5 @@ object RabbitUi {
     }
 
     fun pageIsShow() = pageShowStatus == PAGE_SHOWING
-
-    class Config(
-        var entryFeatures: ArrayList<RabbitMainFeatureInfo> = ArrayList()
-    )
 
 }

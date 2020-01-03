@@ -14,10 +14,10 @@ import kotlinx.android.synthetic.main.rabbit_view_main_feature_view.view.*
  */
 
 class RabbitMainFeatureView : RelativeLayout,
-    RabbitAdapterItemView<RabbitMainFeatureInfo> {
+    RabbitAdapterItemView<com.susion.rabbit.config.RabbitMainFeatureInfo> {
 
     var clickListener:ClickListener? = null
-    lateinit var mFeatureInfo: RabbitMainFeatureInfo
+    lateinit var mFeatureInfo: com.susion.rabbit.config.RabbitMainFeatureInfo
 
     constructor(context: Context) : super(context) {
         initView()
@@ -45,7 +45,7 @@ class RabbitMainFeatureView : RelativeLayout,
         })
     }
 
-    override fun bindData(fearureInfo: RabbitMainFeatureInfo, position: Int) {
+    override fun bindData(fearureInfo: com.susion.rabbit.config.RabbitMainFeatureInfo, position: Int) {
         mFeatureInfo = fearureInfo
         mDevToolsMainFeatureTvName.text = fearureInfo.name
         mDevToolsMainFeatureIvIcon.setImageDrawable(

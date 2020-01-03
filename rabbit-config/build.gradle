@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply from: '../buildsystem/common-version.gradle'
 apply from: '../buildsystem/publish.gradle'
+
 def uniqueVersion = rootProject.ext.versions
 
 android {
@@ -12,8 +13,6 @@ android {
     defaultConfig {
         minSdkVersion uniqueVersion.minSdkVersion
         targetSdkVersion uniqueVersion.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
     }
 
     compileOptions {
@@ -31,16 +30,8 @@ android {
 
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
-    implementation project(':rabbit-storage')
-    implementation project(':rabbit-base')
-    implementation project(':rabbit-config')
-    implementation rootProject.ext.androidXDependencies.appcompat
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${uniqueVersion.kotlinStdlibJdk7Version}"
-    implementation "com.squareup.retrofit2:retrofit:${uniqueVersion.retrofit2Version}"
-    implementation "io.reactivex.rxjava2:rxjava:${uniqueVersion.rx2javaVersion}"
-    implementation "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:${uniqueVersion.retrofit2RxJavaAdapterVersion}"
-    implementation "com.squareup.retrofit2:converter-gson:${uniqueVersion.retrofit2ConvertJson}"
-    implementation "io.reactivex.rxjava2:rxandroid:${uniqueVersion.rx2androidVersion}"
     implementation "org.greenrobot:greendao:${uniqueVersion.greenDaoVersion}"
+    implementation rootProject.ext.androidXDependencies.appcompat
 
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${uniqueVersion.kotlinStdlibJdk7Version}"
 }

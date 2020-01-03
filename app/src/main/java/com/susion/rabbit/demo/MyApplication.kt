@@ -2,12 +2,10 @@ package com.susion.rabbit.demo
 
 import android.app.Application
 import com.susion.rabbit.Rabbit
-import com.susion.rabbit.RabbitConfig
 import com.susion.rabbit.base.RabbitMonitorProtocol
-import com.susion.rabbit.base.entities.RabbitExceptionInfo
+import com.susion.rabbit.config.RabbitConfig
 import com.susion.rabbit.demo.page.CustomBusinessPage
-import com.susion.rabbit.ui.base.RabbitMainFeatureInfo
-import java.util.concurrent.TimeUnit
+import com.susion.rabbit.config.RabbitMainFeatureInfo
 
 /**
  * susionwang at 2019-12-12
@@ -29,7 +27,12 @@ class MyApplication : Application() {
         )
 
         //监控开关配置
-        rabbitConfig.monitorConfig.autoOpenMonitors.addAll(hashSetOf(RabbitMonitorProtocol.NET.name, RabbitMonitorProtocol.EXCEPTION.name))
+        rabbitConfig.monitorConfig.autoOpenMonitors.addAll(
+            hashSetOf(
+                RabbitMonitorProtocol.NET.name,
+                RabbitMonitorProtocol.EXCEPTION.name
+            )
+        )
 //
 //
 //        rabbitConfig.monitorConfig.blockThresholdNs = TimeUnit.NANOSECONDS.convert(1, TimeUnit.SECONDS)
