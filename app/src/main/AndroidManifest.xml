@@ -15,12 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".MethodCostTraceActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" ></activity>
 
-        <activity
-            android:name=".page.TracerTestActivity"
+        <activity android:name=".MethodCostTraceActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
         <activity
             android:name=".page.SimpleListActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
@@ -33,6 +31,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

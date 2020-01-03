@@ -28,8 +28,9 @@ class SimpleListActivity : RabbitBaseActivity() {
         listAdapter.data.addAll(getData())
         mSimpleListPageRv.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+
         mSimpleListPageRv.adapter = listAdapter
-        Thread.sleep(1000)
+
     }
 
     private fun getData(): List<RabbitSimpleKvInfo> {

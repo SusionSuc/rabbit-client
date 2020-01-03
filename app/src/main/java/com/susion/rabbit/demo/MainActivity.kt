@@ -10,7 +10,7 @@ import android.view.View
 import androidx.core.app.ActivityCompat
 import com.susion.rabbit.demo.net.DevToolsTestApiModel
 import com.susion.rabbit.Rabbit
-import com.susion.rabbit.demo.page.TracerTestActivity
+import com.susion.rabbit.demo.page.SimpleListActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : RabbitBaseActivity() {
@@ -33,10 +33,6 @@ class MainActivity : RabbitBaseActivity() {
             sampleRequestNet()
         }
 
-        mTracerTv.setOnClickListener {
-            startActivity(Intent(this, TracerTestActivity::class.java))
-        }
-
         mCrashTv.setOnClickListener {
             val a = 1 / 0
         }
@@ -51,8 +47,14 @@ class MainActivity : RabbitBaseActivity() {
             startActivity(Intent(this, MethodCostTraceActivity::class.java))
         }
 
-    }
+        mBlockTv.setOnClickListener {
+            Thread.sleep(2000)
+        }
 
+        mSimpleListRv.setOnClickListener {
+            startActivity(Intent(this, SimpleListActivity::class.java))
+        }
+    }
 
     private fun requestPermission() {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {

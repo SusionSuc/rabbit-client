@@ -21,7 +21,7 @@ class MyApplication : Application() {
         rabbitConfig.uiConfig.entryFeatures = arrayListOf(
             RabbitMainFeatureInfo(
                 "业务面板",
-                R.mipmap.ic_launcher,
+                R.drawable.rabbit_icon_business,
                 CustomBusinessPage::class.java
             )
         )

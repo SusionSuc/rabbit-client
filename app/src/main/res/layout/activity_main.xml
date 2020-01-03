@@ -38,13 +38,14 @@
             android:textStyle="bold" />
 
     </RelativeLayout>
+
     <TextView
         android:id="@+id/mDevToolsTestTvRequestNet"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="15dp"
         android:gravity="left|center_vertical"
-        android:text="测试请求网络接口"
+        android:text="请求网络接口"
         android:textColor="#333333"
         android:textSize="18dp" />
 
@@ -53,16 +54,6 @@
         android:layout_height="1px"
         android:layout_marginStart="15dp"
         android:background="@color/devtools_divider_graye5" />
-
-    <TextView
-        android:id="@+id/mTracerTv"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginStart="15dp"
-        android:gravity="left|center_vertical"
-        android:text="Tracer (FPS/卡顿 监控)"
-        android:textColor="#333333"
-        android:textSize="18dp" />
 
     <TextView
         android:id="@+id/mCrashTv"
@@ -104,6 +95,38 @@
         android:layout_marginStart="15dp"
         android:gravity="left|center_vertical"
         android:text="慢函数"
+        android:textColor="#333333"
+        android:textSize="18dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginStart="15dp"
+        android:background="@color/devtools_divider_graye5" />
+
+    <TextView
+        android:id="@+id/mBlockTv"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="15dp"
+        android:gravity="left|center_vertical"
+        android:text="卡顿2秒"
+        android:textColor="#333333"
+        android:textSize="18dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginStart="15dp"
+        android:background="@color/devtools_divider_graye5" />
+
+    <TextView
+        android:id="@+id/mSimpleListRv"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="15dp"
+        android:gravity="left|center_vertical"
+        android:text="简单列表"
         android:textColor="#333333"
         android:textSize="18dp" />
 

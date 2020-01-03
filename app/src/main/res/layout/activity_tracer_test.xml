@@ -39,37 +39,9 @@
 
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/mTracerPageTvSimpleList"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginStart="15dp"
-        android:gravity="left|center_vertical"
-        android:text="简单列表"
-        android:textColor="#333333"
-        android:textSize="18dp" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_marginStart="15dp"
-        android:background="@color/devtools_divider_graye5" />
 
 
-    <TextView
-        android:id="@+id/mTracerPageTvBlock2S"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginStart="15dp"
-        android:gravity="left|center_vertical"
-        android:text="卡顿2秒"
-        android:textColor="#333333"
-        android:textSize="18dp" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_marginStart="15dp"
-        android:background="@color/devtools_divider_graye5" />
+
 
 </LinearLayout>
