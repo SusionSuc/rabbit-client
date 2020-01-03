@@ -15,10 +15,7 @@
 8. apk内容分析与优化
 9. 应用内存分析
 10. 慢函数检测 
-
->rabbit支持上报所有性能监控数据,详情见[使用文档](./documents/README.md)
-
->实现原理相关文章见:[Rabbit实现原理剖析](https://github.com/SusionSuc/AdvancedAndroid/blob/master/Rabbit%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/README.md)
+11. 支持上报所有检测数据
 
 # [使用文档](./documents/README.md)
 
@@ -29,6 +26,10 @@
 [rabbit-server](https://github.com/SusionSuc/rabbit-server) : 存储客户端上报的数据(`python/django`)
 
 [rabbit-admin](https://github.com/SusionSuc/rabbit-admin) : web端管理后台(vue)
+
+# 实现原理
+
+实现原理相关文章见:[Rabbit实现原理剖析](https://github.com/SusionSuc/AdvancedAndroid/blob/master/Rabbit%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/README.md)
 
 # License
 
