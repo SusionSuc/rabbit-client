@@ -24,7 +24,7 @@ dependencies {
 
 >应用build.gradle
 ```
-apply plugin: 'rabbit-tracer-transform' //引入插件
+apply plugin: 'rabbit-tracer-transform' //引入插件, release包不要引入
 
 dependencies {
     debugImplementation "com.susion:rabbit:0.0.8"  
@@ -32,48 +32,18 @@ dependencies {
 } 
 ```
 
-### 引入示例
+`rabbit`的功能没有经过线上验证, 因此目前只能在`debug`下使用, 可以通过下面的方式来安全引入`rabbit`:
 
->由于功能目前没有在线上环境验证过，因此目前建议只在测试环境下使用。下面是一个引入`rabbit`的思路:
+[noop包接入](./noop-document.md)
 
-1. 新建`rabbit-plugin.gradle`:
 
-```
-def taskName = getGradle().getStartParameter().taskNames.toString().toLowerCase()
-def inDebug = taskName.contains("debug") //这里要改成针对当前打包系统的判断方式
-def rabbitVersion = "0.0.7.1"
-def rabbitDepen = "com.susion:rabbit-noop:$rabbitVersion"
-
-if(inDebug){
-    print("apply rabbit transform ! ---->")
-    apply plugin: 'rabbit-tracer-transform'
-
-    rabbitConfig {
-        methodMonitorPkgs = ['com.susion.rabbit.demo']
-        pageSpeedMonitorPkgs = ['com.susion.rabbit.demo']
-    }
-
-    rabbitDepen = "com.susion:rabbit:$rabbitVersion"
-}
-
-rootProject.ext {
-    rabbitDependence = rabbitDepen
-}
-```
-
-2. 主项目`build.gradle`文件
-
-```
-apply from: 'rabbit-plugin.gradle'
-```
-
-### 配置
+### 配置rabbit
 
 ```
 Rabbit.config(config)
 ```
 
-相关支持配置见:[RabbitConfig](https://github.com/SusionSuc/rabbit-client/blob/master/rabbit-base/src/main/java/com/susion/rabbit/base/config/RabbitConfig.kt),各项配置具体含义会在每个功能的文档中做详细的介绍。
+相关支持配置见:[RabbitConfig](https://github.com/SusionSuc/rabbit-client/blob/master/rabbit-base/src/main/java/com/susion/rabbit/base/config/RabbitConfig.kt)。各项配置具体含义会在每个功能的文档中做详细的介绍。
 
 ### 打开rabbit
 
@@ -94,7 +64,7 @@ fun open(requestPermission: Boolean = true, activity: Activity)
 
 **可以通过再次点击`rabbit`浮标来关闭`rabbit`浮窗。**
 
-### 监控功能开关配置
+### 监控开关配置
 
 #### 通过代码配置
 
