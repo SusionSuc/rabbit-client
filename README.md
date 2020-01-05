@@ -1,6 +1,4 @@
-# 功能简介
-
-目前主要包括下面功能:
+# 功能列表
 
 1. 网络日志监控
 2. App Crash 捕获
@@ -13,6 +11,7 @@
 9. 应用内存分析
 10. 慢函数检测 
 11. 支持上报所有检测数据
+12. 自定义业务面板
 
 # [使用文档](./documents/README.md)
 
@@ -27,6 +26,10 @@
 # 实现原理
 
 实现原理相关文章见:[Rabbit实现原理剖析](https://github.com/SusionSuc/AdvancedAndroid/blob/master/Rabbit%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/README.md)
+
+# 多人协作
+
+如果你认为`rabbit`还有哪些功能不够完善，欢迎提`mr`。
 
 # License
 
