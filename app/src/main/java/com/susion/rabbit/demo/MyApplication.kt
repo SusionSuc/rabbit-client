@@ -40,6 +40,7 @@ class MyApplication : Application() {
         )
 
         rabbitConfig.monitorConfig.monitorSpeedList = loadMonitorSpeedConfig()
+        rabbitConfig.monitorConfig.slowMethodPeriodMs = 15
 //
 //
 //        rabbitConfig.monitorConfig.blockThresholdNs = TimeUnit.NANOSECONDS.convert(1, TimeUnit.SECONDS)

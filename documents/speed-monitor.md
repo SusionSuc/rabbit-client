@@ -13,16 +13,20 @@
 
 ## 使用
 
-测速功能主要是通过编译期字节码插桩来完成的，因此应用`rabbit`插件:
+测速功能主要是通过编译期字节码插桩来完成的，因此需要引入`rabbit`插件:
 
 >应用build.gradle
 ```
 apply plugin: 'rabbit-tracer-transform'
+
+rabbitConfig {
+    pageSpeedMonitorPkgs = ['com.susion.rabbit.demo']  // 指定测速范围
+}
 ```
 
 ### 配置
 
-可以在`rabbit`初始化时提供`RabbitAppSpeedMonitorConfig`对象来对要监控的内容进行配置:
+可以在`rabbit`初始化时提供[RabbitAppSpeedMonitorConfig](https://github.com/SusionSuc/rabbit-client/blob/master/rabbit-base/src/main/java/com/susion/rabbit/base/entities/RabbitAppSpeedMonitorConfig.kt)对象来对要监控的内容进行配置:
 
 ```
 rabbitConfig.monitorConfig.monitorSpeedList = loadMonitorSpeedConfig()
@@ -30,6 +34,23 @@ Rabbit.config(rabbitConfig)
 ```
 
 这里`loadMonitorSpeedConfig()`是从`assert`文件夹下读取了配置:
+
+```
+ private fun loadMonitorSpeedConfig(): RabbitAppSpeedMonitorConfig {
+        try {
+            val jsonStr =
+                FileUtils.getAssetString(RabbitMonitor.application!!, "rabbit_speed_monitor.json")
+            if (jsonStr.isEmpty()) return RabbitAppSpeedMonitorConfig()
+            return Gson().fromJson(jsonStr, RabbitAppSpeedMonitorConfig::class.java)
+        } catch (e: Exception) {
+
+        }
+        return RabbitAppSpeedMonitorConfig()
+    }
+
+```
+
+>`rabbit_speed_monitor.json`:
 
 ```
 {
@@ -65,12 +86,17 @@ Rabbit.configMonitorSpeedList(speedCondig)
 最终生成的测速结果如下图:
 
 >页面渲染
+
 ![pic1](./picture/page_render_speed.png)
 
+
 >应用冷启动
+
 ![pic2](./picture/app_speed.png)
 
+
 >网络耗时监控
+
 ![pic3](picture/page_request_speed.png)
 
 

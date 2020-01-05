@@ -12,7 +12,6 @@ import com.susion.rabbit.base.entities.RabbitMemoryInfo
 import com.susion.rabbit.base.config.RabbitConfig
 import com.susion.rabbit.base.entities.RabbitAppSpeedMonitorConfig
 import com.susion.rabbit.monitor.RabbitMonitor
-import com.susion.rabbit.monitor.instance.RabbitAppSpeedMonitor
 import com.susion.rabbit.report.RabbitReport
 import com.susion.rabbit.storage.RabbitStorage
 import com.susion.rabbit.tracer.RabbitPluginConfig
