@@ -19,3 +19,6 @@
 **/.settings/
 
 .idea/
+
+localRepo/apk-analyzer
+localRepo/rabbitTransform
