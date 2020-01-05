@@ -10,7 +10,9 @@ import com.susion.rabbit.base.common.RabbitUtils
 import com.susion.rabbit.base.entities.RabbitHttpLogInfo
 import com.susion.rabbit.base.entities.RabbitMemoryInfo
 import com.susion.rabbit.base.config.RabbitConfig
+import com.susion.rabbit.base.entities.RabbitAppSpeedMonitorConfig
 import com.susion.rabbit.monitor.RabbitMonitor
+import com.susion.rabbit.monitor.instance.RabbitAppSpeedMonitor
 import com.susion.rabbit.report.RabbitReport
 import com.susion.rabbit.storage.RabbitStorage
 import com.susion.rabbit.tracer.RabbitPluginConfig
@@ -138,6 +140,10 @@ object Rabbit {
 
     fun enableAutoOpen(autoOpen: Boolean) {
         RabbitSettings.autoOpenRabbit(application, autoOpen)
+    }
+
+    fun configMonitorSpeedList(speedConfig: RabbitAppSpeedMonitorConfig) {
+        RabbitMonitor.configMonitorSpeedList(speedConfig)
     }
 
 }

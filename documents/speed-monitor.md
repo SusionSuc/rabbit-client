@@ -1,24 +1,19 @@
 # 应用测速功能
 
-该功能目前主要分为下面几个点:
+目前测速点主要有:
 
 1. Application创建耗时
 2. 页面测速
 3. 应用冷启动测速
 4. 页面网络请求耗时监控
 
->为了方便理解每一段耗时统计的含义,可以先尝试理解下图:
+>具体耗时统计的含义如下图:
 
 ![pic22](./picture/rabbit-speed-time.png)
 
 ## 使用
 
-测速功能主要是通过编译期字节码插桩来完成的，因此需要引入自定义的gradle插件:
-
->根build.gradle
-```
-classpath 'com.susion:rabbit-gradle-transform:0.0.3'
-```
+测速功能主要是通过编译期字节码插桩来完成的，因此应用`rabbit`插件:
 
 >应用build.gradle
 ```
@@ -27,7 +22,14 @@ apply plugin: 'rabbit-tracer-transform'
 
 ### 配置
 
-目前可以通过在`assets`目录下提供`rabbit_speed_monitor.json`文件来配置测速功能, 比如:
+可以在`rabbit`初始化时提供`RabbitAppSpeedMonitorConfig`对象来对要监控的内容进行配置:
+
+```
+rabbitConfig.monitorConfig.monitorSpeedList = loadMonitorSpeedConfig()
+Rabbit.config(rabbitConfig)
+```
+
+这里`loadMonitorSpeedConfig()`是从`assert`文件夹下读取了配置:
 
 ```
 {
@@ -48,6 +50,15 @@ apply plugin: 'rabbit-tracer-transform'
 `home_activity`:它指定了应用的入口`Activity`, 主要和应用冷启动逻辑相关联，如果配置的此项，那么冷启动耗时可以测量到上图的中**T6**。
 
 `page_list`: 用来配置每一个测速页面。当配置的`api`中的接口都请求完成后就会触发这个页面的**T6**点。
+
+
+>当然你也可以从网络动态下发配置,对于这种情况你可能需要使用这个API:
+
+```
+Rabbit.configMonitorSpeedList(speedCondig)
+```
+
+**在开始测试前不要忘记打开测速功能**
 
 ## 统计示例
 
