@@ -13,7 +13,7 @@
 - [数据上报](./data-report.md)
 
 
-## 基本使用
+## 快速使用
 
 >根目录`build.gradle`
 ```
@@ -34,8 +34,7 @@ dependencies {
 
 ### 引入示例
 
->下面是一个引入`rabbit`的思路
-
+>由于功能目前没有在线上环境验证过，因此目前建议只在测试环境下使用。下面是一个引入`rabbit`的思路:
 
 1. 新建`rabbit-plugin.gradle`:
 
@@ -74,11 +73,11 @@ apply from: 'rabbit-plugin.gradle'
 Rabbit.config(config)
 ```
 
-相关支持配置见:[RabbitConfig](https://github.com/SusionSuc/Rabbit/blob/master/rabbit/src/main/java/com/susion/rabbit/RabbitConfig.kt),各项配置具体含义会在每个功能的文档中做详细的介绍。
+相关支持配置见:[RabbitConfig](https://github.com/SusionSuc/rabbit-client/blob/master/rabbit-base/src/main/java/com/susion/rabbit/base/config/RabbitConfig.kt),各项配置具体含义会在每个功能的文档中做详细的介绍。
 
 ### 打开rabbit
 
-`rabbit`使用悬浮窗来展示各种监控数据，因此需要悬浮窗权限。可以调用下面方法来打开`rabbit`:
+`rabbit`使用悬浮窗来展示各种监控数据，因此需要申请悬浮窗权限, 不过内部自带了权限申请逻辑, 调用下面方法来打开`rabbit`:
 
 >Rabbit.kt
 ```
@@ -89,7 +88,7 @@ fun open(requestPermission: Boolean = true, activity: Activity)
 
 ![pic1](./picture/rabbit-float.png)
 
-点击`rabbit`浮标即可进入`rabbit`面板即可看到各项功能入口:
+点击`rabbit`浮标即可打开`rabbit`主面板:
 
 ![pic2](./picture/rabbit-entry.jpg)
 
@@ -99,7 +98,7 @@ fun open(requestPermission: Boolean = true, activity: Activity)
 
 #### 通过代码配置
 
-可以通过代码配置来`rabbit`各项监控的打开与否:
+可以通过代码来配置`rabbit`各项监控的打开与否:
 
 ```
 val autoOpenMonitors = hashSetOf(RabbitMonitorProtocol.NET.name, RabbitMonitorProtocol.EXCEPTION.name)
@@ -116,10 +115,6 @@ Rabbit.config(rabbitConfig)
 
 ![pic3](./picture/rabbit-config.jpg)
 
-
-## 项目架构
-
-![](./picture/rabbit-client-arc.png)
 
 
 

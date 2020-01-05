@@ -2,7 +2,7 @@
 <resources>
 
     <style name="MySwitchTheme" parent="Theme.AppCompat.Light">
-        <item name="colorControlActivated">@color/rabbit_light_blue</item>
+        <item name="colorControlActivated">#03a9f4</item>
         <item name="colorSwitchThumbNormal">#FFF1F1F1</item>
         <item name="android:colorForeground">#FF2F2F2F</item>
     </style>

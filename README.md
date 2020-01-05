@@ -1,6 +1,3 @@
-
-![pic1](documents/picture/rabbit-header.png)
-
 # 功能简介
 
 目前主要包括下面功能:

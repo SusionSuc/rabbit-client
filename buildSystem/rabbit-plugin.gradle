@@ -1,8 +1,8 @@
 //debug 模式下才使用rabbit
 def taskName = getGradle().getStartParameter().taskNames.toString().toLowerCase()
 def inDebug = taskName.contains("debug")
-def rabbitVersion = "0.0.7.4"
-def rabbitDepen = "com.susion:rabbit-noop:$rabbitVersion"
+def version = "0.0.7.4"
+def rabbit = "com.susion:rabbit-noop:$version"
 
 if (inDebug) {
     print("apply rabbit transform ! ---->")
@@ -13,9 +13,9 @@ if (inDebug) {
         methodMonitorPkgs = ['com.susion.rabbit.demo', 'com.susion.rabbit.demo.page']
     }
 
-    rabbitDepen = "com.susion:rabbit:$rabbitVersion"
+    rabbit = "com.susion:rabbit:$version"
 }
 
 rootProject.ext {
-    rabbitDependence = rabbitDepen
+    rabbitDependence = rabbit
 }
