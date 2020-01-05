@@ -10,8 +10,14 @@ Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
 }
 ```
 
+捕获到异常后可以在控制面板中看到异常原因:
+
+![pic1](./picture/rabbit-expection.png)
+
 ## 内存泄漏捕获
 
-`rabbit`目前通过`leakcanary`来捕获应用的内存泄漏。
+`rabbit`目前通过`leakcanary`来捕获应用的内存泄漏,该功能只能在`debug`中生效。
+
+>`rabbit`使用的`leakcanary`版本为: `2.0-beta-5`
 
 

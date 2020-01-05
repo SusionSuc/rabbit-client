@@ -145,4 +145,6 @@ object Rabbit {
         RabbitMonitor.configMonitorSpeedList(speedConfig)
     }
 
+    fun getCurrentActivity() = RabbitUi.appCurrentActivity?.get()
+
 }

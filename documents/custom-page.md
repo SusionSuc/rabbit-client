@@ -32,7 +32,9 @@ class CustomBusinessPage(context: Context) : RabbitBasePage(context) {
 - init代码块 : 初始化页面UI
 - setEntryParams : 页面跳转的参数
 
-**由于`rabbit`展示在window上，它所能提供的上下文并不是`Activity`,如果你需要`Activity`的话，可以调用`RabbitUi.appCurrentActivity`来获取当前应用的页面上下文。**
+## 获取Activity Context
+
+**由于`rabbit`展示在window上，它所能提供的上下文并不是`Activity`,如果你需要`Activity`的话，可以调用`Rabbit.getCurrentActivity()`来获取当前应用的页面上下文。**
 
 
 ## 接入到rabbit中
@@ -49,12 +51,12 @@ Rabbit.config(rabbitConfig)
 
 这样你就可以在`rabbit`中看到你自己的debug页面了:
 
-![pic1](./picture/rabbit-entry.jpg)
+![pic1](./picture/rabbit-entry.png)
 
 
 ## 在rabbit中定义更多页面
 
-你可以需要从自定义的`rabbit`页面跳转至另一个自定义的`rabbit`页面，可以通过下面方法跳转:
+你可能需要从自定义的`rabbit`页面跳转至另一个自定义的`rabbit`页面，可以通过下面方法跳转:
 
 ```
 RabbitUi.openPage(RabbitExceptionDetailPage::class.java, logInfo)

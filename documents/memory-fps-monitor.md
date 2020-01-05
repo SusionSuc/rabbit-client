@@ -24,7 +24,7 @@ Rabbit.config(rabbitConfig)
 
 ```
 val rabbitConfig = RabbitConfig()
-rabbitConfig.monitorConfig.fpsCollectThresholdNs = 2000L
+rabbitConfig.monitorConfig.memoryValueCollectPeriodMs = 2000L
 Rabbit.config(rabbitConfig)
 ```
 >配置后，会每2秒采集一次内存值。
