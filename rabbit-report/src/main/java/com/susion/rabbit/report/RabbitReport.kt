@@ -66,7 +66,10 @@ object RabbitReport {
             override fun successEmitterPoint(pointInfo: RabbitReportInfo) {
                 RabbitDbStorageManager.delete(
                     RabbitReportInfo::class.java,
-                    condition = Pair(com.susion.rabbit.base.greendao.RabbitReportInfoDao.Properties.Time, pointInfo.time.toString())
+                    condition = Pair(
+                        com.susion.rabbit.base.greendao.RabbitReportInfoDao.Properties.Time,
+                        pointInfo.time.toString()
+                    )
                 )
             }
 
@@ -86,7 +89,10 @@ object RabbitReport {
      * */
     fun report(info: Any, useTime: Long = 0) {
 
-        if (!mConfig.reportMonitorData) return
+        //暴露给外界的数据上报接口
+        mConfig.dataReportListener?.onPrepareReportData(info, useTime)
+
+        if (!mConfig.enable) return
 
         if (mConfig.notReportDataFormat.contains(info.javaClass)) return
 

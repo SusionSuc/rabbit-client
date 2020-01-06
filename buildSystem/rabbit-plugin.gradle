@@ -6,9 +6,11 @@ def rabbit = "com.susion:rabbit-noop:$version"
 
 if (inDebug) {
     print("apply rabbit transform ! ---->")
-    apply plugin: 'rabbit-tracer-transform'
+    apply plugin: 'rabbit-tracer'
 
     rabbitConfig {
+        enable = true  // 是否启动字节码插桩. 状态切换应clean工程
+        printLog = true // 编译时打印插桩log
         pageSpeedMonitorPkgs = ['com.susion.rabbit.demo']
         methodMonitorPkgs = ['com.susion.rabbit.demo', 'com.susion.rabbit.demo.page']
     }

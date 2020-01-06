@@ -27,8 +27,7 @@ dependencies {
 apply plugin: 'rabbit-tracer-transform' //引入插件, release包不要引入
 
 dependencies {
-    debugImplementation "com.susion:rabbit:0.0.8"  
-    releaseImplementation "com.susion:rabbit-noop:0.0.8" // release 下不做任何操作
+    implementation "com.susion:rabbit:0.0.8"
 } 
 ```
 

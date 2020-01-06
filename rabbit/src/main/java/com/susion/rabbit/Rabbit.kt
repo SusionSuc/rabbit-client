@@ -65,7 +65,7 @@ object Rabbit {
 
         //上报配置
         val reportConfig = mConfig.reportConfig
-        reportConfig.reportMonitorData = true
+        reportConfig.enable = true
         reportConfig.notReportDataFormat.apply {
             add(RabbitMemoryInfo::class.java)
             add(RabbitHttpLogInfo::class.java)

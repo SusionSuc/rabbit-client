@@ -3,7 +3,6 @@ package com.susion.rabbit.demo
 import android.app.Application
 import com.google.gson.Gson
 import com.susion.rabbit.Rabbit
-import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.RabbitMonitorProtocol
 import com.susion.rabbit.base.common.FileUtils
 import com.susion.rabbit.base.config.RabbitConfig
@@ -50,7 +49,7 @@ class MyApplication : Application() {
 //        rabbitConfig.monitorConfig.fpsCollectThresholdNs = TimeUnit.NANOSECONDS.convert(10, TimeUnit.MILLISECONDS)
 //        rabbitConfig.monitorConfig.memoryValueCollectPeriodMs = 2000L
 
-        rabbitConfig.reportConfig.reportMonitorData = true
+        rabbitConfig.reportConfig.enable = true
         rabbitConfig.reportConfig.reportPath = "http://127.0.0.1:8000/apmdb/upload-log"
 //        rabbitConfig.reportConfig.fpsReportPeriodS = 2
 //        rabbitConfig.reportConfig.notReportDataFormat.addAll(hashSetOf(RabbitExceptionInfo::class.java))
