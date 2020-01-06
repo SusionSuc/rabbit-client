@@ -146,7 +146,7 @@ object FloatingViewPermissionHelper {
     /**
      * show confirm diaRabbitLog
      */
-    fun showConfirmDiaRabbitLog(context: Activity, result: OnConfirmResult) {
+    fun showConfirmDialog(context: Activity, result: OnConfirmResult) {
         val diaRabbitLog = AlertDialog.Builder(context)
             .setCancelable(true)
             .setTitle("")

@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit
  * susionwang at 2019-10-12
  * 内容存储的基类
  * 封装数据层, 数据库异步操作
+ * 可以直接使用它进行数据库操作
  */
 object RabbitDbStorageManager {
 

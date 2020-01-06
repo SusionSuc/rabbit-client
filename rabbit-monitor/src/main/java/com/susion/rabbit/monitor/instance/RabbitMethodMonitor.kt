@@ -15,7 +15,7 @@ import com.susion.rabbit.tracer.RabbitTracerEventNotifier
  * 函数监控
  * 1. 慢函数监控
  */
-class RabbitMethodMonitor(override var isOpen: Boolean = false) : RabbitMonitorProtocol {
+internal class RabbitMethodMonitor(override var isOpen: Boolean = false) : RabbitMonitorProtocol {
 
     private val T = javaClass.simpleName
     private val slowMethodThreshold = RabbitMonitor.config.slowMethodPeriodMs

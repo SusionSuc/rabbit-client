@@ -16,7 +16,7 @@ import okhttp3.Response
  * 1. 记录网络请求日志
  * 2. 记录某些指定的请求的时间
  */
-class RabbitNetMonitor(override var isOpen: Boolean = false) : RabbitMonitorProtocol, Interceptor {
+internal class RabbitNetMonitor(override var isOpen: Boolean = false) : RabbitMonitorProtocol, Interceptor {
 
     private var startNs = System.nanoTime()
 

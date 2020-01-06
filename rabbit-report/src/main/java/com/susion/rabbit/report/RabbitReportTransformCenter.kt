@@ -9,7 +9,7 @@ import com.susion.rabbit.report.entities.RabbitSimpleExceptionInfo
  * susionwang at 2019-12-16
  * 对客户端采集的数据做一些转换，然后上报到服务端
  */
-object RabbitReportTransformCenter {
+internal object RabbitReportTransformCenter {
 
     fun createReportInfo(info: Any, appUseTime: Long): RabbitReportInfo {
         val reportInfo = RabbitReportInfo(

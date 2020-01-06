@@ -13,7 +13,7 @@ import java.io.StringWriter
 /**
  * susionwang at 2019-12-12
  */
-class RabbitExceptionMonitor(override var isOpen: Boolean = false) :
+internal class RabbitExceptionMonitor(override var isOpen: Boolean = false) :
     RabbitMonitorProtocol {
 
     override fun open(context: Context) {
