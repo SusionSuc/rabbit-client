@@ -12,6 +12,7 @@ import com.susion.rabbit.base.entities.RabbitBlockStackTraceInfo
 import com.susion.rabbit.ui.base.RabbitBasePage
 import com.susion.rabbit.ui.base.adapter.RabbitAdapterItemView
 import com.susion.rabbit.ui.base.adapter.RabbitRvAdapter
+import com.susion.rabbit.ui.base.view.RabbitSimpleKVItemView
 import com.susion.rabbit.ui.monitor.R
 import com.susion.rabbit.ui.monitor.view.RabbitBlockStackTraceView
 import kotlinx.android.synthetic.main.rabbit_page_ui_block.view.*
@@ -27,7 +28,7 @@ class RabbitUiBlockDetailPage(context: Context) : RabbitBasePage(context) {
         object : RabbitRvAdapter<Any>(ArrayList()) {
             override fun createItem(type: Int): RabbitAdapterItemView<*> {
                 return when (type) {
-                    1 -> com.susion.rabbit.ui.base.view.RabbitSimpleKVItemView(context)
+                    1 -> RabbitSimpleKVItemView(context)
                     else -> RabbitBlockStackTraceView(context)
                 }
             }
@@ -65,7 +66,7 @@ class RabbitUiBlockDetailPage(context: Context) : RabbitBasePage(context) {
             mRabbitBlockDetailTvCostTime.text =
                 "卡顿时长 : ${translateToMs(blockInfo.costTime)} Ms ; 抓取主线程堆栈 : ${traceList.size} 次"
         } catch (e: Exception) {
-            RabbitLog.d(TAG_MONITOR_UI,"block frame gson transform error")
+            RabbitLog.d(TAG_MONITOR_UI, "block frame gson transform error")
         }
     }
 

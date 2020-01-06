@@ -23,7 +23,6 @@ object RabbitStorage {
         mConfig.daoProvider.addAll(getFixedDaoProvider())
         mConfig.storageInOnSessionData.addAll(ArrayList<Class<Any>>().apply {
             add(RabbitHttpLogInfo::class.java as Class<Any>)
-            add(RabbitBlockFrameInfo::class.java as Class<Any>)
             add(RabbitMemoryInfo::class.java as Class<Any>)
         })
         RabbitDbStorageManager.clearOldSessionData()

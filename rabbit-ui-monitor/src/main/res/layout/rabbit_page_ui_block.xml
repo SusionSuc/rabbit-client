@@ -6,12 +6,13 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:layout_marginTop="10dp"
         android:padding="10dp"
         android:id="@+id/mRabbitBlockDetailTvCostTime"
         android:layout_width="match_parent"
         android:textSize="17dp"
         android:textColor="@color/rabbit_black"
-        android:background="@color/rabbit_material_dark"
+        android:background="@color/rabbit_bg_card"
         android:layout_height="wrap_content"/>
 
     <androidx.recyclerview.widget.RecyclerView

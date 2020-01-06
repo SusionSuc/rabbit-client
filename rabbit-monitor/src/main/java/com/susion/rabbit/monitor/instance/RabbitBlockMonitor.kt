@@ -10,6 +10,7 @@ import com.susion.rabbit.monitor.core.ChoreographerFrameUpdateMonitor
 import com.susion.rabbit.base.RabbitMonitorProtocol
 import com.susion.rabbit.base.common.toastInThread
 import com.susion.rabbit.base.entities.RabbitBlockStackTraceInfo
+import com.susion.rabbit.monitor.utils.RabbitMonitorUtils
 import com.susion.rabbit.storage.RabbitDbStorageManager
 import java.util.concurrent.TimeUnit
 
@@ -89,26 +90,11 @@ internal class RabbitBlockMonitor(override var isOpen: Boolean = false) : Choreo
     }
 
     private fun getUiThreadStackTrace(): String {
-        return traceToString(0, Looper.getMainLooper().thread.stackTrace)
+        return RabbitMonitorUtils.traceToString(0, Looper.getMainLooper().thread.stackTrace)
     }
 
-    private fun traceToString(skipStackCount: Int, stackArray: Array<StackTraceElement>): String {
-        if (stackArray.isEmpty()) {
-            return "[]"
-        }
 
-        val b = StringBuilder()
-        for (i in 0 until stackArray.size - skipStackCount) {
-            if (i == stackArray.size - skipStackCount - 1) {
-                return b.toString()
-            }
-            b.append(stackArray[i])
-            b.append("\n")
-        }
-        return b.toString()
-    }
-
-    private fun getIdentifierByMaxCount(traceMap: Map<String, RabbitBlockStackTraceInfo>): String {
+    fun getIdentifierByMaxCount(traceMap: Map<String, RabbitBlockStackTraceInfo>): String {
         return traceMap.values.toList().maxBy { it.collectCount }?.stackTrace.toString()
     }
 

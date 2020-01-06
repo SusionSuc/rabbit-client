@@ -23,23 +23,19 @@ public class RabbitSlowMethodInfo {
 
     public Long costTimeMs;
 
-    @Generated(hash = 609049470)
-    public RabbitSlowMethodInfo(Long id, Long time, String pkgName, String className, String methodName,
-            Long costTimeMs) {
+    public String callStack;
+
+    @Generated(hash = 1789569780)
+    public RabbitSlowMethodInfo(Long id, Long time, String pkgName,
+            String className, String methodName, Long costTimeMs,
+            String callStack) {
         this.id = id;
         this.time = time;
         this.pkgName = pkgName;
         this.className = className;
         this.methodName = methodName;
         this.costTimeMs = costTimeMs;
-    }
-
-    public RabbitSlowMethodInfo(Long time, String pkgName, String className, String methodName, Long costTimeMs) {
-        this.time = time;
-        this.pkgName = pkgName;
-        this.className = className;
-        this.methodName = methodName;
-        this.costTimeMs = costTimeMs;
+        this.callStack = callStack;
     }
 
     @Generated(hash = 1558201019)
@@ -93,5 +89,14 @@ public class RabbitSlowMethodInfo {
     public void setCostTimeMs(Long costTimeMs) {
         this.costTimeMs = costTimeMs;
     }
+
+    public String getCallStack() {
+        return this.callStack;
+    }
+
+    public void setCallStack(String callStack) {
+        this.callStack = callStack;
+    }
+
 
 }

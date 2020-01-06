@@ -7,6 +7,7 @@ import com.susion.rabbit.base.RabbitMonitorProtocol
 import com.susion.rabbit.base.TAG_MONITOR
 import com.susion.rabbit.base.entities.RabbitSlowMethodInfo
 import com.susion.rabbit.monitor.RabbitMonitor
+import com.susion.rabbit.monitor.utils.RabbitMonitorUtils
 import com.susion.rabbit.storage.RabbitDbStorageManager
 import com.susion.rabbit.tracer.RabbitTracerEventNotifier
 
@@ -22,8 +23,12 @@ internal class RabbitMethodMonitor(override var isOpen: Boolean = false) : Rabbi
 
     private val methodCostListener = object : RabbitTracerEventNotifier.MethodCostEvent {
         override fun methodCost(methodStr: String, time: Long) {
-            //主线程消耗过多时间
-            if (time > slowMethodThreshold && Thread.currentThread().name == Looper.getMainLooper().thread.name) {
+            val monitorCurrentThread = if (RabbitMonitor.config.onlyCheckMainThreadSlowMethod) {
+                Thread.currentThread().name == Looper.getMainLooper().thread.name
+            } else {
+                true
+            }
+            if (time > slowMethodThreshold && monitorCurrentThread) {
                 saveSlowMethod(methodStr, time)
             }
         }
@@ -46,9 +51,13 @@ internal class RabbitMethodMonitor(override var isOpen: Boolean = false) : Rabbi
 
         if (classNameStartIndex > 0) {
 
-            val className = fullClassName.subSequence(classNameStartIndex + 1, fullClassName.length).toString()
+            val className =
+                fullClassName.subSequence(classNameStartIndex + 1, fullClassName.length).toString()
             val pkgName = fullClassName.subSequence(0, classNameStartIndex).toString()
-            RabbitLog.d(TAG_MONITOR, "slow method --> $pkgName -> $className -> $methodName -> $time ms")
+            RabbitLog.d(
+                TAG_MONITOR,
+                "slow method --> $pkgName -> $className -> $methodName -> $time ms"
+            )
 
             val slowMethod = RabbitSlowMethodInfo().apply {
                 this.pkgName = pkgName
@@ -56,6 +65,7 @@ internal class RabbitMethodMonitor(override var isOpen: Boolean = false) : Rabbi
                 this.methodName = methodName
                 this.costTimeMs = time
                 this.time = System.currentTimeMillis()
+                callStack = RabbitMonitorUtils.traceToString(5, Thread.currentThread().stackTrace, 15)
             }
 
             RabbitDbStorageManager.save(slowMethod)

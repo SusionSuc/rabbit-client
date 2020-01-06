@@ -1,6 +1,7 @@
 package com.susion.rabbit.demo;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.susion.rabbit.ui.base.view.RabbitActionBar;
 
@@ -11,6 +12,12 @@ public class MethodCostTraceActivity extends RabbitBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_method_cost_trace);
         ((RabbitActionBar)findViewById(R.id.mSlowMethodActionBar)).setTitle("慢函数测试");
+        ((RabbitActionBar)findViewById(R.id.mSlowMethodActionBar)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         new Thread(new Runnable() {
             @Override

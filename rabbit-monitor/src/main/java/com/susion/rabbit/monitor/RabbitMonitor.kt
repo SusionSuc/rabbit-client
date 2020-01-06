@@ -32,6 +32,7 @@ object RabbitMonitor {
     private var pageChangeListeners = HashSet<PageChangeListener>()
 
     fun init(application: Application, config: RabbitMonitorConfig) {
+        
         if (isInit) return
 
         this.config = config

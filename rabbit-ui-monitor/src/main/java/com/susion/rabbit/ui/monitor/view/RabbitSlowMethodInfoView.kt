@@ -5,12 +5,12 @@ import android.util.TypedValue
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.susion.rabbit.ui.base.*
 import com.susion.rabbit.ui.base.adapter.RabbitAdapterItemView
-import com.susion.rabbit.ui.base.dp2px
-import com.susion.rabbit.ui.base.getColor
-import com.susion.rabbit.ui.base.getDrawable
 import com.susion.rabbit.ui.monitor.R
 import com.susion.rabbit.ui.monitor.entities.RabbitSlowMethodUiInfo
+import com.susion.rabbit.ui.monitor.page.RabbitSlowMethodCallStackPage
+import io.reactivex.functions.Consumer
 
 /**
  * susionwang at 2020-01-02
@@ -42,7 +42,7 @@ class RabbitSlowMethodInfoView (context: Context) : LinearLayout(context), Rabbi
         }
         addView(tvClassName)
         addView(tvMethodDesc)
-        background = getDrawable(context, R.color.rabbit_light_green)
+        background = getDrawable(context, R.color.rabbit_bg_card)
         setPadding(dp2px(15f), dp2px(10f), dp2px(15f), dp2px(10f))
     }
 
@@ -50,6 +50,10 @@ class RabbitSlowMethodInfoView (context: Context) : LinearLayout(context), Rabbi
     override fun bindData(info: RabbitSlowMethodUiInfo, position: Int) {
         tvClassName.text= "${info.className} -> ${info.name}"
         tvMethodDesc.text = "total ${info.count} record ; average cost ${info.totalTime/info.count} ms"
+
+        throttleFirstClick(Consumer {
+            RabbitUi.openPage(RabbitSlowMethodCallStackPage::class.java, info)
+        })
     }
 
 }

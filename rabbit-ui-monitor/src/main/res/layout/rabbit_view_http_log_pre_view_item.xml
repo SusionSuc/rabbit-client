@@ -10,8 +10,8 @@
         android:layout_marginStart="15dp"
         android:id="@+id/mLogPreViewIvResponseContentType"
         android:layout_centerVertical="true"
-        android:layout_width="30dp"
-        android:layout_height="30dp"/>
+        android:layout_width="25dp"
+        android:layout_height="25dp"/>
 
     <LinearLayout
         android:layout_toEndOf="@+id/mLogPreViewIvResponseContentType"
@@ -49,6 +49,6 @@
         android:layout_alignParentBottom="true"
         android:background="@color/rabbit_divider_line"
         android:layout_width="match_parent"
-        android:layout_height="1dp"/>
+        android:layout_height="1px"/>
 
 </merge>

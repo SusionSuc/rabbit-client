@@ -3,6 +3,8 @@ package com.susion.rabbit.ui.monitor.page
 import android.content.Context
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.susion.rabbit.base.RabbitLog
+import com.susion.rabbit.base.TAG_MONITOR
 import com.susion.rabbit.base.entities.RabbitSlowMethodInfo
 import com.susion.rabbit.storage.RabbitDbStorageManager
 import com.susion.rabbit.ui.base.RabbitBasePage
@@ -50,7 +52,7 @@ class RabbitSlowMethodDetailPage(context: Context) : RabbitBasePage(context) {
                         val keyIden = "${it.className}_${it.methodName}"
                         var info = uiMethodInfo[keyIden]
                         if (info == null) {
-                            info = RabbitSlowMethodUiInfo(it.className, it.methodName, 0, 0)
+                            info = RabbitSlowMethodUiInfo(it.className, it.methodName, 0, 0, it.callStack)
                             uiMethodInfo[keyIden] = info
                         }
 

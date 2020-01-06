@@ -2,37 +2,53 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:parentTag="android.widget.LinearLayout"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    tools:parentTag="RelativeLayout">
 
-    <TextView
-        android:layout_marginStart="10dp"
-        android:id="@+id/mRabbitUiBlockItemViewTvLine1"
+    <ImageView
+        android:id="@+id/block_icon"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="15dp"
+        android:src="@drawable/rabbit_icon_log_block" />
+
+    <LinearLayout
+        android:id="@+id/log_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textColor="@color/rabbit_black"
-        android:textSize="15dp" />
+        android:layout_centerVertical="true"
+        android:layout_marginStart="20dp"
+        android:layout_toEndOf="@id/block_icon"
+        android:orientation="vertical">
 
-    <TextView
-        android:layout_marginTop="3dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginStart="10dp"
-        android:id="@+id/mRabbitUiBlockItemViewTvLine2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textColor="@color/rabbit_black"
-        android:textSize="15dp" />
+        <TextView
+            android:id="@+id/mRabbitUiBlockItemViewTvLine1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/rabbit_black"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/mRabbitUiBlockItemViewTvLine2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/rabbit_black"
+            android:textSize="16dp" />
+
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/rabbit_divider_line"
-        android:layout_marginTop="3dp"/>
+        android:layout_below="@id/log_detail"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/rabbit_divider_line" />
 
 </merge>

@@ -19,7 +19,7 @@
             <TextView
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="10dp"
-                android:id="@+id/mExceptionDetailTvThreadName"
+                android:id="@+id/mCallStackThreadName"
                 android:textColor="@color/rabbit_black"
                 android:textSize="16dp"
                 android:layout_width="match_parent"
@@ -38,13 +38,14 @@
             <View
                 android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="1px"
                 android:background="@color/rabbit_divider_line" />
 
             <TextView
                 android:padding="10dp"
-                android:id="@+id/mExceptionDetailTvExceptionInfo"
+                android:id="@+id/mCallStackTvStackStr"
                 android:textColor="@color/rabbit_black"
+                android:lineSpacingMultiplier="1.5"
                 android:textSize="14dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>

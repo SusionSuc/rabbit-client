@@ -3,7 +3,7 @@ package com.susion.rabbit.ui.monitor.entities
 /**
  * susionwang at 2020-01-02
  */
-class RabbitSlowMethodUiInfo (val className:String, val name:String, var count:Int, var totalTime:Long){
+class RabbitSlowMethodUiInfo (val className:String, val name:String, var count:Int, var totalTime:Long, var callStack:String = ""){
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

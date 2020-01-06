@@ -21,6 +21,7 @@ class RabbitMonitorConfig(
     var fpsCollectThresholdNs: Long = STANDARD_FRAME_NS * 10,
     var fpsReportPeriodS: Long = 10,
     var slowMethodPeriodMs:Long = 15,
+    var onlyCheckMainThreadSlowMethod:Boolean = true,
     var monitorSpeedList: RabbitAppSpeedMonitorConfig = RabbitAppSpeedMonitorConfig()
 ) {
     companion object {

@@ -3,7 +3,7 @@ package com.susion.rabbit.ui.monitor.page
 import android.content.Context
 import android.view.ViewGroup
 import com.susion.rabbit.base.entities.RabbitHttpLogInfo
-import com.susion.rabbit.ui.monitor.view.HttpLogPreviewItemView
+import com.susion.rabbit.ui.monitor.view.RabbitHttpLogPreviewView
 import com.susion.rabbit.storage.RabbitDbStorageManager
 import com.susion.rabbit.ui.base.RabbitBasePage
 import com.susion.rabbit.ui.monitor.R
@@ -18,7 +18,7 @@ class RabbitHttpLogListPage(context: Context) : RabbitBasePage(context) {
     private val logsAdapter by lazy {
         object : com.susion.rabbit.ui.base.adapter.RabbitRvAdapter<RabbitHttpLogInfo>(ArrayList()) {
             override fun createItem(type: Int) =
-                HttpLogPreviewItemView(context)
+                RabbitHttpLogPreviewView(context)
             override fun getItemType(data: RabbitHttpLogInfo) = 0
         }
     }

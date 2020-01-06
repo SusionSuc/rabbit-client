@@ -43,7 +43,7 @@ class RabbitSlowMethodGroupItemView(context: Context) : LinearLayout(context),
         }
         addView(tvPkgName)
         addView(tvMethodDesc)
-        background = getDrawable(context, R.color.rabbit_light_green)
+        background = getDrawable(context, R.color.rabbit_bg_card)
         setPadding(dp2px(15f), dp2px(10f), dp2px(15f), dp2px(10f))
 
     }

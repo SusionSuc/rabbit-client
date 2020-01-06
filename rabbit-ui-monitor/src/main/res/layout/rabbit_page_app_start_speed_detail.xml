@@ -24,7 +24,7 @@
 
     <LinearLayout
         android:layout_margin="10dp"
-        android:background="@color/rabbit_light_green"
+        android:background="@color/rabbit_bg_card"
         android:padding="15dp"
         android:orientation="vertical"
         android:layout_width="match_parent"

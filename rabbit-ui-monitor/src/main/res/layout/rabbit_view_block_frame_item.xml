@@ -10,6 +10,7 @@
         android:id="@+id/mRabbitBlockFrameViewTvStackTrace"
         android:layout_marginTop="3dp"
         android:textSize="14dp"
+        android:lineSpacingMultiplier="1.5"
         android:textColor="@color/rabbit_black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

@@ -32,6 +32,7 @@ class RabbitSimpleKVItemView : LinearLayout,
         setTextColor(getColor(context, R.color.rabbit_black))
         gravity = Gravity.CENTER_VERTICAL
         setPadding(dp2px(10f), 0, 0, 0)
+        setLineSpacing(0f, 1.5f)
     }
 
     private val tvValue = TextView(context).apply {
@@ -42,6 +43,7 @@ class RabbitSimpleKVItemView : LinearLayout,
         setTextColor(getColor(context, R.color.rabbit_black))
         gravity = Gravity.CENTER_VERTICAL
         setPadding(dp2px(10f), 0, 0, 0)
+        setLineSpacing(0f, 1.5f)
     }
 
     private val dividerLine = View(context).apply {

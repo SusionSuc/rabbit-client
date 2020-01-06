@@ -30,6 +30,7 @@ public class RabbitSlowMethodInfoDao extends AbstractDao<RabbitSlowMethodInfo, L
         public final static Property ClassName = new Property(3, String.class, "className", false, "CLASS_NAME");
         public final static Property MethodName = new Property(4, String.class, "methodName", false, "METHOD_NAME");
         public final static Property CostTimeMs = new Property(5, Long.class, "costTimeMs", false, "COST_TIME_MS");
+        public final static Property CallStack = new Property(6, String.class, "callStack", false, "CALL_STACK");
     }
 
 
@@ -50,7 +51,8 @@ public class RabbitSlowMethodInfoDao extends AbstractDao<RabbitSlowMethodInfo, L
                 "\"PKG_NAME\" TEXT," + // 2: pkgName
                 "\"CLASS_NAME\" TEXT," + // 3: className
                 "\"METHOD_NAME\" TEXT," + // 4: methodName
-                "\"COST_TIME_MS\" INTEGER);"); // 5: costTimeMs
+                "\"COST_TIME_MS\" INTEGER," + // 5: costTimeMs
+                "\"CALL_STACK\" TEXT);"); // 6: callStack
     }
 
     /** Drops the underlying database table. */
@@ -92,6 +94,11 @@ public class RabbitSlowMethodInfoDao extends AbstractDao<RabbitSlowMethodInfo, L
         if (costTimeMs != null) {
             stmt.bindLong(6, costTimeMs);
         }
+ 
+        String callStack = entity.getCallStack();
+        if (callStack != null) {
+            stmt.bindString(7, callStack);
+        }
     }
 
     @Override
@@ -127,6 +134,11 @@ public class RabbitSlowMethodInfoDao extends AbstractDao<RabbitSlowMethodInfo, L
         if (costTimeMs != null) {
             stmt.bindLong(6, costTimeMs);
         }
+ 
+        String callStack = entity.getCallStack();
+        if (callStack != null) {
+            stmt.bindString(7, callStack);
+        }
     }
 
     @Override
@@ -142,7 +154,8 @@ public class RabbitSlowMethodInfoDao extends AbstractDao<RabbitSlowMethodInfo, L
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // pkgName
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // className
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // methodName
-            cursor.isNull(offset + 5) ? null : cursor.getLong(offset + 5) // costTimeMs
+            cursor.isNull(offset + 5) ? null : cursor.getLong(offset + 5), // costTimeMs
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6) // callStack
         );
         return entity;
     }
@@ -155,6 +168,7 @@ public class RabbitSlowMethodInfoDao extends AbstractDao<RabbitSlowMethodInfo, L
         entity.setClassName(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setMethodName(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
         entity.setCostTimeMs(cursor.isNull(offset + 5) ? null : cursor.getLong(offset + 5));
+        entity.setCallStack(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
      }
     
     @Override

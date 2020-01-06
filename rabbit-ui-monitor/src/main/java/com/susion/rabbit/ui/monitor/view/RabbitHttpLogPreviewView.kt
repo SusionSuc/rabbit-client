@@ -7,6 +7,7 @@ import com.susion.rabbit.ui.base.utils.RabbitUiUtils
 import com.susion.rabbit.base.common.rabbitTimeFormat
 import com.susion.rabbit.base.entities.RabbitHttpLogInfo
 import com.susion.rabbit.ui.base.RabbitUi
+import com.susion.rabbit.ui.base.adapter.RabbitAdapterItemView
 import com.susion.rabbit.ui.monitor.page.RabbitHttpLogDetailPage
 import com.susion.rabbit.ui.base.dp2px
 import com.susion.rabbit.ui.base.getDrawable
@@ -18,8 +19,8 @@ import kotlinx.android.synthetic.main.rabbit_view_http_log_pre_view_item.view.*
 /**
  * susionwang at 2019-09-25
  */
-class HttpLogPreviewItemView(context: Context) : RelativeLayout(context),
-    com.susion.rabbit.ui.base.adapter.RabbitAdapterItemView<RabbitHttpLogInfo> {
+class RabbitHttpLogPreviewView(context: Context) : RelativeLayout(context),
+    RabbitAdapterItemView<RabbitHttpLogInfo> {
 
     private lateinit var mLogInfo: RabbitHttpLogInfo
 

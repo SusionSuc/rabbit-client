@@ -5,34 +5,28 @@ import android.graphics.Color
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
-import com.susion.rabbit.base.entities.RabbitExceptionInfo
 import com.susion.rabbit.ui.base.RabbitBasePage
-import com.susion.rabbit.ui.base.showToast
 import com.susion.rabbit.ui.base.utils.RabbitUiUtils
 import com.susion.rabbit.ui.monitor.R
+import com.susion.rabbit.ui.monitor.entities.RabbitSlowMethodUiInfo
 import kotlinx.android.synthetic.main.rabbit_page_call_stack.view.*
 
 /**
- * susionwang at 2019-10-21
+ * susionwang at 2020-01-06
  */
+class RabbitSlowMethodCallStackPage(context: Context) : RabbitBasePage(context) {
 
-class RabbitExceptionDetailPage(context: Context): RabbitBasePage(context) {
-
-    override fun getLayoutResId()  = R.layout.rabbit_page_call_stack
+    override fun getLayoutResId() = R.layout.rabbit_page_call_stack
 
     init {
-        setTitle("异常详情")
+        setTitle("函数调用栈")
     }
 
-    override fun setEntryParams(exceptionInfo: Any) {
-        if (exceptionInfo !is RabbitExceptionInfo) return
+    override fun setEntryParams(slowMethodInfo: Any) {
 
-        if (!exceptionInfo.isvalid()) {
-            showToast(context, "log日志文件已损坏!")
-            return
-        }
+        if (slowMethodInfo !is RabbitSlowMethodUiInfo) return
 
-        mCallStackThreadName.text = "Crash Thread Name : ${exceptionInfo?.threadName ?:""}"
+        mCallStackThreadName.text = "${slowMethodInfo.className} -> ${slowMethodInfo.name}"
 
         val redMaxLine = 4
         val spannableStringBuilder = SpannableStringBuilder()
@@ -40,7 +34,7 @@ class RabbitExceptionDetailPage(context: Context): RabbitBasePage(context) {
 
         var spanEndIndex = 0
 
-        exceptionInfo.crashTraceStr.split("\n").forEachIndexed { index, string ->
+        slowMethodInfo.callStack.split("\n").forEachIndexed { index, string ->
             spannableStringBuilder.append(string)
             spannableStringBuilder.append("\n")
             if (index < redMaxLine){

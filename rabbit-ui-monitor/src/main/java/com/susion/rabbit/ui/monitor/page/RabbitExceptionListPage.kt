@@ -2,7 +2,7 @@ package com.susion.rabbit.ui.monitor.page
 
 import android.content.Context
 import com.susion.rabbit.base.entities.RabbitExceptionInfo
-import com.susion.rabbit.ui.monitor.view.ExceptionLogPreviewItemView
+import com.susion.rabbit.ui.monitor.view.RabbitExceptionPreviewView
 import com.susion.rabbit.storage.RabbitDbStorageManager
 import com.susion.rabbit.ui.base.RabbitBasePage
 import com.susion.rabbit.ui.base.adapter.RabbitRvAdapter
@@ -20,7 +20,7 @@ class RabbitExceptionListPage(context: Context) : RabbitBasePage(context) {
     private val logsAdapter by lazy {
         object : RabbitRvAdapter<RabbitExceptionInfo>(ArrayList()) {
             override fun createItem(type: Int) =
-                ExceptionLogPreviewItemView(context)
+                RabbitExceptionPreviewView(context)
             override fun getItemType(data: RabbitExceptionInfo) = 0
         }
     }
