@@ -5,6 +5,7 @@ import android.app.Application
 import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.RabbitSettings
 import com.susion.rabbit.base.RabbitMonitorProtocol
+import com.susion.rabbit.base.TAG_MONITOR
 import com.susion.rabbit.base.common.RabbitActivityLifecycleWrapper
 import com.susion.rabbit.base.config.RabbitMonitorConfig
 import com.susion.rabbit.base.entities.RabbitAppSpeedMonitorConfig
@@ -22,7 +23,6 @@ import java.lang.ref.WeakReference
  */
 object RabbitMonitor {
 
-    private val TAG = javaClass.simpleName
     var application: Application? = null
     private var isInit = false
     var config: RabbitMonitorConfig = RabbitMonitorConfig()
@@ -65,7 +65,7 @@ object RabbitMonitor {
             val autoOpen = RabbitSettings.autoOpen(application, it.getMonitorInfo().name)
             if (autoOpen) {
                 it.open(application)
-                RabbitLog.d(TAG, "monitor auto open : ${it.getMonitorInfo().name} ")
+                RabbitLog.d(TAG_MONITOR, "monitor auto open : ${it.getMonitorInfo().name} ")
             }
         }
 

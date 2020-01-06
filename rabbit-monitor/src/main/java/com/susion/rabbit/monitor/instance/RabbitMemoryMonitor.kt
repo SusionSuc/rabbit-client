@@ -19,7 +19,6 @@ import com.susion.rabbit.storage.RabbitDbStorageManager
 internal class RabbitMemoryMonitor(override var isOpen: Boolean = false) :
     RabbitMonitorProtocol {
 
-    private val TAG = javaClass.simpleName
     private var MEMORY_COLLECT_PERIOD = 10000L
     private var mActivityManager: ActivityManager? = null
     private var memoryRefreshHandler: Handler? = null

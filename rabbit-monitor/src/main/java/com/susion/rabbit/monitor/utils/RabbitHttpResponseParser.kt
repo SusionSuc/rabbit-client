@@ -18,8 +18,6 @@ import java.util.concurrent.TimeUnit
  */
 internal object RabbitHttpResponseParser {
 
-    private val TAG = javaClass.simpleName
-
     fun parserResponse(request: Request, response: Response, startTime: Long): RabbitHttpLogInfo {
         return when {
             isSuccessResponse(response.code()) -> parseSuccessHttpLog(

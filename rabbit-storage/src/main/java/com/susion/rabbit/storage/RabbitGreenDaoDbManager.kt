@@ -1,6 +1,8 @@
 package com.susion.rabbit.storage
 
 import android.content.Context
+import com.susion.rabbit.base.RabbitLog
+import com.susion.rabbit.base.TAG_STORAGE
 import com.susion.rabbit.base.config.RabbitDaoProviderConfig
 import org.greenrobot.greendao.AbstractDao
 import org.greenrobot.greendao.Property
@@ -22,6 +24,7 @@ internal class RabbitGreenDaoDbManage(val context: Context) {
             daoImpl.deleteAll()
         }
         daoImpl.save(obj)
+        RabbitLog.d(TAG_STORAGE, "save data $obj")
     }
 
     fun <T : Any> getDataById(clazz: Class<T>, id: Long): T? {

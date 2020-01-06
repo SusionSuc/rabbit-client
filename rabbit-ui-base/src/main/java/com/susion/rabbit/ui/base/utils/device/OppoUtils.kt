@@ -7,10 +7,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Binder
 import android.os.Build
-import android.util.Log
+import com.susion.rabbit.base.RabbitLog
+import com.susion.rabbit.base.TAG_UI
 
 object OppoUtils {
-    private val TAG = "OppoUtils"
 
     /**
      * check oppo permission
@@ -44,11 +44,11 @@ object OppoUtils {
                     context.packageName
                 ) as Int
             } catch (e: Exception) {
-                Log.e(TAG, Log.getStackTraceString(e))
+                RabbitLog.e(TAG_UI, RabbitLog.getStackTraceString(e))
             }
 
         } else {
-            Log.e(TAG, "Below API 19 cannot invoke!")
+            RabbitLog.e(TAG_UI, "Below API 19 cannot invoke!")
         }
         return false
     }

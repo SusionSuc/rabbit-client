@@ -1,6 +1,7 @@
 package com.susion.rabbit.monitor.instance
 
 import android.content.Context
+import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.monitor.RabbitMonitor
 import com.susion.rabbit.base.RabbitMonitorProtocol
 import com.susion.rabbit.base.common.toastInThread
@@ -48,10 +49,8 @@ class RabbitExceptionMonitor(override var isOpen: Boolean = false) :
         currentThread: String
     ): RabbitExceptionInfo {
         val exceptionInfo = RabbitExceptionInfo()
-        val strWriter = StringWriter()
-        e.printStackTrace(PrintWriter(strWriter))
         exceptionInfo.apply {
-            crashTraceStr = strWriter.buffer.toString()
+            crashTraceStr = RabbitLog.getStackTraceString(e)
             exceptionName = e.javaClass.name
             simpleMessage = e.message ?: ""
             threadName = currentThread

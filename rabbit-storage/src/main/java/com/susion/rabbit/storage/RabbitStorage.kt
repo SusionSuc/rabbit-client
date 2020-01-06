@@ -31,12 +31,8 @@ object RabbitStorage {
 
     private fun getFixedDaoProvider(): List<RabbitDaoProviderConfig> {
         val daoSession =
-            com.susion.rabbit.base.greendao.DaoMaster(
-                DaoMaster.DevOpenHelper(
-                    application,
-                    DB_NAME
-                ).writableDb
-            ).newSession()
+            DaoMaster(DaoMaster.DevOpenHelper(application, DB_NAME).writableDb).newSession()
+
         val daoProvider = ArrayList<RabbitDaoProviderConfig>().apply {
             add(
                 RabbitDaoProviderConfig(

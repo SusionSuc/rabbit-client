@@ -2,6 +2,7 @@ package com.susion.rabbit.monitor.core
 
 import android.view.Choreographer
 import com.susion.rabbit.base.RabbitLog
+import com.susion.rabbit.base.TAG_MONITOR
 import com.susion.rabbit.monitor.utils.RabbitReflectHelper
 import java.lang.reflect.Method
 
@@ -11,8 +12,6 @@ import java.lang.reflect.Method
  * 向[Choreographer]中插入3种callback, 监控一帧不同类型的事件运行时间
  */
 internal open class LazyChoreographerFrameUpdateMonitor {
-
-    private val TAG = javaClass.simpleName
 
     //主线程消息循环
     private val mainThreadLooperMonitor by lazy {
@@ -187,7 +186,7 @@ internal open class LazyChoreographerFrameUpdateMonitor {
                 method?.invoke(callbackQueues!![type], -1, callback, null)
             }
         } catch (e: Exception) {
-            RabbitLog.e(TAG, e.toString())
+            RabbitLog.e(TAG_MONITOR, e.toString())
         }
     }
 

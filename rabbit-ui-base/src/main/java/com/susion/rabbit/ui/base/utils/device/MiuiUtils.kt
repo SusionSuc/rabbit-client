@@ -9,11 +9,10 @@ import android.net.Uri
 import android.os.Binder
 import android.os.Build
 import android.provider.Settings
-import android.util.Log
+import com.susion.rabbit.base.RabbitLog
+import com.susion.rabbit.base.TAG_UI
 
 object MiuiUtils {
-
-    private val TAG = "MiuiUtils"
 
     /**
      * check miui permission
@@ -45,11 +44,11 @@ object MiuiUtils {
                     context.packageName
                 ) as Int
             } catch (e: Exception) {
-                Log.e(TAG, Log.getStackTraceString(e))
+                RabbitLog.e(TAG_UI, RabbitLog.getStackTraceString(e))
             }
 
         } else {
-            Log.e(TAG, "Below API 19 cannot invoke!")
+            RabbitLog.e(TAG_UI, "Below API 19 cannot invoke!")
         }
         return false
     }
@@ -68,7 +67,7 @@ object MiuiUtils {
         } else if (versionCode == 8) {
             goToMiuiPermissionActivity_V8(context)
         } else {
-            Log.e(TAG, "this is a special MIUI rom version, its version code $versionCode")
+            RabbitLog.e(TAG_UI, "this is a special MIUI rom version, its version code $versionCode")
         }
     }
 
@@ -97,7 +96,7 @@ object MiuiUtils {
         if (isIntentAvailable(intent, context)) {
             context.startActivity(intent)
         } else {
-            Log.e(TAG, "intent is not available!")
+            RabbitLog.e(TAG_UI, "intent is not available!")
         }
     }
 
@@ -115,7 +114,7 @@ object MiuiUtils {
         if (isIntentAvailable(intent, context)) {
             context.startActivity(intent)
         } else {
-            Log.e(TAG, "Intent is not available!")
+            RabbitLog.e(TAG_UI, "Intent is not available!")
         }
     }
 
@@ -133,7 +132,7 @@ object MiuiUtils {
         if (isIntentAvailable(intent, context)) {
             context.startActivity(intent)
         } else {
-            Log.e(TAG, "Intent is not available!")
+            RabbitLog.e(TAG_UI, "Intent is not available!")
         }
     }
 
@@ -158,7 +157,7 @@ object MiuiUtils {
             if (isIntentAvailable(intent, context)) {
                 context.startActivity(intent)
             } else {
-                Log.e(TAG, "Intent is not available!")
+                RabbitLog.e(TAG_UI, "Intent is not available!")
             }
         }
     }

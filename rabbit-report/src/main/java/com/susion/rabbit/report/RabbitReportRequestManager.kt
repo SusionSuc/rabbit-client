@@ -4,6 +4,7 @@ import android.util.Base64
 import androidx.annotation.Keep
 import com.google.gson.Gson
 import com.susion.rabbit.base.RabbitLog
+import com.susion.rabbit.base.TAG_REPORT
 import com.susion.rabbit.base.entities.RabbitReportInfo
 import okhttp3.*
 import java.util.*
@@ -14,8 +15,6 @@ import java.util.concurrent.TimeUnit
  * 数据上报请求发射
  */
 internal class RabbitReportRequestManager {
-
-    private val TAG = "rabbit-data-report"
 
     val EMITTER_CONNECT_TIMEOUT: Long = 15  //网络链接超时时间
     private val CONTENT_TYPE_JSON = "application/json; charset=utf-8"
@@ -33,7 +32,7 @@ internal class RabbitReportRequestManager {
         val trackUrl = RabbitReport.mConfig.reportPath
 
         RabbitLog.d(
-            TAG,
+            TAG_REPORT,
             "target url : $trackUrl 准备发射 ${points.size} 个点位到服务器！  current execute thread is : ${Thread.currentThread().name}  "
         )
 
@@ -49,14 +48,14 @@ internal class RabbitReportRequestManager {
             val code = resp.code()
             resp.body()?.close()
             if (isSuccessful(code)) {
-                RabbitLog.d(TAG, "发射成功! 服务器返回码是： $code")
+                RabbitLog.d(TAG_REPORT, "发射成功! 服务器返回码是： $code")
                 requestListener.onRequestSucceed()
             } else {
-                RabbitLog.d(TAG, "track request failed, response code is $code")
+                RabbitLog.d(TAG_REPORT, "track request failed, response code is $code")
                 requestListener.onRequestFailed()
             }
         } catch (e: Exception) {
-            RabbitLog.d(TAG, "track request exception ${e.message}")
+            RabbitLog.d(TAG_REPORT, "track request exception ${e.message}")
             requestListener.onRequestFailed()
         }
     }
@@ -77,7 +76,7 @@ internal class RabbitReportRequestManager {
 
         val content = "$bodyArg"
 
-        RabbitLog.d(TAG, content)
+        RabbitLog.d(TAG_REPORT, content)
 
         return RequestBody.create(
             MediaType.parse(CONTENT_TYPE_JSON),

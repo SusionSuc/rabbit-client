@@ -8,13 +8,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Binder
 import android.os.Build
-import android.util.Log
 import android.widget.Toast
+import com.susion.rabbit.base.RabbitLog
+import com.susion.rabbit.base.TAG_UI
 
 object HuaweiUtils {
-
-    private val TAG = "HuaweiUtils"
-
+    
     /**
      * check huawei permission
      */
@@ -55,7 +54,7 @@ object HuaweiUtils {
             )
             intent.component = comp
             context.startActivity(intent)
-            Log.e(TAG, Log.getStackTraceString(e))
+            RabbitLog.e(TAG_UI, RabbitLog.getStackTraceString(e))
         } catch (e: ActivityNotFoundException) {
             val intent = Intent()
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
@@ -64,10 +63,10 @@ object HuaweiUtils {
             intent.component = comp
             context.startActivity(intent)
             e.printStackTrace()
-            Log.e(TAG, Log.getStackTraceString(e))
+            RabbitLog.e(TAG_UI, RabbitLog.getStackTraceString(e))
         } catch (e: Exception) {
             Toast.makeText(context, "进入设置页面失败，请手动设置", Toast.LENGTH_LONG).show()
-            Log.e(TAG, Log.getStackTraceString(e))
+            RabbitLog.e(TAG_UI, RabbitLog.getStackTraceString(e))
         }
 
     }
@@ -91,11 +90,11 @@ object HuaweiUtils {
                     context.packageName
                 ) as Int
             } catch (e: Exception) {
-                Log.e(TAG, Log.getStackTraceString(e))
+                RabbitLog.e(TAG_UI, RabbitLog.getStackTraceString(e))
             }
 
         } else {
-            Log.e(TAG, "Below API 19 cannot invoke!")
+            RabbitLog.e(TAG_UI, "Below API 19 cannot invoke!")
         }
         return false
     }

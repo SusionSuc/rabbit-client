@@ -4,6 +4,7 @@ import android.content.Context
 import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.monitor.RabbitMonitor
 import com.susion.rabbit.base.RabbitMonitorProtocol
+import com.susion.rabbit.base.TAG_MONITOR
 import com.susion.rabbit.monitor.utils.RabbitHttpResponseParser
 import com.susion.rabbit.storage.RabbitDbStorageManager
 import okhttp3.Interceptor
@@ -18,7 +19,6 @@ import okhttp3.Response
 class RabbitNetMonitor(override var isOpen: Boolean = false) : RabbitMonitorProtocol, Interceptor {
 
     private var startNs = System.nanoTime()
-    private val TAG = javaClass.simpleName
 
     override fun intercept(chain: Interceptor.Chain): Response? {
         val request = chain.request()
@@ -53,7 +53,7 @@ class RabbitNetMonitor(override var isOpen: Boolean = false) : RabbitMonitorProt
             }
 
         } catch (e: Exception) {
-            RabbitLog.d(TAG, "RabbitHttpLogInterceptor error : ${e.printStackTrace()}")
+            RabbitLog.d(TAG_MONITOR, "RabbitHttpLogInterceptor error : ${e.printStackTrace()}")
         }
     }
 

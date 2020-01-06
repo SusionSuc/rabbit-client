@@ -11,7 +11,6 @@ import com.susion.rabbit.monitor.utils.RabbitReflectHelper
  */
 internal class UIThreadLooperMonitor {
 
-    private val TAG = javaClass.simpleName
     private var mHandleEventListeners = ArrayList<LooperHandleEventListener>()
     private var mHookedPrinter: Printer? = null
     private var mOriginPrinter: Printer? = null

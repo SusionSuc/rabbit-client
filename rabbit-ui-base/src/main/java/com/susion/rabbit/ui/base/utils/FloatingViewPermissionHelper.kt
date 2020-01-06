@@ -7,13 +7,11 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
-import android.util.Log
+import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.ui.base.utils.device.*
-
 
 /**
  * susionwang at 2019-09-23
- *
  * open dev tools floating window need request permission
  */
 object FloatingViewPermissionHelper {
@@ -94,7 +92,7 @@ object FloatingViewPermissionHelper {
                         context
                     )
                 } catch (e: Exception) {
-                    Log.getStackTraceString(e)
+                    RabbitLog.getStackTraceString(e)
                 }
 
             }
@@ -146,25 +144,25 @@ object FloatingViewPermissionHelper {
     }
 
     /**
-     * show confirm dialog
+     * show confirm diaRabbitLog
      */
-    fun showConfirmDialog(context: Activity, result: OnConfirmResult) {
-        val dialog = AlertDialog.Builder(context)
+    fun showConfirmDiaRabbitLog(context: Activity, result: OnConfirmResult) {
+        val diaRabbitLog = AlertDialog.Builder(context)
             .setCancelable(true)
             .setTitle("")
             .setMessage("开启悬浮窗权限后可以自动打开 Rabbit，是否要打开?")
             .setPositiveButton(
                 "现在去开启"
-            ) { dialog, which ->
+            ) { diaRabbitLog, which ->
                 result.confirmResult(true)
-                dialog.dismiss()
+                diaRabbitLog.dismiss()
             }.setNegativeButton(
                 "暂不开启"
-            ) { dialog, which ->
+            ) { diaRabbitLog, which ->
                 result.confirmResult(false)
-                dialog.dismiss()
+                diaRabbitLog.dismiss()
             }.create()
-        dialog.show()
+        diaRabbitLog.show()
     }
 
     interface OnConfirmResult {
@@ -224,7 +222,7 @@ object FloatingViewPermissionHelper {
                         clazz.getDeclaredMethod("canDrawOverlays", Context::class.java)
                     result = canDrawOverlays.invoke(null, context) as Boolean
                 } catch (e: Exception) {
-                    Log.getStackTraceString(e)
+                    RabbitLog.getStackTraceString(e)
                 }
 
             }

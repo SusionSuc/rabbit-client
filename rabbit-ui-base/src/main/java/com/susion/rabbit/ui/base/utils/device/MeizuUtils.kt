@@ -6,12 +6,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Binder
 import android.os.Build
-import android.util.Log
+import com.susion.rabbit.base.RabbitLog
+import com.susion.rabbit.base.TAG_UI
 import com.susion.rabbit.ui.base.utils.FloatingViewPermissionHelper
 
 object MeizuUtils {
 
-    private val TAG = "MeizuUtils"
 
     /**
      * check meizu permission
@@ -33,12 +33,12 @@ object MeizuUtils {
             context.startActivity(intent)
         } catch (e: Exception) {
             try {
-                Log.e(TAG, "获取悬浮窗权限, 打开AppSecActivity失败, " + Log.getStackTraceString(e))
+                RabbitLog.e(TAG_UI, "获取悬浮窗权限, 打开AppSecActivity失败, " + RabbitLog.getStackTraceString(e))
                 FloatingViewPermissionHelper.commonROMPermissionApplyInternal(
                     context
                 )
             } catch (eFinal: Exception) {
-                Log.e(TAG, "获取悬浮窗权限失败, 通用获取方法失败, " + Log.getStackTraceString(eFinal))
+                RabbitLog.e(TAG_UI, "获取悬浮窗权限失败, 通用获取方法失败, " + RabbitLog.getStackTraceString(eFinal))
             }
 
         }
@@ -64,11 +64,11 @@ object MeizuUtils {
                     context.packageName
                 ) as Int
             } catch (e: Exception) {
-                Log.e(TAG, Log.getStackTraceString(e))
+                RabbitLog.e(TAG_UI, RabbitLog.getStackTraceString(e))
             }
 
         } else {
-            Log.e(TAG, "Below API 19 cannot invoke!")
+            RabbitLog.e(TAG_UI, "Below API 19 cannot invoke!")
         }
         return false
     }

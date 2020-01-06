@@ -51,6 +51,8 @@ class MyApplication : Application() {
 
         rabbitConfig.reportConfig.enable = true
         rabbitConfig.reportConfig.reportPath = "http://127.0.0.1:8000/apmdb/upload-log"
+        rabbitConfig.reportConfig.emitterSleepCount = 3
+
 //        rabbitConfig.reportConfig.fpsReportPeriodS = 2
 //        rabbitConfig.reportConfig.notReportDataFormat.addAll(hashSetOf(RabbitExceptionInfo::class.java))
 

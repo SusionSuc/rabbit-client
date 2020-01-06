@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.susion.rabbit.base.RabbitLog
+import com.susion.rabbit.base.TAG_MONITOR_UI
 import com.susion.rabbit.base.entities.RabbitBlockFrameInfo
 import com.susion.rabbit.base.entities.RabbitBlockStackTraceInfo
 import com.susion.rabbit.ui.base.RabbitBasePage
@@ -64,7 +65,7 @@ class RabbitUiBlockDetailPage(context: Context) : RabbitBasePage(context) {
             mRabbitBlockDetailTvCostTime.text =
                 "卡顿时长 : ${translateToMs(blockInfo.costTime)} Ms ; 抓取主线程堆栈 : ${traceList.size} 次"
         } catch (e: Exception) {
-            RabbitLog.d("block frame gson transform error")
+            RabbitLog.d(TAG_MONITOR_UI,"block frame gson transform error")
         }
     }
 

@@ -1,6 +1,8 @@
 package com.susion.rabbit.report
 
 import com.susion.rabbit.base.RabbitLog
+import com.susion.rabbit.base.TAG_REPORT
+import com.susion.rabbit.base.entities.RabbitReportInfo
 import java.util.concurrent.CopyOnWriteArrayList
 import java.util.concurrent.locks.ReentrantLock
 
@@ -14,13 +16,12 @@ internal class RabbitReportDataEmitterTask {
         val EMITER_QUEUE_MAX_SIZE = 100
     }
 
-    private val TAG = "rabbit-data-report"
-    private var sleepCount = 0
-    private val MAX_SLEEP_COUNT = 1
-    private val BATCH_EMITTER_NUMBER = 5
+    private var currentSleepCount = 0
+    private val MAX_SLEEP_COUNT = RabbitReport.mConfig.emitterSleepCount
+    private var BATCH_EMITTER_NUMBER = RabbitReport.mConfig.batchReportPointCount
+    private val MAX_EMITTER_FAILED_COUNT = RabbitReport.mConfig.emitterFailedRetryCount
     private val CIRCLE_EMITTER_TIME = 5000L
-    private val MAX_EMITTER_FAILED_COUNT = 1
-    private val trackPointsList = CopyOnWriteArrayList<com.susion.rabbit.base.entities.RabbitReportInfo>()
+    private val trackPointsList = CopyOnWriteArrayList<RabbitReportInfo>()
     private val listModifierLock = ReentrantLock() //防止对 trackPointsList 的并发修改
     private val trackRequest = RabbitReportRequestManager()  //负责发射打点请求
     var eventListener: EventListener? = null
@@ -28,7 +29,7 @@ internal class RabbitReportDataEmitterTask {
     private var emitterFailedCount = 0
 
     //run in main thread
-    fun addPointsToEmitterQueue(points: List<com.susion.rabbit.base.entities.RabbitReportInfo>) {
+    fun addPointsToEmitterQueue(points: List<RabbitReportInfo>) {
         listModifierLock.lock()
         try {
             trackPointsList.addAll(points)
@@ -37,13 +38,13 @@ internal class RabbitReportDataEmitterTask {
         }
     }
 
-    fun addPoint(pointInfo: com.susion.rabbit.base.entities.RabbitReportInfo) {
+    fun addPoint(pointInfo: RabbitReportInfo) {
         listModifierLock.lock()
         try {
             //避免堆积大量的点
             if (trackPointsList.size < EMITER_QUEUE_MAX_SIZE) {
                 trackPointsList.add(pointInfo)
-                RabbitLog.d(TAG, "add point.. current point count : ${trackPointsList.size}")
+                RabbitLog.d(TAG_REPORT, "add point.. current point count : ${trackPointsList.size}")
             }
         } finally {
             listModifierLock.unlock()
@@ -51,20 +52,20 @@ internal class RabbitReportDataEmitterTask {
     }
 
     fun emitterPoints() {
-        if (emitterFailedCount >= MAX_EMITTER_FAILED_COUNT) {
-            RabbitLog.d(TAG, "超出最大发送失败次数!")
+        if (emitterFailedCount > MAX_EMITTER_FAILED_COUNT) {
+            RabbitLog.d(TAG_REPORT, "超出最大发送失败次数!")
             isRunning = false
             emitterFailedCount = 0
             return
         }
 
-        RabbitLog.d(TAG, "EmitterTask Start")
+        RabbitLog.d(TAG_REPORT, "EmitterTask Start")
 
         isRunning = true
-        sleepCount = 0
+        currentSleepCount = 0
         if (trackPointsList.isEmpty()) {
             eventListener?.pointQueueIsEmpty()
-            RabbitLog.d(TAG, "EmitterTask Stop")
+            RabbitLog.d(TAG_REPORT, "EmitterTask Stop")
             isRunning = false
         } else {
             circleEmitterPoint()
@@ -76,11 +77,11 @@ internal class RabbitReportDataEmitterTask {
         if (currentPointCount > BATCH_EMITTER_NUMBER) {
             emitterTrackPoints()
         } else {
-            sleepCount++
-            if (sleepCount < MAX_SLEEP_COUNT) {
+            currentSleepCount++
+            if (currentSleepCount < MAX_SLEEP_COUNT) {
                 RabbitLog.d(
-                    TAG,
-                    "point count : ${trackPointsList.size}, current sleep : ${sleepCount}， continue sleeping"
+                    TAG_REPORT,
+                    "point count : ${trackPointsList.size}, current sleep : ${currentSleepCount}， continue sleeping"
                 )
                 Thread.sleep(CIRCLE_EMITTER_TIME)
                 circleEmitterPoint()
@@ -89,7 +90,7 @@ internal class RabbitReportDataEmitterTask {
                     emitterTrackPoints()
                 } else {
                     isRunning = false
-                    RabbitLog.d(TAG, "EmitterTask Stop")
+                    RabbitLog.d(TAG_REPORT, "EmitterTask Stop")
                 }
             }
         }
@@ -99,18 +100,18 @@ internal class RabbitReportDataEmitterTask {
     private fun emitterTrackPoints() {
         if (trackPointsList.isEmpty()) return
 
-        RabbitLog.d(TAG, "emitterTrackPoints  ${trackPointsList.size}")
+        RabbitLog.d(TAG_REPORT, "emitterTrackPoints  ${trackPointsList.size}")
 
         val lastPointIndex =
             if (trackPointsList.size <= BATCH_EMITTER_NUMBER) trackPointsList.size else BATCH_EMITTER_NUMBER
 
         //copy出来一份, 防止并发操作引起异常
-        val copiedList = ArrayList<com.susion.rabbit.base.entities.RabbitReportInfo>()
+        val copiedList = ArrayList<RabbitReportInfo>()
         listModifierLock.lock()
         try {
             trackPointsList.subList(0, lastPointIndex).forEach {
                 copiedList.add(
-                    com.susion.rabbit.base.entities.RabbitReportInfo(
+                    RabbitReportInfo(
                         it.id,
                         it.infoStr,
                         it.time,
@@ -124,7 +125,7 @@ internal class RabbitReportDataEmitterTask {
             listModifierLock.unlock()
         }
 
-        RabbitLog.d(TAG, "emitterTrackPoints copiedList size :  ${copiedList.size}")
+        RabbitLog.d(TAG_REPORT, "emitterTrackPoints copiedList size :  ${copiedList.size}")
 
         trackRequest.postTrackRequest(
             copiedList,
@@ -139,7 +140,10 @@ internal class RabbitReportDataEmitterTask {
                         copiedList.forEach {
                             val removeStatus = trackPointsList.remove(it)
                             if (!removeStatus) { // 没有正确把点从队列中删除
-                                RabbitLog.d(TAG, "remove emitter point status false!!  stop emitter")
+                                RabbitLog.d(
+                                    TAG_REPORT,
+                                    "remove emitter point status false!!  stop emitter"
+                                )
                                 emitterWithError = true
                             }
                             eventListener?.successEmitterPoint(it)
@@ -152,10 +156,10 @@ internal class RabbitReportDataEmitterTask {
                         if (!emitterWithError) {
                             emitterTrackPoints()
                         } else {
-                            RabbitLog.d(TAG, "emitterWithError is true --> stop emitter!")
+                            RabbitLog.d(TAG_REPORT, "emitterWithError is true --> stop emitter!")
                         }
                     } else {
-                        RabbitLog.d(TAG, "emitter all count ! EmitterTask Stop")
+                        RabbitLog.d(TAG_REPORT, "emitter all count ! EmitterTask Stop")
                         isRunning = false
                         eventListener?.pointQueueIsEmpty()
                     }
@@ -164,7 +168,7 @@ internal class RabbitReportDataEmitterTask {
                 override fun onRequestFailed() {
                     emitterFailedCount++
                     RabbitLog.d(
-                        TAG,
+                        TAG_REPORT,
                         "emitter to server failed , emitterFailedCount : $emitterFailedCount"
                     )
                     emitterPoints()
@@ -175,6 +179,7 @@ internal class RabbitReportDataEmitterTask {
 
     interface EventListener {
         fun pointQueueIsEmpty()
-        fun successEmitterPoint(pointInfo: com.susion.rabbit.base.entities.RabbitReportInfo)
+        fun successEmitterPoint(pointInfo: RabbitReportInfo)
     }
+
 }

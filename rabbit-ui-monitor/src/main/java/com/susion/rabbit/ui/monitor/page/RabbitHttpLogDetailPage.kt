@@ -3,6 +3,7 @@ package com.susion.rabbit.ui.monitor.page
 import android.content.Context
 import android.view.View
 import com.susion.rabbit.base.RabbitLog
+import com.susion.rabbit.base.TAG_MONITOR_UI
 import com.susion.rabbit.base.entities.RabbitHttpLogInfo
 import com.susion.rabbit.ui.base.RabbitBasePage
 import com.susion.rabbit.ui.base.showToast
@@ -32,7 +33,7 @@ class RabbitHttpLogDetailPage(context: Context) : RabbitBasePage(context) {
             return
         }
 
-        RabbitLog.d("enter RabbitHttpLogDetailPage show")
+        RabbitLog.d(TAG_MONITOR_UI,"enter RabbitHttpLogDetailPage show")
 
         mHttpLogDetailTvRequestPath.text = "${logInfo?.path?:""}   ${getTime(logInfo?.time?:0L)}"
 

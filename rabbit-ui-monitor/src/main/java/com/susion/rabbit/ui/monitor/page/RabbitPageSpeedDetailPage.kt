@@ -11,6 +11,7 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.google.gson.Gson
 import com.susion.rabbit.base.RabbitLog
+import com.susion.rabbit.base.TAG_MONITOR_UI
 import com.susion.rabbit.base.entities.RabbitApiInfo
 import com.susion.rabbit.base.entities.RabbitPageApiInfo
 import com.susion.rabbit.base.entities.RabbitPageSpeedInfo
@@ -168,7 +169,7 @@ class RabbitPageSpeedDetailPage(context: Context) : RabbitBasePage(context) {
         try {
             return Gson().fromJson(apiRequestCostString, RabbitPageApiInfo::class.java)
         } catch (e: Exception) {
-            RabbitLog.d("getRequestCostInfo error : ${e.message}")
+            RabbitLog.d(TAG_MONITOR_UI,"getRequestCostInfo error : ${e.message}")
         }
         return null
     }

@@ -5,6 +5,7 @@ import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.monitor.RabbitMonitor
 import com.susion.rabbit.monitor.core.LazyChoreographerFrameUpdateMonitor
 import com.susion.rabbit.base.RabbitMonitorProtocol
+import com.susion.rabbit.base.TAG_MONITOR
 import com.susion.rabbit.base.config.RabbitMonitorConfig
 import com.susion.rabbit.storage.RabbitDbStorageManager
 import com.susion.rabbit.ui.base.RabbitUiEvent
@@ -19,7 +20,6 @@ internal class RabbitFPSMonitor(override var isOpen: Boolean = false) :
     LazyChoreographerFrameUpdateMonitor.FrameUpdateListener,
     RabbitMonitorProtocol {
 
-    private val TAG = javaClass.simpleName
     private val frameTracer = LazyChoreographerFrameUpdateMonitor().apply {
         init()
     }
@@ -97,7 +97,7 @@ internal class RabbitFPSMonitor(override var isOpen: Boolean = false) :
     @Synchronized
     private fun saveFpsInfo() {
         if (fpsList.isEmpty()) return
-        RabbitLog.d(TAG, "saveFpsInfo --->")
+        RabbitLog.d(TAG_MONITOR, "saveFpsInfo --->")
         val fpsInfo = com.susion.rabbit.base.entities.RabbitFPSInfo()
         fpsInfo.maxFps = fpsList.max() ?: 0
         fpsInfo.minFps = fpsList.min() ?: 0

@@ -15,7 +15,6 @@ import java.util.concurrent.TimeUnit
  */
 object RabbitDbStorageManager {
 
-    private val TAG = javaClass.simpleName
     private val disposableList = ArrayList<Disposable>()
     private val DB_THREAD = ThreadPoolExecutor(5, 10, 10, TimeUnit.SECONDS, LinkedBlockingDeque(),
         ThreadFactory { r ->

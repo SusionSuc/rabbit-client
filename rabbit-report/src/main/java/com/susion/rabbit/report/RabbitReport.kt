@@ -7,6 +7,7 @@ import android.os.Looper
 import android.os.Message
 import com.google.gson.Gson
 import com.susion.rabbit.base.RabbitLog
+import com.susion.rabbit.base.TAG_REPORT
 import com.susion.rabbit.base.common.DeviceUtils
 import com.susion.rabbit.base.common.RabbitAsync
 import com.susion.rabbit.base.entities.RabbitDeviceInfo
@@ -21,16 +22,17 @@ import java.util.concurrent.Executors
  */
 object RabbitReport {
 
-    private val TAG = javaClass.simpleName
     lateinit var application: Application
-    var mConfig: RabbitReportConfig =
-        RabbitReportConfig()
+    var mConfig: RabbitReportConfig = RabbitReportConfig()
     private var deviceInfoStr = ""
     private val REQUEST_THREAD = Executors.newFixedThreadPool(
         1
     ) { r -> Thread(r, "rabbit_report_request_thread") }
 
-    private val dataEmitterTask = RabbitReportDataEmitterTask()
+    private val dataEmitterTask by lazy {
+        RabbitReportDataEmitterTask()
+    }
+
     private val LOAD_POINT_TO_EMITER_QUEUE = 1
     private val mHandler = object : Handler(Looper.getMainLooper()) {
         override fun handleMessage(msg: Message) {
@@ -43,7 +45,7 @@ object RabbitReport {
                         sortField = "time",
                         loadResult = {
                             dataEmitterTask.addPointsToEmitterQueue(it)
-                            RabbitLog.d(TAG, "load point from db! Emitter Start")
+                            RabbitLog.d(TAG_REPORT, "load point from db! Emitter Start")
                             startEmitterTask()
                         })
                 }
@@ -52,6 +54,7 @@ object RabbitReport {
     }
 
     fun init(app: Application, config: RabbitReportConfig) {
+
         application = app
         mConfig = config
 
@@ -59,7 +62,7 @@ object RabbitReport {
 
         RabbitAsync.asyncRun({
             deviceInfoStr = Gson().toJson(getDeviceInfo(application))
-            RabbitLog.d(TAG, "device info : $deviceInfoStr")
+            RabbitLog.d(TAG_REPORT, "device info : $deviceInfoStr")
         })
 
         dataEmitterTask.eventListener = object : RabbitReportDataEmitterTask.EventListener {
@@ -76,7 +79,7 @@ object RabbitReport {
             override fun pointQueueIsEmpty() {
                 val currentDbPointCount =
                     RabbitDbStorageManager.dataCount(RabbitReportInfo::class.java)
-                RabbitLog.d(TAG, "pointQueueIsEmpty db point : $currentDbPointCount")
+                RabbitLog.d(TAG_REPORT, "pointQueueIsEmpty db point : $currentDbPointCount")
                 if (currentDbPointCount > 0) {
                     mHandler.sendEmptyMessage(LOAD_POINT_TO_EMITER_QUEUE)
                 }
@@ -96,9 +99,14 @@ object RabbitReport {
 
         if (mConfig.notReportDataFormat.contains(info.javaClass)) return
 
+        if (mConfig.reportPath == RabbitReportConfig.UNDEFINE_REPORT_PATH){
+            RabbitLog.d(TAG_REPORT, "undefine report path")
+            return
+        }
+
         val reportInfo = RabbitReportTransformCenter.createReportInfo(info, useTime)
 
-        RabbitLog.d(TAG, "report  ${reportInfo.type} data  use time : $useTime")
+        RabbitLog.d(TAG_REPORT, "report  ${reportInfo.type} data  use time : $useTime")
 
         RabbitDbStorageManager.save(reportInfo)
 

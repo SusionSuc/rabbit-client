@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Looper
 import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.RabbitMonitorProtocol
+import com.susion.rabbit.base.TAG_MONITOR
 import com.susion.rabbit.base.entities.RabbitSlowMethodInfo
 import com.susion.rabbit.monitor.RabbitMonitor
 import com.susion.rabbit.storage.RabbitDbStorageManager
@@ -16,7 +17,7 @@ import com.susion.rabbit.tracer.RabbitTracerEventNotifier
  */
 class RabbitMethodMonitor(override var isOpen: Boolean = false) : RabbitMonitorProtocol {
 
-    private val TAG = javaClass.simpleName
+    private val T = javaClass.simpleName
     private val slowMethodThreshold = RabbitMonitor.config.slowMethodPeriodMs
 
     private val methodCostListener = object : RabbitTracerEventNotifier.MethodCostEvent {
@@ -47,7 +48,7 @@ class RabbitMethodMonitor(override var isOpen: Boolean = false) : RabbitMonitorP
 
             val className = fullClassName.subSequence(classNameStartIndex + 1, fullClassName.length).toString()
             val pkgName = fullClassName.subSequence(0, classNameStartIndex).toString()
-            RabbitLog.d(TAG, "slow method --> $pkgName -> $className -> $methodName -> $time ms")
+            RabbitLog.d(TAG_MONITOR, "slow method --> $pkgName -> $className -> $methodName -> $time ms")
 
             val slowMethod = RabbitSlowMethodInfo().apply {
                 this.pkgName = pkgName
