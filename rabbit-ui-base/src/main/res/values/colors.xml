@@ -2,8 +2,8 @@
 <resources>
     <color name="rabbit_black">#333333</color>
     <color name="rabbit_divider_line">#e5e5e5</color>
-    <color name="rabbit_material_dark">#aec4c7</color>
-    <color name="rabbit_material_promary">#e0f7fa</color>
+    <color name="rabbit_material_dark">#0093c4</color>
+    <color name="rabbit_material_primary">#4fc3f7</color>
 
     <color name="rabbit_light_blue">#88ccff</color>
     <color name="rabbit_white">#ffffff</color>
