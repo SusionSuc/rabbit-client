@@ -9,7 +9,7 @@
 - [FPS和内存监控](./memory-fps-monitor.md)
 - [异常与内存泄漏捕获](./others-monitor.md)
 - [apk包分析](./app-analyzer.md)
-- [接入自定义业务面板](./cutom-page.md)
+- [接入自定义业务面板](./cusom-page.md)
 - [数据上报](./data-report.md)
 - [noop包接入](./noop-document.md)
 - [日志逻辑](./log-document.md)
@@ -19,7 +19,7 @@
 >根目录`build.gradle`
 ```
 dependencies {
-    classpath 'com.susion:rabbit-gradle-transform:{latest-version}'
+    classpath "com.susion:rabbit-gradle-transform:${latest-version}"
 }
 ```
 
@@ -28,7 +28,7 @@ dependencies {
 apply plugin: 'rabbit-tracer' //引入插件, release包不要引入
 
 dependencies {
-    implementation "com.susion:rabbit:{latest-version}"
+    implementation "com.susion:rabbit:${latest-version}"
 } 
 ```
 

@@ -6,7 +6,7 @@
 
 ```
 dependencies {
-    classpath 'com.susion:rabbit-gradle-transform:{latest-version}'
+    classpath 'com.susion:rabbit-gradle-transform:${latest-version}'
 }
 ```
 

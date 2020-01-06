@@ -108,7 +108,9 @@ rabbitConfig.reportConfig.emitterFailedRetryCount = 2
 ```
 
 batchReportPointCount : 每次向服务器发送几个点
+
 emitterSleepCount: 一次发送多个点时，点的数据不够时等待的次数。 每次等待5秒
+
 emitterFailedRetryCount : 发送失败时请求重试的次数
 
 ### 自定义fps上报的频率
