@@ -1,3 +1,6 @@
+
+![version](https://img.shields.io/badge/version-0.8.5-brightgreen)  ![license](https://img.shields.io/badge/license-MIT-brightgreen)
+
 # 功能列表
 
 1. 网络日志监控

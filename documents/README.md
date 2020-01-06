@@ -12,22 +12,23 @@
 - [接入自定义业务面板](./cutom-page.md)
 - [数据上报](./data-report.md)
 - [noop包接入](./noop-document.md)
+- [日志逻辑](./log-document.md)
 
 ## 快速使用
 
 >根目录`build.gradle`
 ```
 dependencies {
-    classpath 'com.susion:rabbit-gradle-transform:0.0.8'
+    classpath 'com.susion:rabbit-gradle-transform:{latest-version}'
 }
 ```
 
 >应用build.gradle
 ```
-apply plugin: 'rabbit-tracer-transform' //引入插件, release包不要引入
+apply plugin: 'rabbit-tracer' //引入插件, release包不要引入
 
 dependencies {
-    implementation "com.susion:rabbit:0.0.8"
+    implementation "com.susion:rabbit:{latest-version}"
 } 
 ```
 
@@ -38,11 +39,24 @@ dependencies {
 
 ### 配置rabbit
 
+#### 功能配置
+
 ```
 Rabbit.config(config)
 ```
 
 相关支持配置见:[RabbitConfig](https://github.com/SusionSuc/rabbit-client/blob/master/rabbit-base/src/main/java/com/susion/rabbit/base/config/RabbitConfig.kt)。各项配置具体含义会在每个功能的文档中做详细的介绍。
+
+#### 插件配置
+
+rabbit的`gradle`插件目前主要涉及到代码插桩，可以通过下面对插桩做配置:
+
+```
+rabbitConfig {
+    enable = true  // 是否启动字节码插桩. 状态切换应clean工程
+    printLog = true // 编译时打印插桩log
+}
+```
 
 ### 打开rabbit
 

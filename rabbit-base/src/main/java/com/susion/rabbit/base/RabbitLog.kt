@@ -45,6 +45,6 @@ object RabbitLog {
         }
     }
 
-    fun getStackTraceString(e: Throwable) = Log.getStackTraceString(e)
+    fun getStackTraceString(e: Throwable): String = Log.getStackTraceString(e)
 
 }

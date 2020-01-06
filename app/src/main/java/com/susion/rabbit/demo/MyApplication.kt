@@ -8,8 +8,8 @@ import com.susion.rabbit.base.common.FileUtils
 import com.susion.rabbit.base.config.RabbitConfig
 import com.susion.rabbit.demo.page.CustomBusinessPage
 import com.susion.rabbit.base.config.RabbitMainFeatureInfo
+import com.susion.rabbit.base.config.RabbitReportConfig
 import com.susion.rabbit.base.entities.RabbitAppSpeedMonitorConfig
-import com.susion.rabbit.monitor.RabbitMonitor
 
 /**
  * susionwang at 2019-12-12
@@ -52,6 +52,13 @@ class MyApplication : Application() {
         rabbitConfig.reportConfig.enable = true
         rabbitConfig.reportConfig.reportPath = "http://127.0.0.1:8000/apmdb/upload-log"
         rabbitConfig.reportConfig.emitterSleepCount = 3
+        rabbitConfig.reportConfig.batchReportPointCount = 5
+        rabbitConfig.reportConfig.emitterFailedRetryCount = 2
+        rabbitConfig.reportConfig.dataReportListener = object :RabbitReportConfig.DataReportListener{
+            override fun onPrepareReportData(data: Any, currentUseTime: Long) {
+
+            }
+        }
 
 //        rabbitConfig.reportConfig.fpsReportPeriodS = 2
 //        rabbitConfig.reportConfig.notReportDataFormat.addAll(hashSetOf(RabbitExceptionInfo::class.java))
@@ -64,7 +71,7 @@ class MyApplication : Application() {
     private fun loadMonitorSpeedConfig(): RabbitAppSpeedMonitorConfig {
         try {
             val jsonStr =
-                FileUtils.getAssetString(RabbitMonitor.application!!, "rabbit_speed_monitor.json")
+                FileUtils.getAssetString(this, "rabbit_speed_monitor.json")
             if (jsonStr.isEmpty()) return RabbitAppSpeedMonitorConfig()
             return Gson().fromJson(jsonStr, RabbitAppSpeedMonitorConfig::class.java)
         } catch (e: Exception) {

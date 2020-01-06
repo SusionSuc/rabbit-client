@@ -7,33 +7,22 @@
 3. 卡顿信息
 4. fps
 5. 异常信息
+6. 慢函数
 
-## 配置
+# 自定义上报
 
-## 配置上报的地址
-
-```
-rabbitConfig.reportConfig.reportPath = "http://127.0.0.1:8000/apmdb/xxxxx"
-```
-
-## 是否上报
+`rabbit`中提供了数据上报回调，如果你不想使用`rabbit`的数据上报系统，可以使用这个回调完成自定义的上报逻辑:
 
 ```
-rabbitConfig.reportConfig.reportMonitorData = true
+rabbitConfig.reportConfig.enable = false  //禁用掉rabbit的上报逻辑
+rabbitConfig.reportConfig.dataReportListener = object :RabbitReportConfig.DataReportListener{
+    override fun onPrepareReportData(data: Any, currentUseTime: Long) {
+        //接入自己的上报逻辑
+    }
+}
 ```
 
-### 自定义fps上报的频率
-
-```
-rabbitConfig.reportConfig.fpsReportPeriodS = 2  // 2秒上报一次
-```
-
-## 不上报哪些数据
-
-```
-rabbitConfig.reportConfig.notReportDataFormat.addAll(hashSetOf(RabbitExceptionInfo::class.java))
-```
->不上报异常数据
+# rabbit数据上报逻辑
 
 ## 上报的数据格式
 
@@ -77,3 +66,53 @@ fun getDataType(info: Any): String {
 
 **`deviceInfoStr`对应于`RabbitDeviceInfo`**
 
+## 向服务端发送的上报数据
+
+`rabbit`支持一次发送一个数据上报点或者一次发送多个上报点。
+
+- 一次上报一个数据
+
+会把数据base64后直接发出
+
+- 一次上报多个数据
+
+base64每一个上报数据之后，然后用"&"拼接起来发送。
+
+# 自定义配置
+
+## 配置上报的地址
+
+```
+rabbitConfig.reportConfig.reportPath = "http://127.0.0.1:8000/apmdb/xxxxx"
+```
+
+## 是否上报
+
+```
+rabbitConfig.reportConfig.enable = true
+```
+
+## 不上报哪些数据
+
+```
+rabbitConfig.reportConfig.notReportDataFormat.addAll(hashSetOf(RabbitExceptionInfo::class.java))
+```
+>不上报异常数据
+
+## 请求发送相关
+
+```
+rabbitConfig.reportConfig.emitterSleepCount = 3  
+rabbitConfig.reportConfig.batchReportPointCount = 5
+rabbitConfig.reportConfig.emitterFailedRetryCount = 2
+```
+
+batchReportPointCount : 每次向服务器发送几个点
+emitterSleepCount: 一次发送多个点时，点的数据不够时等待的次数。 每次等待5秒
+emitterFailedRetryCount : 发送失败时请求重试的次数
+
+### 自定义fps上报的频率
+
+```
+rabbitConfig.reportConfig.fpsReportPeriodS = 2  // 2秒上报一次
+```

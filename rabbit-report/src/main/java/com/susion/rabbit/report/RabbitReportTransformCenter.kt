@@ -34,6 +34,7 @@ internal object RabbitReportTransformCenter {
             is RabbitBlockFrameInfo -> "block_info"
             is RabbitFPSInfo -> "fps_info"
             is RabbitExceptionInfo -> "exception_info"
+            is RabbitSlowMethodInfo -> "slow_method"
             else -> "undefine"
         }
     }
@@ -43,7 +44,7 @@ internal object RabbitReportTransformCenter {
         var infoStr = ""
 
         when (info) {
-            is RabbitPageSpeedInfo, is RabbitAppStartSpeedInfo, is RabbitFPSInfo -> {
+            is RabbitPageSpeedInfo, is RabbitAppStartSpeedInfo, is RabbitFPSInfo, is RabbitSlowMethodInfo -> {
                 infoStr = gson.toJson(info)
             }
 

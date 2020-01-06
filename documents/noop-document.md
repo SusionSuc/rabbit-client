@@ -6,7 +6,7 @@
 
 ```
 dependencies {
-    classpath 'com.susion:rabbit-gradle-transform:0.0.8'
+    classpath 'com.susion:rabbit-gradle-transform:{latest-version}'
 }
 ```
 
@@ -20,7 +20,7 @@ def rabbitDepen = "com.susion:rabbit-noop:$rabbitVersion"
 
 if(inDebug){
     print("apply rabbit transform ! ---->")
-    apply plugin: 'rabbit-tracer-transform'
+    apply plugin: 'rabbit-tracer'
 
     rabbitConfig {
         methodMonitorPkgs = ['com.susion.rabbit.demo']
