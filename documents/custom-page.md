@@ -51,7 +51,7 @@ Rabbit.config(rabbitConfig)
 
 这样你就可以在`rabbit`中看到你自己的debug页面了:
 
-![pic1](./picture/rabbit-entry.png)
+![pic1](./picture/rabbit-entry.jpg)
 
 
 ## 在rabbit中定义更多页面
