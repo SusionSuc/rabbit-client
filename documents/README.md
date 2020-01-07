@@ -74,7 +74,7 @@ fun open(requestPermission: Boolean = true, activity: Activity)
 
 点击`rabbit`浮标即可打开`rabbit`主面板:
 
-![pic2](./picture/rabbit-entry.png)
+![pic2](./picture/rabbit-entry.jpg)
 
 **可以通过再次点击`rabbit`浮标来关闭`rabbit`浮窗。**
 
@@ -97,7 +97,7 @@ Rabbit.config(rabbitConfig)
 
 当然也可以在UI浮窗中配置各项功能打开与否。点击**监控配置**即可看到具体功能配置页面:
 
-![pic3](./picture/rabbit-config.png)
+![pic3](./picture/rabbit-config.jpg)
 
 
 

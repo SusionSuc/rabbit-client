@@ -10,7 +10,7 @@ package com.susion.rabbit.base.config
 class RabbitReportConfig(
     var enable: Boolean = false,
     var reportPath: String = UNDEFINE_REPORT_PATH,
-    var notReportDataFormat: HashSet<Class<*>> = HashSet(),
+    val notReportDataFormat: HashSet<Class<*>> = HashSet(),
     var batchReportPointCount: Int = 1, // 每次上报几个点
     var emitterSleepCount: Int = 1, // 点位不够时，发射器等待的次数
     var emitterFailedRetryCount:Int = 2, //点位发射失败重试次数

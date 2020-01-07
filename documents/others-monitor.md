@@ -12,7 +12,7 @@ Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
 
 捕获到异常后可以在控制面板中看到异常原因:
 
-![pic1](./picture/rabbit-expection.png)
+![pic1](./picture/rabbit-exception.jpg)
 
 ## 内存泄漏捕获
 

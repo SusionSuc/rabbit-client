@@ -22,13 +22,13 @@ class MyApplication : Application() {
         val rabbitConfig = RabbitConfig()
 
         // 自定义UI面板入口
-        rabbitConfig.uiConfig.entryFeatures = arrayListOf(
+        rabbitConfig.uiConfig.entryFeatures.addAll(arrayListOf(
             RabbitMainFeatureInfo(
                 "业务面板",
                 R.drawable.rabbit_icon_business,
                 CustomBusinessPage::class.java
             )
-        )
+        ))
 
         //监控开关配置
         rabbitConfig.monitorConfig.autoOpenMonitors.addAll(

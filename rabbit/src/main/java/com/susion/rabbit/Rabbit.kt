@@ -10,6 +10,7 @@ import com.susion.rabbit.base.common.RabbitUtils
 import com.susion.rabbit.base.entities.RabbitHttpLogInfo
 import com.susion.rabbit.base.entities.RabbitMemoryInfo
 import com.susion.rabbit.base.config.RabbitConfig
+import com.susion.rabbit.base.config.RabbitCustomConfigProtocol
 import com.susion.rabbit.base.entities.RabbitAppSpeedMonitorConfig
 import com.susion.rabbit.monitor.RabbitMonitor
 import com.susion.rabbit.report.RabbitReport
@@ -91,6 +92,13 @@ object Rabbit {
         //基本UI
         val uiConfig = mConfig.uiConfig
         uiConfig.entryFeatures.addAll(RabbitMonitorUi.defaultSupportFeatures())
+
+        uiConfig.customConfigList.add(RabbitCustomConfigProtocol("上报监控数据", mConfig.reportConfig.enable, object :RabbitCustomConfigProtocol.ConfigChangeListener{
+            override fun onChange(newStatus: Boolean) {
+                mConfig.reportConfig.enable = newStatus
+            }
+        }))
+
         RabbitUi.init(application, uiConfig)
 
         isInit = true

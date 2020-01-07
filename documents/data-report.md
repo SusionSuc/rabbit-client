@@ -92,6 +92,8 @@ rabbitConfig.reportConfig.reportPath = "http://127.0.0.1:8000/apmdb/xxxxx"
 rabbitConfig.reportConfig.enable = true
 ```
 
+>这个也可以通过UI来动态控制
+
 ## 不上报哪些数据
 
 ```

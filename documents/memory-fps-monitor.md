@@ -17,7 +17,6 @@ Rabbit.config(rabbitConfig)
 
 ![pic1](./picture/rabbit-fps.png)
 
-
 ## 内存监控
 
 `rabiit`通过`Debug.MemoryInfo()`来获取应用的实时内存情况, 可以通过配置来控制内存采样周期:

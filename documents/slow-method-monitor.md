@@ -21,8 +21,12 @@ Rabbit.config(rabbitConfig)
 
 >打开慢函数检测开关后可以看到如下图的统计结果:
 
-![pic1](./picture/rabbit-slow-method1.png)
+![pic1](./picture/rabbit-slow-method1.jpg)
 
 点击卡片可以看到每一个包下的慢函数:
 
-![pic1](./picture/rabbit-slow-method2.png)
+![pic2](./picture/rabbit-slow-method2.jpg)
+
+点击卡片可以看到该函数相关调用堆栈:
+
+![pic3](./picture/slow-method-stack.jpg)
