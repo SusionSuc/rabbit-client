@@ -18,19 +18,11 @@
 
 # [使用文档](./documents/README.md)
 
-# 开发计划
-
-服务端功能正在开发中，详见:
-
-[rabbit-server](https://github.com/SusionSuc/rabbit-server) : 存储客户端上报的数据(`python/django`)
-
-[rabbit-admin](https://github.com/SusionSuc/rabbit-admin) : web端管理后台(vue)
-
 # 实现原理
 
 实现原理相关文章见:[Rabbit实现原理剖析](https://github.com/SusionSuc/AdvancedAndroid/blob/master/Rabbit%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/README.md)
 
-# 多人协作
+# 贡献代码
 
 如果你对`rabbit`比较感兴趣，或者发现`rabbit`还有一些功能不够完善，欢迎提`mr`。
 
