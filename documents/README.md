@@ -15,7 +15,7 @@
 - [noop包接入](./noop-document.md)
 - [日志逻辑](./log-document.md)
 - [gradle插件配置示例](./gradle-plugin-config-demo.md)
-- [其他](./develop-plan.md)
+- [关于rabbit](./about.md)
 
 ## 快速使用
 
