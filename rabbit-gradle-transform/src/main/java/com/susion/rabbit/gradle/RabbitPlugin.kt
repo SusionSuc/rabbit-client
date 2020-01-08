@@ -24,7 +24,8 @@ class RabbitPlugin : Plugin<Project> {
 
         //register transform
         project.getAndroid<AppExtension>().apply {
-            registerTransform(RabbitTransform())
+            registerTransform(RabbitFirstTransform())
+            registerTransform(RabbitLastTransform())
         }
     }
 

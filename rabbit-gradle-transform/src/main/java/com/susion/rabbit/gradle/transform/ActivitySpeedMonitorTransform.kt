@@ -17,7 +17,6 @@ import javax.xml.parsers.SAXParserFactory
  * susionwang at 2019-11-15
  * 在onCreate方法运行完毕时插入监控代码
  */
-@AutoService(RabbitClassTransformer::class)
 class ActivitySpeedMonitorTransform : RabbitClassTransformer {
 
     private val ACTIVITY_SPEED_MONITOR_CLASS =
@@ -54,7 +53,7 @@ class ActivitySpeedMonitorTransform : RabbitClassTransformer {
         }
     }
 
-    override fun transform(context: TransformContext, klass: ClassNode): ClassNode {
+    override fun transform(context: TransformContext, klass: ClassNode,classFilePath:String): ClassNode {
 
         if (!activityList.contains(klass.className) || !RabbitTransformUtils.classInPkgList(klass.className, GlobalConfig.pluginConfig.pageSpeedMonitorPkgs)) {
             return klass

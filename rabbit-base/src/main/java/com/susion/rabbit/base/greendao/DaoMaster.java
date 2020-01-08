@@ -30,6 +30,7 @@ public class DaoMaster extends AbstractDaoMaster {
         RabbitPageSpeedInfoDao.createTable(db, ifNotExists);
         RabbitMemoryInfoDao.createTable(db, ifNotExists);
         RabbitFPSInfoDao.createTable(db, ifNotExists);
+        RabbitIoCallInfoDao.createTable(db, ifNotExists);
     }
 
     /** Drops underlying database table using DAOs. */
@@ -43,6 +44,7 @@ public class DaoMaster extends AbstractDaoMaster {
         RabbitPageSpeedInfoDao.dropTable(db, ifExists);
         RabbitMemoryInfoDao.dropTable(db, ifExists);
         RabbitFPSInfoDao.dropTable(db, ifExists);
+        RabbitIoCallInfoDao.dropTable(db, ifExists);
     }
 
     /**
@@ -70,6 +72,7 @@ public class DaoMaster extends AbstractDaoMaster {
         registerDaoClass(RabbitPageSpeedInfoDao.class);
         registerDaoClass(RabbitMemoryInfoDao.class);
         registerDaoClass(RabbitFPSInfoDao.class);
+        registerDaoClass(RabbitIoCallInfoDao.class);
     }
 
     public DaoSession newSession() {

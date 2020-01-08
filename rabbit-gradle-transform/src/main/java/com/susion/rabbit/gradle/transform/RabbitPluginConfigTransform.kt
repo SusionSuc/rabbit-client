@@ -15,10 +15,9 @@ import org.objectweb.asm.tree.MethodInsnNode
 /**
  * susionwang at 2020-01-02
  */
-@AutoService(RabbitClassTransformer::class)
 class RabbitPluginConfigTransform : RabbitClassTransformer {
 
-    override fun transform(context: TransformContext, klass: ClassNode): ClassNode {
+    override fun transform(context: TransformContext, klass: ClassNode,classFilePath:String): ClassNode {
 
         if (klass.name != RabbitPluginConfig.CLASS_PATH) {
             return klass

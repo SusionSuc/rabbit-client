@@ -1,27 +1,24 @@
 package com.susion.rabbit.gradle.core
 
-import com.google.auto.service.AutoService
 import com.susion.rabbit.gradle.core.context.TransformContext
 import org.objectweb.asm.ClassReader
 import org.objectweb.asm.ClassWriter
 import org.objectweb.asm.tree.ClassNode
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * Represents bytecode transformer using ASM
  * 使用 ASM 操作字节码
  */
-@AutoService(RabbitByteCodeTransformer::class)
-class AsmTransformer : RabbitByteCodeTransformer {
+class AsmTransformer(private val transformers:List<RabbitClassTransformer> = ArrayList()) : RabbitByteCodeTransformer {
 
-    private val transformers = ServiceLoader.load(RabbitClassTransformer::class.java, javaClass.classLoader).toList()
-
-    override fun transform(context: TransformContext, bytecode: ByteArray): ByteArray {
+    override fun transform(context: TransformContext, bytecode: ByteArray, classFilePath:String): ByteArray {
         return ClassWriter(ClassWriter.COMPUTE_MAXS).also { writer ->
             transformers.fold(ClassNode().also { visitClassNode ->
                 ClassReader(bytecode).accept(visitClassNode, 0)
             }) { classNode, transformer ->
-                transformer.transform(context, classNode)
+                transformer.transform(context, classNode,classFilePath)
             }.accept(writer)
         }.toByteArray()
     }

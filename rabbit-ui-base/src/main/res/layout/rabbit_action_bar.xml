@@ -36,4 +36,15 @@
         android:layout_width="0.5px"
         android:layout_height="0.5px" />
 
+    <ImageView
+        android:id="@+id/mDevToolsToolsBarIvOperation"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:visibility="gone"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="15dp"
+        android:padding="5dp"
+        android:src="@drawable/rabbit_icon_back" />
+
 </merge>

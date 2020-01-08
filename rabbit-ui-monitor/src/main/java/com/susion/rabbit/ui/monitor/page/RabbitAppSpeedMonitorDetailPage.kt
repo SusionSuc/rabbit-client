@@ -2,6 +2,7 @@ package com.susion.rabbit.ui.monitor.page
 
 import android.content.Context
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.susion.rabbit.base.entities.RabbitAppStartSpeedInfo
 import com.susion.rabbit.base.entities.RabbitAppStartSpeedTotalInfo
 import com.susion.rabbit.base.entities.RabbitPageSpeedInfo
@@ -10,6 +11,8 @@ import com.susion.rabbit.ui.monitor.view.RabbitAppSpeedInfoView
 import com.susion.rabbit.ui.monitor.view.RabbitPageSpeedUiItemView
 import com.susion.rabbit.storage.RabbitDbStorageManager
 import com.susion.rabbit.ui.base.RabbitBasePage
+import com.susion.rabbit.ui.base.adapter.RabbitAdapterItemView
+import com.susion.rabbit.ui.base.adapter.RabbitRvAdapter
 import com.susion.rabbit.ui.monitor.R
 import kotlinx.android.synthetic.main.rabbit_page_ui_block_list.view.*
 
@@ -19,13 +22,14 @@ import kotlinx.android.synthetic.main.rabbit_page_ui_block_list.view.*
 class RabbitAppSpeedMonitorDetailPage(context: Context) : RabbitBasePage(context) {
 
     private val logsAdapter by lazy {
-        object : com.susion.rabbit.ui.base.adapter.RabbitRvAdapter<Any>(ArrayList()) {
+        object : RabbitRvAdapter<Any>(ArrayList()) {
             val TYPE_PAGE = 1
             val TYPE_APP = 2
-            override fun createItem(type: Int): com.susion.rabbit.ui.base.adapter.RabbitAdapterItemView<*> = when (type) {
-                TYPE_APP -> RabbitAppSpeedInfoView(context)
-                else -> RabbitPageSpeedUiItemView(context)
-            }
+            override fun createItem(type: Int): RabbitAdapterItemView<*> =
+                when (type) {
+                    TYPE_APP -> RabbitAppSpeedInfoView(context)
+                    else -> RabbitPageSpeedUiItemView(context)
+                }
 
             override fun getItemType(data: Any) = when (data) {
                 is RabbitAppStartSpeedTotalInfo -> TYPE_APP
@@ -41,12 +45,11 @@ class RabbitAppSpeedMonitorDetailPage(context: Context) : RabbitBasePage(context
         setTitle("应用测速日志")
 
         mUiBlockPageRv.adapter = logsAdapter
-        mUiBlockPageRv.layoutManager =
-            androidx.recyclerview.widget.LinearLayoutManager(
-                context,
-                androidx.recyclerview.widget.LinearLayoutManager.VERTICAL,
-                false
-            )
+        mUiBlockPageRv.layoutManager = LinearLayoutManager(
+            context,
+            LinearLayoutManager.VERTICAL,
+            false
+        )
         loadData()
 
         mUiBlockPageSRL.setOnRefreshListener {

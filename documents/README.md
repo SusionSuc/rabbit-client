@@ -9,7 +9,7 @@
 - [FPS和内存监控](./memory-fps-monitor.md)
 - [异常与内存泄漏捕获](./others-monitor.md)
 - [apk包分析](./app-analyzer.md)
-- [接入自定义业务面板](./cusom-page.md)
+- [接入自定义业务面板](./custom-page.md)
 - [数据上报](./data-report.md)
 - [noop包接入](./noop-document.md)
 - [日志逻辑](./log-document.md)

@@ -21,7 +21,6 @@ import javax.xml.parsers.SAXParserFactory
  * start time : Application Construct
  * end time : onCreate() end
  */
-@AutoService(RabbitClassTransformer::class)
 class AppStartSpeedMeasureTransform : RabbitClassTransformer {
 
     private val METHOD_ATTACH_CONTEXT_NAME = "attachBaseContext"
@@ -41,7 +40,7 @@ class AppStartSpeedMeasureTransform : RabbitClassTransformer {
         }
     }
 
-    override fun transform(context: TransformContext, klass: ClassNode): ClassNode {
+    override fun transform(context: TransformContext, klass: ClassNode,classFilePath:String): ClassNode {
 
         if (!this.applications.contains(klass.className)) {
             return klass

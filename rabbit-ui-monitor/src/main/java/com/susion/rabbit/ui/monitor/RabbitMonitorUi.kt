@@ -98,6 +98,14 @@ object RabbitMonitorUi {
                     RabbitSlowMethodListPage::class.java
                 )
             )
+
+            add(
+                RabbitMainFeatureInfo(
+                    "阻塞调用列表",
+                    R.drawable.rabbit_icon_io_call,
+                    RabbitIoCallListPage::class.java
+                )
+            )
         }
     }
 

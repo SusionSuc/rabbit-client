@@ -32,7 +32,7 @@ object RabbitMonitor {
     private var pageChangeListeners = HashSet<PageChangeListener>()
 
     fun init(application: Application, config: RabbitMonitorConfig) {
-        
+
         if (isInit) return
 
         this.config = config
@@ -56,6 +56,7 @@ object RabbitMonitor {
             put(RabbitMonitorProtocol.NET.name, RabbitNetMonitor())
             put(RabbitMonitorProtocol.USE_TIME.name, RabbitAppUseTimeMonitor())
             put(RabbitMonitorProtocol.METHOD_TRACE.name, RabbitMethodMonitor())
+            put(RabbitMonitorProtocol.IO_CALL.name, RabbitIoCallMonitor())
         }
 
         this.config.autoOpenMonitors.forEach {

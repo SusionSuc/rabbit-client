@@ -13,6 +13,7 @@ if (inDebug) {
         printLog = true // 编译时打印插桩log
         pageSpeedMonitorPkgs = ['com.susion.rabbit.demo']
         methodMonitorPkgs = ['com.susion.rabbit.demo', 'com.susion.rabbit.demo.page']
+        ioScanPkgs =  ['com.susion.rabbit.demo.page']
     }
 
     rabbit = "com.susion:rabbit:$version"

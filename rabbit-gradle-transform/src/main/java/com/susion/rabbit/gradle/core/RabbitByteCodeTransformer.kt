@@ -17,6 +17,6 @@ interface RabbitByteCodeTransformer : TransformListener {
      *         The bytecode to be transformed
      * @return the transformed bytecode
      */
-    fun transform(context: TransformContext, bytecode: ByteArray): ByteArray
+    fun transform(context: TransformContext, bytecode: ByteArray, classFilePath:String): ByteArray
 
 }

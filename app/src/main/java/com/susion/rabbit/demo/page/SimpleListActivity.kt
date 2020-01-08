@@ -1,5 +1,6 @@
 package com.susion.rabbit.demo.page
 
+import android.content.Context
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.susion.rabbit.demo.R
@@ -30,6 +31,8 @@ class SimpleListActivity : RabbitBaseActivity() {
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         mSimpleListPageRv.adapter = listAdapter
+
+        getSharedPreferences("test", Context.MODE_PRIVATE).edit().putBoolean("111", true).commit()
 
     }
 

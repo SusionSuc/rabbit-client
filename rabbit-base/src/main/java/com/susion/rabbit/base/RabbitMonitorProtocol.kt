@@ -52,6 +52,8 @@ interface RabbitMonitorProtocol {
             "慢函数监控",
             showInExternal = true
         )
+
+        val IO_CALL = MonitorInfo("io_call", "加载阻塞调用列表", showInExternal = true)
     }
 
     class MonitorInfo(

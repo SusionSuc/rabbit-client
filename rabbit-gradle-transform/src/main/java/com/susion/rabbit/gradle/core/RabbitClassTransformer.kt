@@ -15,6 +15,6 @@ interface RabbitClassTransformer : TransformListener {
      * @param klass The class node to be transformed
      * @return The transformed class node
      */
-    fun transform(context: TransformContext, klass: ClassNode) = klass
+    fun transform(context: TransformContext, klass: ClassNode, classFilePath:String ) = klass
 
 }

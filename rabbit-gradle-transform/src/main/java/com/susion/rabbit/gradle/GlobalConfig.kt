@@ -7,6 +7,7 @@ import com.susion.rabbit.gradle.entities.RabbitConfigExtension
  */
 object GlobalConfig {
 
-    var pluginConfig: RabbitConfigExtension =
-        RabbitConfigExtension()
+    var pluginConfig: RabbitConfigExtension = RabbitConfigExtension()
+
+    var ioMethodCall = ArrayList<String>()
 }

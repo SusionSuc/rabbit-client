@@ -1,16 +1,8 @@
 package com.susion.rabbit.gradle.core.context
 
 import com.android.SdkConstants
-import com.android.build.api.transform.Context
-import com.android.build.api.transform.Format
-import com.android.build.api.transform.SecondaryInput
-import com.android.build.api.transform.Status.ADDED
-import com.android.build.api.transform.Status.CHANGED
-import com.android.build.api.transform.Status.NOTCHANGED
-import com.android.build.api.transform.Status.REMOVED
-import com.android.build.api.transform.TransformInput
-import com.android.build.api.transform.TransformInvocation
-import com.android.build.api.transform.TransformOutputProvider
+import com.android.build.api.transform.*
+import com.android.build.api.transform.Status.*
 import com.android.build.gradle.internal.publishing.AndroidArtifacts.ArtifactScope.ALL
 import com.android.build.gradle.internal.publishing.AndroidArtifacts.ArtifactType.AAR
 import com.android.build.gradle.internal.publishing.AndroidArtifacts.ArtifactType.JAR
@@ -23,7 +15,6 @@ import com.susion.rabbit.gradle.core.asm.KlassPool
 import com.susion.rabbit.gradle.core.rxentension.*
 import java.io.File
 import java.net.URLClassLoader
-import java.util.ServiceLoader
 import java.util.concurrent.ForkJoinPool
 
 /**
@@ -31,16 +22,13 @@ import java.util.concurrent.ForkJoinPool
  *
  * Rabbit Transform；  提供了众多transform需要用到的上下文
  */
-internal class RabbitTransformInvocation(private val dInvocation: TransformInvocation) :
+internal class RabbitTransformInvocation(
+    private val dInvocation: TransformInvocation,
+    private val transformers: List<RabbitByteCodeTransformer>
+) :
     TransformInvocation, TransformContext,
     TransformListener,
     ArtifactManager {
-
-    /*
-     * Preload transformers as List to fix NoSuchElementException caused by ServiceLoader in parallel mode
-     */
-    private val transformers =
-        ServiceLoader.load(RabbitByteCodeTransformer::class.java, javaClass.classLoader).toList()
 
     override val name: String = dInvocation.context.variantName
 
@@ -223,7 +211,7 @@ internal class RabbitTransformInvocation(private val dInvocation: TransformInvoc
     private fun ByteArray.transform(invocation: RabbitTransformInvocation): ByteArray {
         if (!GlobalConfig.pluginConfig.enable) return this
         return transformers.fold(this) { bytes, transformer ->
-            transformer.transform(invocation, bytes)
+            transformer.transform(invocation, bytes, "")
         }
     }
 
@@ -278,11 +266,13 @@ internal class RabbitTransformInvocation(private val dInvocation: TransformInvoc
         override val qualifiedName: String = clazz.name
 
         override fun isAssignableFrom(type: String) =
-            isAssignableFrom(pool.findClass(
-                normalize(
-                    type
+            isAssignableFrom(
+                pool.findClass(
+                    normalize(
+                        type
+                    )
                 )
-            ))
+            )
 
         override fun isAssignableFrom(klass: Klass) =
             klass is LoadedKlass && clazz.isAssignableFrom(klass.clazz)

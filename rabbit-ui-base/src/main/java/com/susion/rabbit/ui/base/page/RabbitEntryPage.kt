@@ -32,7 +32,9 @@ class RabbitEntryPage(
         addView(rv)
         rv.adapter = featuresAdapter
         rv.layoutParams =
-            LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+            LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT).apply {
+                topMargin = ACTION_BAR_HEIGHT
+            }
         rv.layoutManager = LinearLayoutManager(
             context,
             LinearLayoutManager.VERTICAL,
@@ -42,6 +44,6 @@ class RabbitEntryPage(
         rv.background = getDrawable(context, R.color.rabbit_white)
     }
 
-    override fun getLayoutResId() = -1
+    override fun getLayoutResId() = INVALID_RES_ID
 
 }

@@ -72,7 +72,7 @@ object RabbitAsync {
             .subscribe({
                 completeCallBack(it)
             }, {
-                RabbitLog.d(TAG, "asyncRun error")
+                RabbitLog.d(TAG, "asyncRun error ${it.message}")
             })
     }
 

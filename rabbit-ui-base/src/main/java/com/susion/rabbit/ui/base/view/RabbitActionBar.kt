@@ -5,6 +5,7 @@ import android.text.InputType
 import android.util.AttributeSet
 import android.view.KeyEvent
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.RelativeLayout
 import com.susion.rabbit.ui.base.*
 import io.reactivex.functions.Consumer
@@ -49,6 +50,14 @@ class RabbitActionBar : RelativeLayout {
 
     fun setTitle(title: String) {
         mDevToolsToolsBarTvTitle.text = title
+    }
+
+    fun setRightOperate(draRes: Int, cliclCallback: () -> Unit) {
+        mDevToolsToolsBarIvOperation.visibility = View.VISIBLE
+        mDevToolsToolsBarIvOperation.setImageDrawable(getDrawable(context, draRes))
+        mDevToolsToolsBarIvOperation.throttleFirstClick(Consumer {
+            cliclCallback()
+        })
     }
 
     interface ActionListener {

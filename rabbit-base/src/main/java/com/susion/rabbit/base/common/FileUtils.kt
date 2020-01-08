@@ -2,6 +2,7 @@ package com.susion.rabbit.base.common
 
 import android.content.Context
 import java.io.File
+import java.io.FileWriter
 import java.io.IOException
 import java.security.MessageDigest
 
@@ -9,7 +10,7 @@ import java.security.MessageDigest
  * susionwang at 2019-09-24
  */
 
-object FileUtils{
+object FileUtils {
 
     /**
      * Create a file if it doesn't exist, otherwise delete old file before creating.
@@ -18,8 +19,8 @@ object FileUtils{
      * @return `true`: success<br></br>`false`: fail
      */
     fun createFileByDeleteOldFile(filePath: String): Boolean {
-        return com.susion.rabbit.base.common.FileUtils.createFileByDeleteOldFile(
-            com.susion.rabbit.base.common.FileUtils.getFileByPath(
+        return createFileByDeleteOldFile(
+            getFileByPath(
                 filePath
             )
         )
@@ -35,7 +36,7 @@ object FileUtils{
         if (file == null) return false
         // file exists and unsuccessfully delete then return false
         if (file.exists() && !file.delete()) return false
-        if (!com.susion.rabbit.base.common.FileUtils.createOrExistsDir(file.parentFile)) return false
+        if (!createOrExistsDir(file.parentFile)) return false
         try {
             return file.createNewFile()
         } catch (e: IOException) {
@@ -51,7 +52,9 @@ object FileUtils{
      * @return the file
      */
     private fun getFileByPath(filePath: String): File? {
-        return if (com.susion.rabbit.base.common.FileUtils.isSpace(filePath)) null else File(filePath)
+        return if (com.susion.rabbit.base.common.FileUtils.isSpace(filePath)) null else File(
+            filePath
+        )
     }
 
     private fun isSpace(s: String?): Boolean {
@@ -119,4 +122,11 @@ object FileUtils{
         }
     }
 
+    fun writeStrToFile(file: File, str: String) {
+        createFileByDeleteOldFile(file)
+        FileWriter(file).use {
+            it.write(str)
+        }
+
+    }
 }

@@ -17,12 +17,11 @@ import org.objectweb.asm.tree.VarInsnNode
 /**
  * susionwang at 2020-01-02
  */
-@AutoService(RabbitClassTransformer::class)
 class MethodCostMonitorTransform : RabbitClassTransformer {
 
     private val notTraceMethods = listOf("<init>", "<clinit>")
 
-    override fun transform(context: TransformContext, klass: ClassNode): ClassNode {
+    override fun transform(context: TransformContext, klass: ClassNode,classFilePath:String): ClassNode {
 
         if (!RabbitTransformUtils.classInPkgList(klass.className, GlobalConfig.pluginConfig.methodMonitorPkgs)) {
             return klass
