@@ -4,6 +4,7 @@
 
 - [应用测速](./speed-monitor.md)
 - [慢函数检测](./slow-method-monitor.md)
+- [阻塞代码检测](./block-code-monitor.md)
 - [网络日志监控](./net-log-monitor.md)
 - [卡顿日志监控](./block-log-monitor.md)
 - [FPS和内存监控](./memory-fps-monitor.md)
@@ -13,6 +14,7 @@
 - [数据上报](./data-report.md)
 - [noop包接入](./noop-document.md)
 - [日志逻辑](./log-document.md)
+- [gradle插件配置示例](./gradle-plugin-config-demo.md)
 - [开发计划](./develop-plan.md)
 
 ## 快速使用
