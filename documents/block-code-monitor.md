@@ -23,6 +23,8 @@ rabbitConfig {
 
 ![pic](picture/rabbit-block-code.jpg)
 
+**查看之前不要忘记在配置中打开相关开关!!**
+
 >点击可以查看更详细的调用情况。
 
 ## 导出扫描结果
