@@ -55,6 +55,10 @@ class ActivitySpeedMonitorTransform : RabbitClassTransformer {
 
     override fun transform(context: TransformContext, klass: ClassNode,classFilePath:String): ClassNode {
 
+        if (!GlobalConfig.pluginConfig.enableSpeedCheck){
+            return klass
+        }
+
         if (!activityList.contains(klass.className) || !RabbitTransformUtils.classInPkgList(klass.className, GlobalConfig.pluginConfig.pageSpeedMonitorPkgs)) {
             return klass
         }

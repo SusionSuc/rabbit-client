@@ -31,10 +31,10 @@ class RabbitLastTransform : Transform() {
 
         if (transformInvocation == null) return
 
-        RabbitTransformUtils.print("🍊 rabbit RabbitLastTransform run --> enable status : \${GlobalConfig.pluginConfig.enable ")
+        RabbitTransformUtils.print("🍊 rabbit RabbitLastTransform run")
 
         val transformInstances = listOf(
-            IoMethodLoadTransform()
+            BlockCodeLoadTransform()
         )
 
         RabbitTransformInvocation(

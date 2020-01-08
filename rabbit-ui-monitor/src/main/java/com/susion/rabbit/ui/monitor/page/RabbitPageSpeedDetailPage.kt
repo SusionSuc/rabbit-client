@@ -177,12 +177,6 @@ class RabbitPageSpeedDetailPage(context: Context) : RabbitBasePage(context) {
 
     private fun initChart(chart: LineChart) {
         chart.apply {
-            layoutParams = LayoutParams(LayoutParams.MATCH_PARENT,
-                dp2px(200f)
-            ).apply {
-                val dp20 = dp2px(20f)
-                setMargins(dp20, dp20, dp20, dp20)
-            }
             setBackgroundColor(Color.parseColor("#90caf9"))
             setTouchEnabled(true)
             description.isEnabled = false

@@ -31,10 +31,9 @@ class RabbitEntryPage(
     init {
         addView(rv)
         rv.adapter = featuresAdapter
-        rv.layoutParams =
-            LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT).apply {
+        rv.layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT).apply {
                 topMargin = ACTION_BAR_HEIGHT
-            }
+        }
         rv.layoutManager = LinearLayoutManager(
             context,
             LinearLayoutManager.VERTICAL,

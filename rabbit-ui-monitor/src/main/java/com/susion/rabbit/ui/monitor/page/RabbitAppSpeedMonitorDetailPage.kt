@@ -41,9 +41,7 @@ class RabbitAppSpeedMonitorDetailPage(context: Context) : RabbitBasePage(context
     override fun getLayoutResId() = R.layout.rabbit_page_ui_block_list
 
     init {
-        layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         setTitle("应用测速日志")
-
         mUiBlockPageRv.adapter = logsAdapter
         mUiBlockPageRv.layoutManager = LinearLayoutManager(
             context,

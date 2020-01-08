@@ -25,7 +25,9 @@ class RabbitSlowMethodDetailPage(context: Context) : RabbitBasePage(context) {
     }
 
     private val methodRv = RecyclerView(context).apply {
-        layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
+        layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT).apply {
+            topMargin = ACTION_BAR_HEIGHT
+        }
         layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         adapter = mAdapter
     }

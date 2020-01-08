@@ -5,8 +5,7 @@ package com.susion.rabbit.gradle.utils
  *
  * Sensitive APIs
  */
-
-internal val IO_APIS = setOf(
+internal val DEFAULT_BLOCK_APIS = setOf(
     // <editor-fold desc="- Object">
     "java/lang/Object.wait()V",
     "java/lang/Object.wait(J)V",

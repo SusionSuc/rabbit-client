@@ -1,13 +1,12 @@
 package com.susion.rabbit.gradle.transform
 
-import com.google.auto.service.AutoService
-import com.susion.rabbit.tracer.MethodTracer
 import com.susion.rabbit.gradle.GlobalConfig
 import com.susion.rabbit.gradle.core.RabbitClassTransformer
 import com.susion.rabbit.gradle.core.context.TransformContext
 import com.susion.rabbit.gradle.core.rxentension.className
 import com.susion.rabbit.gradle.core.rxentension.find
 import com.susion.rabbit.gradle.utils.RabbitTransformUtils
+import com.susion.rabbit.tracer.MethodTracer
 import org.objectweb.asm.Opcodes
 import org.objectweb.asm.tree.ClassNode
 import org.objectweb.asm.tree.LdcInsnNode
@@ -21,9 +20,21 @@ class MethodCostMonitorTransform : RabbitClassTransformer {
 
     private val notTraceMethods = listOf("<init>", "<clinit>")
 
-    override fun transform(context: TransformContext, klass: ClassNode,classFilePath:String): ClassNode {
+    override fun transform(
+        context: TransformContext,
+        klass: ClassNode,
+        classFilePath: String
+    ): ClassNode {
 
-        if (!RabbitTransformUtils.classInPkgList(klass.className, GlobalConfig.pluginConfig.methodMonitorPkgs)) {
+        if (!GlobalConfig.pluginConfig.enableMethodCostCheck) {
+            return klass
+        }
+
+        if (!RabbitTransformUtils.classInPkgList(
+                klass.className,
+                GlobalConfig.pluginConfig.methodMonitorPkgs
+            )
+        ) {
             return klass
         }
 
@@ -44,12 +55,13 @@ class MethodCostMonitorTransform : RabbitClassTransformer {
             }
 
             val methodName = "${klass.name.replace("/", ".")}&${method.name}()"
-            val firstInstruction =  method.instructions?.find(Opcodes.INVOKESPECIAL) ?: method.instructions.get(0)
+            val firstInstruction =
+                method.instructions?.find(Opcodes.INVOKESPECIAL) ?: method.instructions.get(0)
 
-            val returnInstruction =  method.instructions?.find(Opcodes.RETURN)
+            val returnInstruction = method.instructions?.find(Opcodes.RETURN)
             val isStaticMethod = (method.access and Opcodes.ACC_STATIC) == Opcodes.ACC_STATIC
 
-            if (firstInstruction != null && returnInstruction != null){
+            if (firstInstruction != null && returnInstruction != null) {
 
                 RabbitTransformUtils.print("MethodCostMonitorTransform -> trace method  $methodName")
                 //trace method start
@@ -57,7 +69,10 @@ class MethodCostMonitorTransform : RabbitClassTransformer {
 
                 //trace method end
                 if (!isStaticMethod) {
-                    method.instructions?.insertBefore(returnInstruction, VarInsnNode(Opcodes.ALOAD, 0))
+                    method.instructions?.insertBefore(
+                        returnInstruction,
+                        VarInsnNode(Opcodes.ALOAD, 0)
+                    )
                 }
                 method.instructions?.insertBefore(returnInstruction, LdcInsnNode(methodName)) //参数
                 method.instructions?.insertBefore(returnInstruction, getMethodRecordEndMethod())

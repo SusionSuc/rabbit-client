@@ -31,14 +31,14 @@ class RabbitFirstTransform : Transform() {
 
         if (transformInvocation == null) return
 
-        RabbitTransformUtils.print("🍊 rabbit RabbitFirstTransform run ---> enable status : ${GlobalConfig.pluginConfig.enable}")
+        RabbitTransformUtils.print("🍊 rabbit RabbitFirstTransform run")
 
         val transformInstances = listOf(
             ActivitySpeedMonitorTransform(),
             AppStartSpeedMeasureTransform(),
             MethodCostMonitorTransform(),
             RabbitPluginConfigTransform(),
-            IoMethodScanTransform()
+            BlockCodeScanTransform()
         )
 
         RabbitTransformInvocation(

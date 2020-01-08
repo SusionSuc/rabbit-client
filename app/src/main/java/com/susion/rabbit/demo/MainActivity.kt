@@ -54,6 +54,8 @@ class MainActivity : RabbitBaseActivity() {
         mSimpleListRv.setOnClickListener {
             startActivity(Intent(this, SimpleListActivity::class.java))
         }
+
+        fakeBlockCode()
     }
 
     private fun requestPermission() {
@@ -73,6 +75,10 @@ class MainActivity : RabbitBaseActivity() {
         Rabbit.open(true, this)
     }
 
+
+    fun fakeBlockCode(){
+
+    }
     private fun sampleRequestNet() {
         val dis = DevToolsTestApiModel().getAllGameList().subscribe({
             val a = 1

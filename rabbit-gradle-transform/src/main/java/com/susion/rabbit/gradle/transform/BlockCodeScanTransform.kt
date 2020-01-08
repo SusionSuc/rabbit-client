@@ -5,9 +5,8 @@ import com.susion.rabbit.gradle.core.RabbitClassTransformer
 import com.susion.rabbit.gradle.core.context.TransformContext
 import com.susion.rabbit.gradle.core.rxentension.asIterable
 import com.susion.rabbit.gradle.core.rxentension.className
-import com.susion.rabbit.gradle.utils.IO_APIS
+import com.susion.rabbit.gradle.utils.DEFAULT_BLOCK_APIS
 import com.susion.rabbit.gradle.utils.RabbitTransformUtils
-import com.susion.rabbit.tracer.RabbitScanIoOpHelper
 import org.objectweb.asm.tree.ClassNode
 import org.objectweb.asm.tree.MethodInsnNode
 
@@ -15,7 +14,15 @@ import org.objectweb.asm.tree.MethodInsnNode
  * susionwang at 2020-01-02
  * 扫描 IO 函数
  */
-class IoMethodScanTransform : RabbitClassTransformer {
+class BlockCodeScanTransform : RabbitClassTransformer {
+
+    private val blockApis: Set<String> by lazy {
+        if (GlobalConfig.pluginConfig.customBlockCodeCheckList.isNotEmpty()) {
+            GlobalConfig.pluginConfig.customBlockCodeCheckList
+        } else {
+            DEFAULT_BLOCK_APIS
+        }
+    }
 
     override fun transform(
         context: TransformContext,
@@ -23,9 +30,13 @@ class IoMethodScanTransform : RabbitClassTransformer {
         classFilePath: String
     ): ClassNode {
 
+        if (!GlobalConfig.pluginConfig.enableBlockCodeCheck) {
+            return klass
+        }
+
         if (!RabbitTransformUtils.classInPkgList(
                 klass.className,
-                GlobalConfig.pluginConfig.ioScanPkgs
+                GlobalConfig.pluginConfig.blockCodePkg
             )
         ) {
             return klass
@@ -47,13 +58,14 @@ class IoMethodScanTransform : RabbitClassTransformer {
 
                     val calledStr = "${invoke.owner}.${invoke.name}"
 
-                    if (IO_APIS.any { it.contains(calledStr) }) {
+                    if (blockApis.any { it.contains(calledStr) }) {
 
-                        val ioCallStr = "${invokeStr.replace("/", ".")}()&${calledStr.replace("/", ".")}()"
+                        val ioCallStr =
+                            "${invokeStr.replace("/", ".")}()&${calledStr.replace("/", ".")}()"
 
                         GlobalConfig.ioMethodCall.add(ioCallStr)
 
-                        RabbitTransformUtils.print("💻 🍎 IoMethodScanTransform : scan io method -> $ioCallStr")
+                        RabbitTransformUtils.print("💻  BlockCodeScanTransform : scan io method -> $ioCallStr")
                     }
                 }
 

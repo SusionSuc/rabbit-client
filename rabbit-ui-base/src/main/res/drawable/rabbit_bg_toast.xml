@@ -7,7 +7,7 @@
         android:radius="5dp"/>
 
     <solid
-        android:color="@color/rabbit_material_primary"/>
+        android:color="#64b5f6"/>
 
     <size
         android:width="20dp"

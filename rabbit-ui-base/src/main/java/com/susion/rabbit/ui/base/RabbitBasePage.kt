@@ -16,8 +16,15 @@ import com.susion.rabbit.ui.base.view.RabbitActionBar
 abstract class RabbitBasePage(context: Context) : FrameLayout(context),
     RabbitPageProtocol {
 
-    val ACTION_BAR_HEIGHT = dp2px(50f)
-    val actionBar = RabbitActionBar(context)
+    val ACTION_BAR_HEIGHT = dp2px(42f)
+    val actionBar = RabbitActionBar(context).apply {
+        layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, ACTION_BAR_HEIGHT)
+        actionListener = object : RabbitActionBar.ActionListener {
+            override fun onBackClick() {
+                eventListener?.onBack()
+            }
+        }
+    }
     override var eventListener: RabbitPageProtocol.PageEventListener? = null
     val INVALID_RES_ID = -1
     private val tvToast = TextView(context).apply {
@@ -42,14 +49,6 @@ abstract class RabbitBasePage(context: Context) : FrameLayout(context),
                     topMargin = ACTION_BAR_HEIGHT
                 }
             addView(inflatedView)
-        }
-        actionBar.apply {
-            layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, dp2px(50f))
-            actionListener = object : RabbitActionBar.ActionListener {
-                override fun onBackClick() {
-                    eventListener?.onBack()
-                }
-            }
         }
     }
 

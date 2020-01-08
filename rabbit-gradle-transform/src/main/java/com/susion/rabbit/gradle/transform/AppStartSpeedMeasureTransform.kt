@@ -1,6 +1,7 @@
 package com.susion.rabbit.gradle.transform
 
 import com.google.auto.service.AutoService
+import com.susion.rabbit.gradle.GlobalConfig
 import com.susion.rabbit.tracer.AppStartTracer
 import com.susion.rabbit.gradle.core.RabbitClassTransformer
 import com.susion.rabbit.gradle.core.context.ArtifactManager
@@ -41,6 +42,10 @@ class AppStartSpeedMeasureTransform : RabbitClassTransformer {
     }
 
     override fun transform(context: TransformContext, klass: ClassNode,classFilePath:String): ClassNode {
+
+        if (!GlobalConfig.pluginConfig.enableSpeedCheck){
+            return klass
+        }
 
         if (!this.applications.contains(klass.className)) {
             return klass

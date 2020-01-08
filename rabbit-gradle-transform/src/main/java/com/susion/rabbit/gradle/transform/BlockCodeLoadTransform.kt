@@ -15,7 +15,7 @@ import org.objectweb.asm.tree.MethodInsnNode
  * susionwang at 2020-01-02
  * 把扫描的IO调用转变为代码
  */
-class IoMethodLoadTransform : RabbitClassTransformer {
+class BlockCodeLoadTransform : RabbitClassTransformer {
 
     override fun transform(
         context: TransformContext,
@@ -23,11 +23,15 @@ class IoMethodLoadTransform : RabbitClassTransformer {
         classFilePath: String
     ): ClassNode {
 
+        if (!GlobalConfig.pluginConfig.enableBlockCodeCheck) {
+            return klass
+        }
+
         if (klass.name != RabbitScanIoOpHelper.CLASS_PATH) {
             return klass
         }
 
-        RabbitTransformUtils.print("🌞 IoMethodLoadTransform start load io method call,  scan ${GlobalConfig.ioMethodCall.size} method !")
+        RabbitTransformUtils.print("🌞 BlockCodeLoadTransform start load io method call,  scan ${GlobalConfig.ioMethodCall.size} method !")
 
         val method = klass.methods.find { it.name == RabbitScanIoOpHelper.METHOD_INJECT_IO_CALL }
         method?.instructions?.find(Opcodes.RETURN)?.apply {
