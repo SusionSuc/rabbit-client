@@ -91,14 +91,6 @@ object RabbitUi {
 
             add(
                 RabbitMainFeatureInfo(
-                    "内存分析",
-                    R.drawable.rabbit_icon_memory_compose,
-                    RabbitMemoryComposePage::class.java
-                )
-            )
-
-            add(
-                RabbitMainFeatureInfo(
                     "慢函数",
                     R.drawable.rabbit_icon_slow_method,
                     RabbitSlowMethodListPage::class.java
@@ -109,7 +101,23 @@ object RabbitUi {
                 RabbitMainFeatureInfo(
                     "阻塞调用列表",
                     R.drawable.rabbit_icon_io_call,
-                    RabbitIoCallListPage::class.java
+                    RabbitBlockCallListPage::class.java
+                )
+            )
+
+            add(
+                RabbitMainFeatureInfo(
+                    "FPS分析",
+                    R.drawable.rabbit_icon_fps,
+                    RabbitFpsAnalyzerPage::class.java
+                )
+            )
+
+            add(
+                RabbitMainFeatureInfo(
+                    "内存分析",
+                    R.drawable.rabbit_icon_memory_compose,
+                    RabbitMemoryComposePage::class.java
                 )
             )
         }

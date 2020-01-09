@@ -45,9 +45,12 @@ class RabbitHttpLogListPage(context: Context) : RabbitBasePage(context) {
         RabbitDbStorageManager.getAll(RabbitHttpLogInfo::class.java) {
             mHttpLogListSPL.isRefreshing = false
             if (it.isNotEmpty()) {
+                hideEmptyView()
                 logsAdapter.data.clear()
                 logsAdapter.data.addAll(it)
                 logsAdapter.notifyDataSetChanged()
+            }else{
+                showEmptyView()
             }
         }
     }

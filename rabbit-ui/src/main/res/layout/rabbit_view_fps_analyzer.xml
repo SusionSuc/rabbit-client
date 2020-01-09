@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:orientation="horizontal"
+    tools:parentTag="RelativeLayout">
+
+    <ImageView
+        android:id="@+id/mFpsAnalyzerViewIv"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/rabbit_icon_fps_mark"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="15dp" />
+
+    <LinearLayout
+        android:id="@+id/log_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="20dp"
+        android:layout_toEndOf="@+id/mFpsAnalyzerViewIv"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/mFpsAnalyzerViewTvPageName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/rabbit_black"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/mFpsAnalyzerViewTvPageFps"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/rabbit_black"
+            android:textSize="12dp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="20dp"
+        android:layout_toEndOf="@+id/mFpsAnalyzerViewIv"
+        android:background="@color/rabbit_divider_line" />
+
+</merge>

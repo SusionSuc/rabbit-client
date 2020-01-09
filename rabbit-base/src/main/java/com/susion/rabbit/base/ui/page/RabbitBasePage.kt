@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.susion.rabbit.base.R
 import com.susion.rabbit.base.ui.RabbitPageProtocol
@@ -28,6 +30,32 @@ abstract class RabbitBasePage(context: Context) : FrameLayout(context), RabbitPa
             }
         }
     }
+
+    val emptyIv = ImageView(context).apply {
+        layoutParams = LinearLayout.LayoutParams(dp2px(50f), dp2px(50f)).apply {
+            gravity = Gravity.CENTER_HORIZONTAL
+        }
+        setImageDrawable(getDrawable(context, R.drawable.rabbit_icon_empty_data))
+    }
+
+    val emptyTv = TextView(context).apply {
+        layoutParams = LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT).apply {
+            gravity = Gravity.CENTER_HORIZONTAL
+            topMargin = dp2px(10f)
+        }
+        setTextColor(getColor(context, R.color.rabbit_black))
+        text = "是不是没有打开监控开关呀"
+    }
+
+    private val emptyLl = LinearLayout(context).apply {
+        layoutParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT).apply {
+            gravity = Gravity.CENTER
+        }
+        orientation = LinearLayout.VERTICAL
+        addView(emptyIv)
+        addView(emptyTv)
+    }
+
     override var eventListener: RabbitPageProtocol.PageEventListener? = null
     val INVALID_RES_ID = -1
     private val tvToast = TextView(context).apply {
@@ -79,6 +107,14 @@ abstract class RabbitBasePage(context: Context) : FrameLayout(context), RabbitPa
         postDelayed({
             removeView(tvToast)
         }, duration)
+    }
+
+    fun showEmptyView(){
+        addView(emptyLl)
+    }
+
+    fun hideEmptyView(){
+        removeView(emptyLl)
     }
 
 }

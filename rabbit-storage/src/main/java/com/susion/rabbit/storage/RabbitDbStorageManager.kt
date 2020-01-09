@@ -1,6 +1,7 @@
 package com.susion.rabbit.storage
 
 import com.susion.rabbit.base.common.RabbitAsync
+import com.susion.rabbit.base.greendao.DaoSession
 import io.reactivex.disposables.Disposable
 import org.greenrobot.greendao.Property
 import java.util.concurrent.LinkedBlockingDeque
@@ -23,8 +24,9 @@ object RabbitDbStorageManager {
         }).apply {
         allowCoreThreadTimeOut(true)
     }
+    var daoSession: DaoSession? = null
     private val greenDaoDbManage by lazy {
-        RabbitGreenDaoDbManage(RabbitStorage.application!!)
+        RabbitGreenDaoDbManage(RabbitStorage.application!!,daoSession)
     }
 
     /**
@@ -37,11 +39,11 @@ object RabbitDbStorageManager {
         condition: Pair<Property, String>? = null,
         sortField: String = "time",
         count: Int = 0,
-        orderDesc: Boolean = true,
+        orderDesc: Boolean = false,
         loadResult: (exceptionList: List<T>) -> Unit
     ) {
         RabbitAsync.asyncRunWithResult({
-            greenDaoDbManage.getDatasWithDescendingSort(
+            greenDaoDbManage.getDatas(
                 ktClass,
                 condition?.first?.eq(condition.second),
                 sortField,
@@ -87,6 +89,18 @@ object RabbitDbStorageManager {
         return greenDaoDbManage.allDataCount(clazz)
     }
 
+    fun <T : Any> distinct(
+        clazz: Class<T>,
+        columnName: String,
+        loadResult: (exceptionList: List<String>) -> Unit
+    ) {
+        RabbitAsync.asyncRunWithResult({
+            greenDaoDbManage.distinct(clazz, columnName)
+        }, {
+            loadResult(it)
+        })
+    }
+
     fun destroy() {
         disposableList.forEach {
             it.dispose()
@@ -98,7 +112,5 @@ object RabbitDbStorageManager {
             greenDaoDbManage.clearOldSessionData()
         }, DB_THREAD)
     }
-
-
 
 }

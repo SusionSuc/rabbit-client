@@ -2,8 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/rabbit_white">
+    android:background="@color/rabbit_white"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/rabbit_bg_card"
+        android:padding="5dp"
+        android:text="不要忘记在配置中打开阻塞调用监控功能哦"
+        android:textColor="@color/rabbit_black"
+        android:textSize="13dp"
+        android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/mIoCallPageRv"

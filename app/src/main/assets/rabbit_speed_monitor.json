@@ -2,12 +2,8 @@
   "home_activity": "MainActivity",
   "page_list": [
     {
-      "page": "HyperionMainActivity",
-      "api": [
-        "post/api/getHomePageRecPosts",
-        "reception/api/getAvailablePreRegistrations",
-        "apihub/api/appHome"
-      ]
+      "page": "MainActivity",
+      "api": []
     },
     {
       "page": "ForumContainerActivity",

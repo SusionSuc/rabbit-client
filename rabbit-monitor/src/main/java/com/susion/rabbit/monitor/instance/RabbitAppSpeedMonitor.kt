@@ -86,7 +86,6 @@ internal class RabbitAppSpeedMonitor(override var isOpen: Boolean = false) :
     private fun monitorActivitySpeed() {
         RabbitTracerEventNotifier.appSpeedNotifier =
             object : RabbitTracerEventNotifier.TracerEvent {
-
                 override fun applicationCreateTime(
                     attachBaseContextTime: Long,
                     createEndTime: Long

@@ -16,9 +16,11 @@ import com.susion.rabbit.base.entities.RabbitApiInfo
 import com.susion.rabbit.base.entities.RabbitPageApiInfo
 import com.susion.rabbit.base.entities.RabbitPageSpeedInfo
 import com.susion.rabbit.base.entities.RabbitPageSpeedUiInfo
+import com.susion.rabbit.base.greendao.RabbitPageSpeedInfoDao
 import com.susion.rabbit.storage.RabbitDbStorageManager
 import com.susion.rabbit.base.ui.page.RabbitBasePage
 import com.susion.rabbit.base.ui.dp2px
+import com.susion.rabbit.base.ui.getColor
 import com.susion.rabbit.ui.monitor.R
 import kotlinx.android.synthetic.main.rabbit_page_page_speed_detail.view.*
 import java.lang.Exception
@@ -40,7 +42,7 @@ class RabbitPageSpeedDetailPage(context: Context) : RabbitBasePage(context) {
         mRabbitSpeedDetailTvPageSRL.setOnRefreshListener {
             RabbitDbStorageManager.getAll(
                 RabbitPageSpeedInfo::class.java,
-                condition = Pair(com.susion.rabbit.base.greendao.RabbitPageSpeedInfoDao.Properties.PageName, pageName)
+                condition = Pair(RabbitPageSpeedInfoDao.Properties.PageName, pageName)
             ) {
                 mRabbitSpeedDetailTvPageSRL.isRefreshing = false
                 renderUi(it)
@@ -177,7 +179,7 @@ class RabbitPageSpeedDetailPage(context: Context) : RabbitBasePage(context) {
 
     private fun initChart(chart: LineChart) {
         chart.apply {
-            setBackgroundColor(Color.parseColor("#90caf9"))
+            setBackgroundColor(getColor(context, R.color.rabbit_bg_card))
             setTouchEnabled(true)
             description.isEnabled = false
             isDragEnabled = true

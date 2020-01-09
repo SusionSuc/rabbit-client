@@ -19,7 +19,7 @@ class RabbitMonitorConfig(
     val autoOpenMonitors: HashSet<String> = HashSet(),
     var memoryValueCollectPeriodMs: Long = 2000L,
     var fpsCollectThresholdNs: Long = STANDARD_FRAME_NS * 10,
-    var fpsReportPeriodS: Long = 10,
+    var fpsReportPeriodS: Long = 1,
     var slowMethodPeriodMs:Long = 15,
     var onlyCheckMainThreadSlowMethod:Boolean = true,
     var monitorSpeedList: RabbitAppSpeedMonitorConfig = RabbitAppSpeedMonitorConfig()

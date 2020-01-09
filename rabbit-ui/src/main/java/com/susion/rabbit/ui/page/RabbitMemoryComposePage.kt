@@ -12,6 +12,7 @@ import com.susion.rabbit.base.entities.RabbitMemoryInfo
 import com.susion.rabbit.storage.RabbitDbStorageManager
 import com.susion.rabbit.base.ui.page.RabbitBasePage
 import com.susion.rabbit.base.ui.dp2px
+import com.susion.rabbit.base.ui.getColor
 import com.susion.rabbit.ui.monitor.R
 import kotlinx.android.synthetic.main.rabbit_page_memory_compose.view.*
 
@@ -41,7 +42,6 @@ class RabbitMemoryComposePage(context: Context) : RabbitBasePage(context) {
         RabbitDbStorageManager.getAll(
             RabbitMemoryInfo::class.java,
             count = 200,
-            orderDesc = false,
             loadResult = { memInfos ->
 
                 mRabbitMemComposePageSRL.isRefreshing = false
@@ -96,7 +96,7 @@ class RabbitMemoryComposePage(context: Context) : RabbitBasePage(context) {
 
     private fun initChart(chart: LineChart) {
         chart.apply {
-            setBackgroundColor(Color.parseColor("#90caf9"))
+            setBackgroundColor(getColor(context, R.color.rabbit_bg_card))
             setTouchEnabled(true)
             description.isEnabled = false
             isDragEnabled = true

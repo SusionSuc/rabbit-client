@@ -4,6 +4,7 @@ import android.content.Context
 import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.TAG_STORAGE
 import com.susion.rabbit.base.config.RabbitDaoProviderConfig
+import com.susion.rabbit.base.greendao.DaoSession
 import org.greenrobot.greendao.AbstractDao
 import org.greenrobot.greendao.Property
 import org.greenrobot.greendao.query.WhereCondition
@@ -12,7 +13,7 @@ import org.greenrobot.greendao.query.WhereCondition
  * susionwang at 2019-10-21
  * 所有rabbit可以持久数据都应该有对应的 Dao
  */
-internal class RabbitGreenDaoDbManage(val context: Context) {
+internal class RabbitGreenDaoDbManage(val context: Context, val daoSession: DaoSession? = null) {
 
     private val MAX_DATA_COUNT = 5000 // 不允许存太多数据
     private val daoMap = HashMap<String, AbstractDao<Any, Long>>()
@@ -31,10 +32,6 @@ internal class RabbitGreenDaoDbManage(val context: Context) {
         return daoImpl(clazz)?.loadByRowId(id) ?: null
     }
 
-    fun <T : Any> getDatas(clazz: Class<T>, condition: WhereCondition): List<T> {
-        return daoImpl(clazz)?.queryBuilder()?.where(condition)?.list() as List<T>
-    }
-
     fun <T : Any> deleteById(clazz: Class<T>, id: Long) {
         daoImpl(clazz)?.deleteByKey(id)
     }
@@ -45,14 +42,25 @@ internal class RabbitGreenDaoDbManage(val context: Context) {
         }
     }
 
+    fun <T : Any> distinct(clazz: Class<T>, columnName: String): List<String> {
+        val dao = daoImpl(clazz) ?: return emptyList()
+        val distinctSQL = "SELECT DISTINCT $columnName FROM ${dao.tablename};"
+        val cursor = daoSession?.database?.rawQuery(distinctSQL, null) ?: return emptyList()
+        val resList = ArrayList<String>()
+        while (cursor.moveToNext()) {
+            resList.add(cursor.getString(0))
+        }
+        return resList
+    }
+
     fun <T : Any> allDataCount(clazz: Class<T>): Long {
         return daoImpl(clazz)?.queryBuilder()?.count() ?: 0
     }
 
-    fun <T : Any> getDatasWithDescendingSort(
+    fun <T : Any> getDatas(
         clazz: Class<T>,
         condition: WhereCondition? = null,
-        sortField: String,
+        sortField: String = "time",
         count: Int = 0,
         orderDesc: Boolean = false
     ): List<T> {

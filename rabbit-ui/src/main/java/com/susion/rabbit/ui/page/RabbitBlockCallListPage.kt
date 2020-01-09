@@ -18,7 +18,7 @@ import java.io.File
 /**
  * susionwang at 2019-10-29
  */
-class RabbitIoCallListPage(context: Context) : RabbitBasePage(context) {
+class RabbitBlockCallListPage(context: Context) : RabbitBasePage(context) {
 
     private val EXPORT_FILE_PATH =
         "${Environment.getExternalStorageDirectory()}/Rabbit/blockCall.txt"
@@ -40,7 +40,7 @@ class RabbitIoCallListPage(context: Context) : RabbitBasePage(context) {
 
     init {
         layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
-        setTitle("阻塞调用列表(查看前请先加载~)")
+        setTitle("阻塞调用列表")
         actionBar.setRightOperate(R.drawable.rabbit_icon_export_io_call) {
             showToast("开始导出阻塞调用~")
             val ioCallSb = StringBuilder()
@@ -65,9 +65,14 @@ class RabbitIoCallListPage(context: Context) : RabbitBasePage(context) {
 
     private fun loadData() {
         RabbitDbStorageManager.getAll(RabbitIoCallInfo::class.java) {
-            logsAdapter.data.clear()
-            logsAdapter.data.addAll(it)
-            logsAdapter.notifyDataSetChanged()
+            if (it.isEmpty()){
+                showEmptyView()
+            }else{
+                hideEmptyView()
+                logsAdapter.data.clear()
+                logsAdapter.data.addAll(it)
+                logsAdapter.notifyDataSetChanged()
+            }
         }
     }
 

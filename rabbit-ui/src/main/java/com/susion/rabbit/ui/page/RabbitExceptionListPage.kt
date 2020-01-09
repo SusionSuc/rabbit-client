@@ -43,9 +43,12 @@ class RabbitExceptionListPage(context: Context) : RabbitBasePage(context) {
         RabbitDbStorageManager.getAll(RabbitExceptionInfo::class.java) {
             mExceptionLogListSPL.isRefreshing = false
             if (it.isNotEmpty()) {
+                hideEmptyView()
                 logsAdapter.data.clear()
                 logsAdapter.data.addAll(it)
                 logsAdapter.notifyDataSetChanged()
+            }else{
+                showEmptyView()
             }
         }
     }

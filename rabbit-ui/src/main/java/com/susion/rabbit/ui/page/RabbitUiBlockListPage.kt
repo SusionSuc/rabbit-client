@@ -44,9 +44,16 @@ class RabbitUiBlockListPage(context: Context) : RabbitBasePage(context) {
     private fun loadData() {
         RabbitDbStorageManager.getAll(RabbitBlockFrameInfo::class.java) {
             mUiBlockPageSRL.isRefreshing = false
-            logsAdapter.data.clear()
-            logsAdapter.data.addAll(it)
-            logsAdapter.notifyDataSetChanged()
+
+            if (it.isEmpty()){
+                showEmptyView()
+            }else{
+                hideEmptyView()
+                logsAdapter.data.clear()
+                logsAdapter.data.addAll(it)
+                logsAdapter.notifyDataSetChanged()
+            }
+
         }
     }
 
