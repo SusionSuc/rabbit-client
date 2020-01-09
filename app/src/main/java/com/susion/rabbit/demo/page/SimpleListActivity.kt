@@ -5,9 +5,9 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.susion.rabbit.demo.R
 import com.susion.rabbit.demo.RabbitBaseActivity
-import com.susion.rabbit.ui.base.adapter.RabbitRvAdapter
-import com.susion.rabbit.ui.base.view.RabbitSimpleKVItemView
-import com.susion.rabbit.ui.base.view.RabbitSimpleKvInfo
+import com.susion.rabbit.base.ui.adapter.RabbitRvAdapter
+import com.susion.rabbit.base.ui.view.RabbitSimpleKVItemView
+import com.susion.rabbit.base.ui.view.RabbitSimpleKvInfo
 import kotlinx.android.synthetic.main.activity_simple_list_page.*
 
 class SimpleListActivity : RabbitBaseActivity() {

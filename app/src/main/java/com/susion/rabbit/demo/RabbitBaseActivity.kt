@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import android.view.Window
 import com.susion.rabbit.R
-import com.susion.rabbit.ui.base.view.RabbitActionBar
+import com.susion.rabbit.base.ui.view.RabbitActionBar
 
 /**
  * susionwang at 2019-09-25
@@ -18,7 +18,7 @@ open class RabbitBaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStatusBarColor(
-            window, com.susion.rabbit.ui.base.getColor(this, R.color.rabbit_material_dark)
+            window, com.susion.rabbit.base.ui.getColor(this, R.color.rabbit_material_dark)
         )
         setStatusBarTextColor(window, true)
     }

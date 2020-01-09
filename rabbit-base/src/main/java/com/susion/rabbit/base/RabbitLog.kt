@@ -17,10 +17,6 @@ object RabbitLog {
 
     var isEnable: Boolean = true
 
-    fun init(enable: Boolean) {
-        isEnable = enable
-    }
-
     fun d(tag: String, logStr: String) {
         if (isEnable) {
             Log.d(tag, logStr)

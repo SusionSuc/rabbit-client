@@ -8,7 +8,7 @@ import com.susion.rabbit.base.RabbitMonitorProtocol
 import com.susion.rabbit.base.TAG_MONITOR
 import com.susion.rabbit.base.config.RabbitMonitorConfig
 import com.susion.rabbit.storage.RabbitDbStorageManager
-import com.susion.rabbit.ui.base.RabbitUiEvent
+import com.susion.rabbit.base.ui.RabbitUiEvent
 import java.util.concurrent.TimeUnit
 import kotlin.math.min
 

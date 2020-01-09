@@ -7,8 +7,9 @@ import android.content.Context
 import com.susion.rabbit.base.RabbitSettings
 import com.susion.rabbit.base.config.RabbitConfig
 import com.susion.rabbit.storage.RabbitStorage
-import com.susion.rabbit.ui.base.RabbitUi
-import com.susion.rabbit.ui.base.utils.FloatingViewPermissionHelper
+import com.susion.rabbit.base.ui.RabbitUiKernal
+import com.susion.rabbit.base.ui.page.RabbitEntryPage
+import com.susion.rabbit.base.ui.utils.FloatingViewPermissionHelper
 import okhttp3.Interceptor
 
 /**
@@ -29,8 +30,10 @@ object Rabbit {
         }
 
         //base ui config
-        val uiConfig = config.uiConfig
-        RabbitUi.init(application, uiConfig)
+        RabbitUiKernal.init(
+            application,
+            RabbitEntryPage(application, config.uiConfig.entryFeatures)
+        )
 
         //存储配置
         RabbitStorage.init(application, config.storageConfig)
@@ -42,7 +45,7 @@ object Rabbit {
         if (!requestPermission && !overlayPermissionIsOpen) return
 
         if (overlayPermissionIsOpen) {
-            RabbitUi.showFloatingView()
+            RabbitUiKernal.showFloatingView()
         } else {
             FloatingViewPermissionHelper.showConfirmDialog(
                 activity,

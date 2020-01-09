@@ -8,7 +8,7 @@ import android.net.ConnectivityManager
 import android.os.Build
 import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.RabbitMonitorProtocol
-import com.susion.rabbit.ui.base.utils.RabbitUiUtils
+import com.susion.rabbit.base.ui.utils.RabbitUiUtils
 
 /**
  * susionwang at 2019-12-04

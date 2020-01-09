@@ -34,7 +34,6 @@ dependencies {
     implementation project(':rabbit-gradle-interface')
     implementation project(':rabbit-report')
     implementation project(':rabbit-base')
-    implementation project(':rabbit-ui-base')
     implementation project(':rabbit-storage')
 
     implementation rootProject.ext.androidXDependencies.appcompat

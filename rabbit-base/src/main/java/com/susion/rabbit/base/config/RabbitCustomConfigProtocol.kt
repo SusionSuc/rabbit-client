@@ -5,8 +5,8 @@ package com.susion.rabbit.base.config
  */
 class RabbitCustomConfigProtocol(
     val configName: String,
-    val initStatus: Boolean,
-    val statusChangeCallBack: ConfigChangeListener
+    var isEnable: Boolean,
+    var statusChangeCallBack: ConfigChangeListener? = null
 ) {
     interface ConfigChangeListener {
         fun onChange(newStatus: Boolean)

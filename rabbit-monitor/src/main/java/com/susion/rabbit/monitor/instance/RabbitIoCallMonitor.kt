@@ -34,6 +34,6 @@ class RabbitIoCallMonitor(override var isOpen: Boolean = false) : RabbitMonitorP
 
     }
 
-    override fun getMonitorInfo() = RabbitMonitorProtocol.IO_CALL
+    override fun getMonitorInfo() = RabbitMonitorProtocol.BLOCK_CALL
 
 }

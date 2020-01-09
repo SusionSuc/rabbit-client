@@ -1,6 +1,7 @@
 package com.susion.rabbit.storage
 
 import android.app.Application
+import com.susion.rabbit.base.RabbitMonitorProtocol
 import com.susion.rabbit.base.entities.*
 import com.susion.rabbit.base.greendao.DaoMaster
 import com.susion.rabbit.base.config.RabbitDaoProviderConfig
@@ -102,6 +103,31 @@ object RabbitStorage {
 
     interface EventListener {
         fun onStorageData(obj: Any)
+    }
+
+    fun clearDataByMonitorName(monitorName: String) {
+        when (monitorName) {
+            RabbitMonitorProtocol.APP_SPEED.name -> {
+                RabbitDbStorageManager.clearAllData(RabbitAppStartSpeedInfo::class.java)
+                RabbitDbStorageManager.clearAllData(RabbitPageSpeedInfo::class.java)
+            }
+
+            RabbitMonitorProtocol.EXCEPTION.name -> {
+                RabbitDbStorageManager.clearAllData(RabbitExceptionInfo::class.java)
+            }
+
+            RabbitMonitorProtocol.MEMORY.name -> {
+                RabbitDbStorageManager.clearAllData(RabbitMemoryInfo::class.java)
+            }
+
+            RabbitMonitorProtocol.METHOD_TRACE.name -> {
+                RabbitDbStorageManager.clearAllData(RabbitSlowMethodInfo::class.java)
+            }
+
+            RabbitMonitorProtocol.NET.name -> {
+                RabbitDbStorageManager.clearAllData(RabbitHttpLogInfo::class.java)
+            }
+        }
     }
 
 }

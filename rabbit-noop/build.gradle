@@ -34,7 +34,6 @@ dependencies {
     implementation "org.greenrobot:greendao:${uniqueVersion.greenDaoVersion}"
     implementation rootProject.ext.androidXDependencies.appcompat
     implementation "com.squareup.retrofit2:retrofit:${uniqueVersion.retrofit2Version}"
-    api project(':rabbit-ui-base')
     api project(':rabbit-base')
     api project(':rabbit-storage')
 }

@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".MethodCostTraceActivity">
 
-    <com.susion.rabbit.ui.base.view.RabbitActionBar
+    <com.susion.rabbit.base.ui.view.RabbitActionBar
         android:id="@+id/mSlowMethodActionBar"
         android:layout_width="match_parent"
         android:layout_height="45dp" />

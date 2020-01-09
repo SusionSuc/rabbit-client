@@ -6,7 +6,6 @@ import android.content.Context
 import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.RabbitMonitorProtocol
 import com.susion.rabbit.base.RabbitSettings
-import com.susion.rabbit.base.common.RabbitAsync
 import com.susion.rabbit.base.common.RabbitUtils
 import com.susion.rabbit.base.entities.RabbitHttpLogInfo
 import com.susion.rabbit.base.entities.RabbitMemoryInfo
@@ -17,10 +16,9 @@ import com.susion.rabbit.monitor.RabbitMonitor
 import com.susion.rabbit.report.RabbitReport
 import com.susion.rabbit.storage.RabbitStorage
 import com.susion.rabbit.tracer.RabbitPluginConfig
-import com.susion.rabbit.tracer.RabbitScanIoOpHelper
-import com.susion.rabbit.ui.base.RabbitUi
-import com.susion.rabbit.ui.base.utils.FloatingViewPermissionHelper
-import com.susion.rabbit.ui.monitor.RabbitMonitorUi
+import com.susion.rabbit.base.ui.RabbitUiKernal
+import com.susion.rabbit.base.ui.utils.FloatingViewPermissionHelper
+import com.susion.rabbit.ui.RabbitUi
 import okhttp3.Interceptor
 
 /**
@@ -35,6 +33,7 @@ object Rabbit {
 
     @JvmStatic
     fun config(config: RabbitConfig) {
+
         try {
             if (!RabbitUtils.isMainProcess(application)) return
         } catch (e: Throwable) {
@@ -48,7 +47,7 @@ object Rabbit {
         RabbitPluginConfig.loadConfig()
 
         // init log
-        RabbitLog.init(mConfig.enableLog)
+        RabbitLog.isEnable = mConfig.enableLog
 
         //存储配置
         RabbitStorage.eventListener = object : RabbitStorage.EventListener {
@@ -61,7 +60,7 @@ object Rabbit {
         //监控配置
         RabbitMonitor.eventListener = object : RabbitMonitor.UiEventListener {
             override fun updateUi(type: Int, value: Any) {
-                RabbitUi.updateUiFromAsyncThread(type, value)
+                RabbitUiKernal.updateUiFromAsyncThread(type, value)
             }
         }
         RabbitMonitor.init(application, mConfig.monitorConfig)
@@ -76,11 +75,13 @@ object Rabbit {
         reportConfig.fpsReportPeriodS = mConfig.monitorConfig.fpsReportPeriodS
         RabbitReport.init(application, reportConfig)
 
-        // 监控UI
-        val monitorUiConfig = RabbitMonitorUi.Config()
-        monitorUiConfig.monitorList = RabbitMonitor.getMonitorList()
-        RabbitMonitorUi.init(monitorUiConfig)
-        RabbitMonitorUi.eventListener = object : RabbitMonitorUi.EventListener {
+        // UI
+        val uiConfig = mConfig.uiConfig
+        uiConfig.monitorList = RabbitMonitor.getMonitorList()
+        uiConfig.entryFeatures.addAll(RabbitUi.defaultSupportFeatures())
+        uiConfig.customConfigList.addAll(getCustomConfigs())
+        RabbitUi.init(application, uiConfig)
+        RabbitUi.eventListener = object : RabbitUi.EventListener {
             override fun toggleMonitorStatus(monitor: RabbitMonitorProtocol, open: Boolean) {
                 val monitorName = monitor.getMonitorInfo().name
                 if (open) {
@@ -90,18 +91,6 @@ object Rabbit {
                 }
             }
         }
-
-        //基本UI
-        val uiConfig = mConfig.uiConfig
-        uiConfig.entryFeatures.addAll(RabbitMonitorUi.defaultSupportFeatures())
-
-        uiConfig.customConfigList.add(RabbitCustomConfigProtocol("上报监控数据", mConfig.reportConfig.enable, object :RabbitCustomConfigProtocol.ConfigChangeListener{
-            override fun onChange(newStatus: Boolean) {
-                mConfig.reportConfig.enable = newStatus
-            }
-        }))
-
-        RabbitUi.init(application, uiConfig)
 
         isInit = true
         RabbitLog.d("config success!!")
@@ -117,7 +106,7 @@ object Rabbit {
         if (!requestPermission && !overlayPermissionIsOpen) return
 
         if (overlayPermissionIsOpen) {
-            RabbitUi.showFloatingView()
+            RabbitUiKernal.showFloatingView()
         } else {
             FloatingViewPermissionHelper.showConfirmDialog(
                 activity,
@@ -155,6 +144,37 @@ object Rabbit {
         RabbitMonitor.configMonitorSpeedList(speedConfig)
     }
 
-    fun getCurrentActivity() = RabbitUi.appCurrentActivity?.get()
+    fun getCurrentActivity() = RabbitUiKernal.appCurrentActivity?.get()
+
+    /**
+     * 自定义的开关配置
+     * */
+    private fun getCustomConfigs(): List<RabbitCustomConfigProtocol> {
+        return ArrayList<RabbitCustomConfigProtocol>().apply {
+            add(
+                RabbitCustomConfigProtocol(
+                    "上报监控数据",
+                    mConfig.reportConfig.enable,
+                    statusChangeCallBack = object :
+                        RabbitCustomConfigProtocol.ConfigChangeListener {
+                        override fun onChange(newStatus: Boolean) {
+                            mConfig.reportConfig.enable = newStatus
+                        }
+                    })
+
+            )
+
+            add(
+                RabbitCustomConfigProtocol(
+                    "Log开关",
+                    RabbitLog.isEnable,
+                    object : RabbitCustomConfigProtocol.ConfigChangeListener {
+                        override fun onChange(newStatus: Boolean) {
+                            RabbitLog.isEnable = newStatus
+                        }
+                    })
+            )
+        }
+    }
 
 }

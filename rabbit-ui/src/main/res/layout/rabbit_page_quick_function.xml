@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/rabbit_white"
+    android:orientation="vertical"
+    android:paddingStart="15dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginEnd="15dp">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="清空监控数据 : "
+            android:textColor="@color/rabbit_black"
+            android:textSize="16dp" />
+
+        <Spinner
+            android:id="@+id/mRabbitQuickPageSpinnerMonitors"
+            android:layout_width="200dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@id/title" />
+
+        <TextView
+            android:id="@+id/mRabbitQuickPageClearDataBtn"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="确定"
+            android:background="@color/rabbit_bg_card"
+            android:textColor="@color/rabbit_black"
+            android:textSize="16dp" />
+
+    </RelativeLayout>
+
+    <View
+        android:background="@color/rabbit_divider_line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"/>
+
+
+</LinearLayout>

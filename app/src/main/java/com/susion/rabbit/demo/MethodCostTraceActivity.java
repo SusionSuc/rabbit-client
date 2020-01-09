@@ -3,7 +3,7 @@ package com.susion.rabbit.demo;
 import android.os.Bundle;
 import android.view.View;
 
-import com.susion.rabbit.ui.base.view.RabbitActionBar;
+import com.susion.rabbit.base.ui.view.RabbitActionBar;
 
 public class MethodCostTraceActivity extends RabbitBaseActivity {
 

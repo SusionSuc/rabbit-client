@@ -56,7 +56,7 @@ object RabbitMonitor {
             put(RabbitMonitorProtocol.NET.name, RabbitNetMonitor())
             put(RabbitMonitorProtocol.USE_TIME.name, RabbitAppUseTimeMonitor())
             put(RabbitMonitorProtocol.METHOD_TRACE.name, RabbitMethodMonitor())
-            put(RabbitMonitorProtocol.IO_CALL.name, RabbitIoCallMonitor())
+            put(RabbitMonitorProtocol.BLOCK_CALL.name, RabbitIoCallMonitor())
         }
 
         this.config.autoOpenMonitors.forEach {
