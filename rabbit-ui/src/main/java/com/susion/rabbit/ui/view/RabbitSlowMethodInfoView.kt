@@ -7,6 +7,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.susion.rabbit.base.ui.*
 import com.susion.rabbit.base.ui.adapter.RabbitAdapterItemView
+import com.susion.rabbit.ui.RabbitUi
 import com.susion.rabbit.ui.monitor.R
 import com.susion.rabbit.ui.entities.RabbitSlowMethodUiInfo
 import com.susion.rabbit.ui.page.RabbitSlowMethodCallStackPage
@@ -57,7 +58,7 @@ class RabbitSlowMethodInfoView (context: Context) : LinearLayout(context), Rabbi
         tvMethodDesc.text = "total ${info.count} record ; average cost ${info.totalTime/info.count} ms"
 
         throttleFirstClick(Consumer {
-            RabbitUiKernal.openPage(RabbitSlowMethodCallStackPage::class.java, info)
+            RabbitUi.openPage(RabbitSlowMethodCallStackPage::class.java, info)
         })
     }
 

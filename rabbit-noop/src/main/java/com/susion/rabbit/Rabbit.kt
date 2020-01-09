@@ -6,6 +6,7 @@ import android.app.Application
 import android.content.Context
 import com.susion.rabbit.base.RabbitSettings
 import com.susion.rabbit.base.config.RabbitConfig
+import com.susion.rabbit.base.entities.RabbitAppSpeedMonitorConfig
 import com.susion.rabbit.storage.RabbitStorage
 import com.susion.rabbit.base.ui.RabbitUiKernal
 import com.susion.rabbit.base.ui.page.RabbitEntryPage
@@ -59,13 +60,24 @@ object Rabbit {
         }
     }
 
+    fun autoOpen(context: Context) = RabbitSettings.autoOpenRabbit(context)
+
+    fun enableAutoOpen(autoOpen: Boolean) {
+        RabbitSettings.autoOpenRabbit(application, autoOpen)
+    }
+
+    fun configMonitorSpeedList(speedConfig: RabbitAppSpeedMonitorConfig) {
+
+    }
+
     fun getNetInterceptor(): Interceptor {
         return Interceptor { chain -> chain.proceed(chain.request()) }
     }
 
     fun saveCrashLog(it: Throwable?) {
-
     }
+
+    fun getCurrentActivity() = RabbitUiKernal.appCurrentActivity?.get()
 
     private fun isMainProcess(context: Context): Boolean {
         return context.packageName == getCurrentProcessName(
@@ -86,9 +98,5 @@ object Rabbit {
         return processName
     }
 
-    fun autoOpen(context: Context) = RabbitSettings.autoOpenRabbit(context)
 
-    fun enableAutoOpen(autoOpen: Boolean) {
-        RabbitSettings.autoOpenRabbit(application, autoOpen)
-    }
 }

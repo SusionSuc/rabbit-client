@@ -5,13 +5,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.susion.rabbit.base.entities.RabbitPageSpeedUiInfo
-import com.susion.rabbit.base.ui.RabbitUiKernal
 import com.susion.rabbit.base.ui.adapter.RabbitAdapterItemView
-import com.susion.rabbit.ui.page.RabbitPageSpeedDetailPage
 import com.susion.rabbit.base.ui.dp2px
 import com.susion.rabbit.base.ui.getDrawable
 import com.susion.rabbit.base.ui.throttleFirstClick
+import com.susion.rabbit.ui.RabbitUi
 import com.susion.rabbit.ui.monitor.R
+import com.susion.rabbit.ui.page.RabbitPageSpeedDetailPage
 import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.rabbit_view_page_speed_item.view.*
 
@@ -38,7 +38,7 @@ class RabbitPageSpeedUiItemView(context: Context) : LinearLayout(context),
         mRabbitUiBlockItemViewTvLine2.text = "记录数 : ${uiInfo.speedInfoList.size}"
 
         throttleFirstClick(Consumer {
-            RabbitUiKernal.openPage(RabbitPageSpeedDetailPage::class.java, uiInfo)
+            RabbitUi.openPage(RabbitPageSpeedDetailPage::class.java, uiInfo)
         })
 
     }

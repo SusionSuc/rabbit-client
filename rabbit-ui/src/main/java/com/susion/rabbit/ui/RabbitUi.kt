@@ -3,6 +3,7 @@ package com.susion.rabbit.ui
 import android.app.Application
 import android.content.ComponentName
 import android.content.Intent
+import android.view.View
 import com.susion.rabbit.base.RabbitMonitorProtocol
 import com.susion.rabbit.base.config.RabbitMainFeatureInfo
 import com.susion.rabbit.base.config.RabbitUiConfig
@@ -83,8 +84,8 @@ object RabbitUi {
                         "com.susion.rabbit.demo",
                         "leakcanary.internal.activity.LeakActivity"
                     )
-                    RabbitUiKernal.appCurrentActivity?.get()?.startActivity(leakIntent)
-                    RabbitUiKernal.hideAllPage()
+                    getCurrentActivity()?.startActivity(leakIntent)
+                    hideAllPage()
                 }
             )
 
@@ -113,5 +114,16 @@ object RabbitUi {
             )
         }
     }
+
+    /**
+     * delegate RabbitUiKernal
+     * */
+    fun openPage(pageClass: Class<out View>?, params: Any? = null) = RabbitUiKernal.openPage(pageClass, params)
+
+    fun hideAllPage() = RabbitUiKernal.hideAllPage()
+
+    fun getCurrentActivity() = RabbitUiKernal.appCurrentActivity?.get()
+
+    fun updateUiFromAsyncThread(msgType: Int, params: Any)  = RabbitUiKernal.updateUiFromAsyncThread(msgType, params)
 
 }

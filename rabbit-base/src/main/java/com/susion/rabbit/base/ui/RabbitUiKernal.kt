@@ -21,7 +21,8 @@ import java.lang.ref.WeakReference
 
 /**
  * susionwang at 2019-10-21
- * Rabbit Ui 控制
+ * Rabbit Ui 核心
+ * ->高级依赖不要直接使用这个类的API<-
  */
 object RabbitUiKernal {
 
@@ -91,10 +92,10 @@ object RabbitUiKernal {
         }
     }
 
-    fun init(application: Application, entryPage: RabbitPageProtocol?) {
-        RabbitUiKernal.application = application
+    fun init(application_: Application, entryPage: RabbitPageProtocol?) {
+        application = application_
         mEntryPage = entryPage
-        RabbitUiKernal.application.registerActivityLifecycleCallbacks(object :
+        application.registerActivityLifecycleCallbacks(object :
             SimpleActivityLifecycleWrapper() {
             override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
                 appCurrentActivity = WeakReference(activity)

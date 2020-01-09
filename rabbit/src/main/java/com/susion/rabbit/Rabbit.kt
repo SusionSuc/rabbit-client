@@ -3,6 +3,7 @@ package com.susion.rabbit
 import android.app.Activity
 import android.app.Application
 import android.content.Context
+import android.view.View
 import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.RabbitMonitorProtocol
 import com.susion.rabbit.base.RabbitSettings
@@ -60,7 +61,7 @@ object Rabbit {
         //监控配置
         RabbitMonitor.eventListener = object : RabbitMonitor.UiEventListener {
             override fun updateUi(type: Int, value: Any) {
-                RabbitUiKernal.updateUiFromAsyncThread(type, value)
+                RabbitUi.updateUiFromAsyncThread(type, value)
             }
         }
         RabbitMonitor.init(application, mConfig.monitorConfig)
@@ -144,7 +145,7 @@ object Rabbit {
         RabbitMonitor.configMonitorSpeedList(speedConfig)
     }
 
-    fun getCurrentActivity() = RabbitUiKernal.appCurrentActivity?.get()
+    fun getCurrentActivity() = RabbitUi.getCurrentActivity()
 
     /**
      * 自定义的开关配置
@@ -176,5 +177,4 @@ object Rabbit {
             )
         }
     }
-
 }

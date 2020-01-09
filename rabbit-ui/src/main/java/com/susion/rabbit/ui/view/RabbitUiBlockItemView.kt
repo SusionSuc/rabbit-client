@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import android.widget.RelativeLayout
 import com.susion.rabbit.base.common.rabbitSimpleTimeFormat
 import com.susion.rabbit.base.entities.RabbitBlockFrameInfo
-import com.susion.rabbit.base.ui.RabbitUiKernal
 import com.susion.rabbit.base.ui.adapter.RabbitAdapterItemView
 import com.susion.rabbit.base.ui.throttleFirstClick
+import com.susion.rabbit.ui.RabbitUi
 import com.susion.rabbit.ui.monitor.R
 import com.susion.rabbit.ui.page.RabbitUiBlockDetailPage
 import io.reactivex.functions.Consumer
@@ -36,7 +36,7 @@ class RabbitUiBlockItemView(context: Context) : RelativeLayout(context),
         mRabbitUiBlockItemViewTvLine2.text = "${blockInfo.blockIdentifier}"
 
         throttleFirstClick(Consumer {
-            RabbitUiKernal.openPage(RabbitUiBlockDetailPage::class.java, blockInfo)
+            RabbitUi.openPage(RabbitUiBlockDetailPage::class.java, blockInfo)
         })
 
     }

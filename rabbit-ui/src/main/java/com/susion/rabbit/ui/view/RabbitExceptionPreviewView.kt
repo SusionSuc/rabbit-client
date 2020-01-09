@@ -6,13 +6,13 @@ import android.view.View
 import android.widget.RelativeLayout
 import com.susion.rabbit.base.common.rabbitTimeFormat
 import com.susion.rabbit.base.entities.RabbitExceptionInfo
-import com.susion.rabbit.base.ui.RabbitUiKernal
 import com.susion.rabbit.base.ui.adapter.RabbitAdapterItemView
-import com.susion.rabbit.ui.page.RabbitExceptionDetailPage
 import com.susion.rabbit.base.ui.dp2px
 import com.susion.rabbit.base.ui.getDrawable
 import com.susion.rabbit.base.ui.throttleFirstClick
+import com.susion.rabbit.ui.RabbitUi
 import com.susion.rabbit.ui.monitor.R
+import com.susion.rabbit.ui.page.RabbitExceptionDetailPage
 import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.rabbit_view_exception_log_pre_view_item.view.*
 
@@ -32,7 +32,7 @@ class RabbitExceptionPreviewView(context: Context) : RelativeLayout(context),
             bottomMargin = dp2px(5f)
         }
         throttleFirstClick(Consumer {
-            RabbitUiKernal.openPage(RabbitExceptionDetailPage::class.java, mLogInfo)
+            RabbitUi.openPage(RabbitExceptionDetailPage::class.java, mLogInfo)
         })
     }
 

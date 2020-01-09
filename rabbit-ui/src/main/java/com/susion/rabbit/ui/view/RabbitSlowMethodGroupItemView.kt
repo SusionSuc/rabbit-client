@@ -7,6 +7,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.susion.rabbit.base.ui.*
 import com.susion.rabbit.base.ui.adapter.RabbitAdapterItemView
+import com.susion.rabbit.ui.RabbitUi
 import com.susion.rabbit.ui.monitor.R
 import com.susion.rabbit.ui.entities.RabbitSlowMethodGroupInfo
 import com.susion.rabbit.ui.page.RabbitSlowMethodDetailPage
@@ -58,7 +59,7 @@ class RabbitSlowMethodGroupItemView(context: Context) : LinearLayout(context),
         tvMethodDesc.text = "${info.methodCount} method ; ${info.slowMethodRecord} record"
 
         throttleFirstClick(Consumer {
-            RabbitUiKernal.openPage(RabbitSlowMethodDetailPage::class.java, info.pkgName)
+            RabbitUi.openPage(RabbitSlowMethodDetailPage::class.java, info.pkgName)
         })
     }
 
