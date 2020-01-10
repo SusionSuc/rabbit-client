@@ -81,4 +81,14 @@
         android:layout_height="1px"
         android:background="@color/rabbit_divider_line" />
 
+    <com.susion.rabbit.base.ui.view.RabbitSwitchButton
+        android:id="@+id/mRabbitQuickPagePerformanceTest"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/rabbit_divider_line" />
+
 </LinearLayout>

@@ -5,9 +5,11 @@ import android.widget.ArrayAdapter
 import com.susion.rabbit.base.ui.dp2px
 import com.susion.rabbit.storage.RabbitStorage
 import com.susion.rabbit.base.ui.page.RabbitBasePage
+import com.susion.rabbit.base.ui.throttleFirstClick
 import com.susion.rabbit.base.ui.view.RabbitSwitchButton
 import com.susion.rabbit.ui.monitor.R
 import com.susion.rabbit.ui.RabbitUi
+import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.rabbit_page_quick_function.view.*
 
 /**
@@ -51,8 +53,21 @@ class RabbitQuickFunctionPage(context: Context) : RabbitBasePage(context) {
             )
         }
 
-        mRabbitQuickPageViewConfig.setOnClickListener {
+        mRabbitQuickPageViewConfig.throttleFirstClick(Consumer{
             RabbitUi.openPage(RabbitCurrentConfigListPage::class.java)
+        })
+
+        mRabbitQuickPagePerformanceTest.refreshUi("性能测试模式", false)
+        mRabbitQuickPagePerformanceTest.checkedStatusChangeListener =    object : RabbitSwitchButton.CheckedStatusChangeListener {
+            override fun checkedStatusChange(isChecked: Boolean) {
+                if (isChecked){
+                    showToast("开发中...")
+                    postDelayed({
+                        mRabbitQuickPagePerformanceTest.setCheckStatus(false)
+                    },500)
+
+                }
+            }
         }
     }
 

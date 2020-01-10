@@ -41,9 +41,14 @@ class RabbitSwitchButton : RelativeLayout {
         mRabbitSwitchBtnSc.isChecked = status
     }
 
+    fun setCheckStatus(isChecked:Boolean){
+        mRabbitSwitchBtnSc.isChecked = isChecked
+    }
 
     interface CheckedStatusChangeListener{
         fun checkedStatusChange(isChecked:Boolean)
     }
+
+
 
 }
