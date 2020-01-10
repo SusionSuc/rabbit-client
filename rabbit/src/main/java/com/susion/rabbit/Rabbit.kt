@@ -3,8 +3,10 @@ package com.susion.rabbit
 import android.app.Activity
 import android.app.Application
 import android.content.Context
+import android.view.View
 import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.RabbitMonitorProtocol
+import com.susion.rabbit.base.RabbitProtocol
 import com.susion.rabbit.base.RabbitSettings
 import com.susion.rabbit.base.common.RabbitUtils
 import com.susion.rabbit.base.entities.RabbitHttpLogInfo
@@ -12,6 +14,7 @@ import com.susion.rabbit.base.entities.RabbitMemoryInfo
 import com.susion.rabbit.base.config.RabbitConfig
 import com.susion.rabbit.base.config.RabbitCustomConfigProtocol
 import com.susion.rabbit.base.entities.RabbitAppSpeedMonitorConfig
+import com.susion.rabbit.base.ui.RabbitPageProtocol
 import com.susion.rabbit.monitor.RabbitMonitor
 import com.susion.rabbit.report.RabbitReport
 import com.susion.rabbit.storage.RabbitStorage
@@ -25,29 +28,28 @@ import okhttp3.Interceptor
  * susionwang at 2019-09-23
  * Rabbit API
  */
-object Rabbit {
+object Rabbit : RabbitProtocol {
 
     private var mConfig = RabbitConfig()
     lateinit var application: Application
     private var isInit = false
 
-    @JvmStatic
-    fun config(config: RabbitConfig) {
+    override fun init(config: RabbitConfig) {
 
         try {
             if (!RabbitUtils.isMainProcess(application)) return
         } catch (e: Throwable) {
-            RabbitLog.d("config error :${e.message}")
+            RabbitLog.d("init error :${e.message}")
             return
         }
 
         mConfig = config
 
-        if (!mConfig.enable){
+        if (!mConfig.enable) {
             return
         }
 
-        //加载 gradle plugin config
+        //加载 gradle plugin init
         RabbitPluginConfig.loadConfig()
 
         // init log
@@ -95,18 +97,18 @@ object Rabbit {
                 }
             }
         }
-        RabbitUi.externalDataRequest = object :RabbitUi.ExternalDataReuqest{
+        RabbitUi.externalDataRequest = object : RabbitUi.ExternalDataReuqest {
             override fun getGlobalConfig() = mConfig
         }
 
         isInit = true
-        RabbitLog.d("config success!!")
+        RabbitLog.d("init success!!")
     }
 
     /**
      * 需要Activity Window Token来展示Dialog
      * */
-    fun open(requestPermission: Boolean = true, activity: Activity) {
+    override fun open(requestPermission: Boolean, activity: Activity) {
 
         val overlayPermissionIsOpen = FloatingViewPermissionHelper.checkPermission(application)
 
@@ -132,26 +134,26 @@ object Rabbit {
     /**
      * 网络请求日志功能
      * */
-    fun getNetInterceptor(): Interceptor = RabbitMonitor.getNetMonitor()
+    override fun getNetInterceptor(): Interceptor = RabbitMonitor.getNetMonitor()
 
     /**
      * 异常日志保存
      * */
-    fun saveCrashLog(e: Throwable) {
+    override fun saveCrashLog(e: Throwable) {
         RabbitMonitor.saveCrash(e, Thread.currentThread())
     }
 
-    fun autoOpen(context: Context) = RabbitSettings.autoOpenRabbit(context)
+    override fun isAutoOpen() = RabbitSettings.autoOpenRabbit(application)
 
-    fun enableAutoOpen(autoOpen: Boolean) {
+    override fun changeAutoOpenStatus(autoOpen: Boolean) {
         RabbitSettings.autoOpenRabbit(application, autoOpen)
     }
 
-    fun configMonitorSpeedList(speedConfig: RabbitAppSpeedMonitorConfig) {
-        RabbitMonitor.configMonitorSpeedList(speedConfig)
+    override fun openPage(pageClass: Class<out View>?, params: Any?) {
+        RabbitUi.openPage(pageClass, params)
     }
 
-    fun getCurrentActivity() = RabbitUi.getCurrentActivity()
+    override fun getCurrentActivity() = RabbitUi.getCurrentActivity()
 
     /**
      * 自定义的开关配置
@@ -183,4 +185,5 @@ object Rabbit {
             )
         }
     }
+
 }

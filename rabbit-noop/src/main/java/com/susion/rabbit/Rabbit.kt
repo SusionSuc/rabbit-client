@@ -4,25 +4,25 @@ import android.app.Activity
 import android.app.ActivityManager
 import android.app.Application
 import android.content.Context
+import android.view.View
+import com.susion.rabbit.base.RabbitProtocol
 import com.susion.rabbit.base.RabbitSettings
 import com.susion.rabbit.base.config.RabbitConfig
-import com.susion.rabbit.base.entities.RabbitAppSpeedMonitorConfig
-import com.susion.rabbit.storage.RabbitStorage
 import com.susion.rabbit.base.ui.RabbitUiKernal
 import com.susion.rabbit.base.ui.page.RabbitEntryPage
 import com.susion.rabbit.base.ui.utils.FloatingViewPermissionHelper
+import com.susion.rabbit.storage.RabbitStorage
 import okhttp3.Interceptor
 
 /**
  * susionwang at 2019-09-23
- *   dependencies in release
+ * dependencies in release
  */
-object Rabbit {
+object Rabbit : RabbitProtocol {
 
     lateinit var application: Application
 
-    @JvmStatic
-    fun config(config: RabbitConfig) {
+    override fun init(config: RabbitConfig) {
 
         try {
             if (!isMainProcess(application)) return
@@ -30,7 +30,7 @@ object Rabbit {
             return
         }
 
-        //base ui config
+        //base ui init
         RabbitUiKernal.init(
             application,
             RabbitEntryPage(application, config.uiConfig.entryFeatures)
@@ -40,7 +40,7 @@ object Rabbit {
         RabbitStorage.init(application, config.storageConfig)
     }
 
-    fun open(requestPermission: Boolean = true, activity: Activity) {
+    override fun open(requestPermission: Boolean, activity: Activity) {
         val overlayPermissionIsOpen = FloatingViewPermissionHelper.checkPermission(activity)
 
         if (!requestPermission && !overlayPermissionIsOpen) return
@@ -60,24 +60,25 @@ object Rabbit {
         }
     }
 
-    fun autoOpen(context: Context) = RabbitSettings.autoOpenRabbit(context)
+    override fun openPage(pageClass: Class<out View>?, params: Any?) {
+        RabbitUiKernal.openPage(pageClass, params)
+    }
 
-    fun enableAutoOpen(autoOpen: Boolean) {
+    override fun changeAutoOpenStatus(autoOpen: Boolean) {
         RabbitSettings.autoOpenRabbit(application, autoOpen)
     }
 
-    fun configMonitorSpeedList(speedConfig: RabbitAppSpeedMonitorConfig) {
+    override fun isAutoOpen() = RabbitSettings.autoOpenRabbit(application)
 
-    }
-
-    fun getNetInterceptor(): Interceptor {
+    override fun getNetInterceptor(): Interceptor {
         return Interceptor { chain -> chain.proceed(chain.request()) }
     }
 
-    fun saveCrashLog(it: Throwable?) {
+    override fun saveCrashLog(it: Throwable) {
     }
 
-    fun getCurrentActivity() = RabbitUiKernal.appCurrentActivity?.get()
+    override fun getCurrentActivity() = RabbitUiKernal.appCurrentActivity?.get()
+
 
     private fun isMainProcess(context: Context): Boolean {
         return context.packageName == getCurrentProcessName(
@@ -97,6 +98,5 @@ object Rabbit {
         }
         return processName
     }
-
 
 }

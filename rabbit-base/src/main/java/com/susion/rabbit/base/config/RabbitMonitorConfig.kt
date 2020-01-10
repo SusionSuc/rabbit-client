@@ -1,6 +1,5 @@
 package com.susion.rabbit.base.config
 
-import com.google.gson.annotations.Expose
 import com.susion.rabbit.base.entities.RabbitAppSpeedMonitorConfig
 
 /**
