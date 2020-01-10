@@ -148,9 +148,8 @@ class RabbitFloatingView(context: Context) : LinearLayout(context) {
             mDevToolsFloatingTvMemory.visibility = View.GONE
             return
         }
-
         mDevToolsFloatingTvMemory.visibility = View.VISIBLE
-        mDevToolsFloatingTvMemory.text = "mem:${memorySize}"
+        mDevToolsFloatingTvMemory.text = memorySize
     }
 
 }
