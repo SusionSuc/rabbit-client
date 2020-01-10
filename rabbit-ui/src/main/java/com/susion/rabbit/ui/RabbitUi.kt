@@ -137,6 +137,6 @@ object RabbitUi {
     fun updateUiFromAsyncThread(msgType: Int, params: Any)  = RabbitUiKernal.updateUiFromAsyncThread(msgType, params)
 
     interface ExternalDataReuqest{
-        fun getGlobalConfigJsonStr(): String
+        fun getGlobalConfig(): RabbitConfig
     }
 }

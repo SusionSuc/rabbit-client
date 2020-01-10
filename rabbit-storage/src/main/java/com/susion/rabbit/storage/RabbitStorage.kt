@@ -26,6 +26,10 @@ object RabbitStorage {
             add(RabbitHttpLogInfo::class.java as Class<Any>)
             add(RabbitMemoryInfo::class.java as Class<Any>)
         })
+
+        mConfig.storageInOnSessionData.forEach {
+            mConfig.oneSessionValidDatas.add(it.simpleName)
+        }
         RabbitDbStorageManager.clearOldSessionData()
     }
 

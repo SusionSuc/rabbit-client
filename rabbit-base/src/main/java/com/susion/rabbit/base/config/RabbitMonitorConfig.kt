@@ -1,5 +1,6 @@
 package com.susion.rabbit.base.config
 
+import com.google.gson.annotations.Expose
 import com.susion.rabbit.base.entities.RabbitAppSpeedMonitorConfig
 
 /**
@@ -16,7 +17,7 @@ import com.susion.rabbit.base.entities.RabbitAppSpeedMonitorConfig
 class RabbitMonitorConfig(
     var blockStackCollectPeriodNs: Long = STANDARD_FRAME_NS,
     var blockThresholdNs: Long = STANDARD_FRAME_NS * 10,
-    val autoOpenMonitors: HashSet<String> = HashSet(),
+     val autoOpenMonitors: HashSet<String> = HashSet(),
     var memoryValueCollectPeriodMs: Long = 2000L,
     var fpsCollectThresholdNs: Long = STANDARD_FRAME_NS * 10,
     var fpsReportPeriodS: Long = 1,

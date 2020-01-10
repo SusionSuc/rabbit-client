@@ -58,7 +58,11 @@ object RabbitReport {
         application = app
         mConfig = config
 
-        config.notReportDataFormat.add(RabbitReportInfo::class.java)
+        mConfig.notReportDataFormat.add(RabbitReportInfo::class.java)
+
+        mConfig.notReportDataFormat.forEach {
+            mConfig.notReportDataNames.add(it.simpleName)
+        }
 
         RabbitAsync.asyncRun({
             deviceInfoStr = Gson().toJson(getDeviceInfo(application))

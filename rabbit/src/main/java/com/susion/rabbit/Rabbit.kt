@@ -3,8 +3,6 @@ package com.susion.rabbit
 import android.app.Activity
 import android.app.Application
 import android.content.Context
-import android.view.View
-import com.google.gson.Gson
 import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.RabbitMonitorProtocol
 import com.susion.rabbit.base.RabbitSettings
@@ -44,6 +42,10 @@ object Rabbit {
         }
 
         mConfig = config
+
+        if (!mConfig.enable){
+            return
+        }
 
         //加载 gradle plugin config
         RabbitPluginConfig.loadConfig()
@@ -94,7 +96,7 @@ object Rabbit {
             }
         }
         RabbitUi.externalDataRequest = object :RabbitUi.ExternalDataReuqest{
-            override fun getGlobalConfigJsonStr() = Gson().toJson(mConfig)
+            override fun getGlobalConfig() = mConfig
         }
 
         isInit = true

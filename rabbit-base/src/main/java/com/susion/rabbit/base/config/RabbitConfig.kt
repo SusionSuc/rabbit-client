@@ -5,9 +5,9 @@ package com.susion.rabbit.base.config
  * rabbit 配置类
  */
 class RabbitConfig(
-    var isDebug: Boolean = true,
+    var enable: Boolean = true,
     var enableLog: Boolean = true,
-    var uiConfig: RabbitUiConfig = RabbitUiConfig(),
+    @Transient var uiConfig: RabbitUiConfig = RabbitUiConfig(),
     var storageConfig: RabbitStorageConfig = RabbitStorageConfig(),
     var monitorConfig: RabbitMonitorConfig = RabbitMonitorConfig(),
     var reportConfig: RabbitReportConfig = RabbitReportConfig()

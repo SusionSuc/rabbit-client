@@ -25,19 +25,19 @@ object RabbitMonitor {
 
     var application: Application? = null
     private var isInit = false
-    var config: RabbitMonitorConfig = RabbitMonitorConfig()
+    var mConfig: RabbitMonitorConfig = RabbitMonitorConfig()
     var eventListener: UiEventListener? = null
     private val monitorMap = HashMap<String, RabbitMonitorProtocol>()
     private var appCurrentActivity: WeakReference<Activity?>? = null    //当前应用正在展示的Activity
     private var pageChangeListeners = HashSet<PageChangeListener>()
 
-    fun init(application: Application, config: RabbitMonitorConfig) {
+    fun init(application: Application, config_: RabbitMonitorConfig) {
 
         if (isInit) return
 
-        this.config = config
+        mConfig = config_
         this.application = application
-        config.autoOpenMonitors.add(RabbitMonitorProtocol.USE_TIME.name)
+        mConfig.autoOpenMonitors.add(RabbitMonitorProtocol.USE_TIME.name)
 
         application.registerActivityLifecycleCallbacks(object : RabbitActivityLifecycleWrapper() {
             override fun onActivityResumed(activity: Activity?) {
@@ -59,7 +59,7 @@ object RabbitMonitor {
             put(RabbitMonitorProtocol.BLOCK_CALL.name, RabbitIoCallMonitor())
         }
 
-        this.config.autoOpenMonitors.forEach {
+        mConfig.autoOpenMonitors.forEach {
             RabbitSettings.setAutoOpenFlag(application, it, true)
         }
 

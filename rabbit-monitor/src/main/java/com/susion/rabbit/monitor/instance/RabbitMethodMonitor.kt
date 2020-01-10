@@ -19,11 +19,11 @@ import com.susion.rabbit.tracer.RabbitTracerEventNotifier
 internal class RabbitMethodMonitor(override var isOpen: Boolean = false) : RabbitMonitorProtocol {
 
     private val T = javaClass.simpleName
-    private val slowMethodThreshold = RabbitMonitor.config.slowMethodPeriodMs
+    private val slowMethodThreshold = RabbitMonitor.mConfig.slowMethodPeriodMs
 
     private val methodCostListener = object : RabbitTracerEventNotifier.MethodCostEvent {
         override fun methodCost(methodStr: String, time: Long) {
-            val monitorCurrentThread = if (RabbitMonitor.config.onlyCheckMainThreadSlowMethod) {
+            val monitorCurrentThread = if (RabbitMonitor.mConfig.onlyCheckMainThreadSlowMethod) {
                 Thread.currentThread().name == Looper.getMainLooper().thread.name
             } else {
                 true

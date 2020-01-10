@@ -6,6 +6,7 @@ import android.content.ContentValues
 import android.database.Cursor
 import android.net.Uri
 import com.susion.rabbit.base.RabbitLog
+import com.susion.rabbit.base.config.RabbitConfig
 
 /**
  * susionwang at 2019-12-12

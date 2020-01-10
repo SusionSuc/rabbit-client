@@ -38,7 +38,7 @@ internal class RabbitMemoryMonitor(override var isOpen: Boolean = false) :
 
     override fun open(context: Context) {
         mCtx = context
-        MEMORY_COLLECT_PERIOD = RabbitMonitor.config.memoryValueCollectPeriodMs
+        MEMORY_COLLECT_PERIOD = RabbitMonitor.mConfig.memoryValueCollectPeriodMs
         mActivityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as? ActivityManager
         monitorThread = HandlerThread("rabbit_memory_monitor_thread")
         monitorThread?.start()

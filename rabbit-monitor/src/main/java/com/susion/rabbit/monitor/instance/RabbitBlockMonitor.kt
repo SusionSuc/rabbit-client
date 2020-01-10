@@ -25,10 +25,10 @@ internal class RabbitBlockMonitor(override var isOpen: Boolean = false) : Choreo
 
     // 栈采集周期
     private val stackCollectPeriod = TimeUnit.MILLISECONDS.convert(
-        RabbitMonitor.config.blockStackCollectPeriodNs,
+        RabbitMonitor.mConfig.blockStackCollectPeriodNs,
         TimeUnit.NANOSECONDS
     )
-    private val blockThreshold = RabbitMonitor.config.blockThresholdNs
+    private val blockThreshold = RabbitMonitor.mConfig.blockThresholdNs
 
     private var monitorThread: HandlerThread? = null
     private val frameTracer = ChoreographerFrameUpdateMonitor()

@@ -37,7 +37,7 @@ internal class RabbitAppSpeedMonitor(override var isOpen: Boolean = false) :
     private var entryActivityName = ""
 
     init {
-        configMonitorList(RabbitMonitor.config.monitorSpeedList)
+        configMonitorList(RabbitMonitor.mConfig.monitorSpeedList)
         monitorApplicationStart()
     }
 

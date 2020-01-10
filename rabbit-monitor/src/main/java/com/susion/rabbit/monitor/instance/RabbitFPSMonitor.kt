@@ -25,9 +25,9 @@ internal class RabbitFPSMonitor(override var isOpen: Boolean = false) :
     }
 
     private var frameIntervalNs: Long = RabbitMonitorConfig.STANDARD_FRAME_NS
-    private val FPS_COLLECT_PERIOD = RabbitMonitor.config.fpsCollectThresholdNs
+    private val FPS_COLLECT_PERIOD = RabbitMonitor.mConfig.fpsCollectThresholdNs
     private val FPS_COLLECT_NUMBER = (TimeUnit.NANOSECONDS.convert(
-        RabbitMonitor.config.fpsReportPeriodS,
+        RabbitMonitor.mConfig.fpsReportPeriodS,
         TimeUnit.SECONDS
     )) / (RabbitMonitorConfig.STANDARD_FRAME_NS)  // 多少帧记录一次数据
     private var totalFrameNs: Long = 0
