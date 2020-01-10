@@ -1,5 +1,5 @@
 
-![version](https://img.shields.io/badge/version-0.8.8-brightgreen)  ![license](https://img.shields.io/badge/license-MIT-brightgreen)
+![version](https://img.shields.io/badge/version-0.8.10-brightgreen)  ![license](https://img.shields.io/badge/license-MIT-brightgreen)
 
 # 功能列表
 

@@ -26,7 +26,7 @@ import okhttp3.Interceptor
 
 /**
  * susionwang at 2019-09-23
- * Rabbit API
+ * 直接使用这个类中的API来操控 Rabbit
  */
 object Rabbit : RabbitProtocol {
 
