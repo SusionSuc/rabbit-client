@@ -50,11 +50,11 @@
 
     <TextView
         android:id="@+id/mRabbitQuickPageViewConfig"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_centerVertical="true"
         android:layout_marginStart="15dp"
-        android:gravity="center"
+        android:gravity="start|center_vertical"
         android:text="查看当前配置"
         android:textColor="@color/rabbit_black"
         android:textSize="17dp" />
@@ -67,11 +67,11 @@
 
     <TextView
         android:id="@+id/mRabbitQuickPageViewAbout"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_centerVertical="true"
         android:layout_marginStart="15dp"
-        android:gravity="center"
+        android:gravity="start|center_vertical"
         android:text="关于rabbit"
         android:textColor="@color/rabbit_black"
         android:textSize="17dp" />

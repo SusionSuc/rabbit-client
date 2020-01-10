@@ -28,4 +28,24 @@ object RabbitUtils {
         return processName
     }
 
+    fun classInPkgList(className: String, pkgList: List<String>): Boolean {
+
+        val configList = pkgList
+
+        if (configList.isEmpty()) return true
+
+        configList.forEach {
+            if (className.contains(it)) {
+                return true
+            }
+        }
+        return false
+    }
+
+    fun dropPackageName(className: String): String {
+        val strSlice = className.split(".")
+        if (strSlice.size < 2) return className
+        return "${strSlice[strSlice.size - 2]}.${strSlice[strSlice.size - 1]}"
+    }
+
 }

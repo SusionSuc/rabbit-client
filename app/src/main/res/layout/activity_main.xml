@@ -5,39 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:id="@+id/mRabbitMainAcRootLl"
     tools:context="com.susion.rabbit.demo.MainActivity">
 
-    <RelativeLayout
+    <TextView
         android:background="@color/colorPrimary"
+        android:id="@+id/mDemoTvTitle"
         android:layout_width="match_parent"
-        android:layout_height="45dp">
-
-        <ImageView
-            android:id="@+id/mDemoIvBack"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="15dp"
-            android:padding="5dp"
-            android:src="@drawable/rabbit_icon_back" />
-
-        <TextView
-            android:id="@+id/mDemoTvTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:layout_marginStart="5dp"
-            android:ellipsize="end"
-            android:gravity="center_vertical"
-            android:maxLines="10"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:textColor="#333333"
-            android:text="Rabbit"
-            android:textSize="17dp"
-            android:textStyle="bold" />
-
-    </RelativeLayout>
+        android:layout_height="45dp"
+        android:layout_centerInParent="true"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="10"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="Rabbit"
+        android:textColor="#333333"
+        android:textSize="17dp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/mDevToolsTestTvRequestNet"
@@ -70,7 +55,6 @@
         android:layout_height="1px"
         android:layout_marginStart="15dp"
         android:background="@color/devtools_divider_graye5" />
-
 
     <TextView
         android:id="@+id/mGenerateObjTv"

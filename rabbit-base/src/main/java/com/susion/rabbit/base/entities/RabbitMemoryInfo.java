@@ -23,15 +23,18 @@ public class RabbitMemoryInfo  {
 
     public int othersSize;
 
-    @Generated(hash = 506538862)
+    public String pageName;
+
+    @Generated(hash = 1803958226)
     public RabbitMemoryInfo(Long id, long time, int totalSize, int vmSize,
-            int nativeSize, int othersSize) {
+            int nativeSize, int othersSize, String pageName) {
         this.id = id;
         this.time = time;
         this.totalSize = totalSize;
         this.vmSize = vmSize;
         this.nativeSize = nativeSize;
         this.othersSize = othersSize;
+        this.pageName = pageName;
     }
 
     @Generated(hash = 1300157943)
@@ -84,6 +87,14 @@ public class RabbitMemoryInfo  {
 
     public void setOthersSize(int othersSize) {
         this.othersSize = othersSize;
+    }
+
+    public String getPageName() {
+        return this.pageName;
+    }
+
+    public void setPageName(String pageName) {
+        this.pageName = pageName;
     }
 
 

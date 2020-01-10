@@ -6,13 +6,12 @@
     android:orientation="vertical"
     tools:parentTag="LinearLayout">
 
-
     <ImageView
-        android:layout_margin="3dp"
         android:id="@+id/mDevToolsFloatingIv"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_gravity="end"
+        android:layout_margin="3dp"
         android:src="@drawable/rabbit_icon_floating" />
 
     <TextView
@@ -20,11 +19,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
+        android:layout_marginEnd="5dp"
         android:background="@color/rabbit_white"
         android:textSize="14dp"
-        android:layout_marginEnd="5dp"
-        android:visibility="gone"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/mDevToolsFloatingTvMemory"
@@ -33,10 +32,10 @@
         android:layout_gravity="end"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
-        android:visibility="gone"
-        android:textColor="@color/rabbit_black"
         android:background="@color/rabbit_white"
+        android:textColor="@color/rabbit_black"
         android:textSize="14dp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:visibility="gone" />
 
 </merge>

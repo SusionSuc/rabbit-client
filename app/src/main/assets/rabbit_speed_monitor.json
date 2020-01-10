@@ -3,12 +3,8 @@
   "page_list": [
     {
       "page": "MainActivity",
-      "api": []
-    },
-    {
-      "page": "ForumContainerActivity",
       "api": [
-        "community/forum/home/forumPostList"
+        "wxarticle/chapters/json"
       ]
     }
   ]

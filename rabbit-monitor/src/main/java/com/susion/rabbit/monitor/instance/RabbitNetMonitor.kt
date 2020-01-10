@@ -10,6 +10,7 @@ import com.susion.rabbit.storage.RabbitDbStorageManager
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
+import java.util.concurrent.TimeUnit
 
 /**
  * susionwang at 2019-12-12
@@ -22,6 +23,8 @@ internal class RabbitNetMonitor(override var isOpen: Boolean = false) : RabbitMo
 
     override fun intercept(chain: Interceptor.Chain): Response? {
         val request = chain.request()
+
+        startNs = System.nanoTime()
 
         try {
             val response = chain.proceed(request)
@@ -44,8 +47,6 @@ internal class RabbitNetMonitor(override var isOpen: Boolean = false) : RabbitMo
 
     private fun monitorHttpLog(request: Request, response: Response) {
         try {
-            startNs = System.nanoTime()
-
             val logInfo = RabbitHttpResponseParser.parserResponse(request, response, startNs)
 
             if (logInfo.isvalid()) {
@@ -58,15 +59,16 @@ internal class RabbitNetMonitor(override var isOpen: Boolean = false) : RabbitMo
     }
 
     private fun monitorHttpCostTime(request: Request, response: Response) {
-        val startTime = System.currentTimeMillis()
+
         val requestUrl = request.url().url().toString()
 
         if (!RabbitMonitor.monitorRequest(requestUrl)) return
 
         try {
 
-            val costTime = System.currentTimeMillis() - startTime
-            RabbitMonitor.markRequestFinish(requestUrl, costTime)
+            val costTime = System.nanoTime() - startNs
+
+            RabbitMonitor.markRequestFinish(requestUrl, TimeUnit.MILLISECONDS.convert(costTime, TimeUnit.NANOSECONDS))
 
         } catch (e: Exception) {
             RabbitLog.d("RabbitHttpLogInterceptor error : ${e.printStackTrace()}")

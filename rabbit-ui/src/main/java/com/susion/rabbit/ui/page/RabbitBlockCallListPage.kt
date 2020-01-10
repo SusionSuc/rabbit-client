@@ -26,12 +26,13 @@ class RabbitBlockCallListPage(context: Context) : RabbitBasePage(context) {
     private val logsAdapter by lazy {
         object : RabbitRvAdapter<RabbitIoCallInfo>(ArrayList()) {
             override fun createItem(type: Int) = RabbitIoCallItemView(context).apply {
-                eventListener = object :RabbitIoCallItemView.EventListener{
+                eventListener = object : RabbitIoCallItemView.EventListener {
                     override fun onClick(str: String) {
                         showToast(str, 3000)
                     }
                 }
             }
+
             override fun getItemType(data: RabbitIoCallInfo) = 0
         }
     }
@@ -65,9 +66,9 @@ class RabbitBlockCallListPage(context: Context) : RabbitBasePage(context) {
 
     private fun loadData() {
         RabbitDbStorageManager.getAll(RabbitIoCallInfo::class.java) {
-            if (it.isEmpty()){
+            if (it.isEmpty()) {
                 showEmptyView()
-            }else{
+            } else {
                 hideEmptyView()
                 logsAdapter.data.clear()
                 logsAdapter.data.addAll(it)

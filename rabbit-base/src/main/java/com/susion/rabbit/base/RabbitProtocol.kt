@@ -13,6 +13,8 @@ interface RabbitProtocol {
 
     fun init(config: RabbitConfig)
 
+    fun reConfig(config: RabbitConfig)
+
     fun getCurrentActivity():Activity?
 
     fun isAutoOpen():Boolean

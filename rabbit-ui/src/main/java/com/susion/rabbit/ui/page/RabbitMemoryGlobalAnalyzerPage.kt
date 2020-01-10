@@ -13,19 +13,24 @@ import com.susion.rabbit.storage.RabbitDbStorageManager
 import com.susion.rabbit.base.ui.page.RabbitBasePage
 import com.susion.rabbit.base.ui.dp2px
 import com.susion.rabbit.base.ui.getColor
+import com.susion.rabbit.base.ui.throttleFirstClick
+import com.susion.rabbit.ui.RabbitUi
 import com.susion.rabbit.ui.monitor.R
+import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.rabbit_page_memory_compose.view.*
 
 /**
  * susionwang at 2019-12-03
+ * 内存分析
  */
-class RabbitMemoryAnalyzerListPage(context: Context) : RabbitBasePage(context) {
+class RabbitMemoryGlobalAnalyzerPage(context: Context) : RabbitBasePage(context) {
 
     override fun getLayoutResId() = R.layout.rabbit_page_memory_compose
 
     init {
 
-        setTitle("内存概览")
+        setTitle("内存概览-全局")
+
         initChart(mRabbitMemComposePageMemChart)
 
         mRabbitMemComposePageTvMaxMem.text =
@@ -35,7 +40,12 @@ class RabbitMemoryAnalyzerListPage(context: Context) : RabbitBasePage(context) {
             loadData()
         }
 
+        mRabbitMemAnalyzerPageTvPageDetail.throttleFirstClick(Consumer {
+            RabbitUi.openPage(RabbitMemoryPageAnalyzerPage::class.java)
+        })
+
         loadData()
+
     }
 
     private fun loadData() {
@@ -92,6 +102,7 @@ class RabbitMemoryAnalyzerListPage(context: Context) : RabbitBasePage(context) {
 
                 mRabbitMemComposePageMemChart.invalidate()
             })
+
     }
 
     private fun initChart(chart: LineChart) {

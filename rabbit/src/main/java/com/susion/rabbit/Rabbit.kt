@@ -105,6 +105,10 @@ object Rabbit : RabbitProtocol {
         RabbitLog.d("init success!!")
     }
 
+    override fun reConfig(config: RabbitConfig) {
+        mConfig = config
+    }
+
     /**
      * 需要Activity Window Token来展示Dialog
      * */

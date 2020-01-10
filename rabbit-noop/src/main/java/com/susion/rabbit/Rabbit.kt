@@ -41,6 +41,11 @@ object Rabbit : RabbitProtocol {
         RabbitStorage.init(application, config.storageConfig)
     }
 
+    override fun reConfig(config: RabbitConfig) {
+
+    }
+
+
     override fun open(requestPermission: Boolean, activity: Activity) {
         val overlayPermissionIsOpen = FloatingViewPermissionHelper.checkPermission(activity)
 

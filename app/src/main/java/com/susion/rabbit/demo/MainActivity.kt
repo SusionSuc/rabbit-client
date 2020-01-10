@@ -6,10 +6,14 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import com.susion.rabbit.demo.net.DevToolsTestApiModel
 import com.susion.rabbit.Rabbit
+import com.susion.rabbit.base.ui.dp2px
 import com.susion.rabbit.demo.page.SimpleListActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -56,6 +60,8 @@ class MainActivity : RabbitBaseActivity() {
         }
 
         fakeBlockCode()
+
+        sampleRequestNet()
     }
 
     private fun requestPermission() {
@@ -76,12 +82,23 @@ class MainActivity : RabbitBaseActivity() {
     }
 
 
-    fun fakeBlockCode(){
+    fun fakeBlockCode() {
 
     }
+
+    private val netRequestFinishView by lazy {
+        TextView(this).apply {
+            layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp2px(40f))
+            text = "首页请求完成!"
+            gravity = Gravity.CENTER
+            background =
+                com.susion.rabbit.base.ui.getDrawable(this@MainActivity, R.color.rabbit_bg_card)
+        }
+    }
+
     private fun sampleRequestNet() {
         val dis = DevToolsTestApiModel().getAllGameList().subscribe({
-            val a = 1
+            mRabbitMainAcRootLl.addView(netRequestFinishView, 1)
         }, {
             Rabbit.saveCrashLog(it)
             Log.d(TAG, "error : ${it.message}")

@@ -6,7 +6,9 @@ import com.susion.rabbit.monitor.RabbitMonitor
 import com.susion.rabbit.monitor.core.LazyChoreographerFrameUpdateMonitor
 import com.susion.rabbit.base.RabbitMonitorProtocol
 import com.susion.rabbit.base.TAG_MONITOR
+import com.susion.rabbit.base.common.RabbitUtils
 import com.susion.rabbit.base.config.RabbitMonitorConfig
+import com.susion.rabbit.base.entities.RabbitFPSInfo
 import com.susion.rabbit.storage.RabbitDbStorageManager
 import com.susion.rabbit.base.ui.RabbitUiEvent
 import java.util.concurrent.TimeUnit
@@ -97,12 +99,15 @@ internal class RabbitFPSMonitor(override var isOpen: Boolean = false) :
     @Synchronized
     private fun saveFpsInfo() {
         if (fpsList.isEmpty()) return
+        val currentPageName = RabbitMonitor.getCurrentPage()
+        val monitorPkgList = RabbitMonitor.mConfig.fpsMonitorPkgList
+        if (monitorPkgList.isNotEmpty() && !RabbitUtils.classInPkgList(currentPageName,monitorPkgList))return
         RabbitLog.d(TAG_MONITOR, "saveFpsInfo --->")
-        val fpsInfo = com.susion.rabbit.base.entities.RabbitFPSInfo()
+        val fpsInfo = RabbitFPSInfo()
         fpsInfo.maxFps = fpsList.max() ?: 0
         fpsInfo.minFps = fpsList.min() ?: 0
         fpsInfo.avgFps = fpsList.average().toInt()
-        fpsInfo.pageName = RabbitMonitor.getCurrentPage()
+        fpsInfo.pageName = currentPageName
         fpsInfo.time = System.currentTimeMillis()
         RabbitDbStorageManager.save(fpsInfo)
         fpsList.clear()

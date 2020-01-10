@@ -8,6 +8,7 @@ import android.os.HandlerThread
 import android.os.Process
 import com.susion.rabbit.monitor.RabbitMonitor
 import com.susion.rabbit.base.RabbitMonitorProtocol
+import com.susion.rabbit.base.entities.RabbitMemoryInfo
 import com.susion.rabbit.base.ui.RabbitUiEvent
 import com.susion.rabbit.storage.RabbitDbStorageManager
 
@@ -28,7 +29,8 @@ internal class RabbitMemoryMonitor(override var isOpen: Boolean = false) :
 //            RabbitLog.d(TAG, "vm size : ${RabbitUiUtils.formatFileSize(memInfo.vmSize.toLong())}  native size : ${RabbitUiUtils.formatFileSize(memInfo.nativeSize.toLong())}")
             RabbitDbStorageManager.save(memInfo)
             val eventType = RabbitUiEvent.MSG_UPDATE_MEMORY_VALUE
-            val memoryStr = "${com.susion.rabbit.base.ui.utils.RabbitUiUtils.formatFileSize(memInfo.totalSize.toLong())} "
+            val memoryStr =
+                "${com.susion.rabbit.base.ui.utils.RabbitUiUtils.formatFileSize(memInfo.totalSize.toLong())} "
             RabbitMonitor.eventListener?.updateUi(eventType, memoryStr)
             memoryRefreshHandler?.postDelayed(this, MEMORY_COLLECT_PERIOD)
         }
@@ -59,7 +61,7 @@ internal class RabbitMemoryMonitor(override var isOpen: Boolean = false) :
 
     override fun getMonitorInfo() = RabbitMonitorProtocol.MEMORY
 
-    private fun getMemoryInfo(): com.susion.rabbit.base.entities.RabbitMemoryInfo {
+    private fun getMemoryInfo(): RabbitMemoryInfo {
 //        return getMemoryByActivityManager()
         return getMemoryInfoInDebug()
     }
@@ -85,17 +87,18 @@ internal class RabbitMemoryMonitor(override var isOpen: Boolean = false) :
     /**
      * 只能用在debug model,
      * */
-    private fun getMemoryInfoInDebug(): com.susion.rabbit.base.entities.RabbitMemoryInfo {
+    private fun getMemoryInfoInDebug(): RabbitMemoryInfo {
         val info = Debug.MemoryInfo()
         Debug.getMemoryInfo(info)
 
-        val memInfo = com.susion.rabbit.base.entities.RabbitMemoryInfo()
+        val memInfo = RabbitMemoryInfo()
         memInfo.totalSize = (info.totalPss) * 1024 // 这个值比profiler中的total大一些
         memInfo.vmSize =
             (info.dalvikPss) * 1024   // 这个值比profiler中的 java 内存值小一些, Doesn't include other Dalvik overhead
         memInfo.nativeSize = info.nativePss * 1024
         memInfo.othersSize = info.otherPss * 1024 + info.totalSwappablePss * 1024
         memInfo.time = System.currentTimeMillis()
+        memInfo.pageName = RabbitMonitor.getCurrentPage()
 
         return memInfo
     }

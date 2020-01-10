@@ -182,10 +182,12 @@
                 android:layout_marginEnd="10dp"
                 android:background="@color/rabbit_divider_line" />
 
+
             <LinearLayout
                 android:id="@+id/mRabbitSpeedDetailRequestChartLl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:orientation="vertical" />
 
         </LinearLayout>

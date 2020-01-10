@@ -47,7 +47,7 @@ class RabbitSimpleKVItemView : LinearLayout,
     }
 
     private val dividerLine = View(context).apply {
-        layoutParams = LayoutParams(3, ViewGroup.LayoutParams.MATCH_PARENT)
+        layoutParams = LayoutParams(2, ViewGroup.LayoutParams.MATCH_PARENT)
         background = getDrawable(context, R.color.rabbit_divider_line)
     }
 

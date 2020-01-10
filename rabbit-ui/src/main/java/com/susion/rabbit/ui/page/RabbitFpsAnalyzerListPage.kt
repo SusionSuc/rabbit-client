@@ -30,12 +30,12 @@ class RabbitFpsAnalyzerListPage(context: Context) : RabbitBasePage(context) {
         setTitle("FPS分析")
 
         mFpsAnalyzerPageTv.adapter = adapter
-        mFpsAnalyzerPageTv.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        mFpsAnalyzerPageTv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         mFpsAnalyzerPageSRL.isRefreshing = true
 
         mFpsAnalyzerPageSRL.setOnRefreshListener {
             adapter.data.clear()
+            adapter.notifyDataSetChanged()
             loadData()
         }
 
@@ -49,16 +49,16 @@ class RabbitFpsAnalyzerListPage(context: Context) : RabbitBasePage(context) {
         ) { pages ->
 
             pages.forEachIndexed { index, pageName ->
+
                 loadFpsAnalyzerInfoByPage(pageName) { analyzerInfo ->
 
-                    adapter.data.add(analyzerInfo)
-
-                    if (index == pages.size - 1) {
-                        adapter.notifyDataSetChanged()
+                    if (analyzerInfo.pageName.isNotEmpty()) {
                         mFpsAnalyzerPageSRL.isRefreshing = false
+                        adapter.data.add(analyzerInfo)
+                        adapter.notifyItemInserted(adapter.data.size - 1)
                     }
-                }
 
+                }
             }
         }
     }

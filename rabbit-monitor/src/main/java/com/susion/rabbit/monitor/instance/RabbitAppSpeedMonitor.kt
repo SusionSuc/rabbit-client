@@ -6,7 +6,6 @@ import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.monitor.RabbitMonitor
 import com.susion.rabbit.base.RabbitMonitorProtocol
 import com.susion.rabbit.base.TAG_MONITOR
-import com.susion.rabbit.base.common.FileUtils
 import com.susion.rabbit.base.entities.*
 import com.susion.rabbit.storage.RabbitDbStorageManager
 import com.susion.rabbit.tracer.RabbitTracerEventNotifier
@@ -38,12 +37,18 @@ internal class RabbitAppSpeedMonitor(override var isOpen: Boolean = false) :
 
     init {
         configMonitorList(RabbitMonitor.mConfig.monitorSpeedList)
-        monitorApplicationStart()
+        if (entryActivityName.isNotEmpty()){
+            RabbitLog.d(TAG_MONITOR, "app speed init with page list! entryActivityName :$entryActivityName")
+            monitorActivitySpeed()
+        }else{
+            RabbitLog.d(TAG_MONITOR, "app speed init with null")
+            monitorApplicationStart()
+        }
     }
 
     override fun open(context: Context) {
         isOpen = true
-        monitorActivitySpeed()
+
         RabbitLog.d(TAG_MONITOR, "entryActivityName : $entryActivityName")
     }
 
@@ -67,6 +72,7 @@ internal class RabbitAppSpeedMonitor(override var isOpen: Boolean = false) :
                 apiSet.add(simpleUrl)
             }
         }
+        configInfo = speedConfig
         entryActivityName = speedConfig.homeActivity
     }
 
@@ -119,14 +125,14 @@ internal class RabbitAppSpeedMonitor(override var isOpen: Boolean = false) :
                 }
 
                 override fun activityDrawFinish(activity: Any, time: Long) {
-                    saveAppPageSpeedInfoToLocal(time)
+                    savePageSpeedInfoToLocal(time)
                     if (entryActivityName.isNotEmpty() && appSpeedCanRecord) {
                         saveApplicationStartInfoToLocal(time, activity.javaClass.simpleName)
                     }
                 }
 
-                //页面测试信息
-                private fun saveAppPageSpeedInfoToLocal(drawFinishTime: Long) {
+                //保存页面测速信息
+                private fun savePageSpeedInfoToLocal(drawFinishTime: Long) {
                     if (!pageSpeedCanRecord) return
 
                     if (pageSpeedInfo.inflateFinishTime == 0L) {

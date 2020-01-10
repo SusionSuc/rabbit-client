@@ -4,8 +4,7 @@ import com.susion.rabbit.base.entities.RabbitAppSpeedMonitorConfig
 
 /**
  * susionwang at 2020-01-03
- */
-/**
+ *
  * @property blockStackCollectPeriodNs 卡顿栈采集周期
  * @property blockThresholdNs  卡顿检测阈值, 即卡顿多长时间算一次卡顿
  * @property autoOpenMonitors 启动应用后自动打开哪些监控
@@ -14,15 +13,19 @@ import com.susion.rabbit.base.entities.RabbitAppSpeedMonitorConfig
  * @property fpsReportPeriodS 上报FPS信息的周期, 用户与页面交互的累计时间。 10 还是挺长的 ！
  * */
 class RabbitMonitorConfig(
+    val autoOpenMonitors: HashSet<String> = HashSet(),
+    var memoryValueCollectPeriodMs: Long = 2000L,
+    var monitorSpeedList: RabbitAppSpeedMonitorConfig = RabbitAppSpeedMonitorConfig(),
+    //卡顿
     var blockStackCollectPeriodNs: Long = STANDARD_FRAME_NS,
     var blockThresholdNs: Long = STANDARD_FRAME_NS * 10,
-     val autoOpenMonitors: HashSet<String> = HashSet(),
-    var memoryValueCollectPeriodMs: Long = 2000L,
+    //slow method
+    var slowMethodPeriodMs: Long = 15,
+    var onlyCheckMainThreadSlowMethod: Boolean = true,
+    //fps
     var fpsCollectThresholdNs: Long = STANDARD_FRAME_NS * 10,
     var fpsReportPeriodS: Long = 1,
-    var slowMethodPeriodMs:Long = 15,
-    var onlyCheckMainThreadSlowMethod:Boolean = true,
-    var monitorSpeedList: RabbitAppSpeedMonitorConfig = RabbitAppSpeedMonitorConfig()
+    var fpsMonitorPkgList: ArrayList<String> = ArrayList()
 ) {
     companion object {
         var STANDARD_FRAME_NS = 16666666L

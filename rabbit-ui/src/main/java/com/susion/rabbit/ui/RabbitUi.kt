@@ -119,7 +119,7 @@ object RabbitUi {
                 RabbitMainFeatureInfo(
                     "内存分析",
                     R.drawable.rabbit_icon_memory_compose,
-                    RabbitMemoryAnalyzerListPage::class.java
+                    RabbitMemoryGlobalAnalyzerPage::class.java
                 )
             )
         }

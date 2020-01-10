@@ -30,6 +30,7 @@ public class RabbitMemoryInfoDao extends AbstractDao<RabbitMemoryInfo, Long> {
         public final static Property VmSize = new Property(3, int.class, "vmSize", false, "VM_SIZE");
         public final static Property NativeSize = new Property(4, int.class, "nativeSize", false, "NATIVE_SIZE");
         public final static Property OthersSize = new Property(5, int.class, "othersSize", false, "OTHERS_SIZE");
+        public final static Property PageName = new Property(6, String.class, "pageName", false, "PAGE_NAME");
     }
 
 
@@ -50,7 +51,8 @@ public class RabbitMemoryInfoDao extends AbstractDao<RabbitMemoryInfo, Long> {
                 "\"TOTAL_SIZE\" INTEGER NOT NULL ," + // 2: totalSize
                 "\"VM_SIZE\" INTEGER NOT NULL ," + // 3: vmSize
                 "\"NATIVE_SIZE\" INTEGER NOT NULL ," + // 4: nativeSize
-                "\"OTHERS_SIZE\" INTEGER NOT NULL );"); // 5: othersSize
+                "\"OTHERS_SIZE\" INTEGER NOT NULL ," + // 5: othersSize
+                "\"PAGE_NAME\" TEXT);"); // 6: pageName
     }
 
     /** Drops the underlying database table. */
@@ -72,6 +74,11 @@ public class RabbitMemoryInfoDao extends AbstractDao<RabbitMemoryInfo, Long> {
         stmt.bindLong(4, entity.getVmSize());
         stmt.bindLong(5, entity.getNativeSize());
         stmt.bindLong(6, entity.getOthersSize());
+ 
+        String pageName = entity.getPageName();
+        if (pageName != null) {
+            stmt.bindString(7, pageName);
+        }
     }
 
     @Override
@@ -87,6 +94,11 @@ public class RabbitMemoryInfoDao extends AbstractDao<RabbitMemoryInfo, Long> {
         stmt.bindLong(4, entity.getVmSize());
         stmt.bindLong(5, entity.getNativeSize());
         stmt.bindLong(6, entity.getOthersSize());
+ 
+        String pageName = entity.getPageName();
+        if (pageName != null) {
+            stmt.bindString(7, pageName);
+        }
     }
 
     @Override
@@ -102,7 +114,8 @@ public class RabbitMemoryInfoDao extends AbstractDao<RabbitMemoryInfo, Long> {
             cursor.getInt(offset + 2), // totalSize
             cursor.getInt(offset + 3), // vmSize
             cursor.getInt(offset + 4), // nativeSize
-            cursor.getInt(offset + 5) // othersSize
+            cursor.getInt(offset + 5), // othersSize
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6) // pageName
         );
         return entity;
     }
@@ -115,6 +128,7 @@ public class RabbitMemoryInfoDao extends AbstractDao<RabbitMemoryInfo, Long> {
         entity.setVmSize(cursor.getInt(offset + 3));
         entity.setNativeSize(cursor.getInt(offset + 4));
         entity.setOthersSize(cursor.getInt(offset + 5));
+        entity.setPageName(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
      }
     
     @Override

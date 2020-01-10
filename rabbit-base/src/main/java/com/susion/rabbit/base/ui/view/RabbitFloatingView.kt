@@ -108,8 +108,10 @@ class RabbitFloatingView(context: Context) : LinearLayout(context) {
         val screenWidth = mWindowManager.defaultDisplay?.width
         val end: Float
         end = if (mXInScreen > (screenWidth ?: 0) / 2) {
+            changeFlowingViewGravity(Gravity.END)
             (screenWidth ?: 0).toFloat()
         } else {
+            changeFlowingViewGravity(Gravity.START)
             0f
         }
         val time = abs(start - end).toLong() * 800 / (screenWidth ?: 0)
@@ -121,6 +123,12 @@ class RabbitFloatingView(context: Context) : LinearLayout(context) {
             mWindowManager.updateViewLayout(this@RabbitFloatingView, mParams)
         }
         animator.start()
+    }
+
+    private fun changeFlowingViewGravity(newGravity: Int) {
+        (mDevToolsFloatingIv.layoutParams as LayoutParams).gravity = newGravity
+        (mDevToolsFloatingTvFps.layoutParams as LayoutParams).gravity = newGravity
+        (mDevToolsFloatingTvMemory.layoutParams as LayoutParams).gravity = newGravity
     }
 
     fun updateFps(fpsValue: Float) {

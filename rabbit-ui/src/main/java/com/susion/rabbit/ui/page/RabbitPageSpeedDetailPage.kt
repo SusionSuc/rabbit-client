@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
@@ -60,7 +61,7 @@ class RabbitPageSpeedDetailPage(context: Context) : RabbitBasePage(context) {
         renderUi(blockInfo.speedInfoList)
     }
 
-    fun renderUi(speedInfos: List<RabbitPageSpeedInfo>) {
+    private fun renderUi(speedInfos: List<RabbitPageSpeedInfo>) {
 
         mRabbitSpeedDetailRequestChartLl.removeAllViews()
 
@@ -145,6 +146,9 @@ class RabbitPageSpeedDetailPage(context: Context) : RabbitBasePage(context) {
     private fun getRequestChartView(apiInfoList: Map.Entry<String, List<RabbitApiInfo>>): View {
 
         val chart = LineChart(context)
+        chart.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, dp2px(200f)).apply {
+            bottomMargin = dp2px(20f)
+        }
         initChart(chart)
 
         val dataSets = ArrayList<ILineDataSet>()

@@ -16,6 +16,7 @@ import java.util.*
  * susionwang at 2019-09-23
  */
 object RabbitUiUtils {
+
     private val sMetrics = Resources.getSystem().displayMetrics
 
     fun getScreenHeight(): Int {
