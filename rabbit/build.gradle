@@ -43,5 +43,6 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${uniqueVersion.kotlinStdlibJdk7Version}"
     debugImplementation "com.squareup.leakcanary:leakcanary-android:${uniqueVersion.leakCanaryVersion}"
     implementation "com.squareup.retrofit2:retrofit:${uniqueVersion.retrofit2Version}"
+    implementation "com.google.code.gson:gson:${uniqueVersion.gsonVersion}"
 
 }

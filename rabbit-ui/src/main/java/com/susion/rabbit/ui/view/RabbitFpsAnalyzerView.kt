@@ -13,10 +13,9 @@ import com.susion.rabbit.base.ui.throttleFirstClick
 import com.susion.rabbit.ui.RabbitUi
 import com.susion.rabbit.ui.entities.RabbitFpsAnalyzerInfo
 import com.susion.rabbit.ui.monitor.R
-import com.susion.rabbit.ui.page.RabbitUiBlockDetailPage
+import com.susion.rabbit.ui.page.RabbitFpsAnalyzerDetailPage
 import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.rabbit_view_fps_analyzer.view.*
-import kotlinx.android.synthetic.main.rabbit_view_ui_block_item.view.*
 
 /**
  * susionwang at 2019-09-25
@@ -33,6 +32,10 @@ class RabbitFpsAnalyzerView(context: Context) : RelativeLayout(context),
     override fun bindData(fpsInfo: RabbitFpsAnalyzerInfo, position: Int) {
         mFpsAnalyzerViewTvPageName.text = "${dropPackageName(fpsInfo.pageName)} -> ${fpsInfo.fpsCount} record "
         mFpsAnalyzerViewTvPageFps.text = "min -> ${fpsInfo.minFps}  avg -> ${fpsInfo.avgFps}  max -> ${fpsInfo.maxFps}"
+
+        throttleFirstClick(Consumer {
+            RabbitUi.openPage(RabbitFpsAnalyzerDetailPage::class.java, fpsInfo)
+        })
     }
 
     private fun dropPackageName(str: String): String {

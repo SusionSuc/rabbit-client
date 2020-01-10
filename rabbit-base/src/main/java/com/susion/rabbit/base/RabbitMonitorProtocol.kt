@@ -47,7 +47,7 @@ interface RabbitMonitorProtocol {
         //网络监控
         val EXCEPTION = MonitorInfo(
             "exception_monitor",
-            "异常监控",
+            "异常捕获",
             true
         )
 
@@ -63,12 +63,12 @@ interface RabbitMonitorProtocol {
         //慢函数
         val METHOD_TRACE = MonitorInfo(
             "method_trace",
-            "慢函数监控",
+            "慢函数",
             showInExternal = true
         )
 
         //阻塞调用
-        val BLOCK_CALL = MonitorInfo("io_call", "加载阻塞调用列表", showInExternal = true)
+        val BLOCK_CALL = MonitorInfo("io_call", "阻塞调用", showInExternal = true)
     }
 
     class MonitorInfo(

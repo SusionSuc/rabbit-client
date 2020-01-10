@@ -5,6 +5,7 @@ import android.content.ComponentName
 import android.content.Intent
 import android.view.View
 import com.susion.rabbit.base.RabbitMonitorProtocol
+import com.susion.rabbit.base.config.RabbitConfig
 import com.susion.rabbit.base.config.RabbitMainFeatureInfo
 import com.susion.rabbit.base.config.RabbitUiConfig
 import com.susion.rabbit.base.ui.RabbitUiKernal
@@ -19,6 +20,7 @@ object RabbitUi {
 
     var eventListener: EventListener? = null
     var mConfig: RabbitUiConfig = RabbitUiConfig()
+    var externalDataRequest:ExternalDataReuqest? = null
 
     fun init(application: Application, config: RabbitUiConfig) {
         mConfig = config
@@ -38,9 +40,9 @@ object RabbitUi {
         return ArrayList<RabbitMainFeatureInfo>().apply {
             add(
                 RabbitMainFeatureInfo(
-                    "功能配置",
+                    "监控配置",
                     R.drawable.rabbit_icon_feature_setting,
-                    RabbitFunctionConfigPage::class.java
+                    RabbitMonitorConfigPage::class.java
                 )
             )
             add(
@@ -99,7 +101,7 @@ object RabbitUi {
 
             add(
                 RabbitMainFeatureInfo(
-                    "阻塞调用列表",
+                    "阻塞调用",
                     R.drawable.rabbit_icon_io_call,
                     RabbitBlockCallListPage::class.java
                 )
@@ -109,7 +111,7 @@ object RabbitUi {
                 RabbitMainFeatureInfo(
                     "FPS分析",
                     R.drawable.rabbit_icon_fps,
-                    RabbitFpsAnalyzerPage::class.java
+                    RabbitFpsAnalyzerListPage::class.java
                 )
             )
 
@@ -117,7 +119,7 @@ object RabbitUi {
                 RabbitMainFeatureInfo(
                     "内存分析",
                     R.drawable.rabbit_icon_memory_compose,
-                    RabbitMemoryComposePage::class.java
+                    RabbitMemoryAnalyzerListPage::class.java
                 )
             )
         }
@@ -134,4 +136,7 @@ object RabbitUi {
 
     fun updateUiFromAsyncThread(msgType: Int, params: Any)  = RabbitUiKernal.updateUiFromAsyncThread(msgType, params)
 
+    interface ExternalDataReuqest{
+        fun getGlobalConfigJsonStr(): String
+    }
 }

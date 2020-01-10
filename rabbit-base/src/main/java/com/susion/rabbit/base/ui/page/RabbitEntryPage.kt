@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.susion.rabbit.base.R
 import com.susion.rabbit.base.config.RabbitMainFeatureInfo
 import com.susion.rabbit.base.ui.adapter.RabbitRvAdapter
@@ -20,7 +21,21 @@ class RabbitEntryPage(
     rightOpeClickCallback: (() -> Unit)? = null
 ) : RabbitBasePage(context) {
 
-    private val rv = RecyclerView(context)
+    private val rv = RecyclerView(context).apply {
+        layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        layoutManager = LinearLayoutManager(
+            context,
+            LinearLayoutManager.VERTICAL,
+            false
+        )
+    }
+
+    private val refreshView = SwipeRefreshLayout(context).apply {
+        layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT).apply {
+            topMargin = ACTION_BAR_HEIGHT
+        }
+    }
+
     private val featuresAdapter by lazy {
         object : RabbitRvAdapter<RabbitMainFeatureInfo>(defaultSupportFeatures) {
             override fun createItem(type: Int) = RabbitMainFeatureView(context)
@@ -28,18 +43,13 @@ class RabbitEntryPage(
         }
     }
 
+
     init {
-        addView(rv)
+        refreshView.addView(rv)
+        addView(refreshView)
+
+
         rv.adapter = featuresAdapter
-        rv.layoutParams =
-            LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT).apply {
-                topMargin = ACTION_BAR_HEIGHT
-            }
-        rv.layoutManager = LinearLayoutManager(
-            context,
-            LinearLayoutManager.VERTICAL,
-            false
-        )
         setTitle("Rabbit")
         rv.background = getDrawable(context, R.color.rabbit_white)
 
@@ -49,6 +59,14 @@ class RabbitEntryPage(
                 rightOpeClickCallback
             )
         }
+
+        refreshView.setOnRefreshListener {
+            postDelayed({
+                showToast("功能不完善？提pr一块改善rabbit吧")
+                refreshView.isRefreshing = false
+            }, 1500)
+        }
+
     }
 
     override fun getLayoutResId() = INVALID_RES_ID

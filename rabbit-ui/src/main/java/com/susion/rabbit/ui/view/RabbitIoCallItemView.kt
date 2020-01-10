@@ -8,6 +8,7 @@ import android.widget.RelativeLayout
 import com.susion.rabbit.base.entities.RabbitIoCallInfo
 import com.susion.rabbit.base.ui.adapter.RabbitAdapterItemView
 import com.susion.rabbit.base.ui.throttleFirstClick
+import com.susion.rabbit.base.ui.utils.RabbitUiUtils
 import com.susion.rabbit.ui.monitor.R
 import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.rabbit_view_io_call_item.view.*
@@ -28,19 +29,13 @@ class RabbitIoCallItemView(context: Context) : RelativeLayout(context),
     @SuppressLint("SetTextI18n")
     override fun bindData(info: RabbitIoCallInfo, position: Int) {
 
-        mRabbitIoCallItemLine1.text = "${dropPackageName(info.invokeStr)} ->"
+        mRabbitIoCallItemLine1.text = "${RabbitUiUtils.dropPackageName(info.invokeStr)} ->"
 
-        mRabbitIoCallItemLine2.text = dropPackageName(info.becalledStr)
+        mRabbitIoCallItemLine2.text = RabbitUiUtils.dropPackageName(info.becalledStr)
 
         throttleFirstClick(Consumer {
             eventListener?.onClick("${info.invokeStr} -> ${info.becalledStr}")
         })
-    }
-
-    private fun dropPackageName(str: String): String {
-        val strSlice = str.split(".")
-        if (strSlice.size < 3) return str
-        return "${strSlice[strSlice.size - 2]}.${strSlice[strSlice.size - 1]}"
     }
 
 

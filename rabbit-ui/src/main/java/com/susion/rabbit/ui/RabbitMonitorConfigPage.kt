@@ -13,13 +13,13 @@ import kotlinx.android.synthetic.main.rabbit_page_config.view.*
  * susionwang at 2019-10-21
  * rabbit 功能配置
  */
-class RabbitFunctionConfigPage(context: Context) : RabbitBasePage(context) {
+class RabbitMonitorConfigPage(context: Context) : RabbitBasePage(context) {
 
     override fun getLayoutResId() = R.layout.rabbit_page_config
 
     init {
         layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
-        setTitle("功能配置")
+        setTitle("监控开关")
 
         //监控相关的配置
         RabbitUi.mConfig.monitorList.filter { it.getMonitorInfo().showInExternal }
@@ -45,25 +45,6 @@ class RabbitFunctionConfigPage(context: Context) : RabbitBasePage(context) {
                     RabbitSettings.autoOpen(context, monitorInfo.name)
                 )
             }
-
-        //自定义添加的一些配置
-        RabbitUi.mConfig.customConfigList.forEach {
-            val switchBtn = RabbitSwitchButton(context).apply {
-                LayoutParams(LayoutParams.MATCH_PARENT, dp2px(60f))
-            }
-            mConfigPageRootViewLl.addView(switchBtn)
-            switchBtn.checkedStatusChangeListener =
-                object : RabbitSwitchButton.CheckedStatusChangeListener {
-                    override fun checkedStatusChange(isChecked: Boolean) {
-                        it.statusChangeCallBack?.onChange(isChecked)
-                        it.isEnable = isChecked
-                    }
-                }
-            switchBtn.refreshUi(
-                it.configName,
-                it.isEnable
-            )
-        }
     }
 
 }

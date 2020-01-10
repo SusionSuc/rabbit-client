@@ -4,8 +4,6 @@ import android.content.Context
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.susion.rabbit.base.entities.RabbitFPSInfo
 import com.susion.rabbit.base.greendao.RabbitFPSInfoDao
-import com.susion.rabbit.base.greendao.RabbitPageSpeedInfoDao
-import com.susion.rabbit.base.ui.adapter.RabbitAdapterItemView
 import com.susion.rabbit.base.ui.adapter.RabbitRvAdapter
 import com.susion.rabbit.base.ui.page.RabbitBasePage
 import com.susion.rabbit.storage.RabbitDbStorageManager
@@ -18,7 +16,7 @@ import kotlinx.android.synthetic.main.rabbit_page_fps_analyzer.view.*
  * create by susionwang at 2020-01-09
  * 应用FPS分析
  */
-class RabbitFpsAnalyzerPage(context: Context) : RabbitBasePage(context) {
+class RabbitFpsAnalyzerListPage(context: Context) : RabbitBasePage(context) {
 
     private val adapter = object : RabbitRvAdapter<RabbitFpsAnalyzerInfo>(ArrayList()) {
         override fun getItemType(data: RabbitFpsAnalyzerInfo) = 0
@@ -51,8 +49,8 @@ class RabbitFpsAnalyzerPage(context: Context) : RabbitBasePage(context) {
         ) { pages ->
 
             pages.forEachIndexed { index, pageName ->
-
                 loadFpsAnalyzerInfoByPage(pageName) { analyzerInfo ->
+
                     adapter.data.add(analyzerInfo)
 
                     if (index == pages.size - 1) {
@@ -73,13 +71,14 @@ class RabbitFpsAnalyzerPage(context: Context) : RabbitBasePage(context) {
             RabbitFPSInfo::class.java,
             Pair(RabbitFPSInfoDao.Properties.PageName, pageName),
             loadResult = { fpses ->
+
                 val analyzerInfo = RabbitFpsAnalyzerInfo(pageName)
 
-                analyzerInfo.minFps = fpses.map { it.minFps }.average().toInt().toString()
+                analyzerInfo.minFps = fpses.map { it.minFps }.min()?.toInt().toString()
 
                 analyzerInfo.avgFps = fpses.map { it.avgFps }.average().toInt().toString()
 
-                analyzerInfo.maxFps = fpses.map { it.maxFps }.average().toInt().toString()
+                analyzerInfo.maxFps = fpses.map { it.maxFps }.max()?.toInt().toString()
 
                 analyzerInfo.fpsCount = fpses.size
 

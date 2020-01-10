@@ -35,12 +35,8 @@ class RabbitMainFeatureView : RelativeLayout, RabbitAdapterItemView<RabbitMainFe
         LayoutInflater.from(context).inflate(R.layout.rabbit_view_main_feature_view, this)
         layoutParams = MarginLayoutParams(
             LayoutParams.MATCH_PARENT,
-            dp2px(50f)
-        ).apply {
-            topMargin = dp2px(10f)
-        }
-        val pd10 = dp2px(10f)
-        setPadding(pd10, 0, 0, 0)
+            dp2px(55f)
+        )
         throttleFirstClick(Consumer {
             clickListener?.onClick()
             RabbitUiKernal.openPage(mFeatureInfo.pageClass)

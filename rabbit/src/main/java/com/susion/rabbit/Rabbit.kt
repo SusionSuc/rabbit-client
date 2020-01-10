@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.view.View
+import com.google.gson.Gson
 import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.RabbitMonitorProtocol
 import com.susion.rabbit.base.RabbitSettings
@@ -91,6 +92,9 @@ object Rabbit {
                     RabbitMonitor.closeMonitor(monitorName)
                 }
             }
+        }
+        RabbitUi.externalDataRequest = object :RabbitUi.ExternalDataReuqest{
+            override fun getGlobalConfigJsonStr() = Gson().toJson(mConfig)
         }
 
         isInit = true

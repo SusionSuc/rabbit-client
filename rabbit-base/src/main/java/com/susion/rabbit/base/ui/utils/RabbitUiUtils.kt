@@ -90,4 +90,10 @@ object RabbitUiUtils {
         }
     }
 
+     fun dropPackageName(str: String): String {
+        val strSlice = str.split(".")
+        if (strSlice.size < 3) return str
+        return "${strSlice[strSlice.size - 2]}.${strSlice[strSlice.size - 1]}"
+    }
+
 }

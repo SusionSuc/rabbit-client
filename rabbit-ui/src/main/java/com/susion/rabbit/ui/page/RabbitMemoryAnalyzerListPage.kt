@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.rabbit_page_memory_compose.view.*
 /**
  * susionwang at 2019-12-03
  */
-class RabbitMemoryComposePage(context: Context) : RabbitBasePage(context) {
+class RabbitMemoryAnalyzerListPage(context: Context) : RabbitBasePage(context) {
 
     override fun getLayoutResId() = R.layout.rabbit_page_memory_compose
 
