@@ -15,6 +15,7 @@ import com.susion.rabbit.ui.entities.RabbitSlowMethodGroupInfo
 import com.susion.rabbit.ui.view.RabbitSlowMethodGroupItemView
 import kotlinx.android.synthetic.main.rabbit_page_slow_method_list.view.*
 import android.graphics.Color
+import android.view.View
 import com.github.mikephil.charting.formatter.PercentFormatter
 import com.susion.rabbit.ui.monitor.R
 
@@ -50,7 +51,7 @@ class RabbitSlowMethodListPage(context: Context) : RabbitBasePage(context) {
         mRabbitSlowMethodChart.holeRadius = 0f
         mRabbitSlowMethodChart.transparentCircleRadius = 0f
 
-        mRabbitMethodGroupPageSRL.setOnRefreshListener {
+        mRabbitSlowMethodListPageSRL.setOnRefreshListener {
             loadData()
         }
 
@@ -71,8 +72,15 @@ class RabbitSlowMethodListPage(context: Context) : RabbitBasePage(context) {
 
         RabbitDbStorageManager.getAll(RabbitSlowMethodInfo::class.java, loadResult = {
 
+            if (it.isEmpty()){
+                showEmptyView()
+                mRabbitSlowMethodListPageSRL.visibility = View.GONE
+            }else{
+                hideEmptyView()
+                mRabbitSlowMethodListPageSRL.visibility = View.VISIBLE
+            }
 
-            mRabbitMethodGroupPageSRL.isRefreshing = false
+            mRabbitSlowMethodListPageSRL.isRefreshing = false
 
             it.forEach { trackMethod ->
                 val methodName =

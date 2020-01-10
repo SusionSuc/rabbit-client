@@ -39,10 +39,11 @@ abstract class RabbitBasePage(context: Context) : FrameLayout(context), RabbitPa
     }
 
     val emptyTv = TextView(context).apply {
-        layoutParams = LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT).apply {
-            gravity = Gravity.CENTER_HORIZONTAL
-            topMargin = dp2px(10f)
-        }
+        layoutParams =
+            LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT).apply {
+                gravity = Gravity.CENTER_HORIZONTAL
+                topMargin = dp2px(10f)
+            }
         setTextColor(getColor(context, R.color.rabbit_black))
         text = "是不是没有打开监控开关呀"
     }
@@ -109,11 +110,12 @@ abstract class RabbitBasePage(context: Context) : FrameLayout(context), RabbitPa
         }, duration)
     }
 
-    fun showEmptyView(){
+    fun showEmptyView(msg: String = "是不是没有打开监控开关呀") {
         addView(emptyLl)
+        emptyTv.text = msg
     }
 
-    fun hideEmptyView(){
+    fun hideEmptyView() {
         removeView(emptyLl)
     }
 

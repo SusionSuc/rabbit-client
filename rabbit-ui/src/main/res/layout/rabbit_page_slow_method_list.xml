@@ -6,7 +6,7 @@
     android:background="@color/rabbit_white">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/mRabbitMethodGroupPageSRL"
+        android:id="@+id/mRabbitSlowMethodListPageSRL"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

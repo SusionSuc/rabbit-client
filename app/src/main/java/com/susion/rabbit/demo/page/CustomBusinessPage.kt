@@ -17,15 +17,8 @@ class CustomBusinessPage(context: Context) : RabbitBasePage(context) {
 
     init {
         background = getDrawable(context, R.color.rabbit_white)
-        addView(TextView(context).apply {
-            text = "业务自定义页面"
-            textSize = 20f
-            layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
-            gravity = Gravity.CENTER
-        })
-
-        RabbitUiKernal.appCurrentActivity
         setTitle("自定义业务面板")
+        showEmptyView("快来加入你的自定义功能吧")
     }
 
 }

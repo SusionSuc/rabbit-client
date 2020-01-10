@@ -6,6 +6,17 @@
     android:background="@color/rabbit_white"
     android:orientation="vertical">
 
+    <com.susion.rabbit.base.ui.view.RabbitSwitchButton
+        android:id="@+id/mRabbitQuickPagePerformanceTest"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginStart="15dp"
+        android:background="@color/rabbit_divider_line" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -26,7 +37,6 @@
             android:layout_width="200dp"
             android:layout_height="30dp"
             android:layout_centerVertical="true"
-            android:layout_marginStart="10dp"
             android:layout_toEndOf="@id/title" />
 
         <TextView
@@ -45,6 +55,7 @@
 
     <View
         android:layout_width="match_parent"
+        android:layout_marginStart="15dp"
         android:layout_height="1px"
         android:background="@color/rabbit_divider_line" />
 
@@ -62,6 +73,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
+        android:layout_marginStart="15dp"
         android:background="@color/rabbit_divider_line" />
 
 
@@ -79,16 +91,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/rabbit_divider_line" />
-
-    <com.susion.rabbit.base.ui.view.RabbitSwitchButton
-        android:id="@+id/mRabbitQuickPagePerformanceTest"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"/>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
+        android:layout_marginStart="15dp"
         android:background="@color/rabbit_divider_line" />
 
 </LinearLayout>

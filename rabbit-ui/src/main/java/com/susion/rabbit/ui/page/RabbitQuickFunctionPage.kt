@@ -39,7 +39,7 @@ class RabbitQuickFunctionPage(context: Context) : RabbitBasePage(context) {
             val switchBtn = RabbitSwitchButton(context).apply {
                 LayoutParams(LayoutParams.MATCH_PARENT, dp2px(60f))
             }
-            mRabbitQuickPageRootLl.addView(switchBtn)
+            mRabbitQuickPageRootLl.addView(switchBtn, 0)
             switchBtn.checkedStatusChangeListener =
                 object : RabbitSwitchButton.CheckedStatusChangeListener {
                     override fun checkedStatusChange(isChecked: Boolean) {
@@ -53,22 +53,28 @@ class RabbitQuickFunctionPage(context: Context) : RabbitBasePage(context) {
             )
         }
 
-        mRabbitQuickPageViewConfig.throttleFirstClick(Consumer{
+        mRabbitQuickPageViewConfig.throttleFirstClick(Consumer {
             RabbitUi.openPage(RabbitCurrentConfigListPage::class.java)
         })
 
         mRabbitQuickPagePerformanceTest.refreshUi("性能测试模式", false)
-        mRabbitQuickPagePerformanceTest.checkedStatusChangeListener =    object : RabbitSwitchButton.CheckedStatusChangeListener {
-            override fun checkedStatusChange(isChecked: Boolean) {
-                if (isChecked){
-                    showToast("开发中...")
-                    postDelayed({
-                        mRabbitQuickPagePerformanceTest.setCheckStatus(false)
-                    },500)
+        mRabbitQuickPagePerformanceTest.checkedStatusChangeListener =
+            object : RabbitSwitchButton.CheckedStatusChangeListener {
+                override fun checkedStatusChange(isChecked: Boolean) {
+                    if (isChecked) {
+                        showToast("开发中...")
+                        postDelayed({
+                            mRabbitQuickPagePerformanceTest.setCheckStatus(false)
+                        }, 500)
 
+                    }
                 }
             }
-        }
+
+        mRabbitQuickPageViewAbout.throttleFirstClick(Consumer {
+            RabbitUi.openPage(RabbitAboutPage::class.java)
+        })
+
     }
 
 }

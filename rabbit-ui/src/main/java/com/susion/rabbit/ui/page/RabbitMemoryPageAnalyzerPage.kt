@@ -32,7 +32,6 @@ class RabbitMemoryPageAnalyzerPage(context: Context) : RabbitBasePage(context) {
 
         mMemDetailPageRv.adapter = adapter
         mMemDetailPageRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        mMemDetailPageSRL.isRefreshing = true
 
         mMemDetailPageSRL.setOnRefreshListener {
             adapter.data.clear()
@@ -48,6 +47,12 @@ class RabbitMemoryPageAnalyzerPage(context: Context) : RabbitBasePage(context) {
             RabbitMemoryInfo::class.java,
             RabbitMemoryInfoDao.Properties.PageName.columnName
         ) { pages ->
+
+            if (pages.isEmpty()){
+                showEmptyView()
+            }else{
+                hideEmptyView()
+            }
 
             pages.forEachIndexed { index, page ->
 

@@ -31,7 +31,6 @@ class RabbitFpsAnalyzerListPage(context: Context) : RabbitBasePage(context) {
 
         mFpsAnalyzerPageTv.adapter = adapter
         mFpsAnalyzerPageTv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        mFpsAnalyzerPageSRL.isRefreshing = true
 
         mFpsAnalyzerPageSRL.setOnRefreshListener {
             adapter.data.clear()
@@ -47,6 +46,12 @@ class RabbitFpsAnalyzerListPage(context: Context) : RabbitBasePage(context) {
             RabbitFPSInfo::class.java,
             RabbitFPSInfoDao.Properties.PageName.columnName
         ) { pages ->
+
+            if (pages.isEmpty()){
+                showEmptyView()
+            }else{
+                hideEmptyView()
+            }
 
             pages.forEachIndexed { index, pageName ->
 
