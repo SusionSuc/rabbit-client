@@ -1,13 +1,13 @@
 # 关于rabbit
 
-
 ## 后续开发计划
 
 ### 客户端后续开发计划
 
 1. 完善现有功能
 2. 实现敏感代码检测功能(IO操作、敏感权限、隐藏API等)
-3. ...
+3. 全局性能检测模式
+4. ...
 
 ### 服务端管理后台
 
@@ -18,9 +18,7 @@
 [rabbit-admin](https://github.com/SusionSuc/rabbit-admin) : web端管理后台(vue)
 
 
-## 站长前辈的肩膀上看的更远
-
->感谢下面这些优秀的开源项目提供的一些思路:
+## 参考链接
 
 [booster](https://github.com/didi/booster)
 
@@ -29,5 +27,7 @@
 [DoraemonKit](https://github.com/didi/DoraemonKit)
 
 [ArgusAPM](https://github.com/Qihoo360/ArgusAPM)
+
+[json view](https://github.com/smuyyh/JsonViewer)
 
 

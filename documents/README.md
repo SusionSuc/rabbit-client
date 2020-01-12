@@ -44,7 +44,7 @@ dependencies {
 #### 功能配置
 
 ```
-Rabbit.config(config)
+Rabbit.init(config)
 ```
 
 相关支持配置见:[RabbitConfig](https://github.com/SusionSuc/rabbit-client/blob/master/rabbit-base/src/main/java/com/susion/rabbit/base/config/RabbitConfig.kt)。各项配置具体含义会在每个功能的文档中做详细的介绍。

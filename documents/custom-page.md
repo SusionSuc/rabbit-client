@@ -59,7 +59,7 @@ Rabbit.config(rabbitConfig)
 你可能需要从自定义的`rabbit`页面跳转至另一个自定义的`rabbit`页面，可以通过下面方法跳转:
 
 ```
-RabbitUi.openPage(RabbitExceptionDetailPage::class.java, logInfo)
+Rabbit.openPage(RabbitExceptionDetailPage::class.java, logInfo)
 ```
 
 上面打开了`RabbitExceptionDetailPage`页面，并携带了`logInfo`对象作为参数。
