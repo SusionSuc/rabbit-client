@@ -19,7 +19,7 @@
         android:layout_marginTop="20dp"
         android:lineSpacingMultiplier="1.5"
         android:padding="20dp"
-        android:text="Rabbit的目标可是要成为最简单易用、最全面的Android APM框架哦~"
+        android:text="Rabbit可是要成为最简单易用、最全面的Android APM框架哦~"
         android:textColor="@color/rabbit_black"
         android:textSize="18dp" />
 
@@ -27,11 +27,11 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:lineSpacingMultiplier="1.5"
+        android:lineSpacingMultiplier="1.2"
         android:padding="20dp"
         android:text="如果你对rabbit感兴趣，欢迎加入到rabbit的开发中哦~"
         android:textColor="#a6a6a6"
-        android:textSize="15dp" />
+        android:textSize="14dp" />
 
 
     <TextView
@@ -39,7 +39,8 @@
         android:layout_height="match_parent"
         android:gravity="bottom|center_horizontal"
         android:paddingBottom="10dp"
-        android:text="copyright by susion @ 2020"
+        android:textSize="13dp"
+        android:text="susion @ 2020"
         android:textColor="#a6a6a6" />
 
 

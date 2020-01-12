@@ -1,5 +1,7 @@
 package com.susion.rabbit.base.entities;
 
+import com.google.gson.annotations.SerializedName;
+
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 
@@ -17,14 +19,17 @@ public class RabbitReportInfo {
     @Id(autoincrement = true)
     public Long id;
 
+    @SerializedName("info_str")
     public String infoStr;
 
     public Long time;
 
+    @SerializedName("device_info_str")
     public String deviceInfoStr;
 
     public String type;
 
+    @SerializedName("use_time")
     public long useTime;
 
     @Keep

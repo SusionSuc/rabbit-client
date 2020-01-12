@@ -130,6 +130,11 @@ object RabbitStorage {
             RabbitMonitorProtocol.NET.name -> {
                 RabbitDbStorageManager.clearAllData(RabbitHttpLogInfo::class.java)
             }
+
+            RabbitMonitorProtocol.BLOCK_CALL.name ->{
+                RabbitDbStorageManager.clearAllData(RabbitIoCallInfo::class.java)
+
+            }
         }
     }
 

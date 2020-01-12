@@ -27,6 +27,7 @@ class SimpleListActivity : RabbitBaseActivity() {
         mSimpleListPageActionBar.setTitle("简单列表")
 
         listAdapter.data.addAll(getData())
+
         mSimpleListPageRv.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
@@ -42,6 +43,9 @@ class SimpleListActivity : RabbitBaseActivity() {
         (0 until 30).forEach {
             list.add(RabbitSimpleKvInfo("item${it}", "$it"))
         }
+
+        Thread.sleep(500)
+
         return list
     }
 
