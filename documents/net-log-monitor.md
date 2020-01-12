@@ -19,6 +19,4 @@ val okHttpClient = OkHttpClient.Builder()
 
 监控示例:
 
-![pic1](picture/rabbit-net1.jpg)
-
-![pic1](picture/rabbit-net2.jpg)
+![](./pic/net-log.jpg)

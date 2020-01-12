@@ -20,6 +20,7 @@ class RabbitPlugin : Plugin<Project> {
 
         project.afterEvaluate {
             GlobalConfig.pluginConfig = config
+            GlobalConfig.ioMethodCall.clear()
         }
 
         //register transform

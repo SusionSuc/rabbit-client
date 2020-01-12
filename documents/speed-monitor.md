@@ -9,7 +9,7 @@
 
 >具体耗时统计的含义如下图:
 
-![pic22](./picture/rabbit-speed-time.png)
+![pic](./pic/rabbit-speed-time.png)
 
 ## 使用
 
@@ -76,7 +76,7 @@ Rabbit.config(rabbitConfig)
 >当然你也可以从网络动态下发配置,对于这种情况你可能需要使用这个API:
 
 ```
-Rabbit.configMonitorSpeedList(speedCondig)
+Rabbit.reConfig(configWithSpeedList)
 ```
 
 **在开始测试前不要忘记打开测速功能**
@@ -85,19 +85,14 @@ Rabbit.configMonitorSpeedList(speedCondig)
 
 最终生成的测速结果如下图:
 
->页面渲染
+>页面渲染 & 网络耗时
 
-![pic1](./picture/page_render_speed.png)
+![](./pic/page-start.jpg)
 
 
 >应用冷启动
 
-![pic2](./picture/app_speed.png)
-
-
->网络耗时监控
-
-![pic3](picture/page_request_speed.png)
+![](./pic/app-start.jpg)
 
 
 ## 参考文章

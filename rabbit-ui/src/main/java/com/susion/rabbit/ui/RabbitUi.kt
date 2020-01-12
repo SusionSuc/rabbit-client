@@ -101,7 +101,7 @@ object RabbitUi {
 
             add(
                 RabbitMainFeatureInfo(
-                    "阻塞调用",
+                    "代码扫描",
                     R.drawable.rabbit_icon_io_call,
                     RabbitBlockCallListPage::class.java
                 )

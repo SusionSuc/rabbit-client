@@ -15,7 +15,11 @@ Rabbit.config(rabbitConfig)
 
 当FPS监控打开后，实时的FPS会显示在`rabbit`浮标上:
 
-![pic1](./picture/rabbit-fps.png)
+![](./pic/fps.jpg)
+
+也可以分页面查看FPS:
+
+![](./pic/fps-analyzer.jpg)
 
 ## 内存监控
 
@@ -32,4 +36,8 @@ Rabbit.config(rabbitConfig)
 
 当F内存监控打开后，实时的内存状态会显示在`rabbit`浮标上:
 
-![pic1](./picture/rabbit-memory.png)
+![](./pic/memory.jpg)
+
+rabbit也会统计出每一个页面的内存使用情况:
+
+![](./pic/memory-analyzer.jpg)

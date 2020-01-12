@@ -27,4 +27,4 @@ rabbitConfig.monitorConfig.blockStackCollectPeriodNs = TimeUnit.NANOSECONDS.conv
 ```
 
 
-![pic1](./picture/rabbit-block.jpg)
+![](./pic/block-stack.jpg)

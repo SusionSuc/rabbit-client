@@ -3,7 +3,7 @@
 
 `rabbit`项目地址 : https://github.com/SusionSuc/rabbit-client
 
-本文将对`rabbit`的功能做一个简单的介绍,详细的使用文档地址为: [使用文档]((https://github.com/SusionSuc/rabbit-client/blob/master/documents/README.md))
+本文将对`rabbit`的功能做一个简单的介绍,详细的使用文档地址为[使用文档]((https://github.com/SusionSuc/rabbit-client/blob/master/documents/README.md))
 
 >多图警告⚠️⚠️⚠️
 
@@ -27,8 +27,7 @@
 
 ## 页面渲染与网络请求耗时统计
 
-与网络请求耗时结合后，`rabbit`可以统计出一个页面的完全渲染耗时。这里的完全渲染耗时是指**从页面create到页面拿到请求结果并刷新页面所用的
-时间**，核心思想参考自:[Android自动化页面测速在美团的实践](https://tech.meituan.com/2018/07/12/autospeed.html),最终统计的页面耗时如下图所示:
+与网络请求耗时结合后，`rabbit`可以统计出一个页面的完全渲染耗时。这里的完全渲染耗时是指**从页面create到页面拿到请求结果并刷新页面所用的时间**，核心思想参考自:[Android自动化页面测速在美团的实践](https://tech.meituan.com/2018/07/12/autospeed.html)。最终统计的页面耗时如下图所示:
 
 ![](./pic/page-start.jpg)
 
@@ -59,7 +58,7 @@ SharePreferences$Editor.commit()
 
 最终扫描结果会展示如下:
 
-
+![](./pic/block-call.jpg)
 
 ## 网络日志监控
 
@@ -258,7 +257,11 @@ rabbit目前维护者只有我一个人。 一个人的力量终究有限, 如�
 
 # 最后
 
-既然都看到这里了, 给[Rabbit](https://github.com/SusionSuc/rabbit-client)点个赞吧! 奥利给!
+既然都看到这里了, 给[Rabbit](https://github.com/SusionSuc/rabbit-client)个✨吧! 奥利给!
+
+再推广一下我的个人公众微信号:
+
+![](./pic/微信公众号.jpeg)
 
 # 参考资料
 

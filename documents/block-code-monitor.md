@@ -1,6 +1,6 @@
 # 阻塞代码检测
 
-`rabbit`可以检测出应用中的阻塞代码,比如下面这段代码:
+`rabbit`默认可以检测出应用中的阻塞代码,比如下面这段代码:
 
 ```
 //涉及IO操作的代码
@@ -21,7 +21,7 @@ rabbitConfig {
 
 `rabbit`会在编译时扫描出这些代码，然后你在`rabbit`面板中就可以查看它们是被谁调用:
 
-![pic](picture/rabbit-block-code.jpg)
+![](./pic/block-call.jpg)
 
 **查看之前不要忘记在配置中打开相关开关!!**
 

@@ -4,12 +4,15 @@ import android.content.Context
 import android.os.Environment
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.gson.Gson
 import com.susion.rabbit.base.common.FileUtils
 import com.susion.rabbit.base.common.RabbitAsync
 import com.susion.rabbit.base.entities.RabbitIoCallInfo
 import com.susion.rabbit.storage.RabbitDbStorageManager
 import com.susion.rabbit.base.ui.page.RabbitBasePage
 import com.susion.rabbit.base.ui.adapter.RabbitRvAdapter
+import com.susion.rabbit.ui.entities.RabbitBlockCallList
+import com.susion.rabbit.ui.entities.RabbitUiSimpleCallInfo
 import com.susion.rabbit.ui.monitor.R
 import com.susion.rabbit.ui.view.RabbitIoCallItemView
 import kotlinx.android.synthetic.main.rabbit_page_io_call.view.*
@@ -48,8 +51,11 @@ class RabbitBlockCallListPage(context: Context) : RabbitBasePage(context) {
             logsAdapter.data.forEach {
                 ioCallSb.append("${it.invokeStr} -> ${it.becalledStr}")
             }
+
+            val exportList = logsAdapter.data.map { RabbitUiSimpleCallInfo(it.invokeStr,it.becalledStr) }
+            val exportStr = Gson().toJson(RabbitBlockCallList(exportList))
             RabbitAsync.asyncRunWithResult({
-                FileUtils.writeStrToFile(File(EXPORT_FILE_PATH), ioCallSb.toString())
+                FileUtils.writeStrToFile(File(EXPORT_FILE_PATH), exportStr)
             }, {
                 showToast("导出完毕~")
             })

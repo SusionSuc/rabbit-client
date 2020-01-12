@@ -4,7 +4,7 @@
 
 - [应用测速](./speed-monitor.md)
 - [慢函数检测](./slow-method-monitor.md)
-- [阻塞代码检测](./block-code-monitor.md)
+- [代码扫描](./block-code-monitor.md)
 - [网络日志监控](./net-log-monitor.md)
 - [卡顿日志监控](./block-log-monitor.md)
 - [FPS和内存监控](./memory-fps-monitor.md)
@@ -39,7 +39,6 @@ dependencies {
 
 [noop包接入](./noop-document.md)
 
-
 ### 配置rabbit
 
 #### 功能配置
@@ -72,11 +71,11 @@ fun open(requestPermission: Boolean = true, activity: Activity)
 
 即`Rabbit.open(true, this)`, 这个方法会主动申请悬浮窗权限。如果有权限的话会打开`rabbit`浮标:
 
-![pic1](./picture/rabbit-float.png)
+![](./pic/fps.jpg)
 
 点击`rabbit`浮标即可打开`rabbit`主面板:
 
-![pic2](./picture/rabbit-entry.jpg)
+![](./pic/entry.jpg)
 
 **可以通过再次点击`rabbit`浮标来关闭`rabbit`浮窗。**
 
@@ -99,7 +98,7 @@ Rabbit.config(rabbitConfig)
 
 当然也可以在UI浮窗中配置各项功能打开与否。点击**监控配置**即可看到具体功能配置页面:
 
-![pic3](./picture/rabbit-config.jpg)
+![](./pic/config-page.jpg)
 
 
 
