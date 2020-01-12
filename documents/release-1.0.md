@@ -215,7 +215,15 @@ rabbit目前支持上报大部分检测数据。通过一些简单的配置就�
 
 # 可用性与可配置性
 
-对于每一个功能,rabbit都提供了丰富的配置API,详细配置见具体功能的使用文档。
+rabbit的接入十分简单, 基本上就是一个init代码:
+
+```
+Rabbit.init(rabbitConfig)
+```
+
+>相关支持配置见:[RabbitConfig](https://github.com/SusionSuc/rabbit-client/blob/master/rabbit-base/src/main/java/com/susion/rabbit/base/config/RabbitConfig.kt)。
+
+对于每一个功能,rabbit都提供了丰富的配置API和详细的[使用文档](https://github.com/SusionSuc/rabbit-client/tree/master/documents)。
 
 在rabbit控制面板中你也可以很方便的控制这些功能:
 
@@ -236,6 +244,8 @@ rabbit目前支持上报大部分检测数据。通过一些简单的配置就�
 rabbit目前没有经过线上环境的验证，为了方便接入，提供了noop包。
 
 具体引入步骤见[引入noop包](https://github.com/SusionSuc/rabbit-client/blob/master/documents/noop-document.md)
+
+>noop包中可以继续使用rabbit的UI功能。
 
 # 后续开发计划
 
