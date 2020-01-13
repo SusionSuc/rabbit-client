@@ -1,6 +1,6 @@
 # Rabbit使用文档
 
-当前版本 -> ![version](https://img.shields.io/badge/version-1.0.0--alpha8-brightgreen)  
+![version](https://img.shields.io/badge/version-1.0.0--alpha8-brightgreen)  
 
 ## 文档索引
 
