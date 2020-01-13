@@ -30,10 +30,12 @@ android {
 
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
+
+    api project(':rabbit-base')
+    api project(':rabbit-storage')
+    debugApi "com.squareup.leakcanary:leakcanary-android:${uniqueVersion.leakCanaryVersion}"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${uniqueVersion.kotlinStdlibJdk7Version}"
     implementation "org.greenrobot:greendao:${uniqueVersion.greenDaoVersion}"
     implementation rootProject.ext.androidXDependencies.appcompat
     implementation "com.squareup.retrofit2:retrofit:${uniqueVersion.retrofit2Version}"
-    api project(':rabbit-base')
-    api project(':rabbit-storage')
 }
