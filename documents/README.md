@@ -8,7 +8,7 @@
 - [网络日志监控](./net-log-monitor.md)
 - [卡顿日志监控](./block-log-monitor.md)
 - [FPS和内存监控](./memory-fps-monitor.md)
-- [异常与内存泄漏捕获](./others-monitor.md)
+- [异常与内存泄漏捕获](./exception-leak.md)
 - [apk包分析](./app-analyzer.md)
 - [接入自定义业务面板](./custom-page.md)
 - [数据上报](./data-report.md)
@@ -32,6 +32,7 @@ apply plugin: 'rabbit-tracer' //引入插件, release包不要引入
 
 dependencies {
     implementation "com.susion:rabbit:${latest-version}"
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$2.0-beta-5" //如果使用leakcanary的话，需要引入leakcanary
 } 
 ```
 

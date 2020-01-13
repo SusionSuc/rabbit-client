@@ -36,7 +36,7 @@ object RabbitUi {
         fun toggleMonitorStatus(monitor: RabbitMonitorProtocol, open: Boolean)
     }
 
-    fun defaultSupportFeatures(): ArrayList<RabbitMainFeatureInfo> {
+    fun defaultSupportFeatures(application: Application): ArrayList<RabbitMainFeatureInfo> {
         return ArrayList<RabbitMainFeatureInfo>().apply {
             add(
                 RabbitMainFeatureInfo(
@@ -83,7 +83,7 @@ object RabbitUi {
                     //隐私启动，显示调用会在release构建时有问题
                     val leakIntent = Intent()
                     leakIntent.component = ComponentName(
-                        "com.susion.rabbit.demo",
+                        application.packageName,
                         "leakcanary.internal.activity.LeakActivity"
                     )
                     getCurrentActivity()?.startActivity(leakIntent)

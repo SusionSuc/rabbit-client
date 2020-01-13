@@ -20,4 +20,12 @@ Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
 
 >`rabbit`使用的`leakcanary`版本为: `2.0-beta-5`
 
+不要忘记引入leakcanary:
+
+```
+dependencies {
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$2.0-beta-5" //如果使用leakcanary的话，需要引入leakcanary
+} 
+```
+
 

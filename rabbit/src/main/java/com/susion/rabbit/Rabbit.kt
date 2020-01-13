@@ -84,7 +84,7 @@ object Rabbit : RabbitProtocol {
         // UI
         val uiConfig = mConfig.uiConfig
         uiConfig.monitorList = RabbitMonitor.getMonitorList()
-        uiConfig.entryFeatures.addAll(RabbitUi.defaultSupportFeatures())
+        uiConfig.entryFeatures.addAll(RabbitUi.defaultSupportFeatures(application))
         uiConfig.customConfigList.addAll(getCustomConfigs())
         RabbitUi.init(application, uiConfig)
         RabbitUi.eventListener = object : RabbitUi.EventListener {

@@ -1,7 +1,7 @@
 //debug 模式下才使用rabbit
 def taskName = getGradle().getStartParameter().taskNames.toString().toLowerCase()
 def inDebug = taskName.contains("debug")
-def version = "0.0.8.9.3"
+def version = "1.0.0-alpha6"
 def rabbit = "com.susion:rabbit-noop:$version"
 
 if (inDebug) {
@@ -31,7 +31,7 @@ if (inDebug) {
         methodMonitorPkgs = ['com.susion.rabbit.demo', 'com.susion.rabbit.demo.page']
 
         //阻塞代码扫描范围
-//        blockCodePkgs = ['com.susion.rabbit.demo']
+        blockCodePkgs = ['com.susion.rabbit.demo']
 
         //自定义阻塞代码点
 //        customBlockCodeCheckList = ['com/susion/rabbit/demo/MainActivity.fakeBlockCode()V']
