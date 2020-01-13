@@ -14,6 +14,10 @@ dependencies {
     implementation 'com.android.tools:common:25.1.0'
     implementation files('libs/apktool-lib.jar')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${uniqueVersion.kotlinStdlibJdk7Version}"
+    implementation "com.squareup.retrofit2:retrofit:${uniqueVersion.retrofit2Version}"
+    implementation "io.reactivex.rxjava2:rxjava:${uniqueVersion.rx2javaVersion}"
+    implementation "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:${uniqueVersion.retrofit2RxJavaAdapterVersion}"
+    implementation "com.squareup.retrofit2:converter-gson:${uniqueVersion.retrofit2ConvertJson}"
 }
 
 sourceCompatibility = "8"
@@ -28,7 +32,7 @@ project.afterEvaluate {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'com.susion.rlsabbit.ApkAnalyzer'
+        attributes 'Main-Class': 'com.susion.rabbit.ApkAnalyzer'
         attributes 'Manifest-Version': "1.0.0"
     }
     from {

@@ -40,7 +40,7 @@ class RabbitExceptionListPage(context: Context) : RabbitBasePage(context) {
     }
 
     private fun loadAllData() {
-        RabbitDbStorageManager.getAll(RabbitExceptionInfo::class.java) {
+        RabbitDbStorageManager.getAll(RabbitExceptionInfo::class.java, orderDesc = true) {
             mExceptionLogListSPL.isRefreshing = false
             if (it.isNotEmpty()) {
                 hideEmptyView()

@@ -8,18 +8,18 @@
 
     <ImageView
         android:id="@+id/mFpsAnalyzerViewIv"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
         android:src="@drawable/rabbit_icon_fps_mark"
         android:layout_centerVertical="true"
-        android:layout_marginStart="15dp" />
+        android:layout_marginStart="10dp" />
 
     <LinearLayout
         android:id="@+id/log_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="10dp"
         android:layout_toEndOf="@+id/mFpsAnalyzerViewIv"
         android:orientation="vertical">
 
@@ -30,7 +30,7 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="@color/rabbit_black"
-            android:textSize="16dp" />
+            android:textSize="14dp" />
 
         <TextView
             android:id="@+id/mFpsAnalyzerViewTvPageFps"
@@ -40,7 +40,7 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="@color/rabbit_black"
-            android:textSize="12dp" />
+            android:textSize="11dp" />
 
     </LinearLayout>
 
@@ -48,7 +48,7 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="10dp"
         android:layout_toEndOf="@+id/mFpsAnalyzerViewIv"
         android:background="@color/rabbit_divider_line" />
 

@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:padding="5dp"
-        android:text="Rabbit当前配置"
+        android:text="rabbit当前配置"
         android:textColor="@color/rabbit_black"
         android:textSize="16dp"
         android:textStyle="bold" />

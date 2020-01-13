@@ -27,6 +27,7 @@ internal class RabbitReportDataEmitterTask {
     var eventListener: EventListener? = null
     var isRunning = false
     private var emitterFailedCount = 0
+    private var globalEmiiterErrorCount:Int = 0
 
     //run in main thread
     fun addPointsToEmitterQueue(points: List<RabbitReportInfo>) {
@@ -52,10 +53,16 @@ internal class RabbitReportDataEmitterTask {
     }
 
     fun emitterPoints() {
+        if (globalEmiiterErrorCount > 3){
+            RabbitLog.d(TAG_REPORT, "发射器异常 ! ")
+            return
+        }
+
         if (emitterFailedCount > MAX_EMITTER_FAILED_COUNT) {
             RabbitLog.d(TAG_REPORT, "超出最大发送失败次数!")
             isRunning = false
             emitterFailedCount = 0
+            globalEmiiterErrorCount++
             return
         }
 

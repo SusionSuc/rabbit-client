@@ -44,8 +44,6 @@ class SimpleListActivity : RabbitBaseActivity() {
             list.add(RabbitSimpleKvInfo("item${it}", "$it"))
         }
 
-        Thread.sleep(500)
-
         return list
     }
 

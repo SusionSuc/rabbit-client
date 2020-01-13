@@ -74,7 +74,6 @@ class RabbitQuickFunctionPage(context: Context) : RabbitBasePage(context) {
         mRabbitQuickPageViewAbout.throttleFirstClick(Consumer {
             RabbitUi.openPage(RabbitAboutPage::class.java)
         })
-
     }
 
 }

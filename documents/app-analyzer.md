@@ -8,7 +8,7 @@
 4. 重复文件
 5. apk方法数
 
-可用的分析jar:[apk-analyzer.jar](../localRepo/apk-analyzer/rabbit-apk-analyzer.jar)
+可用的分析jar:[apk-analyzer.jar](https://github.com/SusionSuc/rabbit-client/releases/download/v1.0-beta/rabbit-apk-analyzer.jar)
 
 ## 使用配置
 
@@ -28,7 +28,8 @@ java -jar apk-analyzer.jar apk-analyzer-config.json
         "package":"com.xxx.xx"
     }],
     "classMappingFilePath":"/Users/susionwang/Desktop/apk-analyzer/apk-analyzer-config.json",
-    "maxImageSizeKB":30
+    "maxImageSizeKB":30,
+    "uploadPath":"xxx/upload"
 }
 ```
 
@@ -36,6 +37,7 @@ java -jar apk-analyzer.jar apk-analyzer-config.json
 - methodGroup : apk方法数统计归组
 - classMappingFilePath : mapping文件的路径
 - maxImageSizeKB : 大于多少KB的图片会当做大图被检测出来。
+- uploadPath : 分析结果上传的地址, 数据格式与基本上报格式一致:[数据上报](./data-report.md)
 
 ## 分析结果示例
 

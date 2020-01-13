@@ -11,11 +11,11 @@ public class MethodCostTraceActivity extends RabbitBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_method_cost_trace);
-        ((RabbitActionBar)findViewById(R.id.mSlowMethodActionBar)).setTitle("慢函数测试");
-        ((RabbitActionBar)findViewById(R.id.mSlowMethodActionBar)).setOnClickListener(new View.OnClickListener() {
+        ((RabbitActionBar) findViewById(R.id.mSlowMethodActionBar)).setTitle("慢函数测试");
+        ((RabbitActionBar) findViewById(R.id.mSlowMethodActionBar)).setActionListener(new RabbitActionBar.ActionListener() {
             @Override
-            public void onClick(View v) {
-                finish();
+            public void onBackClick() {
+                MethodCostTraceActivity.this.finish();
             }
         });
 
@@ -24,7 +24,7 @@ public class MethodCostTraceActivity extends RabbitBaseActivity {
             public void run() {
                 try {
                     asyncMethod();
-                }catch (Exception e){
+                } catch (Exception e) {
 
                 }
 
@@ -33,19 +33,19 @@ public class MethodCostTraceActivity extends RabbitBaseActivity {
 
         try {
             syncMethod();
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
 
-    public  void asyncMethod() throws Exception {
+    public void asyncMethod() throws Exception {
         int a = 0;
         int b = 1;
         int c = a + b;
         Thread.sleep(1000);
     }
 
-    public  void syncMethod() throws Exception {
+    public void syncMethod() throws Exception {
         int a = 0;
         int b = 1;
         int c = a + b;

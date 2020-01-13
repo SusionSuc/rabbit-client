@@ -1,7 +1,5 @@
 package com.susion.rabbit.ui.entities
 
-import com.susion.rabbit.base.entities.RabbitIoCallInfo
-
 /**
  * create by susionwang at 2020-01-12
  */

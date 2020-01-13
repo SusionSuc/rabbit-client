@@ -25,6 +25,7 @@ object RabbitStorage {
         mConfig.storageInOnSessionData.addAll(ArrayList<Class<Any>>().apply {
             add(RabbitHttpLogInfo::class.java as Class<Any>)
             add(RabbitMemoryInfo::class.java as Class<Any>)
+            add(RabbitFPSInfo::class.java as Class<Any>)
         })
 
         mConfig.storageInOnSessionData.forEach {

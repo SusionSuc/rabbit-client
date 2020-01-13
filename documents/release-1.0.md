@@ -1,15 +1,12 @@
 
-**rabbit**是一个`Android APM`框架, 它不仅可以让开发者很方便的在本地对App做性能监控,也提供了完整的数据上报系统。
-
-`rabbit`项目地址 : https://github.com/SusionSuc/rabbit-client
-
-本文将对`rabbit`的功能做一个简单的介绍,详细的使用文档地址为[使用文档]((https://github.com/SusionSuc/rabbit-client/blob/master/documents/README.md))
-
->多图警告⚠️⚠️⚠️
-
-`rabbit`目前包含的功能如下图:
+[rabbit](https://github.com/SusionSuc/rabbit-client)是一个Android APM框架(工具), 它不仅可以让开发者很方便的在本地对App做性能监控,
+也提供了完整的数据上报系统。目前包含的主要功能如下图:
 
 ![](./pic/entry.jpg)
+
+本文将对`rabbit`的功能做一个简单的介绍,详细的使用文档地址: [使用文档](https://github.com/SusionSuc/rabbit-client/blob/master/documents/README.md)
+
+>多图警告⚠️⚠️⚠️
 
 # 功能介绍
 
@@ -19,15 +16,15 @@
 
 ![](./pic/rabbit-speed-time.png)
 
-## 应用启动耗时统计
+### 应用启动耗时统计
 
 在对应用主页进行配置后,`rabbit`可以统计出如下图所示的冷启动耗时:
 
 ![](./pic/app-start.jpg)
 
-## 页面渲染与网络请求耗时统计
+### 页面渲染与网络请求耗时统计
 
-与网络请求耗时结合后，`rabbit`可以统计出一个页面的完全渲染耗时。这里的完全渲染耗时是指**从页面create到页面拿到请求结果并刷新页面所用的时间**，核心思想参考自:[Android自动化页面测速在美团的实践](https://tech.meituan.com/2018/07/12/autospeed.html)。最终统计的页面耗时如下图所示:
+与网络请求耗时结合后，`rabbit`可以统计出一个页面的完全渲染耗时。这里的完全渲染耗时是指**从页面create到页面拿到请求结果并刷新页面所用的时间**。核心思想参考自:[Android自动化页面测速在美团的实践](https://tech.meituan.com/2018/07/12/autospeed.html)。最终统计的页面耗时如下图所示:
 
 ![](./pic/page-start.jpg)
 
@@ -35,7 +32,7 @@
 
 基于编译时代码插桩, rabbit可以准确的统计每一个函数的耗时，并筛选出**慢函数**。
 
->慢函数这里定义为**在主线程消耗时间超过一定阈值的函数**(当然rabbit也支持配置检测其他线程的慢函数)。
+>慢函数定义为: **在主线程消耗时间超过一定阈值的函数**(rabbit也支持配置检测其他线程的慢函数)。
 
 rabbit支持分包检测慢函数:
 
@@ -50,7 +47,7 @@ rabbit支持分包检测慢函数:
 
 ## 代码扫描
 
-通过提供给`rabbit`一份代码扫描列表, rabbit可以扫描出这些代码调用的位置。rabbit默认会扫描一些阻塞代码, 比如下面这种:
+通过提供给`rabbit`一份代码扫描列表,rabbit可以在编译时扫描出这些代码调用的位置。默认会扫描一些阻塞代码, 比如下面这种:
 
 ```
 SharePreferences$Editor.commit()
@@ -73,9 +70,7 @@ rabbit通过`Choreographer`来检测主线程的运行情况,并异步采集主�
 对于下面代码:
 
 ```
-mBlockTv.setOnClickListener {
-    Thread.sleep(2000)
-}
+Thread.sleep(2000)
 ```
 
 rabbit会获得如下的卡顿采集结果:
@@ -185,12 +180,19 @@ java -jar apk-analyzer.jar apk-analyzer-config.json
 }
 ```
 
-## 自定义面板
+### 上报APK分析结果
 
-rabbit向外提供了`UI`扩展API,使用这些API可以很方便的把应用的“后门“放到rabbit中。
+需要在`apk-analyzer-config.json`中配置上报路径:
 
-具体操作见 : [在rabbit中自定义页面](https://github.com/SusionSuc/rabbit-client/blob/master/documents/custom-page.md)
+```
+{
+    "apkPath":"xxxx/app-Release.apk",
+    ...
+    "uploadPath":"xxxxxx/upload"
+}
+```
 
+上报的数据格式与rabbit的基本上报数据格式保证一致:
 
 ## 数据上报
 
@@ -198,20 +200,35 @@ rabbit目前支持上报大部分检测数据。通过一些简单的配置就�
 
 ```
 {
-    "deviceInfoStr": "{....}",
-    "infoStr": "{...}",
+    "device_info_str": "{....}",
+    "info_str": "{...}",
     "time": 1577775888933,
     "type": "fps_info",
-    "useTime": 19
+    "use_time": 19
 }
 ```
 
 - type : 上报的数据类型
-- deviceInfoStr : 设备信息, 格式json字符串
-- infoStr: 该类型的数据的具体内容, 格式为json字符串
-- useTime: 应用当前使用时长
+- device_info_str : 设备信息, 格式json字符串
+- info_str: 该类型的数据的具体内容, 格式为json字符串
+- use_time: 应用当前使用时长
 
-**rabbit提供了上报回调,可以通过这个回调很方便的来实现自定义的上报逻辑。**
+**rabbit提供了上报回调,可以通过这个回调很方便的来实现自定义的上报逻辑:**
+
+```
+rabbitConfig.reportConfig.dataReportListener = object :RabbitReportConfig.DataReportListener{
+    override fun onPrepareReportData(data: Any, currentUseTime: Long) {
+        //接入自己的上报逻辑
+    }
+}
+```
+
+## 自定义面板
+
+rabbit向外提供了`UI`扩展API,使用这些API可以很方便的把应用的“后门“放到rabbit中。
+
+具体操作见 : [在rabbit中自定义页面](https://github.com/SusionSuc/rabbit-client/blob/master/documents/custom-page.md)
+
 
 # 可用性与可配置性
 
@@ -245,7 +262,7 @@ rabbit目前没有经过线上环境的验证，为了方便接入，提供了no
 
 具体引入步骤见[引入noop包](https://github.com/SusionSuc/rabbit-client/blob/master/documents/noop-document.md)
 
->noop包中可以继续使用rabbit的UI功能。
+**noop包中可以继续使用rabbit的UI功能**
 
 # 后续开发计划
 

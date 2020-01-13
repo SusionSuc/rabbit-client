@@ -42,7 +42,7 @@ class RabbitHttpLogListPage(context: Context) : RabbitBasePage(context) {
     }
 
     private fun loadData() {
-        RabbitDbStorageManager.getAll(RabbitHttpLogInfo::class.java) {
+        RabbitDbStorageManager.getAll(RabbitHttpLogInfo::class.java, orderDesc = true) {
             mHttpLogListSPL.isRefreshing = false
             if (it.isNotEmpty()) {
                 hideEmptyView()

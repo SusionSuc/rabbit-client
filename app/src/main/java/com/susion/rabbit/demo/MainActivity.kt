@@ -98,6 +98,7 @@ class MainActivity : RabbitBaseActivity() {
 
     private fun sampleRequestNet() {
         val dis = DevToolsTestApiModel().getAllGameList().subscribe({
+            mRabbitMainAcRootLl.removeView(netRequestFinishView)
             mRabbitMainAcRootLl.addView(netRequestFinishView, 1)
         }, {
             Rabbit.saveCrashLog(it)
