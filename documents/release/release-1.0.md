@@ -2,7 +2,7 @@
 [rabbit](https://github.com/SusionSuc/rabbit-client)是一个Android APM框架(工具), 它不仅可以让开发者很方便的在本地对App做性能监控,
 也提供了完整的数据上报系统。目前包含的主要功能如下图:
 
-![](./pic/entry.jpg)
+![](../pic/entry.jpg)
 
 本文将对`rabbit`的功能做一个简单的介绍,详细的使用文档地址: [使用文档](https://github.com/SusionSuc/rabbit-client/blob/master/documents/README.md)
 
@@ -14,19 +14,19 @@
 
 通过编译时代码插桩, `rabbit`可以非常方便的统计应用的冷启动时间与页面渲染时间。测速统计的关键时间点定义如下图:
 
-![](./pic/rabbit-speed-time.png)
+![](../pic/rabbit-speed-time.png)
 
 ### 应用启动耗时统计
 
 在对应用主页进行配置后,`rabbit`可以统计出如下图所示的冷启动耗时:
 
-![](./pic/app-start.jpg)
+![](../pic/app-start.jpg)
 
 ### 页面渲染与网络请求耗时统计
 
 与网络请求耗时结合后，`rabbit`可以统计出一个页面的完全渲染耗时。这里的完全渲染耗时是指**从页面create到页面拿到请求结果并刷新页面所用的时间**。核心思想参考自:[Android自动化页面测速在美团的实践](https://tech.meituan.com/2018/07/12/autospeed.html)。最终统计的页面耗时如下图所示:
 
-![](./pic/page-start.jpg)
+![](../pic/page-start.jpg)
 
 ## 慢函数检测
 
@@ -36,13 +36,13 @@
 
 rabbit支持分包检测慢函数:
 
-![](./pic/slow-method-pkg.jpg)
+![](../pic/slow-method-pkg.jpg)
 
 支持查看每一个包下的慢函数列表以及每一个慢函数的堆栈:
 
-![](./pic/slow-method-list.jpg)
+![](../pic/slow-method-list.jpg)
 
-![](./pic/slow-method-stack.jpg)
+![](../pic/slow-method-stack.jpg)
 
 
 ## 代码扫描
@@ -55,13 +55,13 @@ SharePreferences$Editor.commit()
 
 最终扫描结果会展示如下:
 
-![](./pic/block-call.jpg)
+![](../pic/block-call.jpg)
 
 ## 网络日志监控
 
 rabbit可以记录网络请求日志并方便的查看返回的`json`数据:
 
-![](./pic/net-log.jpg)
+![](../pic/net-log.jpg)
 
 ## 卡顿日志监控
 
@@ -75,33 +75,33 @@ Thread.sleep(2000)
 
 rabbit会获得如下的卡顿采集结果:
 
-![](./pic/block-stack.jpg)
+![](../pic/block-stack.jpg)
 
 ## FPS分析
 
 rabbit会在主线程looper运行时计算主线程FPS并实时的显示出来:
 
-![](./pic/fps.jpg)
+![](../pic/fps.jpg)
 
 rabbit支持分页面分析FPS:
 
-![](./pic/fps-analyzer.jpg)
+![](../pic/fps-analyzer.jpg)
 
 ## 内存分析
 
 功能类似于`FPS分析`,rabbit支持实时显示内存使用情况并分页面分析内存占用情况:
 
-![](./pic/memory.jpg)
+![](../pic/memory.jpg)
 
 分页面内存统计:
 
-![](./pic/memory-analyzer.jpg)
+![](../pic/memory-analyzer.jpg)
 
 ## 异常捕获
 
 通过设置`Thread.setDefaultUncaughtExceptionHandler`,rabbit可以捕获java层异常并展示出来:
 
-![](./pic/crash.jpg)
+![](../pic/crash.jpg)
 
 ## 内存泄漏捕获
 
@@ -246,15 +246,15 @@ Rabbit.init(rabbitConfig)
 
 >监控开关设置
 
-![](./pic/config-page.jpg)
+![](../pic/config-page.jpg)
 
 >快捷功能
 
-![](./pic/quick-page.jpg)
+![](../pic/quick-page.jpg)
 
 >查看当前配置
 
-![](./pic/view-config.jpg)
+![](../pic/view-config.jpg)
 
 # noop包
 
@@ -263,6 +263,12 @@ rabbit目前没有经过线上环境的验证，为了方便接入，提供了no
 具体引入步骤见[引入noop包](https://github.com/SusionSuc/rabbit-client/blob/master/documents/noop-document.md)
 
 **noop包中可以继续使用rabbit的UI功能**
+
+# 架构
+
+rabbit并没有使用什么很特别架构, 整个项目目前是以组件化的形式开发的,因此各个功能的解耦做的还是比较好的:
+
+![](../pic/rabbit-client-arc.png)
 
 # 后续开发计划
 
@@ -288,7 +294,7 @@ rabbit目前维护者只有我一个人。 一个人的力量终究有限, 如�
 
 再推广一下我的个人公众微信号:
 
-![](./pic/微信公众号.jpeg)
+![](../pic/微信公众号.jpeg)
 
 # 参考资料
 

@@ -14,6 +14,7 @@
 - [数据上报](./data-report.md)
 - [noop包接入](./noop-document.md)
 - [rabbit配置相关](./gradle-plugin-config-demo.md)
+- [release文档](./release/release-1.0.md)
 - [其他](./others.md)
 
 ## 快速使用

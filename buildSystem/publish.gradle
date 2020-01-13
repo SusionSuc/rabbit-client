@@ -5,7 +5,7 @@ publish {
     repoName = 'rabbit'
     groupId = 'com.susion'
     artifactId = ARTIFACT_ID
-    publishVersion = '1.0.0-alpha5'
+    publishVersion = '1.0.0-alpha6'
     desc = 'android apm client'
     website = 'https://github.com/SusionSuc/Rabbit'  
 }
