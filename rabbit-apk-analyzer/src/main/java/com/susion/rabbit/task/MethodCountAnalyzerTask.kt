@@ -89,7 +89,7 @@ class MethodCountAnalyzerTask : AnalyzerTask {
     /*
      *  parse the descriptor of class to normal dot-split class name (XXX.XXX.XXX)
      */
-    fun getNormalClassName(name: String): String {
+    private fun getNormalClassName(name: String): String {
         if (!Util.isNullOrNil(name)) {
             var className = Output.descriptorToDot(name)
             if (className.endsWith("[]")) {                                                //enum or array

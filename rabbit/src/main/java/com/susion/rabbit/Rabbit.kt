@@ -2,25 +2,22 @@ package com.susion.rabbit
 
 import android.app.Activity
 import android.app.Application
-import android.content.Context
 import android.view.View
 import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.RabbitMonitorProtocol
 import com.susion.rabbit.base.RabbitProtocol
 import com.susion.rabbit.base.RabbitSettings
 import com.susion.rabbit.base.common.RabbitUtils
-import com.susion.rabbit.base.entities.RabbitHttpLogInfo
-import com.susion.rabbit.base.entities.RabbitMemoryInfo
 import com.susion.rabbit.base.config.RabbitConfig
 import com.susion.rabbit.base.config.RabbitCustomConfigProtocol
-import com.susion.rabbit.base.entities.RabbitAppSpeedMonitorConfig
-import com.susion.rabbit.base.ui.RabbitPageProtocol
+import com.susion.rabbit.base.entities.RabbitHttpLogInfo
+import com.susion.rabbit.base.entities.RabbitMemoryInfo
+import com.susion.rabbit.base.ui.RabbitUiKernal
+import com.susion.rabbit.base.ui.utils.FloatingViewPermissionHelper
 import com.susion.rabbit.monitor.RabbitMonitor
 import com.susion.rabbit.report.RabbitReport
 import com.susion.rabbit.storage.RabbitStorage
 import com.susion.rabbit.tracer.RabbitPluginConfig
-import com.susion.rabbit.base.ui.RabbitUiKernal
-import com.susion.rabbit.base.ui.utils.FloatingViewPermissionHelper
 import com.susion.rabbit.ui.RabbitUi
 import okhttp3.Interceptor
 
