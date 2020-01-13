@@ -11,7 +11,7 @@ open class RabbitConfigExtension {
 
     var methodMonitorPkgs: List<String> = ArrayList<String>() // 函数耗时扫描范围
 
-    var blockCodePkg: List<String> = ArrayList<String>()
+    var blockCodePkgs: List<String> = ArrayList<String>()
 
     var enable: Boolean = true // 是否启动整个插件
 
@@ -19,9 +19,9 @@ open class RabbitConfigExtension {
 
     var enableSpeedCheck: Boolean = true // 应用测速
 
-    var enableBlockCodeCheck: Boolean = true  // 阻塞代码调用
+    var enableBlockCodeCheck: Boolean = false  // 阻塞代码调用
 
-    var enableMethodCostCheck: Boolean = true //方法耗时
+    var enableMethodCostCheck: Boolean = false //方法耗时
 
     var customBlockCodeCheckList: Set<String> = HashSet<String>() // 自定义阻塞代码检测列表
 

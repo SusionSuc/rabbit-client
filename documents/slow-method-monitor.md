@@ -1,4 +1,4 @@
-# 慢函数检测
+# 慢函数检测(函数耗时)
 
 >慢函数: 卡顿主线程超过一定时间的函数。
 
@@ -8,6 +8,9 @@
 apply plugin: 'rabbit-tracer-transform'
 
 rabbitConfig {
+
+    enableMethodCostCheck = true //默认是关闭的
+
     methodMonitorPkgs = ['com.susion.rabbit.demo', 'com.susion.rabbit.demo.page']  //指定检测范围
 }
 ```

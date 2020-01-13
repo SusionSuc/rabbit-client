@@ -20,6 +20,9 @@
 apply plugin: 'rabbit-tracer-transform'
 
 rabbitConfig {
+    
+    enableSpeedCheck = true //不需要设置，默认是打开的
+
     pageSpeedMonitorPkgs = ['com.susion.rabbit.demo']  // 指定测速范围
 }
 ```

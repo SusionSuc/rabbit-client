@@ -1,3 +1,20 @@
+# RabbitConfig
+
+[RabbitConfig](https://github.com/SusionSuc/rabbit-client/blob/master/rabbit-base/src/main/java/com/susion/rabbit/base/config/RabbitConfig.kt)这个类包含了`Rabbit`所有可用配置:
+
+```
+class RabbitConfig(
+    var enable: Boolean = true,
+    var enableLog: Boolean = true,
+    @Transient var uiConfig: RabbitUiConfig = RabbitUiConfig(),
+    var storageConfig: RabbitStorageConfig = RabbitStorageConfig(),
+    var monitorConfig: RabbitMonitorConfig = RabbitMonitorConfig(),
+    var reportConfig: RabbitReportConfig = RabbitReportConfig()
+)
+```
+
+具体指出的配置可以看各个功能文档。
+
 # 插件配置示例
 
 下面包含了`rabbit grale plugin`所支持的所有配置:
@@ -35,3 +52,9 @@
 }
 ```
 
+
+# 快速查看rabbit当前配置
+
+可以点击rabbit主面板右上角的火箭(🚀)按钮,然后点击**查看当前配置**:
+
+![](./pic/current-config.jpg)

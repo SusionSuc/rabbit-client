@@ -36,7 +36,7 @@ class BlockCodeScanTransform : RabbitClassTransformer {
 
         if (!RabbitTransformUtils.classInPkgList(
                 klass.className,
-                GlobalConfig.pluginConfig.blockCodePkg
+                GlobalConfig.pluginConfig.blockCodePkgs
             )
         ) {
             return klass

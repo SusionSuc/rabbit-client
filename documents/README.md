@@ -13,7 +13,7 @@
 - [接入自定义业务面板](./custom-page.md)
 - [数据上报](./data-report.md)
 - [noop包接入](./noop-document.md)
-- [gradle插件配置示例](./gradle-plugin-config-demo.md)
+- [rabbit配置相关](./gradle-plugin-config-demo.md)
 - [其他](./others.md)
 
 ## 快速使用

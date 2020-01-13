@@ -14,6 +14,9 @@ getSharedPreferences("test", Context.MODE_PRIVATE).edit().putBoolean("111", true
 >xxx.gradle
 ```
 rabbitConfig {
+    
+    enableBlockCodeCheck = true //默认是关闭的
+
     //阻塞代码扫描范围
     blockCodePkg = ['com.susion.rabbit.demo']
 }
