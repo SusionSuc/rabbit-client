@@ -6,13 +6,28 @@
     android:orientation="vertical"
     tools:parentTag="LinearLayout">
 
-    <ImageView
-        android:id="@+id/mDevToolsFloatingIv"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="end"
-        android:layout_margin="3dp"
-        android:src="@drawable/rabbit_icon_floating" />
+    <FrameLayout
+        android:id="@+id/mRabbitFloatingIvParent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end">
+
+        <ImageView
+            android:id="@+id/mDevToolsFloatingIv"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="3dp"
+            android:src="@drawable/rabbit_icon_floating" />
+
+        <ImageView
+            android:id="@+id/mRabbitFloatingIvMonitorMode"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_gravity="center"
+            android:src="@drawable/rabbit_icon_monitor_mode"
+            android:visibility="gone" />
+
+    </FrameLayout>
 
     <TextView
         android:id="@+id/mDevToolsFloatingTvFps"

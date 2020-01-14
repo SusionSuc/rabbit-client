@@ -43,6 +43,11 @@ object RabbitUiKernal {
                         floatingView.updateMemorySize(msg.obj as String)
                     }
                 }
+                RabbitUiEvent.CHANGE_GLOBAL_MONITOR_STATUS ->{
+                    if (msg.obj is Boolean){
+                        floatingView.changeMonitorModeStatue(msg.obj as Boolean)
+                    }
+                }
             }
         }
     }
@@ -259,7 +264,7 @@ object RabbitUiKernal {
         hideRabbitPage()
     }
 
-    fun updateUiFromAsyncThread(msgType: Int, params: Any) {
+    fun refreshFloatingViewUi(msgType: Int, params: Any) {
         val msg = uiHandler.obtainMessage()
         msg.what = msgType
         msg.obj = params

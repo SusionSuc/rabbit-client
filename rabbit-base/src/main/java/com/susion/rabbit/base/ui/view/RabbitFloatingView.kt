@@ -126,7 +126,7 @@ class RabbitFloatingView(context: Context) : LinearLayout(context) {
     }
 
     private fun changeFlowingViewGravity(newGravity: Int) {
-        (mDevToolsFloatingIv.layoutParams as LayoutParams).gravity = newGravity
+        (mRabbitFloatingIvParent.layoutParams as LayoutParams).gravity = newGravity
         (mDevToolsFloatingTvFps.layoutParams as LayoutParams).gravity = newGravity
         (mDevToolsFloatingTvMemory.layoutParams as LayoutParams).gravity = newGravity
     }
@@ -150,6 +150,10 @@ class RabbitFloatingView(context: Context) : LinearLayout(context) {
         }
         mDevToolsFloatingTvMemory.visibility = View.VISIBLE
         mDevToolsFloatingTvMemory.text = memorySize
+    }
+
+    fun changeMonitorModeStatue(open: Boolean) {
+        mRabbitFloatingIvMonitorMode.visibility = if (open) View.VISIBLE else View.GONE
     }
 
 }

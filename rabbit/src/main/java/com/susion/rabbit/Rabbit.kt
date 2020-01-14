@@ -12,6 +12,7 @@ import com.susion.rabbit.base.config.RabbitConfig
 import com.susion.rabbit.base.config.RabbitCustomConfigProtocol
 import com.susion.rabbit.base.entities.RabbitHttpLogInfo
 import com.susion.rabbit.base.entities.RabbitMemoryInfo
+import com.susion.rabbit.base.ui.RabbitUiEvent
 import com.susion.rabbit.base.ui.RabbitUiKernal
 import com.susion.rabbit.base.ui.utils.FloatingViewPermissionHelper
 import com.susion.rabbit.monitor.RabbitMonitor
@@ -53,17 +54,17 @@ object Rabbit : RabbitProtocol {
         RabbitLog.isEnable = mConfig.enableLog
 
         //存储配置
-        RabbitStorage.eventListener = object : RabbitStorage.EventListener {
+        RabbitStorage.addEventListener(object : RabbitStorage.EventListener {
             override fun onStorageData(obj: Any) {
                 RabbitReport.report(obj, RabbitMonitor.getAppUseTimes())
             }
-        }
+        })
         RabbitStorage.init(application, mConfig.storageConfig)
 
         //监控配置
         RabbitMonitor.eventListener = object : RabbitMonitor.UiEventListener {
             override fun updateUi(type: Int, value: Any) {
-                RabbitUi.updateUiFromAsyncThread(type, value)
+                RabbitUi.refreshFloatingViewUi(type, value)
             }
         }
         RabbitMonitor.init(application, mConfig.monitorConfig)
@@ -85,6 +86,17 @@ object Rabbit : RabbitProtocol {
         uiConfig.customConfigList.addAll(getCustomConfigs())
         RabbitUi.init(application, uiConfig)
         RabbitUi.eventListener = object : RabbitUi.EventListener {
+            override fun getGlobalConfig() = mConfig
+
+            override fun changeGlobalMonitorStatus(open: Boolean) {
+                RabbitUi.refreshFloatingViewUi(RabbitUiEvent.CHANGE_GLOBAL_MONITOR_STATUS, open)
+                if (open) {
+                    RabbitMonitor.openMonitor(RabbitMonitorProtocol.GLOBAL_MONITOR.name)
+                } else {
+                    RabbitMonitor.closeMonitor(RabbitMonitorProtocol.GLOBAL_MONITOR.name)
+                }
+            }
+
             override fun toggleMonitorStatus(monitor: RabbitMonitorProtocol, open: Boolean) {
                 val monitorName = monitor.getMonitorInfo().name
                 if (open) {
@@ -93,9 +105,6 @@ object Rabbit : RabbitProtocol {
                     RabbitMonitor.closeMonitor(monitorName)
                 }
             }
-        }
-        RabbitUi.externalDataRequest = object : RabbitUi.ExternalDataReuqest {
-            override fun getGlobalConfig() = mConfig
         }
 
         isInit = true

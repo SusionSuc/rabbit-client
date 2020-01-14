@@ -18,8 +18,8 @@ class RabbitCurrentConfigListPage(context: Context) : RabbitBasePage(context) {
     init {
         setTitle("当前配置详情")
 
-        if (RabbitUi.externalDataRequest != null) {
-            val currentConfig = RabbitUi.externalDataRequest?.getGlobalConfig()
+        if (RabbitUi.eventListener != null) {
+            val currentConfig = RabbitUi.eventListener?.getGlobalConfig()
             mRabbitCurrentConfigPageJsonRv.bindJson(Gson().toJson(currentConfig))
         }
     }

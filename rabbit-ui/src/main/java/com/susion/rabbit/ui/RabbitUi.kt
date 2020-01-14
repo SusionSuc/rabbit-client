@@ -20,7 +20,6 @@ object RabbitUi {
 
     var eventListener: EventListener? = null
     var mConfig: RabbitUiConfig = RabbitUiConfig()
-    var externalDataRequest:ExternalDataReuqest? = null
 
     fun init(application: Application, config: RabbitUiConfig) {
         mConfig = config
@@ -34,6 +33,8 @@ object RabbitUi {
 
     interface EventListener {
         fun toggleMonitorStatus(monitor: RabbitMonitorProtocol, open: Boolean)
+        fun getGlobalConfig(): RabbitConfig
+        fun changeGlobalMonitorStatus(open:Boolean)
     }
 
     fun defaultSupportFeatures(application: Application): ArrayList<RabbitMainFeatureInfo> {
@@ -134,9 +135,6 @@ object RabbitUi {
 
     fun getCurrentActivity() = RabbitUiKernal.appCurrentActivity?.get()
 
-    fun updateUiFromAsyncThread(msgType: Int, params: Any)  = RabbitUiKernal.updateUiFromAsyncThread(msgType, params)
+    fun refreshFloatingViewUi(msgType: Int, params: Any)  = RabbitUiKernal.refreshFloatingViewUi(msgType, params)
 
-    interface ExternalDataReuqest{
-        fun getGlobalConfig(): RabbitConfig
-    }
 }

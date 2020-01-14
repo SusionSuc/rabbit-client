@@ -26,7 +26,7 @@ object RabbitDbStorageManager {
     }
     var daoSession: DaoSession? = null
     private val greenDaoDbManage by lazy {
-        RabbitGreenDaoDbManage(RabbitStorage.application!!,daoSession)
+        RabbitGreenDaoDbManage(RabbitStorage.application!!, daoSession)
     }
 
     /**
@@ -58,15 +58,15 @@ object RabbitDbStorageManager {
     fun save(obj: Any) {
         val dis = RabbitAsync.asyncRun({
             greenDaoDbManage.saveObj(obj)
-        }, DB_THREAD)
-
+        }, DB_THREAD, {
+            RabbitStorage.notifyEventListenerNewDataSave(obj)
+        })
         disposableList.add(dis)
-        RabbitStorage.eventListener?.onStorageData(obj)
     }
 
     fun saveSync(obj: Any) {
         greenDaoDbManage.saveObj(obj)
-        RabbitStorage.eventListener?.onStorageData(obj)
+        RabbitStorage.notifyEventListenerNewDataSave(obj)
     }
 
     fun <T : Any> clearAllData(clazz: Class<T>) {
