@@ -171,7 +171,6 @@ object Rabbit : RabbitProtocol {
                             mConfig.reportConfig.enable = newStatus
                         }
                     })
-
             )
 
             add(

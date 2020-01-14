@@ -19,7 +19,7 @@ class RabbitMonitorConfigPage(context: Context) : RabbitBasePage(context) {
 
     init {
         layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
-        setTitle("监控开关")
+        setTitle("监控配置")
 
         //监控相关的配置
         RabbitUi.mConfig.monitorList.filter { it.getMonitorInfo().showInExternal }
