@@ -17,6 +17,9 @@ class RabbitGlobalMonitorModePage(context: Context) : RabbitBasePage(context) {
     override fun getLayoutResId() = R.layout.rabbit_page_global_monitor_mode
 
     init {
+
+        setTitle("全局性能测试")
+
         mRabbitPageGlobalMonitorModeSwitchBtn.refreshUi(
             "性能测试模式",
             RabbitSettings.autoOpen(context, RabbitMonitorProtocol.GLOBAL_MONITOR.name)
