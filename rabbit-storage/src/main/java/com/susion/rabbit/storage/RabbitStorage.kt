@@ -101,6 +101,13 @@ object RabbitStorage {
                     daoSession.rabbitIoCallInfoDao as AbstractDao<Any, Long>
                 )
             )
+
+            add(
+                RabbitDaoProviderConfig(
+                    RabbitGlobalMonitorInfo::class.java as Class<Any>,
+                    daoSession.rabbitGlobalMonitorInfoDao as AbstractDao<Any, Long>
+                )
+            )
         }
         return daoProvider
     }
@@ -124,7 +131,7 @@ object RabbitStorage {
                 RabbitDbStorageManager.clearAllData(RabbitMemoryInfo::class.java)
             }
 
-            RabbitMonitorProtocol.METHOD_TRACE.name -> {
+            RabbitMonitorProtocol.SLOW_METHOD.name -> {
                 RabbitDbStorageManager.clearAllData(RabbitSlowMethodInfo::class.java)
             }
 
@@ -143,7 +150,7 @@ object RabbitStorage {
         clearDataByMonitorName(RabbitMonitorProtocol.APP_SPEED.name)
         clearDataByMonitorName(RabbitMonitorProtocol.EXCEPTION.name)
         clearDataByMonitorName(RabbitMonitorProtocol.MEMORY.name)
-        clearDataByMonitorName(RabbitMonitorProtocol.METHOD_TRACE.name)
+        clearDataByMonitorName(RabbitMonitorProtocol.SLOW_METHOD.name)
         clearDataByMonitorName(RabbitMonitorProtocol.NET.name)
         clearDataByMonitorName(RabbitMonitorProtocol.BLOCK_CALL.name)
     }

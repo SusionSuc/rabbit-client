@@ -16,6 +16,8 @@ import com.susion.rabbit.ui.page.global.RabbitGlobalMonitorModePage
 
 /**
  * susionwang at 2019-12-30
+ * UI层向外暴露的API
+ * 顶层业务不要直接使用这个类，方法都委托给 ->[Rabbit.kt]
  */
 object RabbitUi {
 

@@ -10,6 +10,7 @@ import com.susion.rabbit.base.RabbitSettings
 import com.susion.rabbit.base.common.RabbitUtils
 import com.susion.rabbit.base.config.RabbitConfig
 import com.susion.rabbit.base.config.RabbitCustomConfigProtocol
+import com.susion.rabbit.base.config.RabbitUiConfig
 import com.susion.rabbit.base.entities.RabbitHttpLogInfo
 import com.susion.rabbit.base.entities.RabbitMemoryInfo
 import com.susion.rabbit.base.ui.RabbitUiEvent
@@ -47,29 +48,45 @@ object Rabbit : RabbitProtocol {
             return
         }
 
-        //加载 gradle plugin init
-        RabbitPluginConfig.loadConfig()
-
-        // init log
         RabbitLog.isEnable = mConfig.enableLog
 
-        //存储配置
+        configStorage()
+
+        configMonitor()
+
+        configReport()
+
+        configUi()
+
+        initGlobalMonitorMode()
+
+        initAllComponent()
+
+        isInit = true
+
+        RabbitLog.d("init success!!")
+    }
+
+    private fun configStorage() {
         RabbitStorage.addEventListener(object : RabbitStorage.EventListener {
             override fun onStorageData(obj: Any) {
                 RabbitReport.report(obj, RabbitMonitor.getAppUseTimes())
             }
         })
-        RabbitStorage.init(application, mConfig.storageConfig)
+    }
 
-        //监控配置
+    private fun configMonitor() {
+        //加载 gradle plugin init
+        RabbitPluginConfig.loadConfig()
         RabbitMonitor.eventListener = object : RabbitMonitor.UiEventListener {
             override fun updateUi(type: Int, value: Any) {
                 RabbitUi.refreshFloatingViewUi(type, value)
             }
         }
-        RabbitMonitor.init(application, mConfig.monitorConfig)
 
-        //上报配置
+    }
+
+    private fun configReport() {
         val reportConfig = mConfig.reportConfig
         reportConfig.enable = true
         reportConfig.notReportDataFormat.apply {
@@ -77,22 +94,26 @@ object Rabbit : RabbitProtocol {
             add(RabbitHttpLogInfo::class.java)
         }
         reportConfig.fpsReportPeriodS = mConfig.monitorConfig.fpsReportPeriodS
-        RabbitReport.init(application, reportConfig)
+    }
 
-        // UI
+    private fun configUi(): RabbitUiConfig {
         val uiConfig = mConfig.uiConfig
         uiConfig.monitorList = RabbitMonitor.getMonitorList()
         uiConfig.entryFeatures.addAll(RabbitUi.defaultSupportFeatures(application))
         uiConfig.customConfigList.addAll(getCustomConfigs())
-        RabbitUi.init(application, uiConfig)
         RabbitUi.eventListener = object : RabbitUi.EventListener {
 
             override fun getGlobalConfig() = mConfig
 
             override fun changeGlobalMonitorStatus(open: Boolean) {
                 val monitorName = RabbitMonitorProtocol.GLOBAL_MONITOR.name
-                RabbitUi.refreshFloatingViewUi(RabbitUiEvent.CHANGE_GLOBAL_MONITOR_STATUS, open)
                 RabbitSettings.setAutoOpenFlag(application, monitorName, open)
+                if (!open) {
+                    RabbitUi.refreshFloatingViewUi(
+                        RabbitUiEvent.CHANGE_GLOBAL_MONITOR_STATUS,
+                        false
+                    )
+                }
             }
 
             override fun toggleMonitorStatus(monitor: RabbitMonitorProtocol, open: Boolean) {
@@ -104,14 +125,30 @@ object Rabbit : RabbitProtocol {
                 }
             }
         }
-        //全局监控模式的特殊处理
-        val autoOpen = RabbitSettings.autoOpen(application, RabbitMonitorProtocol.GLOBAL_MONITOR.name)
-        if (autoOpen){
-            RabbitUi.refreshFloatingViewUi(RabbitUiEvent.CHANGE_GLOBAL_MONITOR_STATUS, true)
-        }
+        return uiConfig
+    }
 
-        isInit = true
-        RabbitLog.d("init success!!")
+    private fun initAllComponent() {
+        RabbitReport.init(application, mConfig.reportConfig)
+        RabbitUi.init(application, mConfig.uiConfig)
+        RabbitMonitor.init(application, mConfig.monitorConfig)
+        RabbitStorage.init(application, mConfig.storageConfig)
+    }
+
+    //全局监控模式的特殊处理
+    private fun initGlobalMonitorMode() {
+        val autoOpen = RabbitSettings.autoOpen(application, RabbitMonitorProtocol.GLOBAL_MONITOR.name)
+        if (!autoOpen)return
+
+        RabbitUi.refreshFloatingViewUi(RabbitUiEvent.CHANGE_GLOBAL_MONITOR_STATUS, true)
+        //直接打开需要监控的组件
+        mConfig.monitorConfig.autoOpenMonitors.apply {
+            add(RabbitMonitorProtocol.FPS.name)
+            add(RabbitMonitorProtocol.MEMORY.name)
+            add(RabbitMonitorProtocol.APP_SPEED.name)
+            add(RabbitMonitorProtocol.BLOCK.name)
+            add(RabbitMonitorProtocol.SLOW_METHOD.name)
+        }
     }
 
     override fun reConfig(config: RabbitConfig) {

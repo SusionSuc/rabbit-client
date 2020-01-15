@@ -1,19 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mRabbitPageGlobalMonitorModeSRL"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/rabbit_white"
-    android:orientation="vertical">
+    android:background="@color/rabbit_white">
 
-    <com.susion.rabbit.base.ui.view.RabbitSwitchButton
-        android:id="@+id/mRabbitPageGlobalMonitorModeSwitchBtn"
-        android:layout_width="match_parent"
-        android:layout_height="50dp" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/mRabbitPageGlobalMonitorModeRv"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp" />
+        android:orientation="vertical">
 
-</LinearLayout>
+        <com.susion.rabbit.base.ui.view.RabbitSwitchButton
+            android:id="@+id/mRabbitPageGlobalMonitorModeSwitchBtn"
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/mRabbitPageGlobalMonitorModeRv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp" />
+
+    </LinearLayout>
+
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

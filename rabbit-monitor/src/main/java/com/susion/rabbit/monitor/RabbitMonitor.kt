@@ -31,6 +31,21 @@ object RabbitMonitor {
     private var appCurrentActivity: WeakReference<Activity?>? = null    //当前应用正在展示的Activity
     private var pageChangeListeners = HashSet<PageChangeListener>()
 
+    init {
+        monitorMap.apply {
+            put(RabbitMonitorProtocol.GLOBAL_MONITOR.name, RabbitGlobalModeMonitor())
+            put(RabbitMonitorProtocol.APP_SPEED.name, RabbitAppSpeedMonitor())
+            put(RabbitMonitorProtocol.FPS.name, RabbitFPSMonitor())
+            put(RabbitMonitorProtocol.BLOCK.name, RabbitBlockMonitor())
+            put(RabbitMonitorProtocol.MEMORY.name, RabbitMemoryMonitor())
+            put(RabbitMonitorProtocol.EXCEPTION.name, RabbitExceptionMonitor())
+            put(RabbitMonitorProtocol.NET.name, RabbitNetMonitor())
+            put(RabbitMonitorProtocol.USE_TIME.name, RabbitAppUseTimeMonitor())
+            put(RabbitMonitorProtocol.SLOW_METHOD.name, RabbitMethodMonitor())
+            put(RabbitMonitorProtocol.BLOCK_CALL.name, RabbitIoCallMonitor())
+        }
+    }
+
     fun init(application: Application, config_: RabbitMonitorConfig) {
 
         if (isInit) return
@@ -45,20 +60,6 @@ object RabbitMonitor {
                 pageChangeListeners.forEach { it.onPageShow() }
             }
         })
-
-        //所有的监控类型
-        monitorMap.apply {
-            put(RabbitMonitorProtocol.GLOBAL_MONITOR.name, RabbitGlobalModeMonitor())
-            put(RabbitMonitorProtocol.APP_SPEED.name, RabbitAppSpeedMonitor())
-            put(RabbitMonitorProtocol.FPS.name, RabbitFPSMonitor())
-            put(RabbitMonitorProtocol.BLOCK.name, RabbitBlockMonitor())
-            put(RabbitMonitorProtocol.MEMORY.name, RabbitMemoryMonitor())
-            put(RabbitMonitorProtocol.EXCEPTION.name, RabbitExceptionMonitor())
-            put(RabbitMonitorProtocol.NET.name, RabbitNetMonitor())
-            put(RabbitMonitorProtocol.USE_TIME.name, RabbitAppUseTimeMonitor())
-            put(RabbitMonitorProtocol.METHOD_TRACE.name, RabbitMethodMonitor())
-            put(RabbitMonitorProtocol.BLOCK_CALL.name, RabbitIoCallMonitor())
-        }
 
         mConfig.autoOpenMonitors.forEach {
             RabbitSettings.setAutoOpenFlag(application, it, true)

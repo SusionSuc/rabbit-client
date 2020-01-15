@@ -26,7 +26,7 @@ import java.lang.ref.WeakReference
  */
 object RabbitUiKernal {
 
-    const val PAGE_NULL = 1 //一个页面都没有
+    const val PAGE_NULL = 1
     const val PAGE_HIDE = 2
     const val PAGE_SHOWING = 3
 
@@ -148,7 +148,7 @@ object RabbitUiKernal {
         }
     }
 
-    private fun getWm() = (application!!.getSystemService(Context.WINDOW_SERVICE) as WindowManager)
+    private fun getWm() = (application.getSystemService(Context.WINDOW_SERVICE) as WindowManager)
 
     private fun addPage(pageClass: Class<out View>): RabbitPageProtocol? {
         var newedView: View? = null

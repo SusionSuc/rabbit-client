@@ -46,7 +46,7 @@ class RabbitGlobalModeMonitor(override var isOpen: Boolean = false) : RabbitMoni
                 globalMonitorInfo?.memoryIds = "${globalMonitorInfo?.memoryIds}${obj.id}&"
             }
             is RabbitAppStartSpeedInfo -> {
-                globalMonitorInfo?.appStardId = obj.id.toString()
+                globalMonitorInfo?.appStartId = obj.id.toString()
             }
             is RabbitPageSpeedInfo -> {
                 globalMonitorInfo?.pageSpeedIds = "${globalMonitorInfo?.pageSpeedIds}${obj.id}&"
@@ -63,7 +63,7 @@ class RabbitGlobalModeMonitor(override var isOpen: Boolean = false) : RabbitMoni
             RabbitDbStorageManager.updateOrCreate(
                 RabbitGlobalMonitorInfo::class.java,
                 globalMonitorInfo!!,
-                globalMonitorInfo!!.id
+                globalMonitorInfo?.id ?: 0
             )
         }
     }

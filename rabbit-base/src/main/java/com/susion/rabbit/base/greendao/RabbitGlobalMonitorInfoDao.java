@@ -28,7 +28,7 @@ public class RabbitGlobalMonitorInfoDao extends AbstractDao<RabbitGlobalMonitorI
         public final static Property Time = new Property(1, Long.class, "time", false, "TIME");
         public final static Property FpsIds = new Property(2, String.class, "fpsIds", false, "FPS_IDS");
         public final static Property MemoryIds = new Property(3, String.class, "memoryIds", false, "MEMORY_IDS");
-        public final static Property AppStardId = new Property(4, String.class, "appStardId", false, "APP_STARD_ID");
+        public final static Property AppStartId = new Property(4, String.class, "appStartId", false, "APP_START_ID");
         public final static Property PageSpeedIds = new Property(5, String.class, "pageSpeedIds", false, "PAGE_SPEED_IDS");
         public final static Property BlockIds = new Property(6, String.class, "blockIds", false, "BLOCK_IDS");
         public final static Property SlowMethodIds = new Property(7, String.class, "slowMethodIds", false, "SLOW_METHOD_IDS");
@@ -51,7 +51,7 @@ public class RabbitGlobalMonitorInfoDao extends AbstractDao<RabbitGlobalMonitorI
                 "\"TIME\" INTEGER," + // 1: time
                 "\"FPS_IDS\" TEXT," + // 2: fpsIds
                 "\"MEMORY_IDS\" TEXT," + // 3: memoryIds
-                "\"APP_STARD_ID\" TEXT," + // 4: appStardId
+                "\"APP_START_ID\" TEXT," + // 4: appStartId
                 "\"PAGE_SPEED_IDS\" TEXT," + // 5: pageSpeedIds
                 "\"BLOCK_IDS\" TEXT," + // 6: blockIds
                 "\"SLOW_METHOD_IDS\" TEXT);"); // 7: slowMethodIds
@@ -87,9 +87,9 @@ public class RabbitGlobalMonitorInfoDao extends AbstractDao<RabbitGlobalMonitorI
             stmt.bindString(4, memoryIds);
         }
  
-        String appStardId = entity.getAppStardId();
-        if (appStardId != null) {
-            stmt.bindString(5, appStardId);
+        String appStartId = entity.getAppStartId();
+        if (appStartId != null) {
+            stmt.bindString(5, appStartId);
         }
  
         String pageSpeedIds = entity.getPageSpeedIds();
@@ -132,9 +132,9 @@ public class RabbitGlobalMonitorInfoDao extends AbstractDao<RabbitGlobalMonitorI
             stmt.bindString(4, memoryIds);
         }
  
-        String appStardId = entity.getAppStardId();
-        if (appStardId != null) {
-            stmt.bindString(5, appStardId);
+        String appStartId = entity.getAppStartId();
+        if (appStartId != null) {
+            stmt.bindString(5, appStartId);
         }
  
         String pageSpeedIds = entity.getPageSpeedIds();
@@ -165,7 +165,7 @@ public class RabbitGlobalMonitorInfoDao extends AbstractDao<RabbitGlobalMonitorI
             cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1), // time
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // fpsIds
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // memoryIds
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // appStardId
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // appStartId
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // pageSpeedIds
             cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // blockIds
             cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7) // slowMethodIds
@@ -179,7 +179,7 @@ public class RabbitGlobalMonitorInfoDao extends AbstractDao<RabbitGlobalMonitorI
         entity.setTime(cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1));
         entity.setFpsIds(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setMemoryIds(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
-        entity.setAppStardId(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setAppStartId(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
         entity.setPageSpeedIds(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
         entity.setBlockIds(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
         entity.setSlowMethodIds(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));

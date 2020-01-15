@@ -19,7 +19,7 @@ public class RabbitGlobalMonitorInfo {
 
     public String memoryIds;
 
-    public String appStardId;
+    public String appStartId;
 
     public String pageSpeedIds;
 
@@ -27,15 +27,15 @@ public class RabbitGlobalMonitorInfo {
 
     public String slowMethodIds;
 
-    @Generated(hash = 630406623)
+    @Generated(hash = 1344227634)
     public RabbitGlobalMonitorInfo(Long id, Long time, String fpsIds,
-            String memoryIds, String appStardId, String pageSpeedIds,
+            String memoryIds, String appStartId, String pageSpeedIds,
             String blockIds, String slowMethodIds) {
         this.id = id;
         this.time = time;
         this.fpsIds = fpsIds;
         this.memoryIds = memoryIds;
-        this.appStardId = appStardId;
+        this.appStartId = appStartId;
         this.pageSpeedIds = pageSpeedIds;
         this.blockIds = blockIds;
         this.slowMethodIds = slowMethodIds;
@@ -77,12 +77,12 @@ public class RabbitGlobalMonitorInfo {
         this.memoryIds = memoryIds;
     }
 
-    public String getAppStardId() {
-        return this.appStardId;
+    public String getAppStartId() {
+        return this.appStartId;
     }
 
-    public void setAppStardId(String appStardId) {
-        this.appStardId = appStardId;
+    public void setAppStartId(String appStartId) {
+        this.appStartId = appStartId;
     }
 
     public String getPageSpeedIds() {

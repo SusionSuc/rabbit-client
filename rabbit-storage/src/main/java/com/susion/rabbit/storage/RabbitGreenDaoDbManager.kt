@@ -11,6 +11,7 @@ import org.greenrobot.greendao.query.WhereCondition
 
 /**
  * susionwang at 2019-10-21
+ *
  * 所有rabbit可以持久数据都应该有对应的 Dao
  */
 internal class RabbitGreenDaoDbManage(val context: Context, val daoSession: DaoSession? = null) {
@@ -38,8 +39,12 @@ internal class RabbitGreenDaoDbManage(val context: Context, val daoSession: DaoS
         }
     }
 
-    fun <T : Any> getDataById(clazz: Class<T>, id: Long): T? {
+    private fun <T : Any> getDataById(clazz: Class<T>, id: Long): T? {
         return daoImpl(clazz)?.loadByRowId(id) ?: null
+    }
+
+    fun <T :Any> getObjSync(clazz: Class<T>, id: Long): T? {
+        return getDataById(clazz,id)
     }
 
     fun <T : Any> deleteById(clazz: Class<T>, id: Long) {
@@ -88,7 +93,8 @@ internal class RabbitGreenDaoDbManage(val context: Context, val daoSession: DaoS
         if (condition != null) {
             queryBuilder?.where(condition)
         }
-        return queryBuilder?.build()?.list() as List<T>
+
+        return queryBuilder?.build()?.list() ?: emptyList()
     }
 
     fun <T : Any> getDataCount(clazz: Class<T>): Long {
@@ -134,5 +140,7 @@ internal class RabbitGreenDaoDbManage(val context: Context, val daoSession: DaoS
             clearAllData(it)
         }
     }
+
+
 
 }

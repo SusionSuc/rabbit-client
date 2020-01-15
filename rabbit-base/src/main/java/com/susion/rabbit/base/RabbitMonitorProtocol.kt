@@ -61,7 +61,7 @@ interface RabbitMonitorProtocol {
         )
 
         //慢函数
-        val METHOD_TRACE = MonitorInfo(
+        val SLOW_METHOD = MonitorInfo(
             "method_trace",
             "慢函数",
             showInExternal = true

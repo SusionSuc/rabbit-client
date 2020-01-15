@@ -42,7 +42,7 @@ class RabbitUiBlockListPage(context: Context) : RabbitBasePage(context) {
     }
 
     private fun loadData() {
-        RabbitDbStorageManager.getAll(RabbitBlockFrameInfo::class.java,orderDesc = true) {
+        RabbitDbStorageManager.getAll(RabbitBlockFrameInfo::class.java, orderDesc = true) {
             mUiBlockPageSRL.isRefreshing = false
 
             if (it.isEmpty()){

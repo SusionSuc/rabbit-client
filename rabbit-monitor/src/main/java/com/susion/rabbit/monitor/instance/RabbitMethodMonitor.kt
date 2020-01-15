@@ -72,6 +72,6 @@ internal class RabbitMethodMonitor(override var isOpen: Boolean = false) : Rabbi
         }
     }
 
-    override fun getMonitorInfo() = RabbitMonitorProtocol.METHOD_TRACE
+    override fun getMonitorInfo() = RabbitMonitorProtocol.SLOW_METHOD
 
 }

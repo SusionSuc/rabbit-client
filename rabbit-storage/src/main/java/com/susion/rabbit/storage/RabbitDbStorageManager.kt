@@ -69,6 +69,10 @@ object RabbitDbStorageManager {
         RabbitStorage.notifyEventListenerNewDataSave(obj)
     }
 
+    fun <T : Any> getObjSync(clazz: Class<T>, id: Long): T? {
+        return greenDaoDbManage.getObjSync(clazz, id)
+    }
+
     fun <T : Any> clearAllData(clazz: Class<T>) {
         RabbitAsync.asyncRun({ greenDaoDbManage.clearAllData(clazz) }, DB_THREAD)
     }
