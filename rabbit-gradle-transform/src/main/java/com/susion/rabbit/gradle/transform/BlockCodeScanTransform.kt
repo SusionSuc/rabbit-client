@@ -1,7 +1,7 @@
 package com.susion.rabbit.gradle.transform
 
 import com.susion.rabbit.gradle.GlobalConfig
-import com.susion.rabbit.gradle.core.RabbitClassTransformer
+import com.susion.rabbit.gradle.core.RabbitAsmClassVisitorTransformer
 import com.susion.rabbit.gradle.core.context.TransformContext
 import com.susion.rabbit.gradle.core.rxentension.asIterable
 import com.susion.rabbit.gradle.core.rxentension.className
@@ -14,7 +14,7 @@ import org.objectweb.asm.tree.MethodInsnNode
  * susionwang at 2020-01-02
  * 扫描 IO 函数
  */
-class BlockCodeScanTransform : RabbitClassTransformer {
+class BlockCodeScanTransform : RabbitAsmClassVisitorTransformer {
 
     private val blockApis: Set<String> by lazy {
         if (GlobalConfig.pluginConfig.customBlockCodeCheckList.isNotEmpty()) {

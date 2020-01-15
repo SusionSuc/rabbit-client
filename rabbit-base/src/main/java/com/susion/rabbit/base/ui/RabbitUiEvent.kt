@@ -5,5 +5,6 @@ package com.susion.rabbit.base.ui
  */
 object RabbitUiEvent {
     const val MSG_UPDATE_FPS = 100
-    const val MSG_UPDATE_MEMORY_VALUE = 110
+    const val MSG_UPDATE_MEMORY_VALUE = 101
+    const val CHANGE_GLOBAL_MONITOR_STATUS = 102
 }

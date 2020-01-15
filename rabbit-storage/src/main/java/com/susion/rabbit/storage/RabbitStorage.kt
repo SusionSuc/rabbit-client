@@ -16,7 +16,7 @@ object RabbitStorage {
     private val DB_NAME = "rabbit-apm"
     var mConfig = RabbitStorageConfig()
     var application: Application? = null
-    var eventListener: EventListener? = null
+    private var eventListeners = ArrayList<EventListener>()
 
     fun init(application_: Application, config: RabbitStorageConfig) {
         application = application_
@@ -135,6 +135,20 @@ object RabbitStorage {
                 RabbitDbStorageManager.clearAllData(RabbitIoCallInfo::class.java)
 
             }
+        }
+    }
+
+    fun addEventListener(eventListener: EventListener){
+        eventListeners.add(eventListener)
+    }
+
+    fun removeEventListener(eventListener: EventListener){
+        eventListeners.remove(eventListener)
+    }
+
+    internal fun notifyEventListenerNewDataSave(obj:Any){
+        eventListeners.forEach {
+            it.onStorageData(obj)
         }
     }
 

@@ -6,7 +6,7 @@ import com.susion.rabbit.gradle.core.context.TransformContext
 /**
  * Represents bytecode transformer
  */
-interface RabbitByteCodeTransformer : TransformListener {
+interface RabbitClassByteCodeTransformer : TransformListener {
 
     /**
      * Returns the transformed bytecode
@@ -17,6 +17,6 @@ interface RabbitByteCodeTransformer : TransformListener {
      *         The bytecode to be transformed
      * @return the transformed bytecode
      */
-    fun transform(context: TransformContext, bytecode: ByteArray, classFilePath:String): ByteArray
+    fun transform(context: TransformContext, bytecode: ByteArray, classFilePath: String): ByteArray
 
 }

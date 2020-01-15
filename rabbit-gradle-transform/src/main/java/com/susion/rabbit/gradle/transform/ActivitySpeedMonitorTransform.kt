@@ -1,8 +1,7 @@
 package com.susion.rabbit.gradle.transform
 
-import com.google.auto.service.AutoService
 import com.susion.rabbit.gradle.GlobalConfig
-import com.susion.rabbit.gradle.core.RabbitClassTransformer
+import com.susion.rabbit.gradle.core.RabbitAsmClassVisitorTransformer
 import com.susion.rabbit.gradle.core.context.ArtifactManager
 import com.susion.rabbit.gradle.core.context.TransformContext
 import com.susion.rabbit.gradle.core.rxentension.className
@@ -17,7 +16,7 @@ import javax.xml.parsers.SAXParserFactory
  * susionwang at 2019-11-15
  * 在onCreate方法运行完毕时插入监控代码
  */
-class ActivitySpeedMonitorTransform : RabbitClassTransformer {
+class ActivitySpeedMonitorTransform : RabbitAsmClassVisitorTransformer {
 
     private val ACTIVITY_SPEED_MONITOR_CLASS =
         "com/susion/rabbit/monitor/instance/ActivitySpeedMonitor"

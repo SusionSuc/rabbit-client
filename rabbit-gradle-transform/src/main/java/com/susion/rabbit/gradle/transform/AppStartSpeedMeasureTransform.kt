@@ -1,9 +1,8 @@
 package com.susion.rabbit.gradle.transform
 
-import com.google.auto.service.AutoService
 import com.susion.rabbit.gradle.GlobalConfig
 import com.susion.rabbit.tracer.AppStartTracer
-import com.susion.rabbit.gradle.core.RabbitClassTransformer
+import com.susion.rabbit.gradle.core.RabbitAsmClassVisitorTransformer
 import com.susion.rabbit.gradle.core.context.ArtifactManager
 import com.susion.rabbit.gradle.core.context.TransformContext
 import com.susion.rabbit.gradle.core.rxentension.className
@@ -22,7 +21,7 @@ import javax.xml.parsers.SAXParserFactory
  * start time : Application Construct
  * end time : onCreate() end
  */
-class AppStartSpeedMeasureTransform : RabbitClassTransformer {
+class AppStartSpeedMeasureTransform : RabbitAsmClassVisitorTransformer {
 
     private val METHOD_ATTACH_CONTEXT_NAME = "attachBaseContext"
     private val METHOD_ATTACH_CONTEXT_DESC = "(Landroid/content/Context;)V"

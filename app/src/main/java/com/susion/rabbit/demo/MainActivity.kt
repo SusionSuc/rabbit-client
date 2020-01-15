@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import com.susion.rabbit.demo.net.DevToolsTestApiModel
 import com.susion.rabbit.Rabbit
+import com.susion.rabbit.base.entities.RabbitFPSInfo
 import com.susion.rabbit.base.ui.dp2px
 import com.susion.rabbit.demo.page.SimpleListActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -104,6 +105,27 @@ class MainActivity : RabbitBaseActivity() {
             Rabbit.saveCrashLog(it)
             Log.d(TAG, "error : ${it.message}")
         })
+    }
+
+    fun testRtn0(): Int {
+        val a = 1
+        val b = 2
+        fakeBlockCode()
+        return 3
+    }
+
+    fun testRtn1():Int{
+        val a = 1
+        val b = 2
+        fakeBlockCode()
+        return a + b
+    }
+
+    fun testRtn2():RabbitFPSInfo{
+        val a = 1
+        val b = 2
+        fakeBlockCode()
+        return RabbitFPSInfo()
     }
 
 }

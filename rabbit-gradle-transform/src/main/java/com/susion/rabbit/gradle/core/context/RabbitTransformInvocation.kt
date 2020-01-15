@@ -8,7 +8,7 @@ import com.android.build.gradle.internal.publishing.AndroidArtifacts.ArtifactTyp
 import com.android.build.gradle.internal.publishing.AndroidArtifacts.ArtifactType.JAR
 import com.android.build.gradle.internal.publishing.AndroidArtifacts.ConsumedConfigType.RUNTIME_CLASSPATH
 import com.susion.rabbit.gradle.GlobalConfig
-import com.susion.rabbit.gradle.core.RabbitByteCodeTransformer
+import com.susion.rabbit.gradle.core.RabbitClassByteCodeTransformer
 import com.susion.rabbit.gradle.core.TransformListener
 import com.susion.rabbit.gradle.core.asm.Klass
 import com.susion.rabbit.gradle.core.asm.KlassPool
@@ -24,7 +24,7 @@ import java.util.concurrent.ForkJoinPool
  */
 internal class RabbitTransformInvocation(
     private val dInvocation: TransformInvocation,
-    private val transformers: List<RabbitByteCodeTransformer>
+    private val transforms: List<RabbitClassByteCodeTransformer> = ArrayList()
 ) :
     TransformInvocation, TransformContext,
     TransformListener,
@@ -88,11 +88,11 @@ internal class RabbitTransformInvocation(
 
     override fun getContext(): Context = dInvocation.context
 
-    override fun onPreTransform(context: TransformContext) = transformers.forEach {
+    override fun onPreTransform(context: TransformContext) = transforms.forEach {
         it.onPreTransform(this)
     }
 
-    override fun onPostTransform(context: TransformContext) = transformers.forEach {
+    override fun onPostTransform(context: TransformContext) = transforms.forEach {
         it.onPostTransform(this)
     }
 
@@ -210,7 +210,7 @@ internal class RabbitTransformInvocation(
     // 应用在每一个class文件上
     private fun ByteArray.transform(invocation: RabbitTransformInvocation): ByteArray {
         if (!GlobalConfig.pluginConfig.enable) return this
-        return transformers.fold(this) { bytes, transformer ->
+        return transforms.fold(this) { bytes, transformer ->
             transformer.transform(invocation, bytes, "")
         }
     }

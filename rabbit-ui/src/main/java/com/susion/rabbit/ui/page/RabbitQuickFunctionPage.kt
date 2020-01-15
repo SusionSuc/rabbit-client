@@ -61,13 +61,7 @@ class RabbitQuickFunctionPage(context: Context) : RabbitBasePage(context) {
         mRabbitQuickPagePerformanceTest.checkedStatusChangeListener =
             object : RabbitSwitchButton.CheckedStatusChangeListener {
                 override fun checkedStatusChange(isChecked: Boolean) {
-                    if (isChecked) {
-                        showToast("开发中...")
-                        postDelayed({
-                            mRabbitQuickPagePerformanceTest.setCheckStatus(false)
-                        }, 500)
-
-                    }
+                    RabbitUi.eventListener?.changeGlobalMonitorStatus(isChecked)
                 }
             }
 

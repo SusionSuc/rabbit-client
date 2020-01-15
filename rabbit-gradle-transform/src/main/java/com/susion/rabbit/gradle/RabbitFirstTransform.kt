@@ -5,7 +5,8 @@ import com.android.build.api.transform.Transform
 import com.android.build.api.transform.TransformInvocation
 import com.android.build.gradle.internal.pipeline.TransformManager
 import com.android.builder.model.AndroidProject
-import com.susion.rabbit.gradle.core.AsmTransformer
+import com.susion.rabbit.gradle.core.AsmByteArrayTransformer
+import com.susion.rabbit.gradle.core.AsmClassVisitorTransformer
 import com.susion.rabbit.gradle.core.context.RabbitTransformInvocation
 import com.susion.rabbit.gradle.core.rxentension.file
 import com.susion.rabbit.gradle.transform.*
@@ -33,17 +34,21 @@ class RabbitFirstTransform : Transform() {
 
         RabbitTransformUtils.print("🍊 rabbit RabbitFirstTransform run")
 
-        val transformInstances = listOf(
+        val classVisitorTransforms = listOf(
             ActivitySpeedMonitorTransform(),
             AppStartSpeedMeasureTransform(),
-            MethodCostMonitorTransform(),
             RabbitPluginConfigTransform(),
             BlockCodeScanTransform()
         )
 
+        val byteArraysTransforms = listOf(MethodCostMonitorTransform())
+
         RabbitTransformInvocation(
             transformInvocation,
-            listOf(AsmTransformer(transformInstances))
+            listOf(
+                AsmClassVisitorTransformer(classVisitorTransforms),
+                AsmByteArrayTransformer(byteArraysTransforms)
+            )
         ).apply {
             if (isIncremental) {
                 onPreTransform(this)

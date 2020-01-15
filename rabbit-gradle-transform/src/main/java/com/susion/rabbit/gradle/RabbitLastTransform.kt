@@ -5,7 +5,7 @@ import com.android.build.api.transform.Transform
 import com.android.build.api.transform.TransformInvocation
 import com.android.build.gradle.internal.pipeline.TransformManager
 import com.android.builder.model.AndroidProject
-import com.susion.rabbit.gradle.core.AsmTransformer
+import com.susion.rabbit.gradle.core.AsmClassVisitorTransformer
 import com.susion.rabbit.gradle.core.context.RabbitTransformInvocation
 import com.susion.rabbit.gradle.core.rxentension.file
 import com.susion.rabbit.gradle.transform.*
@@ -39,7 +39,7 @@ class RabbitLastTransform : Transform() {
 
         RabbitTransformInvocation(
             transformInvocation,
-            listOf(AsmTransformer(transformInstances))
+            listOf(AsmClassVisitorTransformer(transformInstances))
         ).apply {
             if (isIncremental) {
                 onPreTransform(this)

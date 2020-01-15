@@ -25,6 +25,7 @@ public class DaoMaster extends AbstractDaoMaster {
         RabbitBlockFrameInfoDao.createTable(db, ifNotExists);
         RabbitReportInfoDao.createTable(db, ifNotExists);
         RabbitAppStartSpeedInfoDao.createTable(db, ifNotExists);
+        RabbitGlobalMonitorInfoDao.createTable(db, ifNotExists);
         RabbitSlowMethodInfoDao.createTable(db, ifNotExists);
         RabbitExceptionInfoDao.createTable(db, ifNotExists);
         RabbitPageSpeedInfoDao.createTable(db, ifNotExists);
@@ -39,6 +40,7 @@ public class DaoMaster extends AbstractDaoMaster {
         RabbitBlockFrameInfoDao.dropTable(db, ifExists);
         RabbitReportInfoDao.dropTable(db, ifExists);
         RabbitAppStartSpeedInfoDao.dropTable(db, ifExists);
+        RabbitGlobalMonitorInfoDao.dropTable(db, ifExists);
         RabbitSlowMethodInfoDao.dropTable(db, ifExists);
         RabbitExceptionInfoDao.dropTable(db, ifExists);
         RabbitPageSpeedInfoDao.dropTable(db, ifExists);
@@ -67,6 +69,7 @@ public class DaoMaster extends AbstractDaoMaster {
         registerDaoClass(RabbitBlockFrameInfoDao.class);
         registerDaoClass(RabbitReportInfoDao.class);
         registerDaoClass(RabbitAppStartSpeedInfoDao.class);
+        registerDaoClass(RabbitGlobalMonitorInfoDao.class);
         registerDaoClass(RabbitSlowMethodInfoDao.class);
         registerDaoClass(RabbitExceptionInfoDao.class);
         registerDaoClass(RabbitPageSpeedInfoDao.class);
