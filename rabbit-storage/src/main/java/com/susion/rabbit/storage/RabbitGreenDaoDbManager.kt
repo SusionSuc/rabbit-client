@@ -28,6 +28,16 @@ internal class RabbitGreenDaoDbManage(val context: Context, val daoSession: DaoS
         RabbitLog.d(TAG_STORAGE, "save data $obj")
     }
 
+    fun <T : Any> updateOrCreate(clazz: Class<T>, obj: Any, id: Long) {
+        val daoImpl = daoImpl(obj.javaClass) ?: return
+        val storageData = getDataById(clazz, id)
+        if (storageData == null) {
+            daoImpl.save(obj)
+        } else {
+            daoImpl.update(obj)
+        }
+    }
+
     fun <T : Any> getDataById(clazz: Class<T>, id: Long): T? {
         return daoImpl(clazz)?.loadByRowId(id) ?: null
     }

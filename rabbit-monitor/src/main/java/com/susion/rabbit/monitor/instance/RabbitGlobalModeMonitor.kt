@@ -5,10 +5,12 @@ import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.RabbitMonitorProtocol
 import com.susion.rabbit.base.TAG_MONITOR
 import com.susion.rabbit.base.entities.*
+import com.susion.rabbit.storage.RabbitDbStorageManager
 import com.susion.rabbit.storage.RabbitStorage
 
 /**
  * susionwang at 2020-01-14
+ *
  * 全局监控模式
  */
 class RabbitGlobalModeMonitor(override var isOpen: Boolean = false) : RabbitMonitorProtocol {
@@ -55,6 +57,14 @@ class RabbitGlobalModeMonitor(override var isOpen: Boolean = false) : RabbitMoni
             is RabbitSlowMethodInfo -> {
                 globalMonitorInfo?.slowMethodIds = "${globalMonitorInfo?.slowMethodIds}${obj.id}&"
             }
+        }
+
+        if (globalMonitorInfo != null) {
+            RabbitDbStorageManager.updateOrCreate(
+                RabbitGlobalMonitorInfo::class.java,
+                globalMonitorInfo!!,
+                globalMonitorInfo!!.id
+            )
         }
     }
 

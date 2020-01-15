@@ -101,6 +101,12 @@ object RabbitDbStorageManager {
         })
     }
 
+    fun <T : Any> updateOrCreate(clazz: Class<T>, obj: Any, id: Long) {
+        RabbitAsync.asyncRun({
+            greenDaoDbManage.updateOrCreate(clazz, obj, id)
+        }, DB_THREAD)
+    }
+
     fun destroy() {
         disposableList.forEach {
             it.dispose()

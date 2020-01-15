@@ -24,6 +24,7 @@ class RabbitGlobalMonitorModePage(context: Context) : RabbitBasePage(context) {
             "性能测试模式",
             RabbitSettings.autoOpen(context, RabbitMonitorProtocol.GLOBAL_MONITOR.name)
         )
+
         mRabbitPageGlobalMonitorModeSwitchBtn.checkedStatusChangeListener =
             object : RabbitSwitchButton.CheckedStatusChangeListener {
                 override fun checkedStatusChange(isChecked: Boolean) {
@@ -33,6 +34,7 @@ class RabbitGlobalMonitorModePage(context: Context) : RabbitBasePage(context) {
                     RabbitUi.eventListener?.changeGlobalMonitorStatus(isChecked)
                 }
             }
+
     }
 
 }
