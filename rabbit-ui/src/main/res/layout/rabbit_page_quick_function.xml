@@ -6,11 +6,6 @@
     android:background="@color/rabbit_white"
     android:orientation="vertical">
 
-    <com.susion.rabbit.base.ui.view.RabbitSwitchButton
-        android:id="@+id/mRabbitQuickPagePerformanceTest"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"/>
-
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
@@ -52,6 +47,23 @@
             android:textSize="16dp" />
 
     </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_marginStart="15dp"
+        android:layout_height="1px"
+        android:background="@color/rabbit_divider_line" />
+
+    <TextView
+        android:id="@+id/mRabbitQuickPageClearAllDataBtn"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="15dp"
+        android:gravity="start|center_vertical"
+        android:text="清除所有监控数据"
+        android:textColor="@color/rabbit_black"
+        android:textSize="17dp" />
 
     <View
         android:layout_width="match_parent"

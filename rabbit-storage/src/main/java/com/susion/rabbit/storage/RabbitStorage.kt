@@ -34,7 +34,8 @@ object RabbitStorage {
     }
 
     private fun getFixedDaoProvider(): List<RabbitDaoProviderConfig> {
-        val daoSession = DaoMaster(DaoMaster.DevOpenHelper(application, DB_NAME).writableDb).newSession()
+        val daoSession =
+            DaoMaster(DaoMaster.DevOpenHelper(application, DB_NAME).writableDb).newSession()
         RabbitDbStorageManager.daoSession = daoSession
         val daoProvider = ArrayList<RabbitDaoProviderConfig>().apply {
             add(
@@ -131,22 +132,31 @@ object RabbitStorage {
                 RabbitDbStorageManager.clearAllData(RabbitHttpLogInfo::class.java)
             }
 
-            RabbitMonitorProtocol.BLOCK_CALL.name ->{
+            RabbitMonitorProtocol.BLOCK_CALL.name -> {
                 RabbitDbStorageManager.clearAllData(RabbitIoCallInfo::class.java)
 
             }
         }
     }
 
-    fun addEventListener(eventListener: EventListener){
+    fun clearAllData() {
+        clearDataByMonitorName(RabbitMonitorProtocol.APP_SPEED.name)
+        clearDataByMonitorName(RabbitMonitorProtocol.EXCEPTION.name)
+        clearDataByMonitorName(RabbitMonitorProtocol.MEMORY.name)
+        clearDataByMonitorName(RabbitMonitorProtocol.METHOD_TRACE.name)
+        clearDataByMonitorName(RabbitMonitorProtocol.NET.name)
+        clearDataByMonitorName(RabbitMonitorProtocol.BLOCK_CALL.name)
+    }
+
+    fun addEventListener(eventListener: EventListener) {
         eventListeners.add(eventListener)
     }
 
-    fun removeEventListener(eventListener: EventListener){
+    fun removeEventListener(eventListener: EventListener) {
         eventListeners.remove(eventListener)
     }
 
-    internal fun notifyEventListenerNewDataSave(obj:Any){
+    internal fun notifyEventListenerNewDataSave(obj: Any) {
         eventListeners.forEach {
             it.onStorageData(obj)
         }

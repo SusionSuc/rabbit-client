@@ -2,6 +2,8 @@ package com.susion.rabbit.ui.page
 
 import android.content.Context
 import android.widget.ArrayAdapter
+import com.susion.rabbit.base.RabbitMonitorProtocol
+import com.susion.rabbit.base.RabbitSettings
 import com.susion.rabbit.base.ui.dp2px
 import com.susion.rabbit.storage.RabbitStorage
 import com.susion.rabbit.base.ui.page.RabbitBasePage
@@ -34,6 +36,11 @@ class RabbitQuickFunctionPage(context: Context) : RabbitBasePage(context) {
             showToast("清空成功!")
         }
 
+        mRabbitQuickPageClearAllDataBtn.throttleFirstClick(Consumer {
+            RabbitStorage.clearAllData()
+            showToast("清空成功!")
+        })
+
         //自定义添加的一些配置
         RabbitUi.mConfig.customConfigList.forEach {
             val switchBtn = RabbitSwitchButton(context).apply {
@@ -56,14 +63,6 @@ class RabbitQuickFunctionPage(context: Context) : RabbitBasePage(context) {
         mRabbitQuickPageViewConfig.throttleFirstClick(Consumer {
             RabbitUi.openPage(RabbitCurrentConfigListPage::class.java)
         })
-
-        mRabbitQuickPagePerformanceTest.refreshUi("性能测试模式", false)
-        mRabbitQuickPagePerformanceTest.checkedStatusChangeListener =
-            object : RabbitSwitchButton.CheckedStatusChangeListener {
-                override fun checkedStatusChange(isChecked: Boolean) {
-                    RabbitUi.eventListener?.changeGlobalMonitorStatus(isChecked)
-                }
-            }
 
         mRabbitQuickPageViewAbout.throttleFirstClick(Consumer {
             RabbitUi.openPage(RabbitAboutPage::class.java)

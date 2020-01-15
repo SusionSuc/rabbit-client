@@ -86,15 +86,13 @@ object Rabbit : RabbitProtocol {
         uiConfig.customConfigList.addAll(getCustomConfigs())
         RabbitUi.init(application, uiConfig)
         RabbitUi.eventListener = object : RabbitUi.EventListener {
+
             override fun getGlobalConfig() = mConfig
 
             override fun changeGlobalMonitorStatus(open: Boolean) {
+                val monitorName = RabbitMonitorProtocol.GLOBAL_MONITOR.name
                 RabbitUi.refreshFloatingViewUi(RabbitUiEvent.CHANGE_GLOBAL_MONITOR_STATUS, open)
-                if (open) {
-                    RabbitMonitor.openMonitor(RabbitMonitorProtocol.GLOBAL_MONITOR.name)
-                } else {
-                    RabbitMonitor.closeMonitor(RabbitMonitorProtocol.GLOBAL_MONITOR.name)
-                }
+                RabbitSettings.setAutoOpenFlag(application, monitorName, open)
             }
 
             override fun toggleMonitorStatus(monitor: RabbitMonitorProtocol, open: Boolean) {
@@ -105,6 +103,11 @@ object Rabbit : RabbitProtocol {
                     RabbitMonitor.closeMonitor(monitorName)
                 }
             }
+        }
+        //全局监控模式的特殊处理
+        val autoOpen = RabbitSettings.autoOpen(application, RabbitMonitorProtocol.GLOBAL_MONITOR.name)
+        if (autoOpen){
+            RabbitUi.refreshFloatingViewUi(RabbitUiEvent.CHANGE_GLOBAL_MONITOR_STATUS, true)
         }
 
         isInit = true

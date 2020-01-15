@@ -12,6 +12,7 @@ import com.susion.rabbit.base.ui.RabbitUiKernal
 import com.susion.rabbit.base.ui.page.RabbitEntryPage
 import com.susion.rabbit.ui.monitor.R
 import com.susion.rabbit.ui.page.*
+import com.susion.rabbit.ui.page.global.RabbitGlobalMonitorModePage
 
 /**
  * susionwang at 2019-12-30
@@ -44,6 +45,13 @@ object RabbitUi {
                     "监控配置",
                     R.drawable.rabbit_icon_feature_setting,
                     RabbitMonitorConfigPage::class.java
+                )
+            )
+            add(
+                RabbitMainFeatureInfo(
+                    "全局性能测量模式",
+                    R.drawable.rabbit_icon_global_monitor,
+                    RabbitGlobalMonitorModePage::class.java
                 )
             )
             add(

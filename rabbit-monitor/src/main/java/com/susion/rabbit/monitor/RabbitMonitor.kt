@@ -27,7 +27,7 @@ object RabbitMonitor {
     private var isInit = false
     var mConfig: RabbitMonitorConfig = RabbitMonitorConfig()
     var eventListener: UiEventListener? = null
-    private val monitorMap = HashMap<String, RabbitMonitorProtocol>()
+    private val monitorMap = LinkedHashMap<String, RabbitMonitorProtocol>()
     private var appCurrentActivity: WeakReference<Activity?>? = null    //当前应用正在展示的Activity
     private var pageChangeListeners = HashSet<PageChangeListener>()
 
@@ -48,6 +48,7 @@ object RabbitMonitor {
 
         //所有的监控类型
         monitorMap.apply {
+            put(RabbitMonitorProtocol.GLOBAL_MONITOR.name, RabbitGlobalModeMonitor())
             put(RabbitMonitorProtocol.APP_SPEED.name, RabbitAppSpeedMonitor())
             put(RabbitMonitorProtocol.FPS.name, RabbitFPSMonitor())
             put(RabbitMonitorProtocol.BLOCK.name, RabbitBlockMonitor())
@@ -57,7 +58,6 @@ object RabbitMonitor {
             put(RabbitMonitorProtocol.USE_TIME.name, RabbitAppUseTimeMonitor())
             put(RabbitMonitorProtocol.METHOD_TRACE.name, RabbitMethodMonitor())
             put(RabbitMonitorProtocol.BLOCK_CALL.name, RabbitIoCallMonitor())
-//            put(RabbitMonitorProtocol.GLOBAL_MONITOR.name, RabbitGlobalModeMonitor())
         }
 
         mConfig.autoOpenMonitors.forEach {
