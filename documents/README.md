@@ -1,7 +1,5 @@
 # Rabbit使用文档
 
-![version](https://img.shields.io/badge/version-1.0.0--alpha8-brightgreen)  
-
 ## 文档索引
 
 - [应用测速](./speed-monitor.md)

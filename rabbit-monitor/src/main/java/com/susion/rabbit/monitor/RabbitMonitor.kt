@@ -57,7 +57,7 @@ object RabbitMonitor {
             put(RabbitMonitorProtocol.USE_TIME.name, RabbitAppUseTimeMonitor())
             put(RabbitMonitorProtocol.METHOD_TRACE.name, RabbitMethodMonitor())
             put(RabbitMonitorProtocol.BLOCK_CALL.name, RabbitIoCallMonitor())
-            put(RabbitMonitorProtocol.GLOBAL_MONITOR.name, RabbitGlobalModeMonitor())
+//            put(RabbitMonitorProtocol.GLOBAL_MONITOR.name, RabbitGlobalModeMonitor())
         }
 
         mConfig.autoOpenMonitors.forEach {
