@@ -1,9 +1,8 @@
 package com.susion.rabbit.gradle.transform
 
-import com.google.auto.service.AutoService
 import com.susion.rabbit.tracer.RabbitPluginConfig
 import com.susion.rabbit.gradle.GlobalConfig
-import com.susion.rabbit.gradle.core.RabbitClassTransformer
+import com.susion.rabbit.gradle.core.RabbitAsmClassVisitorTransformer
 import com.susion.rabbit.gradle.core.context.TransformContext
 import com.susion.rabbit.gradle.core.rxentension.find
 import com.susion.rabbit.gradle.utils.RabbitTransformUtils
@@ -15,7 +14,7 @@ import org.objectweb.asm.tree.MethodInsnNode
 /**
  * susionwang at 2020-01-02
  */
-class RabbitPluginConfigTransform : RabbitClassTransformer {
+class RabbitPluginConfigTransform : RabbitAsmClassVisitorTransformer {
 
     override fun transform(context: TransformContext, klass: ClassNode,classFilePath:String): ClassNode {
 

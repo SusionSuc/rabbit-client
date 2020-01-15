@@ -1,107 +1,38 @@
 package com.susion.rabbit.gradle.transform
 
 import com.susion.rabbit.gradle.GlobalConfig
-import com.susion.rabbit.gradle.core.RabbitClassTransformer
+import com.susion.rabbit.gradle.core.RabbitAsmByteArrayTransformer
 import com.susion.rabbit.gradle.core.context.TransformContext
-import com.susion.rabbit.gradle.core.rxentension.className
-import com.susion.rabbit.gradle.core.rxentension.find
-import com.susion.rabbit.gradle.transform.asm.MethodCostIRtnMethodVisitor
+import com.susion.rabbit.gradle.transform.visitor.MethodCostClassVisitor
 import com.susion.rabbit.gradle.utils.RabbitTransformUtils
-import com.susion.rabbit.tracer.MethodTracer
 import org.objectweb.asm.ClassReader
+import org.objectweb.asm.ClassReader.EXPAND_FRAMES
+import org.objectweb.asm.ClassWriter
 import org.objectweb.asm.Opcodes
-import org.objectweb.asm.tree.ClassNode
-import org.objectweb.asm.tree.LdcInsnNode
-import org.objectweb.asm.tree.MethodInsnNode
-import org.objectweb.asm.tree.VarInsnNode
 
 /**
- * susionwang at 2020-01-02
+ * susionwang at 2020-01-15
  */
-class MethodCostMonitorTransform : RabbitClassTransformer {
-
-    private val notTraceMethods = listOf("<init>", "<clinit>")
+class MethodCostMonitorTransform : RabbitAsmByteArrayTransformer {
 
     override fun transform(
         context: TransformContext,
-        klass: ClassNode,
+        bytes: ByteArray,
         classFilePath: String
-    ): ClassNode {
+    ): ByteArray {
 
         if (!GlobalConfig.pluginConfig.enableMethodCostCheck) {
-            return klass
+            return bytes
         }
 
-        if (!RabbitTransformUtils.classInPkgList(
-                klass.className,
-                GlobalConfig.pluginConfig.methodMonitorPkgs
-            )
-        ) {
-            return klass
-        }
-
-        insertMethodTraceCode(klass)
-
-        return klass
-    }
-
-    private fun insertMethodTraceCode(klass: ClassNode) {
-
-        for (method in klass.methods) {
-
-            val abstractMethod = (method.access and Opcodes.ACC_ABSTRACT) == Opcodes.ACC_ABSTRACT
-
-            //函数太短的话不统计
-            if (notTraceMethods.contains(method.name) || method.instructions.size() < 3 || abstractMethod) {
-                continue
-            }
-
-            val methodName = "${klass.name.replace("/", ".")}&${method.name}()"
-            val firstInstruction = method.instructions?.first
-            var returnInstruction = method.instructions?.find(Opcodes.RETURN)
-
-            val isStaticMethod = (method.access and Opcodes.ACC_STATIC) == Opcodes.ACC_STATIC
-
-            if (returnInstruction !=null) {
-                RabbitTransformUtils.print("MethodCostMonitorTransform -> trace method  $methodName")
-                //trace method start
-                method.instructions?.insert(firstInstruction, getMethodRecordStartMethod())
-
-                //trace method end
-                if (!isStaticMethod) {
-                    method.instructions?.insertBefore(
-                        returnInstruction,
-                        VarInsnNode(Opcodes.ALOAD, 0)
-                    )
-                }
-                method.instructions?.insertBefore(returnInstruction, LdcInsnNode(methodName)) //参数
-                method.instructions?.insertBefore(returnInstruction, getMethodRecordEndMethod())
-            }else{
-                //换一种插法, 上面这个访问方式不好确定RTN代码的位置
-//                val mv = klass.visitMethod(method.access, method.name, method.desc, method.signature, method.exceptions.toTypedArray())
-//                method.accept(MethodCostIRtnMethodVisitor(Opcodes.ASM5, mv, method.access, method.name, method.desc, methodName))
-            }
-        }
-    }
-
-    private fun getMethodRecordStartMethod(): MethodInsnNode {
-        return MethodInsnNode(
-            Opcodes.INVOKESTATIC,
-            MethodTracer.CLASS_PATH,
-            MethodTracer.METHOD_RECORD_METHOD_START,
-            "()V",
-            false
+        val classReader = ClassReader(bytes)
+        val classWriter = ClassWriter(classReader, ClassWriter.COMPUTE_MAXS)
+        val classVisitor = MethodCostClassVisitor(
+            Opcodes.ASM5,
+            classWriter
         )
-    }
-
-    private fun getMethodRecordEndMethod(): MethodInsnNode {
-        return MethodInsnNode(
-            Opcodes.INVOKESTATIC,
-            MethodTracer.CLASS_PATH,
-            MethodTracer.METHOD_RECORD_METHOD_END,
-            MethodTracer.METHOD_RECORD_METHOD_END_PARAMS,
-            false
-        )
+        classReader.accept(classVisitor, EXPAND_FRAMES)
+        return classWriter.toByteArray()
     }
 
 }

@@ -4,14 +4,13 @@ import com.susion.rabbit.gradle.core.context.TransformContext
 import org.objectweb.asm.ClassReader
 import org.objectweb.asm.ClassWriter
 import org.objectweb.asm.tree.ClassNode
-import java.util.*
 import kotlin.collections.ArrayList
 
 /**
  * Represents bytecode transformer using ASM
  * 使用 ASM 操作字节码
  */
-class AsmTransformer(private val transformers:List<RabbitClassTransformer> = ArrayList()) : RabbitByteCodeTransformer {
+class AsmClassVisitorTransformer(private val transformers:List<RabbitAsmClassVisitorTransformer> = ArrayList()) : RabbitClassByteCodeTransformer {
 
     override fun transform(context: TransformContext, bytecode: ByteArray, classFilePath:String): ByteArray {
         return ClassWriter(ClassWriter.COMPUTE_MAXS).also { writer ->

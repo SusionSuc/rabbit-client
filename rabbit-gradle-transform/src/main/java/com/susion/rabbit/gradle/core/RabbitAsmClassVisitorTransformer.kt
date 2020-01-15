@@ -6,7 +6,7 @@ import org.objectweb.asm.tree.ClassNode
 /**
  * Represents class transformer
  */
-interface RabbitClassTransformer : TransformListener {
+interface RabbitAsmClassVisitorTransformer : TransformListener {
 
     /**
      * Transform the specified class node
