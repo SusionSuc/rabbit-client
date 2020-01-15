@@ -15,7 +15,7 @@
 - [接入自定义业务面板](./custom-page.md)
 - [数据上报](./data-report.md)
 - [noop包接入](./noop-document.md)
-- [rabbit配置相关](./gradle-plugin-config-demo.md)
+- [rabbit配置相关](./rabbit-config.md)
 - [release文档](./release/release-1.0.md)
 - [其他](./others.md)
 
