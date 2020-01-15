@@ -5,8 +5,10 @@ import com.susion.rabbit.gradle.core.RabbitClassTransformer
 import com.susion.rabbit.gradle.core.context.TransformContext
 import com.susion.rabbit.gradle.core.rxentension.className
 import com.susion.rabbit.gradle.core.rxentension.find
+import com.susion.rabbit.gradle.transform.asm.MethodCostIRtnMethodVisitor
 import com.susion.rabbit.gradle.utils.RabbitTransformUtils
 import com.susion.rabbit.tracer.MethodTracer
+import org.objectweb.asm.ClassReader
 import org.objectweb.asm.Opcodes
 import org.objectweb.asm.tree.ClassNode
 import org.objectweb.asm.tree.LdcInsnNode
@@ -55,14 +57,12 @@ class MethodCostMonitorTransform : RabbitClassTransformer {
             }
 
             val methodName = "${klass.name.replace("/", ".")}&${method.name}()"
-            val firstInstruction =
-                method.instructions?.find(Opcodes.INVOKESPECIAL) ?: method.instructions.get(0)
+            val firstInstruction = method.instructions?.first
+            var returnInstruction = method.instructions?.find(Opcodes.RETURN)
 
-            val returnInstruction = method.instructions?.find(Opcodes.RETURN)
             val isStaticMethod = (method.access and Opcodes.ACC_STATIC) == Opcodes.ACC_STATIC
 
-            if (firstInstruction != null && returnInstruction != null) {
-
+            if (returnInstruction !=null) {
                 RabbitTransformUtils.print("MethodCostMonitorTransform -> trace method  $methodName")
                 //trace method start
                 method.instructions?.insert(firstInstruction, getMethodRecordStartMethod())
@@ -76,6 +76,10 @@ class MethodCostMonitorTransform : RabbitClassTransformer {
                 }
                 method.instructions?.insertBefore(returnInstruction, LdcInsnNode(methodName)) //参数
                 method.instructions?.insertBefore(returnInstruction, getMethodRecordEndMethod())
+            }else{
+                //换一种插法, 上面这个访问方式不好确定RTN代码的位置
+//                val mv = klass.visitMethod(method.access, method.name, method.desc, method.signature, method.exceptions.toTypedArray())
+//                method.accept(MethodCostIRtnMethodVisitor(Opcodes.ASM5, mv, method.access, method.name, method.desc, methodName))
             }
         }
     }
