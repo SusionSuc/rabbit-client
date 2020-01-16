@@ -32,6 +32,7 @@ public class RabbitGlobalMonitorInfoDao extends AbstractDao<RabbitGlobalMonitorI
         public final static Property PageSpeedIds = new Property(5, String.class, "pageSpeedIds", false, "PAGE_SPEED_IDS");
         public final static Property BlockIds = new Property(6, String.class, "blockIds", false, "BLOCK_IDS");
         public final static Property SlowMethodIds = new Property(7, String.class, "slowMethodIds", false, "SLOW_METHOD_IDS");
+        public final static Property EndTime = new Property(8, Long.class, "endTime", false, "END_TIME");
     }
 
 
@@ -54,7 +55,8 @@ public class RabbitGlobalMonitorInfoDao extends AbstractDao<RabbitGlobalMonitorI
                 "\"APP_START_ID\" TEXT," + // 4: appStartId
                 "\"PAGE_SPEED_IDS\" TEXT," + // 5: pageSpeedIds
                 "\"BLOCK_IDS\" TEXT," + // 6: blockIds
-                "\"SLOW_METHOD_IDS\" TEXT);"); // 7: slowMethodIds
+                "\"SLOW_METHOD_IDS\" TEXT," + // 7: slowMethodIds
+                "\"END_TIME\" INTEGER);"); // 8: endTime
     }
 
     /** Drops the underlying database table. */
@@ -106,6 +108,11 @@ public class RabbitGlobalMonitorInfoDao extends AbstractDao<RabbitGlobalMonitorI
         if (slowMethodIds != null) {
             stmt.bindString(8, slowMethodIds);
         }
+ 
+        Long endTime = entity.getEndTime();
+        if (endTime != null) {
+            stmt.bindLong(9, endTime);
+        }
     }
 
     @Override
@@ -151,6 +158,11 @@ public class RabbitGlobalMonitorInfoDao extends AbstractDao<RabbitGlobalMonitorI
         if (slowMethodIds != null) {
             stmt.bindString(8, slowMethodIds);
         }
+ 
+        Long endTime = entity.getEndTime();
+        if (endTime != null) {
+            stmt.bindLong(9, endTime);
+        }
     }
 
     @Override
@@ -168,7 +180,8 @@ public class RabbitGlobalMonitorInfoDao extends AbstractDao<RabbitGlobalMonitorI
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // appStartId
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // pageSpeedIds
             cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // blockIds
-            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7) // slowMethodIds
+            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // slowMethodIds
+            cursor.isNull(offset + 8) ? null : cursor.getLong(offset + 8) // endTime
         );
         return entity;
     }
@@ -183,6 +196,7 @@ public class RabbitGlobalMonitorInfoDao extends AbstractDao<RabbitGlobalMonitorI
         entity.setPageSpeedIds(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
         entity.setBlockIds(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
         entity.setSlowMethodIds(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
+        entity.setEndTime(cursor.isNull(offset + 8) ? null : cursor.getLong(offset + 8));
      }
     
     @Override

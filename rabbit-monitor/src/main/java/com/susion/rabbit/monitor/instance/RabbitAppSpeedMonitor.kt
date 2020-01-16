@@ -35,7 +35,8 @@ internal class RabbitAppSpeedMonitor(override var isOpen: Boolean = false) :
     //第一个对用户有效的页面 【闪屏页 or 首页】
     private var entryActivityName = ""
 
-    init {
+    override fun open(context: Context) {
+        isOpen = true
         configMonitorList(RabbitMonitor.mConfig.monitorSpeedList)
         if (entryActivityName.isNotEmpty()){
             RabbitLog.d(TAG_MONITOR, "app speed init with page list! entryActivityName :$entryActivityName")
@@ -44,11 +45,6 @@ internal class RabbitAppSpeedMonitor(override var isOpen: Boolean = false) :
             RabbitLog.d(TAG_MONITOR, "app speed init with null")
             monitorApplicationStart()
         }
-    }
-
-    override fun open(context: Context) {
-        isOpen = true
-
         RabbitLog.d(TAG_MONITOR, "entryActivityName : $entryActivityName")
     }
 

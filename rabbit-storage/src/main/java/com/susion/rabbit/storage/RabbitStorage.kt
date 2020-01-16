@@ -24,7 +24,6 @@ object RabbitStorage {
         mConfig.daoProvider.addAll(getFixedDaoProvider())
         mConfig.storageInOnSessionData.addAll(ArrayList<Class<Any>>().apply {
             add(RabbitHttpLogInfo::class.java as Class<Any>)
-            add(RabbitMemoryInfo::class.java as Class<Any>)
         })
 
         mConfig.storageInOnSessionData.forEach {
@@ -141,7 +140,10 @@ object RabbitStorage {
 
             RabbitMonitorProtocol.BLOCK_CALL.name -> {
                 RabbitDbStorageManager.clearAllData(RabbitIoCallInfo::class.java)
+            }
 
+            RabbitMonitorProtocol.GLOBAL_MONITOR.name -> {
+                RabbitDbStorageManager.clearAllData(RabbitGlobalMonitorInfo::class.java)
             }
         }
     }
@@ -153,6 +155,7 @@ object RabbitStorage {
         clearDataByMonitorName(RabbitMonitorProtocol.SLOW_METHOD.name)
         clearDataByMonitorName(RabbitMonitorProtocol.NET.name)
         clearDataByMonitorName(RabbitMonitorProtocol.BLOCK_CALL.name)
+        clearDataByMonitorName(RabbitMonitorProtocol.GLOBAL_MONITOR.name)
     }
 
     fun addEventListener(eventListener: EventListener) {

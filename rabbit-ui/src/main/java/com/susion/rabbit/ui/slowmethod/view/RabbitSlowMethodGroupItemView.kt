@@ -1,4 +1,4 @@
-package com.susion.rabbit.ui.view
+package com.susion.rabbit.ui.slowmethod.view
 
 import android.content.Context
 import android.util.TypedValue
@@ -9,23 +9,24 @@ import com.susion.rabbit.base.ui.*
 import com.susion.rabbit.base.ui.adapter.RabbitAdapterItemView
 import com.susion.rabbit.ui.RabbitUi
 import com.susion.rabbit.ui.monitor.R
-import com.susion.rabbit.ui.entities.RabbitSlowMethodUiInfo
-import com.susion.rabbit.ui.page.RabbitSlowMethodCallStackPage
+import com.susion.rabbit.ui.entities.RabbitSlowMethodGroupInfo
+import com.susion.rabbit.ui.slowmethod.RabbitSlowMethodDetailPage
 import io.reactivex.functions.Consumer
 
 /**
  * susionwang at 2020-01-02
  */
-class RabbitSlowMethodInfoView (context: Context) : LinearLayout(context), RabbitAdapterItemView<RabbitSlowMethodUiInfo> {
+class RabbitSlowMethodGroupItemView(context: Context) : LinearLayout(context),
+    RabbitAdapterItemView<RabbitSlowMethodGroupInfo> {
 
-    private val tvClassName = TextView(context).apply {
-        setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14f)
+    private val tvPkgName = TextView(context).apply {
+        setTextSize(TypedValue.COMPLEX_UNIT_DIP, 17f)
         setTextColor(getColor(context, R.color.rabbit_black))
         layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
     }
 
     private val tvMethodDesc = TextView(context).apply {
-        setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12f)
+        setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15f)
         setTextColor(getColor(context, R.color.rabbit_black))
         layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT).apply {
             topMargin = dp2px(5f)
@@ -41,7 +42,7 @@ class RabbitSlowMethodInfoView (context: Context) : LinearLayout(context), Rabbi
             val mr10 = dp2px(15f)
             setMargins(mr10, mr10, mr10, 0)
         }
-        addView(tvClassName)
+        addView(tvPkgName)
         addView(tvMethodDesc)
         background = getDrawable(context, R.color.rabbit_bg_card)
         setPadding(
@@ -50,15 +51,15 @@ class RabbitSlowMethodInfoView (context: Context) : LinearLayout(context), Rabbi
             dp2px(15f),
             dp2px(10f)
         )
+
     }
 
-
-    override fun bindData(info: RabbitSlowMethodUiInfo, position: Int) {
-        tvClassName.text= "${info.className} -> ${info.name}"
-        tvMethodDesc.text = "total ${info.count} record ; average cost ${info.totalTime/info.count} ms"
+    override fun bindData(info: RabbitSlowMethodGroupInfo, position: Int) {
+        tvPkgName.text = info.pkgName
+        tvMethodDesc.text = "${info.methodCount} method ; ${info.slowMethodRecord} record"
 
         throttleFirstClick(Consumer {
-            RabbitUi.openPage(RabbitSlowMethodCallStackPage::class.java, info)
+            RabbitUi.openPage(RabbitSlowMethodDetailPage::class.java, info.pkgName)
         })
     }
 

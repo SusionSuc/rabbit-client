@@ -83,7 +83,6 @@ object Rabbit : RabbitProtocol {
                 RabbitUi.refreshFloatingViewUi(type, value)
             }
         }
-
     }
 
     private fun configReport() {
@@ -113,6 +112,7 @@ object Rabbit : RabbitProtocol {
                         RabbitUiEvent.CHANGE_GLOBAL_MONITOR_STATUS,
                         false
                     )
+                    RabbitMonitor.closeMonitor(monitorName)
                 }
             }
 
@@ -137,8 +137,9 @@ object Rabbit : RabbitProtocol {
 
     //全局监控模式的特殊处理
     private fun initGlobalMonitorMode() {
-        val autoOpen = RabbitSettings.autoOpen(application, RabbitMonitorProtocol.GLOBAL_MONITOR.name)
-        if (!autoOpen)return
+        val autoOpen =
+            RabbitSettings.autoOpen(application, RabbitMonitorProtocol.GLOBAL_MONITOR.name)
+        if (!autoOpen) return
 
         RabbitUi.refreshFloatingViewUi(RabbitUiEvent.CHANGE_GLOBAL_MONITOR_STATUS, true)
         //直接打开需要监控的组件

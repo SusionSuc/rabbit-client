@@ -1,4 +1,4 @@
-package com.susion.rabbit.ui.page
+package com.susion.rabbit.ui.slowmethod
 
 import android.content.Context
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,7 +10,7 @@ import com.susion.rabbit.base.ui.adapter.RabbitRvAdapter
 import com.susion.rabbit.base.ui.getDrawable
 import com.susion.rabbit.ui.monitor.R
 import com.susion.rabbit.ui.entities.RabbitSlowMethodUiInfo
-import com.susion.rabbit.ui.view.RabbitSlowMethodInfoView
+import com.susion.rabbit.ui.slowmethod.view.RabbitSlowMethodInfoView
 
 /**
  * susionwang at 2020-01-02
@@ -18,7 +18,8 @@ import com.susion.rabbit.ui.view.RabbitSlowMethodInfoView
 class RabbitSlowMethodDetailPage(context: Context) : RabbitBasePage(context) {
 
     private val mAdapter = object : RabbitRvAdapter<RabbitSlowMethodUiInfo>(ArrayList()) {
-        override fun createItem(type: Int) = RabbitSlowMethodInfoView(context)
+        override fun createItem(type: Int) =
+            RabbitSlowMethodInfoView(context)
         override fun getItemType(data: RabbitSlowMethodUiInfo) = 0
     }
 

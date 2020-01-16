@@ -27,10 +27,12 @@ public class RabbitGlobalMonitorInfo {
 
     public String slowMethodIds;
 
-    @Generated(hash = 1344227634)
+    public Long endTime;
+
+    @Generated(hash = 1684721862)
     public RabbitGlobalMonitorInfo(Long id, Long time, String fpsIds,
             String memoryIds, String appStartId, String pageSpeedIds,
-            String blockIds, String slowMethodIds) {
+            String blockIds, String slowMethodIds, Long endTime) {
         this.id = id;
         this.time = time;
         this.fpsIds = fpsIds;
@@ -39,6 +41,7 @@ public class RabbitGlobalMonitorInfo {
         this.pageSpeedIds = pageSpeedIds;
         this.blockIds = blockIds;
         this.slowMethodIds = slowMethodIds;
+        this.endTime = endTime;
     }
 
     @Generated(hash = 1291211931)
@@ -107,6 +110,14 @@ public class RabbitGlobalMonitorInfo {
 
     public void setSlowMethodIds(String slowMethodIds) {
         this.slowMethodIds = slowMethodIds;
+    }
+
+    public Long getEndTime() {
+        return this.endTime;
+    }
+
+    public void setEndTime(Long endTime) {
+        this.endTime = endTime;
     }
 
 }

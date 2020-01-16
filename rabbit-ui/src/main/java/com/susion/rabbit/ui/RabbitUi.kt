@@ -12,7 +12,8 @@ import com.susion.rabbit.base.ui.RabbitUiKernal
 import com.susion.rabbit.base.ui.page.RabbitEntryPage
 import com.susion.rabbit.ui.monitor.R
 import com.susion.rabbit.ui.page.*
-import com.susion.rabbit.ui.page.global.RabbitGlobalMonitorModePage
+import com.susion.rabbit.ui.global.RabbitGlobalMonitorModePage
+import com.susion.rabbit.ui.slowmethod.RabbitSlowMethodListPage
 
 /**
  * susionwang at 2019-12-30

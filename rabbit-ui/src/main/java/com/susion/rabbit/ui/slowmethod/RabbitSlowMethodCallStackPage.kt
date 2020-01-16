@@ -1,4 +1,4 @@
-package com.susion.rabbit.ui.page
+package com.susion.rabbit.ui.slowmethod
 
 import android.content.Context
 import android.graphics.Color

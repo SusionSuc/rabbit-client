@@ -1,4 +1,4 @@
-package com.susion.rabbit.ui.page
+package com.susion.rabbit.ui.slowmethod
 
 import android.content.Context
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,7 +12,7 @@ import com.susion.rabbit.base.ui.page.RabbitBasePage
 import com.susion.rabbit.base.ui.adapter.RabbitRvAdapter
 import com.susion.rabbit.base.ui.getDrawable
 import com.susion.rabbit.ui.entities.RabbitSlowMethodGroupInfo
-import com.susion.rabbit.ui.view.RabbitSlowMethodGroupItemView
+import com.susion.rabbit.ui.slowmethod.view.RabbitSlowMethodGroupItemView
 import kotlinx.android.synthetic.main.rabbit_page_slow_method_list.view.*
 import android.graphics.Color
 import android.view.View
@@ -36,7 +36,8 @@ class RabbitSlowMethodListPage(context: Context) : RabbitBasePage(context) {
     )
 
     private val adapter = object : RabbitRvAdapter<RabbitSlowMethodGroupInfo>(ArrayList()) {
-        override fun createItem(type: Int) = RabbitSlowMethodGroupItemView(context)
+        override fun createItem(type: Int) =
+            RabbitSlowMethodGroupItemView(context)
         override fun getItemType(data: RabbitSlowMethodGroupInfo) = 1
     }
 

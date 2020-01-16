@@ -11,75 +11,68 @@ interface RabbitMonitorProtocol {
 
         //应用测速: app冷启动 & 页面测速
         val APP_SPEED = MonitorInfo(
-            "app_speed_monitor",
-            "应用测速",
-            true
+            "app_speed",
+            "应用测速"
         )
 
         //卡顿
         val BLOCK = MonitorInfo(
-            "block_monitor",
-            "卡顿监控",
-            true
+            "block",
+            "卡顿监控"
         )
 
         //卡顿监控
         val FPS = MonitorInfo(
-            "fps_monitor",
-            "FPS监控",
-            true
+            "fps",
+            "FPS监控"
         )
 
         //fps监控
         val MEMORY = MonitorInfo(
-            "memory_monitor",
-            "内存监控",
-            true
+            "memory",
+            "内存监控"
         )
 
         //内存监控
         val TRAFFIC = MonitorInfo(
-            "traffic_monitor",
-            "流量监控",
-            true
+            "traffic",
+            "流量监控"
         )
 
         //网络监控
         val EXCEPTION = MonitorInfo(
-            "exception_monitor",
-            "异常捕获",
-            true
+            "exception",
+            "异常捕获"
         )
 
         //网络日志监控
-        val NET = MonitorInfo("net_monitor", "网络监控", true)
+        val NET = MonitorInfo("net", "网络监控")
 
         val USE_TIME = MonitorInfo(
             "use_time",
             "使用时长监控",
-            showInExternal = false
+            showInExternal = false,
+            dataCanClear = false
         )
 
         //慢函数
         val SLOW_METHOD = MonitorInfo(
-            "method_trace",
-            "慢函数",
-            showInExternal = true
+            "slow_method",
+            "慢函数"
         )
 
         //阻塞调用
-        val BLOCK_CALL = MonitorInfo("io_call", "阻塞调用", showInExternal = true)
+        val BLOCK_CALL = MonitorInfo("code_scan", "代码扫描")
 
-
-        val GLOBAL_MONITOR = MonitorInfo("global_monitor", "全局性能检测", showInExternal = false)
-
+        val GLOBAL_MONITOR = MonitorInfo("global_mode", "全局性能检测")
 
     }
 
     class MonitorInfo(
         val name: String,
         val znName: String,
-        val showInExternal: Boolean = true
+        val showInExternal: Boolean = true,
+        val dataCanClear: Boolean = true
     )
 
     fun open(context: Context)
@@ -89,5 +82,6 @@ interface RabbitMonitorProtocol {
     fun getMonitorInfo(): MonitorInfo
 
     var isOpen: Boolean
+
 
 }
