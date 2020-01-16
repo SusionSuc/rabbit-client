@@ -24,7 +24,7 @@
         android:maxLines="10"
         android:text="网络日志"
         android:textColor="@color/rabbit_black"
-        android:textSize="16dp" />
+        android:textSize="@dimen/rabbit_font_big" />
 
     <View
         android:layout_width="match_parent"

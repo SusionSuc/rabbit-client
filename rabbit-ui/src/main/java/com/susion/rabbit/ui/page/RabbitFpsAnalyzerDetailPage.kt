@@ -9,7 +9,6 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.susion.rabbit.base.entities.RabbitFPSInfo
 import com.susion.rabbit.base.ui.utils.RabbitUiUtils
-import com.susion.rabbit.base.entities.RabbitMemoryInfo
 import com.susion.rabbit.base.greendao.RabbitFPSInfoDao
 import com.susion.rabbit.storage.RabbitDbStorageManager
 import com.susion.rabbit.base.ui.page.RabbitBasePage

@@ -10,6 +10,7 @@ import android.widget.LinearLayout
 import com.susion.rabbit.base.R
 import com.susion.rabbit.base.ui.RabbitUiKernal
 import com.susion.rabbit.base.ui.getColor
+import com.susion.rabbit.base.ui.getDrawable
 import com.susion.rabbit.base.ui.utils.RabbitUiUtils
 import kotlinx.android.synthetic.main.rabbit_view_floating.view.*
 import kotlin.math.abs
@@ -22,6 +23,22 @@ class RabbitFloatingView(context: Context) : LinearLayout(context) {
     private var mXInScreen: Float = 0.toFloat()
     private var mYInScreen: Float = 0.toFloat()
     private var isShow = false
+    private val GLOBAL_DOT_UPDATE_PERIOD = 1000L
+    private var currentGlobalModeDotIndex = 0
+    private val globalModeDotList = listOf(
+        R.drawable.rabbit_icon_dot0,
+        R.drawable.rabbit_icon_dot1,
+        R.drawable.rabbit_icon_dot2
+    )
+    private val globalModeDotUpdateCallback = object : Runnable {
+        override fun run() {
+            val currentDrawable =
+                getDrawable(context, globalModeDotList[currentGlobalModeDotIndex % 3])
+            mRabbitFloatingIvMonitorMode.setImageDrawable(currentDrawable)
+            currentGlobalModeDotIndex++
+            postDelayed(this, GLOBAL_DOT_UPDATE_PERIOD)
+        }
+    }
 
     private val mWindowManager: WindowManager by lazy {
         context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
@@ -154,6 +171,11 @@ class RabbitFloatingView(context: Context) : LinearLayout(context) {
 
     fun changeMonitorModeStatue(open: Boolean) {
         mRabbitFloatingIvMonitorMode.visibility = if (open) View.VISIBLE else View.GONE
+        if (open) {
+            post(globalModeDotUpdateCallback)
+        } else {
+            removeCallbacks(globalModeDotUpdateCallback)
+        }
     }
 
 }

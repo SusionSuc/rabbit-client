@@ -2,6 +2,8 @@ package com.susion.rabbit.ui.page
 
 import android.content.Context
 import android.widget.ArrayAdapter
+import com.susion.rabbit.base.RabbitMonitorProtocol
+import com.susion.rabbit.base.RabbitSettings
 import com.susion.rabbit.base.ui.dp2px
 import com.susion.rabbit.storage.RabbitStorage
 import com.susion.rabbit.base.ui.page.RabbitBasePage
@@ -25,14 +27,18 @@ class RabbitQuickFunctionPage(context: Context) : RabbitBasePage(context) {
     }
 
     private fun initQuickClear() {
-        val monitors = RabbitUi.mConfig.monitorList.filter { it.getMonitorInfo().showInExternal }
-            .map { it.getMonitorInfo().name }
+        val monitors = RabbitUi.mConfig.monitorList.filter { it.getMonitorInfo().dataCanClear }.map { it.getMonitorInfo().name }
         val stringAdapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, monitors)
         mRabbitQuickPageSpinnerMonitors.adapter = stringAdapter
         mRabbitQuickPageClearDataBtn.setOnClickListener {
             RabbitStorage.clearDataByMonitorName(monitors[mRabbitQuickPageSpinnerMonitors.selectedItemPosition])
             showToast("清空成功!")
         }
+
+        mRabbitQuickPageClearAllDataBtn.throttleFirstClick(Consumer {
+            RabbitStorage.clearAllData()
+            showToast("清空成功!")
+        })
 
         //自定义添加的一些配置
         RabbitUi.mConfig.customConfigList.forEach {
@@ -56,14 +62,6 @@ class RabbitQuickFunctionPage(context: Context) : RabbitBasePage(context) {
         mRabbitQuickPageViewConfig.throttleFirstClick(Consumer {
             RabbitUi.openPage(RabbitCurrentConfigListPage::class.java)
         })
-
-        mRabbitQuickPagePerformanceTest.refreshUi("性能测试模式", false)
-        mRabbitQuickPagePerformanceTest.checkedStatusChangeListener =
-            object : RabbitSwitchButton.CheckedStatusChangeListener {
-                override fun checkedStatusChange(isChecked: Boolean) {
-                    RabbitUi.eventListener?.changeGlobalMonitorStatus(isChecked)
-                }
-            }
 
         mRabbitQuickPageViewAbout.throttleFirstClick(Consumer {
             RabbitUi.openPage(RabbitAboutPage::class.java)

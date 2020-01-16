@@ -24,7 +24,6 @@ object RabbitStorage {
         mConfig.daoProvider.addAll(getFixedDaoProvider())
         mConfig.storageInOnSessionData.addAll(ArrayList<Class<Any>>().apply {
             add(RabbitHttpLogInfo::class.java as Class<Any>)
-            add(RabbitMemoryInfo::class.java as Class<Any>)
         })
 
         mConfig.storageInOnSessionData.forEach {
@@ -100,6 +99,13 @@ object RabbitStorage {
                     daoSession.rabbitIoCallInfoDao as AbstractDao<Any, Long>
                 )
             )
+
+            add(
+                RabbitDaoProviderConfig(
+                    RabbitGlobalMonitorInfo::class.java as Class<Any>,
+                    daoSession.rabbitGlobalMonitorInfoDao as AbstractDao<Any, Long>
+                )
+            )
         }
         return daoProvider
     }
@@ -123,7 +129,7 @@ object RabbitStorage {
                 RabbitDbStorageManager.clearAllData(RabbitMemoryInfo::class.java)
             }
 
-            RabbitMonitorProtocol.METHOD_TRACE.name -> {
+            RabbitMonitorProtocol.SLOW_METHOD.name -> {
                 RabbitDbStorageManager.clearAllData(RabbitSlowMethodInfo::class.java)
             }
 
@@ -131,22 +137,35 @@ object RabbitStorage {
                 RabbitDbStorageManager.clearAllData(RabbitHttpLogInfo::class.java)
             }
 
-            RabbitMonitorProtocol.BLOCK_CALL.name ->{
+            RabbitMonitorProtocol.BLOCK_CALL.name -> {
                 RabbitDbStorageManager.clearAllData(RabbitIoCallInfo::class.java)
+            }
 
+            RabbitMonitorProtocol.GLOBAL_MONITOR.name -> {
+                RabbitDbStorageManager.clearAllData(RabbitGlobalMonitorInfo::class.java)
             }
         }
     }
 
-    fun addEventListener(eventListener: EventListener){
+    fun clearAllData() {
+        clearDataByMonitorName(RabbitMonitorProtocol.APP_SPEED.name)
+        clearDataByMonitorName(RabbitMonitorProtocol.EXCEPTION.name)
+        clearDataByMonitorName(RabbitMonitorProtocol.MEMORY.name)
+        clearDataByMonitorName(RabbitMonitorProtocol.SLOW_METHOD.name)
+        clearDataByMonitorName(RabbitMonitorProtocol.NET.name)
+        clearDataByMonitorName(RabbitMonitorProtocol.BLOCK_CALL.name)
+        clearDataByMonitorName(RabbitMonitorProtocol.GLOBAL_MONITOR.name)
+    }
+
+    fun addEventListener(eventListener: EventListener) {
         eventListeners.add(eventListener)
     }
 
-    fun removeEventListener(eventListener: EventListener){
+    fun removeEventListener(eventListener: EventListener) {
         eventListeners.remove(eventListener)
     }
 
-    internal fun notifyEventListenerNewDataSave(obj:Any){
+    internal fun notifyEventListenerNewDataSave(obj: Any) {
         eventListeners.forEach {
             it.onStorageData(obj)
         }

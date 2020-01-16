@@ -30,7 +30,7 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="@color/rabbit_black"
-            android:textSize="14dp" />
+            android:textSize="@dimen/rabbit_font_middle" />
 
         <TextView
             android:id="@+id/mFpsAnalyzerViewTvPageFps"
@@ -40,7 +40,7 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="@color/rabbit_black"
-            android:textSize="11dp" />
+            android:textSize="@dimen/rabbit_font_small" />
 
     </LinearLayout>
 

@@ -1,4 +1,4 @@
-package com.susion.rabbit.ui.view
+package com.susion.rabbit.ui.slowmethod.view
 
 import android.content.Context
 import android.util.TypedValue
@@ -10,7 +10,7 @@ import com.susion.rabbit.base.ui.adapter.RabbitAdapterItemView
 import com.susion.rabbit.ui.RabbitUi
 import com.susion.rabbit.ui.monitor.R
 import com.susion.rabbit.ui.entities.RabbitSlowMethodGroupInfo
-import com.susion.rabbit.ui.page.RabbitSlowMethodDetailPage
+import com.susion.rabbit.ui.slowmethod.RabbitSlowMethodPkgListPage
 import io.reactivex.functions.Consumer
 
 /**
@@ -20,13 +20,13 @@ class RabbitSlowMethodGroupItemView(context: Context) : LinearLayout(context),
     RabbitAdapterItemView<RabbitSlowMethodGroupInfo> {
 
     private val tvPkgName = TextView(context).apply {
-        setTextSize(TypedValue.COMPLEX_UNIT_DIP, 17f)
+        setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14f)
         setTextColor(getColor(context, R.color.rabbit_black))
         layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
     }
 
     private val tvMethodDesc = TextView(context).apply {
-        setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15f)
+        setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13f)
         setTextColor(getColor(context, R.color.rabbit_black))
         layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT).apply {
             topMargin = dp2px(5f)
@@ -39,7 +39,7 @@ class RabbitSlowMethodGroupItemView(context: Context) : LinearLayout(context),
             LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         ).apply {
-            val mr10 = dp2px(15f)
+            val mr10 = dp2px(10f)
             setMargins(mr10, mr10, mr10, 0)
         }
         addView(tvPkgName)
@@ -59,7 +59,7 @@ class RabbitSlowMethodGroupItemView(context: Context) : LinearLayout(context),
         tvMethodDesc.text = "${info.methodCount} method ; ${info.slowMethodRecord} record"
 
         throttleFirstClick(Consumer {
-            RabbitUi.openPage(RabbitSlowMethodDetailPage::class.java, info.pkgName)
+            RabbitUi.openPage(RabbitSlowMethodPkgListPage::class.java, info.pkgName)
         })
     }
 

@@ -11,6 +11,7 @@ import org.greenrobot.greendao.query.WhereCondition
 
 /**
  * susionwang at 2019-10-21
+ *
  * 所有rabbit可以持久数据都应该有对应的 Dao
  */
 internal class RabbitGreenDaoDbManage(val context: Context, val daoSession: DaoSession? = null) {
@@ -28,8 +29,22 @@ internal class RabbitGreenDaoDbManage(val context: Context, val daoSession: DaoS
         RabbitLog.d(TAG_STORAGE, "save data $obj")
     }
 
-    fun <T : Any> getDataById(clazz: Class<T>, id: Long): T? {
+    fun <T : Any> updateOrCreate(clazz: Class<T>, obj: Any, id: Long) {
+        val daoImpl = daoImpl(obj.javaClass) ?: return
+        val storageData = getDataById(clazz, id)
+        if (storageData == null) {
+            daoImpl.save(obj)
+        } else {
+            daoImpl.update(obj)
+        }
+    }
+
+    private fun <T : Any> getDataById(clazz: Class<T>, id: Long): T? {
         return daoImpl(clazz)?.loadByRowId(id) ?: null
+    }
+
+    fun <T :Any> getObjSync(clazz: Class<T>, id: Long): T? {
+        return getDataById(clazz,id)
     }
 
     fun <T : Any> deleteById(clazz: Class<T>, id: Long) {
@@ -78,7 +93,8 @@ internal class RabbitGreenDaoDbManage(val context: Context, val daoSession: DaoS
         if (condition != null) {
             queryBuilder?.where(condition)
         }
-        return queryBuilder?.build()?.list() as List<T>
+
+        return queryBuilder?.build()?.list() ?: emptyList()
     }
 
     fun <T : Any> getDataCount(clazz: Class<T>): Long {
@@ -124,5 +140,7 @@ internal class RabbitGreenDaoDbManage(val context: Context, val daoSession: DaoS
             clearAllData(it)
         }
     }
+
+
 
 }

@@ -16,7 +16,7 @@
             android:layout_margin="10dp"
             android:background="@color/rabbit_bg_card"
             android:orientation="vertical"
-            android:padding="15dp">
+            android:padding="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -29,7 +29,7 @@
                     android:layout_weight="1"
                     android:text="最大可用内存"
                     android:textColor="@color/rabbit_black"
-                    android:textSize="16dp" />
+                    android:textSize="@dimen/rabbit_font_small" />
 
                 <TextView
                     android:id="@+id/mRabbitMemComposePageTvMaxMem"
@@ -38,7 +38,7 @@
                     android:layout_weight="1"
                     android:text="MainActivity"
                     android:textColor="@color/rabbit_black"
-                    android:textSize="16dp" />
+                    android:textSize="@dimen/rabbit_font_small" />
 
             </LinearLayout>
 
@@ -54,7 +54,7 @@
                     android:layout_weight="1"
                     android:text="平均内存"
                     android:textColor="@color/rabbit_black"
-                    android:textSize="16dp" />
+                    android:textSize="@dimen/rabbit_font_small" />
 
                 <TextView
                     android:id="@+id/mRabbitMemComposePageTvAvgMem"
@@ -63,7 +63,7 @@
                     android:layout_weight="1"
                     android:text="110ms"
                     android:textColor="@color/rabbit_black"
-                    android:textSize="16dp" />
+                    android:textSize="@dimen/rabbit_font_small" />
 
             </LinearLayout>
 
@@ -79,7 +79,7 @@
                     android:layout_weight="1"
                     android:text="平均堆内存"
                     android:textColor="@color/rabbit_black"
-                    android:textSize="16dp" />
+                    android:textSize="@dimen/rabbit_font_small" />
 
                 <TextView
                     android:id="@+id/mRabbitMemComposePageTvAvgHeapMem"
@@ -88,7 +88,7 @@
                     android:layout_weight="1"
                     android:text="MainActivity"
                     android:textColor="@color/rabbit_black"
-                    android:textSize="16dp" />
+                    android:textSize="@dimen/rabbit_font_small" />
 
             </LinearLayout>
 
@@ -101,7 +101,7 @@
             android:padding="5dp"
             android:text="最近50次内存统计曲线"
             android:textColor="@color/rabbit_black"
-            android:textSize="16dp"
+            android:textSize="@dimen/rabbit_font_middle"
             android:textStyle="bold" />
 
         <com.github.mikephil.charting.charts.LineChart
@@ -141,7 +141,7 @@
                 android:maxLines="10"
                 android:text="分页面分析"
                 android:textColor="@color/rabbit_black"
-                android:textSize="16dp" />
+                android:textSize="@dimen/rabbit_font_middle" />
 
             <View
                 android:layout_width="match_parent"

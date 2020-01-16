@@ -1,4 +1,4 @@
-package com.susion.rabbit.ui.page
+package com.susion.rabbit.ui.slowmethod
 
 import android.content.Context
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,18 +12,17 @@ import com.susion.rabbit.base.ui.page.RabbitBasePage
 import com.susion.rabbit.base.ui.adapter.RabbitRvAdapter
 import com.susion.rabbit.base.ui.getDrawable
 import com.susion.rabbit.ui.entities.RabbitSlowMethodGroupInfo
-import com.susion.rabbit.ui.view.RabbitSlowMethodGroupItemView
+import com.susion.rabbit.ui.slowmethod.view.RabbitSlowMethodGroupItemView
 import kotlinx.android.synthetic.main.rabbit_page_slow_method_list.view.*
 import android.graphics.Color
 import android.view.View
 import com.github.mikephil.charting.formatter.PercentFormatter
 import com.susion.rabbit.ui.monitor.R
 
-
 /**
  * susionwang at 2020-01-02
  */
-class RabbitSlowMethodListPage(context: Context) : RabbitBasePage(context) {
+class RabbitSlowMethodPreviewPage(context: Context) : RabbitBasePage(context) {
 
     val colorList = listOf(
         Color.parseColor("#42a5f5"),
@@ -36,7 +35,9 @@ class RabbitSlowMethodListPage(context: Context) : RabbitBasePage(context) {
     )
 
     private val adapter = object : RabbitRvAdapter<RabbitSlowMethodGroupInfo>(ArrayList()) {
-        override fun createItem(type: Int) = RabbitSlowMethodGroupItemView(context)
+        override fun createItem(type: Int) =
+            RabbitSlowMethodGroupItemView(context)
+
         override fun getItemType(data: RabbitSlowMethodGroupInfo) = 1
     }
 
@@ -55,7 +56,8 @@ class RabbitSlowMethodListPage(context: Context) : RabbitBasePage(context) {
             loadData()
         }
 
-        mRabbitSlowMethodRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        mRabbitSlowMethodRv.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         mRabbitSlowMethodRv.adapter = adapter
 
         loadData()
@@ -72,10 +74,10 @@ class RabbitSlowMethodListPage(context: Context) : RabbitBasePage(context) {
 
         RabbitDbStorageManager.getAll(RabbitSlowMethodInfo::class.java, loadResult = {
 
-            if (it.isEmpty()){
+            if (it.isEmpty()) {
                 showEmptyView()
                 mRabbitSlowMethodListPageSRL.visibility = View.GONE
-            }else{
+            } else {
                 hideEmptyView()
                 mRabbitSlowMethodListPageSRL.visibility = View.VISIBLE
             }
@@ -121,7 +123,7 @@ class RabbitSlowMethodListPage(context: Context) : RabbitBasePage(context) {
                     }
                 }
             }
-            
+
             adapter.data.clear()
             adapter.data.addAll(groupInfos.filter { it.methodCount > 0 && it.slowMethodRecord > 0 })
             adapter.notifyDataSetChanged()

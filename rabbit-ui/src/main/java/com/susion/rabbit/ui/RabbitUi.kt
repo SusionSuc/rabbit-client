@@ -12,9 +12,13 @@ import com.susion.rabbit.base.ui.RabbitUiKernal
 import com.susion.rabbit.base.ui.page.RabbitEntryPage
 import com.susion.rabbit.ui.monitor.R
 import com.susion.rabbit.ui.page.*
+import com.susion.rabbit.ui.global.RabbitGlobalMonitorModePage
+import com.susion.rabbit.ui.slowmethod.RabbitSlowMethodPreviewPage
 
 /**
  * susionwang at 2019-12-30
+ * UI层向外暴露的API
+ * 顶层业务不要直接使用这个类，方法都委托给 ->[Rabbit.kt]
  */
 object RabbitUi {
 
@@ -48,6 +52,13 @@ object RabbitUi {
             )
             add(
                 RabbitMainFeatureInfo(
+                    "全局性能测量模式",
+                    R.drawable.rabbit_icon_global_monitor,
+                    RabbitGlobalMonitorModePage::class.java
+                )
+            )
+            add(
+                RabbitMainFeatureInfo(
                     "网络日志",
                     R.drawable.rabbit_icon_http,
                     RabbitHttpLogListPage::class.java
@@ -71,7 +82,7 @@ object RabbitUi {
                 RabbitMainFeatureInfo(
                     "应用测速",
                     R.drawable.rabbit_icon_speed,
-                    RabbitAppSpeedMonitorDetailPage::class.java
+                    RabbitSpeedListPage::class.java
                 )
             )
 
@@ -96,7 +107,7 @@ object RabbitUi {
                 RabbitMainFeatureInfo(
                     "慢函数",
                     R.drawable.rabbit_icon_slow_method,
-                    RabbitSlowMethodListPage::class.java
+                    RabbitSlowMethodPreviewPage::class.java
                 )
             )
 
@@ -104,7 +115,7 @@ object RabbitUi {
                 RabbitMainFeatureInfo(
                     "代码扫描",
                     R.drawable.rabbit_icon_io_call,
-                    RabbitBlockCallListPage::class.java
+                    RabbitCodeScanPage::class.java
                 )
             )
 

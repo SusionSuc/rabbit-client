@@ -29,7 +29,7 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="@color/rabbit_black"
-            android:textSize="11dp" />
+            android:textSize="@dimen/rabbit_font_small" />
 
         <TextView
             android:id="@+id/mRabbitUiBlockItemViewTvLine2"
@@ -39,15 +39,15 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="@color/rabbit_black"
-            android:textSize="14dp" />
+            android:textSize="@dimen/rabbit_font_middle" />
 
     </LinearLayout>
 
     <View
+        android:layout_toEndOf="@id/block_icon"
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:layout_below="@id/log_detail"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:background="@color/rabbit_divider_line" />
 

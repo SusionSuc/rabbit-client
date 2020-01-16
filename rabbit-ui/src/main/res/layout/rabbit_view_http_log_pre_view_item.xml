@@ -29,7 +29,7 @@
             android:textColor="@color/rabbit_black"
             android:maxLines="1"
             android:ellipsize="end"
-            android:textSize="12dp" />
+            android:textSize="@dimen/rabbit_font_small" />
 
         <TextView
             android:id="@+id/mLogPreViewTvPath"
@@ -39,13 +39,12 @@
             android:maxLines="1"
             android:ellipsize="end"
             android:textColor="@color/rabbit_black"
-            android:textSize="16dp" />
+            android:textSize="@dimen/rabbit_font_middle" />
 
     </LinearLayout>
 
     <View
         android:layout_toEndOf="@+id/mLogPreViewIvResponseContentType"
-        android:layout_marginStart="20dp"
         android:layout_alignParentBottom="true"
         android:background="@color/rabbit_divider_line"
         android:layout_width="match_parent"

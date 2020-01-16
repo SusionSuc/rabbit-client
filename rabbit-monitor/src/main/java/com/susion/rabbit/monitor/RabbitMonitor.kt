@@ -27,9 +27,24 @@ object RabbitMonitor {
     private var isInit = false
     var mConfig: RabbitMonitorConfig = RabbitMonitorConfig()
     var eventListener: UiEventListener? = null
-    private val monitorMap = HashMap<String, RabbitMonitorProtocol>()
+    private val monitorMap = LinkedHashMap<String, RabbitMonitorProtocol>()
     private var appCurrentActivity: WeakReference<Activity?>? = null    //当前应用正在展示的Activity
     private var pageChangeListeners = HashSet<PageChangeListener>()
+
+    init {
+        monitorMap.apply {
+            put(RabbitMonitorProtocol.GLOBAL_MONITOR.name, RabbitGlobalModeMonitor())
+            put(RabbitMonitorProtocol.APP_SPEED.name, RabbitAppSpeedMonitor())
+            put(RabbitMonitorProtocol.FPS.name, RabbitFPSMonitor())
+            put(RabbitMonitorProtocol.BLOCK.name, RabbitBlockMonitor())
+            put(RabbitMonitorProtocol.MEMORY.name, RabbitMemoryMonitor())
+            put(RabbitMonitorProtocol.EXCEPTION.name, RabbitExceptionMonitor())
+            put(RabbitMonitorProtocol.NET.name, RabbitNetMonitor())
+            put(RabbitMonitorProtocol.USE_TIME.name, RabbitAppUseTimeMonitor())
+            put(RabbitMonitorProtocol.SLOW_METHOD.name, RabbitMethodMonitor())
+            put(RabbitMonitorProtocol.BLOCK_CALL.name, RabbitIoCallMonitor())
+        }
+    }
 
     fun init(application: Application, config_: RabbitMonitorConfig) {
 
@@ -45,20 +60,6 @@ object RabbitMonitor {
                 pageChangeListeners.forEach { it.onPageShow() }
             }
         })
-
-        //所有的监控类型
-        monitorMap.apply {
-            put(RabbitMonitorProtocol.APP_SPEED.name, RabbitAppSpeedMonitor())
-            put(RabbitMonitorProtocol.FPS.name, RabbitFPSMonitor())
-            put(RabbitMonitorProtocol.BLOCK.name, RabbitBlockMonitor())
-            put(RabbitMonitorProtocol.MEMORY.name, RabbitMemoryMonitor())
-            put(RabbitMonitorProtocol.EXCEPTION.name, RabbitExceptionMonitor())
-            put(RabbitMonitorProtocol.NET.name, RabbitNetMonitor())
-            put(RabbitMonitorProtocol.USE_TIME.name, RabbitAppUseTimeMonitor())
-            put(RabbitMonitorProtocol.METHOD_TRACE.name, RabbitMethodMonitor())
-            put(RabbitMonitorProtocol.BLOCK_CALL.name, RabbitIoCallMonitor())
-//            put(RabbitMonitorProtocol.GLOBAL_MONITOR.name, RabbitGlobalModeMonitor())
-        }
 
         mConfig.autoOpenMonitors.forEach {
             RabbitSettings.setAutoOpenFlag(application, it, true)

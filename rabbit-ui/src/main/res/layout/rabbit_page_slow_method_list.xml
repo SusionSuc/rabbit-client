@@ -21,7 +21,7 @@
                 android:layout_margin="10dp"
                 android:text="卡顿函数分布概览"
                 android:textColor="@color/rabbit_black"
-                android:textSize="18dp" />
+                android:textSize="@dimen/rabbit_font_middle" />
 
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/mRabbitSlowMethodChart"
@@ -35,7 +35,7 @@
                 android:layout_margin="10dp"
                 android:text="卡顿函数详情"
                 android:textColor="@color/rabbit_black"
-                android:textSize="18dp" />
+                android:textSize="@dimen/rabbit_font_middle" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/mRabbitSlowMethodRv"

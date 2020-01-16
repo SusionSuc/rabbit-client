@@ -55,6 +55,22 @@ object RabbitDbStorageManager {
         })
     }
 
+    fun <T : Any> getAllSync(
+        ktClass: Class<T>,
+        condition: Pair<Property, String>? = null,
+        sortField: String = "time",
+        count: Int = 0,
+        orderDesc: Boolean = false
+    ): List<T> {
+        return greenDaoDbManage.getDatas(
+            ktClass,
+            condition?.first?.eq(condition.second),
+            sortField,
+            count,
+            orderDesc
+        )
+    }
+
     fun save(obj: Any) {
         val dis = RabbitAsync.asyncRun({
             greenDaoDbManage.saveObj(obj)
@@ -67,6 +83,10 @@ object RabbitDbStorageManager {
     fun saveSync(obj: Any) {
         greenDaoDbManage.saveObj(obj)
         RabbitStorage.notifyEventListenerNewDataSave(obj)
+    }
+
+    fun <T : Any> getObjSync(clazz: Class<T>, id: Long): T? {
+        return greenDaoDbManage.getObjSync(clazz, id)
     }
 
     fun <T : Any> clearAllData(clazz: Class<T>) {
@@ -99,6 +119,12 @@ object RabbitDbStorageManager {
         }, {
             loadResult(it)
         })
+    }
+
+    fun <T : Any> updateOrCreate(clazz: Class<T>, obj: Any, id: Long) {
+        RabbitAsync.asyncRun({
+            greenDaoDbManage.updateOrCreate(clazz, obj, id)
+        }, DB_THREAD)
     }
 
     fun destroy() {

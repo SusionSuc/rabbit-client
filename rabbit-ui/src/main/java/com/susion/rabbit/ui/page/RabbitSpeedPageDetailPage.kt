@@ -30,7 +30,7 @@ import java.util.ArrayList
 /**
  * susionwang at 2019-10-29
  */
-class RabbitPageSpeedDetailPage(context: Context) : RabbitBasePage(context) {
+class RabbitSpeedPageDetailPage(context: Context) : RabbitBasePage(context) {
 
     private var pageName: String = ""
 

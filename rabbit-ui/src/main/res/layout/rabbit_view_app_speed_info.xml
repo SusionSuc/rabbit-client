@@ -9,7 +9,7 @@
     <TextView
         android:layout_margin="10dp"
         android:layout_width="match_parent"
-        android:textSize="18dp"
+        android:textSize="@dimen/rabbit_font_big"
         android:text="应用启动信息概览"
         android:textColor="@color/rabbit_black"
         android:layout_height="wrap_content"/>
@@ -37,7 +37,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:textSize="16dp"
+                android:textSize="@dimen/rabbit_font_small"
                 android:text="OnCreate平均耗时"
                 android:textColor="@color/rabbit_black"
                 android:layout_height="wrap_content"/>
@@ -46,7 +46,7 @@
                 android:id="@+id/mRabbitAppSpeedTvAvgOnCreate"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:textSize="16dp"
+                android:textSize="@dimen/rabbit_font_small"
                 android:text="MainActivity"
                 android:textColor="@color/rabbit_black"
                 android:layout_height="wrap_content"/>
@@ -62,7 +62,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:textSize="16dp"
+                android:textSize="@dimen/rabbit_font_small"
                 android:text="冷启动平均耗时"
                 android:textColor="@color/rabbit_black"
                 android:layout_height="wrap_content"/>
@@ -71,7 +71,7 @@
                 android:id="@+id/mRabbitAppSpeedTvAvgFullTime"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:textSize="16dp"
+                android:textSize="@dimen/rabbit_font_small"
                 android:text="110ms"
                 android:textColor="@color/rabbit_black"
                 android:layout_height="wrap_content"/>
@@ -87,7 +87,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:textSize="16dp"
+                android:textSize="@dimen/rabbit_font_small"
                 android:text="记录数"
                 android:textColor="@color/rabbit_black"
                 android:layout_height="wrap_content"/>
@@ -96,7 +96,7 @@
                 android:id="@+id/mRabbitAppSpeedTvLogNumber"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:textSize="16dp"
+                android:textSize="@dimen/rabbit_font_small"
                 android:text="110ms"
                 android:textColor="@color/rabbit_black"
                 android:layout_height="wrap_content"/>
@@ -108,7 +108,7 @@
     <TextView
         android:layout_margin="10dp"
         android:layout_width="match_parent"
-        android:textSize="18dp"
+        android:textSize="@dimen/rabbit_font_big"
         android:text="页面测速日志列表"
         android:textColor="@color/rabbit_black"
         android:layout_height="wrap_content"/>

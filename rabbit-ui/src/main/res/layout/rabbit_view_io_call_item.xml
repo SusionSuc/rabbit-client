@@ -29,7 +29,7 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="@color/rabbit_black"
-            android:textSize="15dp" />
+            android:textSize="@dimen/rabbit_font_small" />
 
         <TextView
             android:id="@+id/mRabbitIoCallItemLine2"
@@ -39,7 +39,7 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="@color/rabbit_black"
-            android:textSize="15dp" />
+            android:textSize="@dimen/rabbit_font_small" />
 
     </LinearLayout>
 

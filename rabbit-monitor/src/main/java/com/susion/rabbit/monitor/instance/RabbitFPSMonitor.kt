@@ -102,7 +102,7 @@ internal class RabbitFPSMonitor(override var isOpen: Boolean = false) :
         val currentPageName = RabbitMonitor.getCurrentPage()
         val monitorPkgList = RabbitMonitor.mConfig.fpsMonitorPkgList
         if (monitorPkgList.isNotEmpty() && !RabbitUtils.classInPkgList(currentPageName,monitorPkgList))return
-        RabbitLog.d(TAG_MONITOR, "saveFpsInfo --->")
+        RabbitLog.d(TAG_MONITOR, "saveFpsInfo ---> current page name : $currentPageName")
         val fpsInfo = RabbitFPSInfo()
         fpsInfo.maxFps = fpsList.max() ?: 0
         fpsInfo.minFps = fpsList.min() ?: 0

@@ -30,7 +30,7 @@
                 android:layout_marginStart="10dp"
                 android:id="@+id/mExceptionDetailTvFilePath"
                 android:textColor="@color/rabbit_black"
-                android:textSize="16dp"
+                android:textSize="@dimen/rabbit_font_big"
                 android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
@@ -46,7 +46,7 @@
                 android:id="@+id/mCallStackTvStackStr"
                 android:textColor="@color/rabbit_black"
                 android:lineSpacingMultiplier="1.5"
-                android:textSize="14dp"
+                android:textSize="@dimen/rabbit_font_small"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 

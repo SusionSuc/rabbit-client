@@ -13,7 +13,6 @@ import java.util.concurrent.Executor
  */
 object RabbitAsync {
 
-
     fun asyncRun(
         runnable: () -> Unit,
         executor: Executor,
