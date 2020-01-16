@@ -25,7 +25,7 @@
             android:layout_centerVertical="true"
             android:text="清空监控数据 : "
             android:textColor="@color/rabbit_black"
-            android:textSize="17dp" />
+            android:textSize="@dimen/rabbit_font_big" />
 
         <Spinner
             android:id="@+id/mRabbitQuickPageSpinnerMonitors"
@@ -63,7 +63,7 @@
         android:gravity="start|center_vertical"
         android:text="清除所有监控数据"
         android:textColor="@color/rabbit_black"
-        android:textSize="17dp" />
+        android:textSize="@dimen/rabbit_font_big" />
 
     <View
         android:layout_width="match_parent"
@@ -80,7 +80,7 @@
         android:gravity="start|center_vertical"
         android:text="查看当前配置"
         android:textColor="@color/rabbit_black"
-        android:textSize="17dp" />
+        android:textSize="@dimen/rabbit_font_big" />
 
     <View
         android:layout_width="match_parent"
@@ -98,7 +98,7 @@
         android:gravity="start|center_vertical"
         android:text="关于rabbit"
         android:textColor="@color/rabbit_black"
-        android:textSize="17dp" />
+        android:textSize="@dimen/rabbit_font_big" />
 
     <View
         android:layout_width="match_parent"

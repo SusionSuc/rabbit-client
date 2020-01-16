@@ -21,7 +21,7 @@
         android:padding="20dp"
         android:text="Rabbit可是要成为最简单易用、最全面的Android APM框架哦~"
         android:textColor="@color/rabbit_black"
-        android:textSize="18dp" />
+        android:textSize="@dimen/rabbit_font_big" />
 
 
     <TextView
@@ -31,7 +31,7 @@
         android:padding="20dp"
         android:text="如果你对rabbit感兴趣，欢迎加入到rabbit的开发中哦~"
         android:textColor="#a6a6a6"
-        android:textSize="14dp" />
+        android:textSize="@dimen/rabbit_font_middle" />
 
 
     <TextView
@@ -39,7 +39,7 @@
         android:layout_height="match_parent"
         android:gravity="bottom|center_horizontal"
         android:paddingBottom="10dp"
-        android:textSize="13dp"
+        android:textSize="@dimen/rabbit_font_small"
         android:text="susion @ 2020"
         android:textColor="#a6a6a6" />
 

@@ -38,7 +38,7 @@ class RabbitSlowMethodInfoView (context: Context) : LinearLayout(context), Rabbi
             LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         ).apply {
-            val mr10 = dp2px(15f)
+            val mr10 = dp2px(10f)
             setMargins(mr10, mr10, mr10, 0)
         }
         addView(tvClassName)
@@ -48,7 +48,7 @@ class RabbitSlowMethodInfoView (context: Context) : LinearLayout(context), Rabbi
             dp2px(10f),
             dp2px(5f),
             dp2px(10f),
-            0
+            dp2px(5f)
         )
     }
 
