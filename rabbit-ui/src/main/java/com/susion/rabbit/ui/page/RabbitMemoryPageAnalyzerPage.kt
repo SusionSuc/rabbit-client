@@ -31,11 +31,10 @@ class RabbitMemoryPageAnalyzerPage(context: Context) : RabbitBasePage(context) {
         setTitle("内存概览-页面")
 
         mMemDetailPageRv.adapter = adapter
-        mMemDetailPageRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        mMemDetailPageRv.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
         mMemDetailPageSRL.setOnRefreshListener {
-            adapter.data.clear()
-            adapter.notifyDataSetChanged()
             loadData()
         }
 
@@ -48,48 +47,41 @@ class RabbitMemoryPageAnalyzerPage(context: Context) : RabbitBasePage(context) {
             RabbitMemoryInfoDao.Properties.PageName.columnName
         ) { pages ->
 
-            if (pages.isEmpty()){
+            adapter.data.clear()
+
+            if (pages.isEmpty()) {
                 showEmptyView()
-            }else{
+            } else {
                 hideEmptyView()
             }
 
             pages.forEachIndexed { index, page ->
-
-                loadMemAnalyzerInfoByPage(page) { memInfo ->
-
-                    if (memInfo.pageName.isNotEmpty()) {
-                        mMemDetailPageSRL.isRefreshing = false
-                        adapter.data.add(memInfo)
-                        adapter.notifyItemInserted(adapter.data.size - 1)
-                    }
-                }
+                adapter.data.add(loadMemAnalyzerInfoByPage(page))
             }
+
+            mMemDetailPageSRL.isRefreshing = false
+            adapter.notifyDataSetChanged()
+
         }
     }
 
-    private fun loadMemAnalyzerInfoByPage(
-        pageName: String,
-        loadedAnalyzerInfo: (analyzerInfo: RabbitMemoryAnalyzerPageInfo) -> Unit
-    ) {
-        RabbitDbStorageManager.getAll(
+    private fun loadMemAnalyzerInfoByPage(pageName: String): RabbitMemoryAnalyzerPageInfo {
+        val mems = RabbitDbStorageManager.getAllSync(
             RabbitMemoryInfo::class.java,
-            Pair(RabbitMemoryInfoDao.Properties.PageName, pageName),
-            loadResult = { mems ->
+            Pair(RabbitMemoryInfoDao.Properties.PageName, pageName)
+        )
 
-                val memInfo = RabbitMemoryAnalyzerPageInfo()
+        val memInfo = RabbitMemoryAnalyzerPageInfo()
 
-                memInfo.avgMem =RabbitUiUtils.formatFileSize( mems.map { it.totalSize }.average().toLong())
+        memInfo.avgMem = RabbitUiUtils.formatFileSize(mems.map { it.totalSize }.average().toLong())
 
-                memInfo.avgVmMem = RabbitUiUtils.formatFileSize(mems.map { it.vmSize }.average().toLong())
+        memInfo.avgVmMem = RabbitUiUtils.formatFileSize(mems.map { it.vmSize }.average().toLong())
 
-                memInfo.pageName = pageName
+        memInfo.pageName = pageName
 
-                memInfo.recordCount = mems.size
+        memInfo.recordCount = mems.size
 
-                loadedAnalyzerInfo(memInfo)
-
-            })
+        return memInfo
     }
 
 }

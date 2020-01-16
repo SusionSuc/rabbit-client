@@ -78,6 +78,11 @@ class RabbitGlobalMonitorModePage(context: Context) : RabbitBasePage(context) {
                 adapter.data.clear()
                 adapter.data.addAll(it)
                 adapter.notifyDataSetChanged()
+                if (adapter.data.isEmpty()){
+                    showEmptyView()
+                }else{
+                    hideEmptyView()
+                }
             })
         }
     }

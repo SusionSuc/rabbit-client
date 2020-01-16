@@ -111,12 +111,16 @@ abstract class RabbitBasePage(context: Context) : FrameLayout(context), RabbitPa
     }
 
     fun showEmptyView(msg: String = "是不是没有打开监控开关呀") {
-        addView(emptyLl)
-        emptyTv.text = msg
+        if (emptyLl.parent == null){
+            addView(emptyLl)
+            emptyTv.text = msg
+        }
     }
 
     fun hideEmptyView() {
-        removeView(emptyLl)
+        if (emptyLl.parent != null){
+            removeView(emptyLl)
+        }
     }
 
 }

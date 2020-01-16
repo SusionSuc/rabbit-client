@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.rabbit_view_fps_analyzer.view.*
 /**
  * susionwang at 2019-09-25
  */
-class RabbitFpsAnalyzerView(context: Context) : RelativeLayout(context),
+class RabbitFpsAnalyzerPreView(context: Context) : RelativeLayout(context),
     RabbitAdapterItemView<RabbitFpsAnalyzerInfo> {
 
     init {
@@ -31,8 +31,10 @@ class RabbitFpsAnalyzerView(context: Context) : RelativeLayout(context),
 
     @SuppressLint("SetTextI18n")
     override fun bindData(fpsInfo: RabbitFpsAnalyzerInfo, position: Int) {
-        mFpsAnalyzerViewTvPageName.text = "${RabbitUtils.dropPackageName(fpsInfo.pageName)} -> ${fpsInfo.fpsCount} record "
-        mFpsAnalyzerViewTvPageFps.text = "min -> ${fpsInfo.minFps}  avg -> ${fpsInfo.avgFps}  max -> ${fpsInfo.maxFps}"
+        mFpsAnalyzerViewTvPageName.text =
+            "${RabbitUtils.dropPackageName(fpsInfo.pageName)} -> ${fpsInfo.fpsCount} record "
+        mFpsAnalyzerViewTvPageFps.text =
+            "min -> ${fpsInfo.minFps}  avg -> ${fpsInfo.avgFps}  max -> ${fpsInfo.maxFps}"
 
         throttleFirstClick(Consumer {
             RabbitUi.openPage(RabbitFpsAnalyzerDetailPage::class.java, fpsInfo)

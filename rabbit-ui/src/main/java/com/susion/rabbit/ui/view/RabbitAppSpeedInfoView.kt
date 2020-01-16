@@ -8,7 +8,7 @@ import com.susion.rabbit.base.entities.RabbitAppStartSpeedTotalInfo
 import com.susion.rabbit.base.ui.throttleFirstClick
 import com.susion.rabbit.ui.RabbitUi
 import com.susion.rabbit.ui.monitor.R
-import com.susion.rabbit.ui.page.RabbitAppStartSpeedDetailPage
+import com.susion.rabbit.ui.page.RabbitSpeedAppStartDetailPage
 import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.rabbit_view_app_speed_info.view.*
 
@@ -30,7 +30,7 @@ class RabbitAppSpeedInfoView(context: Context) : LinearLayout(context),
         mRabbitAppSpeedTvLogNumber.text = uiInfo.count
 
         throttleFirstClick(Consumer {
-            RabbitUi.openPage(RabbitAppStartSpeedDetailPage::class.java)
+            RabbitUi.openPage(RabbitSpeedAppStartDetailPage::class.java)
         })
     }
 

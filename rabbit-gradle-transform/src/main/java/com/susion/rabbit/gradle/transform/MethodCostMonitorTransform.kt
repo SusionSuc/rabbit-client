@@ -4,7 +4,6 @@ import com.susion.rabbit.gradle.GlobalConfig
 import com.susion.rabbit.gradle.core.RabbitAsmByteArrayTransformer
 import com.susion.rabbit.gradle.core.context.TransformContext
 import com.susion.rabbit.gradle.transform.visitor.MethodCostClassVisitor
-import com.susion.rabbit.gradle.utils.RabbitTransformUtils
 import org.objectweb.asm.ClassReader
 import org.objectweb.asm.ClassReader.EXPAND_FRAMES
 import org.objectweb.asm.ClassWriter

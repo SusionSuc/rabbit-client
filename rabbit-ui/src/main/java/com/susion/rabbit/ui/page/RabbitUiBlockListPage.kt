@@ -3,7 +3,7 @@ package com.susion.rabbit.ui.page
 import android.content.Context
 import android.view.ViewGroup
 import com.susion.rabbit.base.entities.RabbitBlockFrameInfo
-import com.susion.rabbit.ui.view.RabbitUiBlockItemView
+import com.susion.rabbit.ui.view.RabbitUiBlockPreView
 import com.susion.rabbit.storage.RabbitDbStorageManager
 import com.susion.rabbit.base.ui.page.RabbitBasePage
 import com.susion.rabbit.ui.monitor.R
@@ -17,7 +17,7 @@ class RabbitUiBlockListPage(context: Context) : RabbitBasePage(context) {
     private val logsAdapter by lazy {
         object : com.susion.rabbit.base.ui.adapter.RabbitRvAdapter<RabbitBlockFrameInfo>(ArrayList()) {
             override fun createItem(type: Int) =
-                RabbitUiBlockItemView(context)
+                RabbitUiBlockPreView(context)
             override fun getItemType(data: RabbitBlockFrameInfo) = 0
         }
     }

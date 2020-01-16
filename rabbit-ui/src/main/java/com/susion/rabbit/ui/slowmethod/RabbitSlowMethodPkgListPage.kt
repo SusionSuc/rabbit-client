@@ -15,7 +15,7 @@ import com.susion.rabbit.ui.slowmethod.view.RabbitSlowMethodInfoView
 /**
  * susionwang at 2020-01-02
  */
-class RabbitSlowMethodDetailPage(context: Context) : RabbitBasePage(context) {
+class RabbitSlowMethodPkgListPage(context: Context) : RabbitBasePage(context) {
 
     private val mAdapter = object : RabbitRvAdapter<RabbitSlowMethodUiInfo>(ArrayList()) {
         override fun createItem(type: Int) =

@@ -55,6 +55,22 @@ object RabbitDbStorageManager {
         })
     }
 
+    fun <T : Any> getAllSync(
+        ktClass: Class<T>,
+        condition: Pair<Property, String>? = null,
+        sortField: String = "time",
+        count: Int = 0,
+        orderDesc: Boolean = false
+    ): List<T> {
+        return greenDaoDbManage.getDatas(
+            ktClass,
+            condition?.first?.eq(condition.second),
+            sortField,
+            count,
+            orderDesc
+        )
+    }
+
     fun save(obj: Any) {
         val dis = RabbitAsync.asyncRun({
             greenDaoDbManage.saveObj(obj)

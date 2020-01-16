@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="rabbit_font_big">16dp</dimen>
+
+    <dimen name="rabbit_font_middle">14.5dp</dimen>
+
+    <dimen name="rabbit_font_small">13dp</dimen>
+
+</resources>

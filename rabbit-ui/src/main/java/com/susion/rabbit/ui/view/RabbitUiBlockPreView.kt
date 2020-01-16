@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.rabbit_view_ui_block_item.view.*
 /**
  * susionwang at 2019-09-25
  */
-class RabbitUiBlockItemView(context: Context) : RelativeLayout(context),
+class RabbitUiBlockPreView(context: Context) : RelativeLayout(context),
     RabbitAdapterItemView<RabbitBlockFrameInfo> {
 
     init {

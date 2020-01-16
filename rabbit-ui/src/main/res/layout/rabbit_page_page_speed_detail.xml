@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/mRabbitSpeedDetailTvPageSRL"
     android:layout_width="match_parent"
@@ -13,17 +12,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_margin="5dp"
                 android:padding="5dp"
                 android:text="耗时概略"
                 android:textColor="@color/rabbit_black"
-                android:textSize="16dp"
+                android:textSize="@dimen/rabbit_font_middle"
                 android:textStyle="bold" />
 
             <View
@@ -52,7 +50,7 @@
                         android:layout_weight="1"
                         android:text="页面名称"
                         android:textColor="@color/rabbit_black"
-                        android:textSize="14dp" />
+                        android:textSize="@dimen/rabbit_font_small" />
 
                     <TextView
                         android:id="@+id/mRabbitSpeedDetailTvPageName"
@@ -61,7 +59,7 @@
                         android:layout_weight="1"
                         android:text="MainActivity"
                         android:textColor="@color/rabbit_black"
-                        android:textSize="14dp" />
+                        android:textSize="@dimen/rabbit_font_small" />
 
                 </LinearLayout>
 
@@ -77,7 +75,7 @@
                         android:layout_weight="1"
                         android:text="onCreate平均耗时"
                         android:textColor="@color/rabbit_black"
-                        android:textSize="14dp" />
+                        android:textSize="@dimen/rabbit_font_small" />
 
                     <TextView
                         android:id="@+id/mRabbitSpeedDetailTvCreateTime"
@@ -86,7 +84,7 @@
                         android:layout_weight="1"
                         android:text="110ms"
                         android:textColor="@color/rabbit_black"
-                        android:textSize="14dp" />
+                        android:textSize="@dimen/rabbit_font_small" />
 
                 </LinearLayout>
 
@@ -102,7 +100,7 @@
                         android:layout_weight="1"
                         android:text="首次inflate平均耗时"
                         android:textColor="@color/rabbit_black"
-                        android:textSize="14dp" />
+                        android:textSize="@dimen/rabbit_font_small" />
 
                     <TextView
                         android:id="@+id/mRabbitSpeedDetailTvInlateTime"
@@ -111,7 +109,7 @@
                         android:layout_weight="1"
                         android:text="110ms"
                         android:textColor="@color/rabbit_black"
-                        android:textSize="14dp" />
+                        android:textSize="@dimen/rabbit_font_small" />
 
                 </LinearLayout>
 
@@ -127,7 +125,7 @@
                         android:layout_weight="1"
                         android:text="完全渲染平均耗时"
                         android:textColor="@color/rabbit_black"
-                        android:textSize="14dp" />
+                        android:textSize="@dimen/rabbit_font_small" />
 
                     <TextView
                         android:id="@+id/mRabbitSpeedDetailTvFullRenderTime"
@@ -136,7 +134,7 @@
                         android:layout_weight="1"
                         android:text="110ms"
                         android:textColor="@color/rabbit_black"
-                        android:textSize="14dp" />
+                        android:textSize="@dimen/rabbit_font_small" />
 
                 </LinearLayout>
 
@@ -145,11 +143,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_margin="5dp"
                 android:padding="5dp"
                 android:text="耗时曲线"
                 android:textColor="@color/rabbit_black"
-                android:textSize="16dp"
+                android:textSize="@dimen/rabbit_font_middle"
                 android:textStyle="bold" />
 
             <View
@@ -168,11 +166,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_margin="5dp"
                 android:padding="5dp"
                 android:text="网络请求耗时曲线"
                 android:textColor="@color/rabbit_black"
-                android:textSize="16dp"
+                android:textSize="@dimen/rabbit_font_middle"
                 android:textStyle="bold" />
 
             <View

@@ -9,7 +9,7 @@
         android:id="@+id/mRabbitSwitchBtnTvDesc"
         android:layout_marginStart="16dp"
         android:text="选项一"
-        android:textSize="17dp"
+        android:textSize="@dimen/rabbit_font_big"
         android:textColor="@color/rabbit_black"
         android:layout_centerVertical="true"
         android:layout_width="wrap_content"

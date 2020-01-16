@@ -21,7 +21,7 @@ import java.io.File
 /**
  * susionwang at 2019-10-29
  */
-class RabbitBlockCallListPage(context: Context) : RabbitBasePage(context) {
+class RabbitCodeScanPage(context: Context) : RabbitBasePage(context) {
 
     private val EXPORT_FILE_PATH =
         "${Environment.getExternalStorageDirectory()}/Rabbit/blockCall.txt"
@@ -44,7 +44,7 @@ class RabbitBlockCallListPage(context: Context) : RabbitBasePage(context) {
 
     init {
         layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
-        setTitle("阻塞调用列表")
+        setTitle("代码扫描")
         actionBar.setRightOperate(R.drawable.rabbit_icon_export_io_call) {
             showToast("开始导出阻塞调用~")
             val ioCallSb = StringBuilder()
@@ -52,7 +52,8 @@ class RabbitBlockCallListPage(context: Context) : RabbitBasePage(context) {
                 ioCallSb.append("${it.invokeStr} -> ${it.becalledStr}")
             }
 
-            val exportList = logsAdapter.data.map { RabbitUiSimpleCallInfo(it.invokeStr,it.becalledStr) }
+            val exportList =
+                logsAdapter.data.map { RabbitUiSimpleCallInfo(it.invokeStr, it.becalledStr) }
             val exportStr = Gson().toJson(RabbitBlockCallList(exportList))
             RabbitAsync.asyncRunWithResult({
                 FileUtils.writeStrToFile(File(EXPORT_FILE_PATH), exportStr)

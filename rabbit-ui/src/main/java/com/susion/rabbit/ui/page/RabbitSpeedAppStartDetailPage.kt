@@ -21,7 +21,7 @@ import java.util.*
  * susionwang at 2019-10-29
  * 应用启动相关数据详情页
  */
-class RabbitAppStartSpeedDetailPage(context: Context) : RabbitBasePage(context) {
+class RabbitSpeedAppStartDetailPage(context: Context) : RabbitBasePage(context) {
 
     override fun getLayoutResId() = R.layout.rabbit_page_app_start_speed_detail
 

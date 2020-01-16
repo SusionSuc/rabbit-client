@@ -20,7 +20,7 @@
             android:layout_weight="1"
             android:text="性能综合评分"
             android:textColor="@color/rabbit_black"
-            android:textSize="16dp" />
+            android:textSize="@dimen/rabbit_font_big" />
 
         <TextView
             android:id="@+id/mGlobalMonitorPreViewTvScore"
@@ -29,7 +29,7 @@
             android:layout_weight="1"
             android:text="100"
             android:textColor="@color/rabbit_black"
-            android:textSize="16dp" />
+            android:textSize="@dimen/rabbit_font_big" />
 
     </LinearLayout>
 
@@ -51,7 +51,7 @@
             android:layout_weight="1"
             android:text="记录开始时间"
             android:textColor="@color/rabbit_black"
-            android:textSize="13dp" />
+            android:textSize="@dimen/rabbit_font_small" />
 
         <TextView
             android:id="@+id/mGlobalMonitorPreViewTvStartTime"
@@ -60,7 +60,7 @@
             android:layout_weight="1"
             android:text="MainActivity"
             android:textColor="@color/rabbit_black"
-            android:textSize="13dp" />
+            android:textSize="@dimen/rabbit_font_small" />
 
     </LinearLayout>
 
@@ -77,7 +77,7 @@
             android:layout_weight="1"
             android:text="监控时长"
             android:textColor="@color/rabbit_black"
-            android:textSize="13dp" />
+            android:textSize="@dimen/rabbit_font_small" />
 
         <TextView
             android:id="@+id/mGlobalMonitorPreViewTvDuration"
@@ -86,7 +86,7 @@
             android:layout_weight="1"
             android:text="MainActivity"
             android:textColor="@color/rabbit_black"
-            android:textSize="13dp" />
+            android:textSize="@dimen/rabbit_font_small" />
 
     </LinearLayout>
 
@@ -103,7 +103,7 @@
             android:layout_weight="1"
             android:text="平均FPS"
             android:textColor="@color/rabbit_black"
-            android:textSize="13dp" />
+            android:textSize="@dimen/rabbit_font_small" />
 
         <TextView
             android:id="@+id/mGlobalMonitorPreViewTvFps"
@@ -112,7 +112,7 @@
             android:layout_weight="1"
             android:text="MainActivity"
             android:textColor="@color/rabbit_black"
-            android:textSize="13dp" />
+            android:textSize="@dimen/rabbit_font_small" />
 
     </LinearLayout>
 
@@ -128,7 +128,7 @@
             android:layout_weight="1"
             android:text="平均内存占用"
             android:textColor="@color/rabbit_black"
-            android:textSize="13dp" />
+            android:textSize="@dimen/rabbit_font_small" />
 
         <TextView
             android:id="@+id/mGlobalMonitorPreViewTvMem"
@@ -137,7 +137,7 @@
             android:layout_weight="1"
             android:text="110ms"
             android:textColor="@color/rabbit_black"
-            android:textSize="13dp" />
+            android:textSize="@dimen/rabbit_font_small" />
 
     </LinearLayout>
 
@@ -153,7 +153,7 @@
             android:layout_weight="1"
             android:text="Application创建时间"
             android:textColor="@color/rabbit_black"
-            android:textSize="13dp" />
+            android:textSize="@dimen/rabbit_font_small" />
 
         <TextView
             android:id="@+id/mGlobalMonitorPreViewTvApplicationCreate"
@@ -162,7 +162,7 @@
             android:layout_weight="1"
             android:text="MainActivity"
             android:textColor="@color/rabbit_black"
-            android:textSize="13dp" />
+            android:textSize="@dimen/rabbit_font_small" />
 
     </LinearLayout>
 
@@ -178,7 +178,7 @@
             android:layout_weight="1"
             android:text="应用冷启动时间"
             android:textColor="@color/rabbit_black"
-            android:textSize="13dp" />
+            android:textSize="@dimen/rabbit_font_small" />
 
         <TextView
             android:id="@+id/mGlobalMonitorPreViewTvColdStart"
@@ -187,7 +187,7 @@
             android:layout_weight="1"
             android:text="MainActivity"
             android:textColor="@color/rabbit_black"
-            android:textSize="13dp" />
+            android:textSize="@dimen/rabbit_font_small" />
 
     </LinearLayout>
 
@@ -204,7 +204,7 @@
             android:layout_weight="1"
             android:text="页面平均inflate时间"
             android:textColor="@color/rabbit_black"
-            android:textSize="13dp" />
+            android:textSize="@dimen/rabbit_font_small" />
 
         <TextView
             android:id="@+id/mGlobalMonitorPreViewTvPageInflate"
@@ -213,7 +213,7 @@
             android:layout_weight="1"
             android:text="110ms"
             android:textColor="@color/rabbit_black"
-            android:textSize="13dp" />
+            android:textSize="@dimen/rabbit_font_small" />
 
     </LinearLayout>
 
@@ -229,7 +229,7 @@
             android:layout_weight="1"
             android:text="卡顿次数"
             android:textColor="@color/rabbit_black"
-            android:textSize="13dp" />
+            android:textSize="@dimen/rabbit_font_small" />
 
         <TextView
             android:id="@+id/mGlobalMonitorPreViewTvBlockCount"
@@ -238,7 +238,7 @@
             android:layout_weight="1"
             android:text="110ms"
             android:textColor="@color/rabbit_black"
-            android:textSize="13dp" />
+            android:textSize="@dimen/rabbit_font_small" />
 
     </LinearLayout>
 
@@ -254,7 +254,7 @@
             android:layout_weight="1"
             android:text="慢函数数量"
             android:textColor="@color/rabbit_black"
-            android:textSize="13dp" />
+            android:textSize="@dimen/rabbit_font_small" />
 
         <TextView
             android:id="@+id/mGlobalMonitorPreViewTvSlowMethodCount"
@@ -263,7 +263,7 @@
             android:layout_weight="1"
             android:text="110ms"
             android:textColor="@color/rabbit_black"
-            android:textSize="13dp" />
+            android:textSize="@dimen/rabbit_font_small" />
 
     </LinearLayout>
 

@@ -19,13 +19,13 @@ import io.reactivex.functions.Consumer
 class RabbitSlowMethodInfoView (context: Context) : LinearLayout(context), RabbitAdapterItemView<RabbitSlowMethodUiInfo> {
 
     private val tvClassName = TextView(context).apply {
-        setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14f)
+        setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13f)
         setTextColor(getColor(context, R.color.rabbit_black))
         layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
     }
 
     private val tvMethodDesc = TextView(context).apply {
-        setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12f)
+        setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13f)
         setTextColor(getColor(context, R.color.rabbit_black))
         layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT).apply {
             topMargin = dp2px(5f)
@@ -45,10 +45,10 @@ class RabbitSlowMethodInfoView (context: Context) : LinearLayout(context), Rabbi
         addView(tvMethodDesc)
         background = getDrawable(context, R.color.rabbit_bg_card)
         setPadding(
-            dp2px(15f),
             dp2px(10f),
-            dp2px(15f),
-            dp2px(10f)
+            dp2px(5f),
+            dp2px(10f),
+            0
         )
     }
 

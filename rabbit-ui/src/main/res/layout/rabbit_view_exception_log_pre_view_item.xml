@@ -7,45 +7,44 @@
     tools:parentTag="RelativeLayout">
 
     <ImageView
-        android:layout_marginStart="15dp"
+        android:layout_marginStart="10dp"
         android:id="@+id/mExceptionPreviewIv"
         android:layout_centerVertical="true"
-        android:layout_width="30dp"
-        android:layout_height="30dp"/>
+        android:layout_width="15dp"
+        android:layout_height="15dp"/>
 
     <LinearLayout
         android:layout_toEndOf="@+id/mExceptionPreviewIv"
         android:id="@+id/log_detail"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/mExceptionPreviewTvLine2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textSize="@dimen/rabbit_font_small"
+            android:textColor="@color/rabbit_black" />
+
+        <TextView
             android:id="@+id/mExceptionPreviewTvLine1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/rabbit_black"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:textSize="13dp" />
-
-        <TextView
-            android:id="@+id/mExceptionPreviewTvLine2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
             android:maxLines="1"
             android:ellipsize="end"
-            android:textSize="13dp"
-            android:textColor="@color/rabbit_black" />
+            android:textSize="@dimen/rabbit_font_middle" />
 
     </LinearLayout>
 
     <View
         android:layout_toEndOf="@+id/mExceptionPreviewIv"
-        android:layout_marginStart="20dp"
         android:layout_alignParentBottom="true"
         android:background="@color/rabbit_divider_line"
         android:layout_width="match_parent"

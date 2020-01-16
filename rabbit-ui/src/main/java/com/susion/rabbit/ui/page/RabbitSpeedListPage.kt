@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.rabbit_page_ui_block_list.view.*
 /**
  * susionwang at 2019-10-29
  */
-class RabbitAppSpeedMonitorDetailPage(context: Context) : RabbitBasePage(context) {
+class RabbitSpeedListPage(context: Context) : RabbitBasePage(context) {
 
     private val logsAdapter by lazy {
         object : RabbitRvAdapter<Any>(ArrayList()) {

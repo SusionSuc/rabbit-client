@@ -129,10 +129,10 @@ object Rabbit : RabbitProtocol {
     }
 
     private fun initAllComponent() {
+        RabbitStorage.init(application, mConfig.storageConfig)
         RabbitReport.init(application, mConfig.reportConfig)
         RabbitUi.init(application, mConfig.uiConfig)
         RabbitMonitor.init(application, mConfig.monitorConfig)
-        RabbitStorage.init(application, mConfig.storageConfig)
     }
 
     //全局监控模式的特殊处理

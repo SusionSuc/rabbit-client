@@ -13,7 +13,6 @@ class MethodCostClassVisitor(api: Int, cv: ClassVisitor) : ClassVisitor(api, cv)
 
     private val notTraceMethods = listOf("<init>", "<clinit>")
     private var className: String = ""
-    private var isABSClass = false
     private var isInConfigPkgList = false
 
     override fun visit(
@@ -28,11 +27,6 @@ class MethodCostClassVisitor(api: Int, cv: ClassVisitor) : ClassVisitor(api, cv)
 
         this.className = name?.replace("/", ".") ?: ""
 
-        //抽象方法或者接口
-        if (access and Opcodes.ACC_ABSTRACT > 0 || access and Opcodes.ACC_INTERFACE > 0) {
-            this.isABSClass = true
-        }
-
         isInConfigPkgList = RabbitTransformUtils.classInPkgList(
             className,
             GlobalConfig.pluginConfig.methodMonitorPkgs
@@ -46,7 +40,10 @@ class MethodCostClassVisitor(api: Int, cv: ClassVisitor) : ClassVisitor(api, cv)
         signature: String?,
         exceptions: Array<out String>?
     ): MethodVisitor {
-        return if (notTraceMethods.contains(name) || isABSClass || !isInConfigPkgList) {
+
+        val isUnImplMethod = access and Opcodes.ACC_ABSTRACT > 0    //未实现的方法
+
+        return if (notTraceMethods.contains(name) || isUnImplMethod || !isInConfigPkgList) {
             super.visitMethod(access, name, desc, signature, exceptions)
         } else {
             val methodName = "$className&$name()"
@@ -62,4 +59,5 @@ class MethodCostClassVisitor(api: Int, cv: ClassVisitor) : ClassVisitor(api, cv)
             )
         }
     }
+
 }

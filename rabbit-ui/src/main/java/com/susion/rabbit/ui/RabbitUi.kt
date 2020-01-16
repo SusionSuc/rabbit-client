@@ -13,7 +13,7 @@ import com.susion.rabbit.base.ui.page.RabbitEntryPage
 import com.susion.rabbit.ui.monitor.R
 import com.susion.rabbit.ui.page.*
 import com.susion.rabbit.ui.global.RabbitGlobalMonitorModePage
-import com.susion.rabbit.ui.slowmethod.RabbitSlowMethodListPage
+import com.susion.rabbit.ui.slowmethod.RabbitSlowMethodPreviewPage
 
 /**
  * susionwang at 2019-12-30
@@ -82,7 +82,7 @@ object RabbitUi {
                 RabbitMainFeatureInfo(
                     "应用测速",
                     R.drawable.rabbit_icon_speed,
-                    RabbitAppSpeedMonitorDetailPage::class.java
+                    RabbitSpeedListPage::class.java
                 )
             )
 
@@ -107,7 +107,7 @@ object RabbitUi {
                 RabbitMainFeatureInfo(
                     "慢函数",
                     R.drawable.rabbit_icon_slow_method,
-                    RabbitSlowMethodListPage::class.java
+                    RabbitSlowMethodPreviewPage::class.java
                 )
             )
 
@@ -115,7 +115,7 @@ object RabbitUi {
                 RabbitMainFeatureInfo(
                     "代码扫描",
                     R.drawable.rabbit_icon_io_call,
-                    RabbitBlockCallListPage::class.java
+                    RabbitCodeScanPage::class.java
                 )
             )
 
