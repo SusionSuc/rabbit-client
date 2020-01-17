@@ -72,7 +72,7 @@ object RabbitGlobalMonitorDataParser {
                     RabbitMemoryInfo::class.java,
                     id.toLong()
                 )
-            }.map { it.totalSize }.average().toLong()
+            }.map { it.totalSize - it.nativeSize }.average().toLong()
     }
 
     private fun getAvgPageInflateTime(ids: String?): Long {
