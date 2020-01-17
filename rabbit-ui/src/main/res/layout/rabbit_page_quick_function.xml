@@ -6,12 +6,6 @@
     android:background="@color/rabbit_white"
     android:orientation="vertical">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_marginStart="15dp"
-        android:background="@color/rabbit_divider_line" />
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -50,8 +44,8 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_marginStart="15dp"
         android:layout_height="1px"
+        android:layout_marginStart="15dp"
         android:background="@color/rabbit_divider_line" />
 
     <TextView
@@ -67,8 +61,25 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_marginStart="15dp"
         android:layout_height="1px"
+        android:layout_marginStart="15dp"
+        android:background="@color/rabbit_divider_line" />
+
+    <TextView
+        android:id="@+id/mRabbitQuickPageCloseAllMonitorBtn"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="15dp"
+        android:gravity="start|center_vertical"
+        android:text="关闭所有监控"
+        android:textColor="@color/rabbit_black"
+        android:textSize="@dimen/rabbit_font_big" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginStart="15dp"
         android:background="@color/rabbit_divider_line" />
 
     <TextView
@@ -87,7 +98,6 @@
         android:layout_height="1px"
         android:layout_marginStart="15dp"
         android:background="@color/rabbit_divider_line" />
-
 
     <TextView
         android:id="@+id/mRabbitQuickPageViewAbout"

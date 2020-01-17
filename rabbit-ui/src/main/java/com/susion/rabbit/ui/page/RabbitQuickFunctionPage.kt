@@ -40,6 +40,11 @@ class RabbitQuickFunctionPage(context: Context) : RabbitBasePage(context) {
             showToast("清空成功!")
         })
 
+        mRabbitQuickPageCloseAllMonitorBtn.throttleFirstClick(Consumer {
+            RabbitUi.eventListener?.closeAllMonitor()
+            showToast("所有监控都已经关闭!")
+        })
+
         //自定义添加的一些配置
         RabbitUi.mConfig.customConfigList.forEach {
             val switchBtn = RabbitSwitchButton(context).apply {

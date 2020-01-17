@@ -27,7 +27,7 @@ class RabbitSwitchButton : RelativeLayout {
     private fun initView() {
         LayoutInflater.from(context).inflate(R.layout.rabbit_view_switch_btn, this)
         layoutParams = LayoutParams(LayoutParams.MATCH_PARENT,
-            dp2px(60f)
+            dp2px(50f)
         )
         mRabbitSwitchBtnSc.setOnCheckedChangeListener(object :CompoundButton.OnCheckedChangeListener{
             override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
