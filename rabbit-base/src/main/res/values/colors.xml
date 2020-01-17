@@ -11,7 +11,10 @@
     <color name="rabbit_bg_f5">#f5f5f5</color>
 
     <color name="rabbit_transparent_black">#88000000</color>
+
     <color name="rabbit_bg_card">#e3f2fd</color>
+
+    <color name="rabbit_bg_card_light">#e1f5fe</color>
 
     <color name="rabbit_btn_card">#f44336</color>
 

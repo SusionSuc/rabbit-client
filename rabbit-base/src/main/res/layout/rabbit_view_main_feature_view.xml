@@ -2,36 +2,28 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="40dp"
-    android:orientation="horizontal"
-    tools:parentTag="RelativeLayout">
+    android:layout_height="wrap_content"
+    tools:parentTag="android.widget.LinearLayout"
+    android:padding="10dp"
+    android:background="@color/rabbit_white"
+    android:orientation="horizontal">
 
     <ImageView
         android:id="@+id/mDevToolsMainFeatureIvIcon"
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="15dp" />
+        android:src="@drawable/rabbit_icon_business" />
 
     <TextView
         android:id="@+id/mDevToolsMainFeatureTvName"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_toEndOf="@+id/mDevToolsMainFeatureIvIcon"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="10dp"
         android:ellipsize="end"
-        android:layout_centerVertical="true"
-        android:maxLines="10"
+        android:maxLines="1"
         android:text="网络日志"
         android:textColor="@color/rabbit_black"
         android:textSize="@dimen/rabbit_font_big" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="20dp"
-        android:layout_toEndOf="@+id/mDevToolsMainFeatureIvIcon"
-        android:background="@color/rabbit_divider_line" />
 
 </merge>

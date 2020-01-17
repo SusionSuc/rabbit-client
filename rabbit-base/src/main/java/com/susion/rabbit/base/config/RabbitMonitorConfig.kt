@@ -20,7 +20,7 @@ class RabbitMonitorConfig(
     var blockStackCollectPeriodNs: Long = STANDARD_FRAME_NS,
     var blockThresholdNs: Long = STANDARD_FRAME_NS * 10,
     //slow method
-    var slowMethodPeriodMs: Long = 30,
+    var slowMethodPeriodMs: Long = 50,
     var onlyCheckMainThreadSlowMethod: Boolean = true,
     //fps
     var fpsCollectThresholdNs: Long = STANDARD_FRAME_NS * 10,

@@ -38,7 +38,7 @@ object RabbitUi {
     interface EventListener {
         fun toggleMonitorStatus(monitor: RabbitMonitorProtocol, open: Boolean)
         fun getGlobalConfig(): RabbitConfig
-        fun changeGlobalMonitorStatus(open:Boolean)
+        fun changeGlobalMonitorStatus(open: Boolean)
         fun closeAllMonitor()
     }
 
@@ -53,7 +53,7 @@ object RabbitUi {
             )
             add(
                 RabbitMainFeatureInfo(
-                    "全局性能测量模式",
+                    "性能测试",
                     R.drawable.rabbit_icon_global_monitor,
                     RabbitGlobalMonitorModePage::class.java
                 )
@@ -141,12 +141,14 @@ object RabbitUi {
     /**
      * delegate RabbitUiKernal
      * */
-    fun openPage(pageClass: Class<out View>?, params: Any? = null) = RabbitUiKernal.openPage(pageClass, params)
+    fun openPage(pageClass: Class<out View>?, params: Any? = null) =
+        RabbitUiKernal.openPage(pageClass, params)
 
     fun hideAllPage() = RabbitUiKernal.hideAllPage()
 
     fun getCurrentActivity() = RabbitUiKernal.appCurrentActivity?.get()
 
-    fun refreshFloatingViewUi(msgType: Int, params: Any)  = RabbitUiKernal.refreshFloatingViewUi(msgType, params)
+    fun refreshFloatingViewUi(msgType: Int, params: Any) =
+        RabbitUiKernal.refreshFloatingViewUi(msgType, params)
 
 }

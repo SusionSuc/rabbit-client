@@ -3,6 +3,9 @@ package com.susion.rabbit.base.ui.view
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.widget.FrameLayout
+import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import com.susion.rabbit.base.R
 import com.susion.rabbit.base.config.RabbitMainFeatureInfo
@@ -18,7 +21,7 @@ import kotlinx.android.synthetic.main.rabbit_view_main_feature_view.view.*
  * susionwang at 2019-10-12
  */
 
-class RabbitMainFeatureView : RelativeLayout, RabbitAdapterItemView<RabbitMainFeatureInfo> {
+class RabbitMainFeatureView : LinearLayout, RabbitAdapterItemView<RabbitMainFeatureInfo> {
 
     var clickListener: ClickListener? = null
     lateinit var mFeatureInfo: RabbitMainFeatureInfo
@@ -33,10 +36,10 @@ class RabbitMainFeatureView : RelativeLayout, RabbitAdapterItemView<RabbitMainFe
 
     private fun initView() {
         LayoutInflater.from(context).inflate(R.layout.rabbit_view_main_feature_view, this)
-        layoutParams = MarginLayoutParams(
-            LayoutParams.MATCH_PARENT,
-            dp2px(55f)
-        )
+        layoutParams = MarginLayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
+        orientation = HORIZONTAL
+        setPadding(dp2px(13f), dp2px(20f), dp2px(10f), dp2px(20f))
+        background = getDrawable(context, R.color.rabbit_bg_card)
         throttleFirstClick(Consumer {
             clickListener?.onClick()
             RabbitUiKernal.openPage(mFeatureInfo.pageClass)
