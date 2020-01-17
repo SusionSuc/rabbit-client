@@ -49,8 +49,7 @@ class MyApplication : Application() {
 //        rabbitConfig.monitorConfig.fpsCollectThresholdNs = TimeUnit.NANOSECONDS.convert(10, TimeUnit.MILLISECONDS)
 //        rabbitConfig.monitorConfig.memoryValueCollectPeriodMs = 2000L
 
-        rabbitConfig.reportConfig.enable = true
-        rabbitConfig.reportConfig.reportPath = "http://127.0.0.1:8000/apmdb/upload-log"
+        rabbitConfig.reportConfig.enable = false
         rabbitConfig.reportConfig.emitterSleepCount = 3
         rabbitConfig.reportConfig.batchReportPointCount = 5
         rabbitConfig.reportConfig.emitterFailedRetryCount = 2

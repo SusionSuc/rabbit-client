@@ -64,6 +64,7 @@ class RabbitGlobalModeMonitor(override var isOpen: Boolean = false) : RabbitMoni
         }
 
         if (globalMonitorInfo != null) {
+            globalMonitorInfo?.isRunning = true
             globalMonitorInfo?.endTime = System.currentTimeMillis()
             RabbitDbStorageManager.updateOrCreate(
                 RabbitGlobalMonitorInfo::class.java,

@@ -9,11 +9,14 @@ import com.susion.rabbit.base.TAG_MONITOR
 import com.susion.rabbit.base.common.RabbitActivityLifecycleWrapper
 import com.susion.rabbit.base.config.RabbitMonitorConfig
 import com.susion.rabbit.base.entities.RabbitAppSpeedMonitorConfig
+import com.susion.rabbit.base.entities.RabbitGlobalMonitorInfo
+import com.susion.rabbit.base.ui.RabbitUiEvent
 import com.susion.rabbit.monitor.instance.*
 import com.susion.rabbit.monitor.instance.RabbitAppSpeedMonitor
 import com.susion.rabbit.monitor.instance.RabbitBlockMonitor
 import com.susion.rabbit.monitor.instance.RabbitFPSMonitor
 import com.susion.rabbit.monitor.instance.RabbitMemoryMonitor
+import com.susion.rabbit.storage.RabbitDbStorageManager
 import okhttp3.Interceptor
 import java.lang.ref.WeakReference
 
@@ -52,7 +55,10 @@ object RabbitMonitor {
 
         mConfig = config_
         this.application = application
+
         mConfig.autoOpenMonitors.add(RabbitMonitorProtocol.USE_TIME.name)
+
+        initGlobalMonitorMode() //全局监控模式的特殊处理
 
         application.registerActivityLifecycleCallbacks(object : RabbitActivityLifecycleWrapper() {
             override fun onActivityResumed(activity: Activity?) {
@@ -86,6 +92,29 @@ object RabbitMonitor {
         assertInit()
         monitorMap[name]?.close()
         RabbitSettings.setAutoOpenFlag(application, name, false)
+    }
+
+    //全局监控模式的特殊处理
+    private fun initGlobalMonitorMode() {
+        val autoOpen = RabbitSettings.autoOpen(application, RabbitMonitorProtocol.GLOBAL_MONITOR.name)
+        if (!autoOpen) return
+
+        eventListener?.updateUi(RabbitUiEvent.CHANGE_GLOBAL_MONITOR_STATUS, true)
+        //直接打开需要监控的组件
+        mConfig.autoOpenMonitors.apply {
+            add(RabbitMonitorProtocol.FPS.name)
+            add(RabbitMonitorProtocol.MEMORY.name)
+            add(RabbitMonitorProtocol.APP_SPEED.name)
+            add(RabbitMonitorProtocol.BLOCK.name)
+            add(RabbitMonitorProtocol.SLOW_METHOD.name)
+        }
+
+        RabbitDbStorageManager.getAll(RabbitGlobalMonitorInfo::class.java){
+            it.forEach {globalMonitorInfo->
+                globalMonitorInfo.isRunning = false
+                RabbitDbStorageManager.updateOrCreate(RabbitGlobalMonitorInfo::class.java, globalMonitorInfo,globalMonitorInfo.id)
+            }
+        }
     }
 
     fun isOpen(name: String): Boolean {

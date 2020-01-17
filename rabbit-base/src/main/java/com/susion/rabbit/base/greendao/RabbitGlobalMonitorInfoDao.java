@@ -33,6 +33,7 @@ public class RabbitGlobalMonitorInfoDao extends AbstractDao<RabbitGlobalMonitorI
         public final static Property BlockIds = new Property(6, String.class, "blockIds", false, "BLOCK_IDS");
         public final static Property SlowMethodIds = new Property(7, String.class, "slowMethodIds", false, "SLOW_METHOD_IDS");
         public final static Property EndTime = new Property(8, Long.class, "endTime", false, "END_TIME");
+        public final static Property IsRunning = new Property(9, boolean.class, "isRunning", false, "IS_RUNNING");
     }
 
 
@@ -56,7 +57,8 @@ public class RabbitGlobalMonitorInfoDao extends AbstractDao<RabbitGlobalMonitorI
                 "\"PAGE_SPEED_IDS\" TEXT," + // 5: pageSpeedIds
                 "\"BLOCK_IDS\" TEXT," + // 6: blockIds
                 "\"SLOW_METHOD_IDS\" TEXT," + // 7: slowMethodIds
-                "\"END_TIME\" INTEGER);"); // 8: endTime
+                "\"END_TIME\" INTEGER," + // 8: endTime
+                "\"IS_RUNNING\" INTEGER NOT NULL );"); // 9: isRunning
     }
 
     /** Drops the underlying database table. */
@@ -113,6 +115,7 @@ public class RabbitGlobalMonitorInfoDao extends AbstractDao<RabbitGlobalMonitorI
         if (endTime != null) {
             stmt.bindLong(9, endTime);
         }
+        stmt.bindLong(10, entity.getIsRunning() ? 1L: 0L);
     }
 
     @Override
@@ -163,6 +166,7 @@ public class RabbitGlobalMonitorInfoDao extends AbstractDao<RabbitGlobalMonitorI
         if (endTime != null) {
             stmt.bindLong(9, endTime);
         }
+        stmt.bindLong(10, entity.getIsRunning() ? 1L: 0L);
     }
 
     @Override
@@ -181,7 +185,8 @@ public class RabbitGlobalMonitorInfoDao extends AbstractDao<RabbitGlobalMonitorI
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // pageSpeedIds
             cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // blockIds
             cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // slowMethodIds
-            cursor.isNull(offset + 8) ? null : cursor.getLong(offset + 8) // endTime
+            cursor.isNull(offset + 8) ? null : cursor.getLong(offset + 8), // endTime
+            cursor.getShort(offset + 9) != 0 // isRunning
         );
         return entity;
     }
@@ -197,6 +202,7 @@ public class RabbitGlobalMonitorInfoDao extends AbstractDao<RabbitGlobalMonitorI
         entity.setBlockIds(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
         entity.setSlowMethodIds(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
         entity.setEndTime(cursor.isNull(offset + 8) ? null : cursor.getLong(offset + 8));
+        entity.setIsRunning(cursor.getShort(offset + 9) != 0);
      }
     
     @Override

@@ -14,13 +14,12 @@ import com.susion.rabbit.ui.RabbitUi
 import com.susion.rabbit.ui.global.entities.RabbitGlobalModePreInfo
 import com.susion.rabbit.ui.global.view.RabbitGlobalMonitorPreView
 import com.susion.rabbit.ui.monitor.R
-import com.susion.rabbit.ui.page.RabbitCurrentConfigPage
 import kotlinx.android.synthetic.main.rabbit_page_global_monitor_mode.view.*
 
 /**
  * susionwang at 2019-10-29
  */
-class RabbitGlobalMonitorModePage(context: Context) : RabbitBasePage(context) {
+class RabbitGlobalMonitorModeDetailPage(context: Context) : RabbitBasePage(context) {
 
     private val adapter by lazy {
         object : RabbitRvAdapter<RabbitGlobalModePreInfo>(ArrayList()) {
@@ -31,13 +30,16 @@ class RabbitGlobalMonitorModePage(context: Context) : RabbitBasePage(context) {
 
     override fun getLayoutResId() = R.layout.rabbit_page_global_monitor_mode
 
+
+    override fun setEntryParams(params: Any) {
+        if (params !is RabbitGlobalModePreInfo) return
+
+
+    }
+
     init {
 
         setTitle("全局性能测试")
-
-        actionBar.setRightOperate(R.drawable.rabbit_icon_current_config) {
-            RabbitUi.openPage(RabbitCurrentConfigPage::class.java)
-        }
 
         mRabbitPageGlobalMonitorModeRv.adapter = adapter
         mRabbitPageGlobalMonitorModeRv.layoutManager =
@@ -73,7 +75,10 @@ class RabbitGlobalMonitorModePage(context: Context) : RabbitBasePage(context) {
             RabbitAsync.asyncRunWithResult({
                 ArrayList<RabbitGlobalModePreInfo>().apply {
                     monitorList.forEach { monitorInfo ->
-                        this.add(0, RabbitGlobalMonitorDataParser.getGlobalMonitorPreInfo(monitorInfo))
+                        this.add(
+                            0,
+                            RabbitGlobalMonitorDataParser.getGlobalMonitorPreInfo(monitorInfo)
+                        )
                     }
                 }
             }, {
@@ -81,9 +86,9 @@ class RabbitGlobalMonitorModePage(context: Context) : RabbitBasePage(context) {
                 adapter.data.clear()
                 adapter.data.addAll(it)
                 adapter.notifyDataSetChanged()
-                if (adapter.data.isEmpty()){
+                if (adapter.data.isEmpty()) {
                     showEmptyView()
-                }else{
+                } else {
                     hideEmptyView()
                 }
             })

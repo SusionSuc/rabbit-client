@@ -18,25 +18,42 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="性能综合评分"
+            android:text="流畅指数"
             android:textColor="@color/rabbit_black"
             android:textSize="@dimen/rabbit_font_big" />
 
-        <TextView
-            android:id="@+id/mGlobalMonitorPreViewTvScore"
+
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="100"
-            android:textColor="@color/rabbit_black"
-            android:textSize="@dimen/rabbit_font_big" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/mGlobalMonitorPreViewTvScore"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="100"
+                android:textColor="@color/rabbit_black"
+                android:textSize="@dimen/rabbit_font_big" />
+
+            <ImageView
+                android:id="@+id/mGlobalMonitorPreViewIvStatus"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="15dp"
+                android:src="@drawable/rabbit_icon_dot2" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:layout_marginTop="5dp"
+
         android:background="@color/rabbit_divider_line" />
 
     <LinearLayout

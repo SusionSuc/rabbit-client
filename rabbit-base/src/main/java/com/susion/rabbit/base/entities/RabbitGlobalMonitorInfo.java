@@ -29,10 +29,13 @@ public class RabbitGlobalMonitorInfo {
 
     public Long endTime;
 
-    @Generated(hash = 1684721862)
+    public boolean isRunning;
+
+    @Generated(hash = 1353414932)
     public RabbitGlobalMonitorInfo(Long id, Long time, String fpsIds,
             String memoryIds, String appStartId, String pageSpeedIds,
-            String blockIds, String slowMethodIds, Long endTime) {
+            String blockIds, String slowMethodIds, Long endTime,
+            boolean isRunning) {
         this.id = id;
         this.time = time;
         this.fpsIds = fpsIds;
@@ -42,6 +45,7 @@ public class RabbitGlobalMonitorInfo {
         this.blockIds = blockIds;
         this.slowMethodIds = slowMethodIds;
         this.endTime = endTime;
+        this.isRunning = isRunning;
     }
 
     @Generated(hash = 1291211931)
@@ -118,6 +122,14 @@ public class RabbitGlobalMonitorInfo {
 
     public void setEndTime(Long endTime) {
         this.endTime = endTime;
+    }
+
+    public boolean getIsRunning() {
+        return this.isRunning;
+    }
+
+    public void setIsRunning(boolean isRunning) {
+        this.isRunning = isRunning;
     }
 
 }
