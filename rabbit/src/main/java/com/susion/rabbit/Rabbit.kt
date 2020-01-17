@@ -58,8 +58,6 @@ object Rabbit : RabbitProtocol {
 
         configUi()
 
-        initGlobalMonitorMode()
-
         initAllComponent()
 
         isInit = true
@@ -87,7 +85,6 @@ object Rabbit : RabbitProtocol {
 
     private fun configReport() {
         val reportConfig = mConfig.reportConfig
-        reportConfig.enable = true
         reportConfig.notReportDataFormat.apply {
             add(RabbitMemoryInfo::class.java)
             add(RabbitHttpLogInfo::class.java)
@@ -139,22 +136,7 @@ object Rabbit : RabbitProtocol {
         RabbitMonitor.init(application, mConfig.monitorConfig)
     }
 
-    //全局监控模式的特殊处理
-    private fun initGlobalMonitorMode() {
-        val autoOpen =
-            RabbitSettings.autoOpen(application, RabbitMonitorProtocol.GLOBAL_MONITOR.name)
-        if (!autoOpen) return
 
-        RabbitUi.refreshFloatingViewUi(RabbitUiEvent.CHANGE_GLOBAL_MONITOR_STATUS, true)
-        //直接打开需要监控的组件
-        mConfig.monitorConfig.autoOpenMonitors.apply {
-            add(RabbitMonitorProtocol.FPS.name)
-            add(RabbitMonitorProtocol.MEMORY.name)
-            add(RabbitMonitorProtocol.APP_SPEED.name)
-            add(RabbitMonitorProtocol.BLOCK.name)
-            add(RabbitMonitorProtocol.SLOW_METHOD.name)
-        }
-    }
 
     override fun reConfig(config: RabbitConfig) {
         mConfig = config

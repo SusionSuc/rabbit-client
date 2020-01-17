@@ -36,7 +36,9 @@ class RabbitActionBar : RelativeLayout {
             LayoutParams.MATCH_PARENT,
             dp2px(50f)
         )
+
         background = getDrawable(context, R.color.rabbit_material_primary)
+
         mDevToolsToolsBarIvBack.throttleFirstClick(Consumer {
             actionListener?.onBackClick()
         })
@@ -56,11 +58,11 @@ class RabbitActionBar : RelativeLayout {
         mDevToolsToolsBarTvTitle.text = title
     }
 
-    fun setRightOperate(draRes: Int, cliclCallback: () -> Unit) {
+    fun setRightOperate(draRes: Int, clickCallback: () -> Unit) {
         mDevToolsToolsBarIvOperation.visibility = View.VISIBLE
         mDevToolsToolsBarIvOperation.setImageDrawable(getDrawable(context, draRes))
         mDevToolsToolsBarIvOperation.throttleFirstClick(Consumer {
-            cliclCallback()
+            clickCallback()
         })
     }
 
@@ -71,11 +73,11 @@ class RabbitActionBar : RelativeLayout {
     //support back by back keyword
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        post {
+        postDelayed({
             if (!mRabbitActionBarFakeEt.hasFocus()) {
                 mRabbitActionBarFakeEt.requestFocus()
             }
-        }
+        },500)
     }
 
 }

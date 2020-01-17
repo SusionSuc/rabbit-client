@@ -6,10 +6,13 @@ import android.os.Debug
 import android.os.Handler
 import android.os.HandlerThread
 import android.os.Process
+import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.monitor.RabbitMonitor
 import com.susion.rabbit.base.RabbitMonitorProtocol
+import com.susion.rabbit.base.TAG_MONITOR
 import com.susion.rabbit.base.entities.RabbitMemoryInfo
 import com.susion.rabbit.base.ui.RabbitUiEvent
+import com.susion.rabbit.base.ui.utils.RabbitUiUtils
 import com.susion.rabbit.storage.RabbitDbStorageManager
 
 /**
@@ -28,8 +31,7 @@ internal class RabbitMemoryMonitor(override var isOpen: Boolean = false) :
             val memInfo = getMemoryInfo()
             RabbitDbStorageManager.save(memInfo)
             val eventType = RabbitUiEvent.MSG_UPDATE_MEMORY_VALUE
-            val memoryStr =
-                "${com.susion.rabbit.base.ui.utils.RabbitUiUtils.formatFileSize(memInfo.totalSize.toLong())} "
+            val memoryStr = "${RabbitUiUtils.formatFileSize(memInfo.totalSize.toLong())} "
             RabbitMonitor.eventListener?.updateUi(eventType, memoryStr)
             memoryRefreshHandler?.postDelayed(this, MEMORY_COLLECT_PERIOD)
         }
@@ -46,6 +48,7 @@ internal class RabbitMemoryMonitor(override var isOpen: Boolean = false) :
         memoryRefreshHandler = Handler(monitorThread?.looper)
         memoryRefreshHandler?.postDelayed(memoryCollectRunnable, MEMORY_COLLECT_PERIOD)
         isOpen = true
+        RabbitLog.d(TAG_MONITOR, "max memory : ${RabbitUiUtils.formatFileSize(Runtime.getRuntime().maxMemory())}")
     }
 
     override fun close() {

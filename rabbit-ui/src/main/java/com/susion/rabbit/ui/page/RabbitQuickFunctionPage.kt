@@ -2,8 +2,6 @@ package com.susion.rabbit.ui.page
 
 import android.content.Context
 import android.widget.ArrayAdapter
-import com.susion.rabbit.base.RabbitMonitorProtocol
-import com.susion.rabbit.base.RabbitSettings
 import com.susion.rabbit.base.ui.dp2px
 import com.susion.rabbit.storage.RabbitStorage
 import com.susion.rabbit.base.ui.page.RabbitBasePage
@@ -65,7 +63,7 @@ class RabbitQuickFunctionPage(context: Context) : RabbitBasePage(context) {
         }
 
         mRabbitQuickPageViewConfig.throttleFirstClick(Consumer {
-            RabbitUi.openPage(RabbitCurrentConfigListPage::class.java)
+            RabbitUi.openPage(RabbitCurrentConfigPage::class.java)
         })
 
         mRabbitQuickPageViewAbout.throttleFirstClick(Consumer {

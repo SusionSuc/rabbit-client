@@ -7,11 +7,10 @@ import com.susion.rabbit.ui.RabbitUi
 import kotlinx.android.synthetic.main.rabbit_page_current_config_list.view.*
 import com.susion.rabbit.ui.monitor.R
 
-
 /**
  * create by susionwang at 2020-01-10
  */
-class RabbitCurrentConfigListPage(context: Context) : RabbitBasePage(context) {
+class RabbitCurrentConfigPage(context: Context) : RabbitBasePage(context) {
 
     override fun getLayoutResId() = R.layout.rabbit_page_current_config_list
 
