@@ -102,6 +102,10 @@ object Rabbit : RabbitProtocol {
         uiConfig.customConfigList.addAll(getCustomConfigs())
         RabbitUi.eventListener = object : RabbitUi.EventListener {
 
+            override fun closeAllMonitor() {
+                RabbitMonitor.closeAllMonitor()
+            }
+
             override fun getGlobalConfig() = mConfig
 
             override fun changeGlobalMonitorStatus(open: Boolean) {

@@ -22,10 +22,6 @@ object RabbitStorage {
         application = application_
         mConfig = config
         mConfig.daoProvider.addAll(getFixedDaoProvider())
-        mConfig.storageInOnSessionData.addAll(ArrayList<Class<Any>>().apply {
-            add(RabbitHttpLogInfo::class.java as Class<Any>)
-        })
-
         mConfig.storageInOnSessionData.forEach {
             mConfig.oneSessionValidDatas.add(it.simpleName)
         }

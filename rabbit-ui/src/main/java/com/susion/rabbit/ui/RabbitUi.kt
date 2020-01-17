@@ -39,6 +39,7 @@ object RabbitUi {
         fun toggleMonitorStatus(monitor: RabbitMonitorProtocol, open: Boolean)
         fun getGlobalConfig(): RabbitConfig
         fun changeGlobalMonitorStatus(open:Boolean)
+        fun closeAllMonitor()
     }
 
     fun defaultSupportFeatures(application: Application): ArrayList<RabbitMainFeatureInfo> {

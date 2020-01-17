@@ -23,7 +23,7 @@ import java.lang.ref.WeakReference
  */
 object RabbitMonitor {
 
-    var application: Application? = null
+    lateinit var application: Application
     private var isInit = false
     var mConfig: RabbitMonitorConfig = RabbitMonitorConfig()
     var eventListener: UiEventListener? = null
@@ -78,12 +78,14 @@ object RabbitMonitor {
 
     fun openMonitor(name: String) {
         assertInit()
-        monitorMap[name]?.open(application!!)
+        RabbitLog.d(TAG_MONITOR, " open monitor: $name")
+        monitorMap[name]?.open(application)
     }
 
     fun closeMonitor(name: String) {
         assertInit()
         monitorMap[name]?.close()
+        RabbitSettings.setAutoOpenFlag(application, name, false)
     }
 
     fun isOpen(name: String): Boolean {
@@ -153,6 +155,12 @@ object RabbitMonitor {
 
     fun getAppUseTimes(): Long {
         return getMonitor<RabbitAppUseTimeMonitor>()?.getAppUseTimeS() ?: 0L
+    }
+
+    fun closeAllMonitor() {
+        monitorMap.values.filter { it.getMonitorInfo().showInExternal }.forEach {
+            closeMonitor(it.getMonitorInfo().name)
+        }
     }
 
     interface UiEventListener {
