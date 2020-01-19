@@ -25,7 +25,8 @@ rootProject.ext {
             asmVersion                   : "7.1",
             autoServiceVersion           : "1.0-rc4",
             mpChartVersion               : "v3.1.0",
-            leakCanaryVersion            : "2.0-beta-5"
+            leakCanaryVersion            : "2.0-beta-5",
+            lifeClean                    : "1.0.1"
     ]
 
     def androidXVersion = "1.0.0"

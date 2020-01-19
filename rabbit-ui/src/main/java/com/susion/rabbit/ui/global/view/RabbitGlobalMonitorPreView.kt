@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import com.susion.rabbit.base.ui.adapter.RabbitAdapterItemView
+import com.susion.lifeclean.common.recyclerview.AdapterItemView
 import com.susion.rabbit.base.ui.throttleFirstClick
 import com.susion.rabbit.base.ui.utils.RabbitUiUtils
 import com.susion.rabbit.ui.RabbitUi
@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.rabbit_view_global_monitor_pre.view.*
  * susionwang at 2020-01-16
  */
 class RabbitGlobalMonitorPreView(context: Context) : LinearLayout(context),
-    RabbitAdapterItemView<RabbitGlobalModePreInfo> {
+    AdapterItemView<RabbitGlobalModePreInfo> {
 
     init {
         LayoutInflater.from(context).inflate(R.layout.rabbit_view_global_monitor_pre, this)

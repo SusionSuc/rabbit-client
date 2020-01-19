@@ -3,12 +3,11 @@ package com.susion.rabbit.base.ui.page
 import android.content.Context
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.susion.lifeclean.common.recyclerview.SimpleRvAdapter
 import com.susion.rabbit.base.R
 import com.susion.rabbit.base.config.RabbitMainFeatureInfo
-import com.susion.rabbit.base.ui.adapter.RabbitRvAdapter
 import com.susion.rabbit.base.ui.dp2px
 import com.susion.rabbit.base.ui.getDrawable
 import com.susion.rabbit.base.ui.utils.RabbitSimpleCardDecoration
@@ -25,9 +24,8 @@ class RabbitEntryPage(
 ) : RabbitBasePage(context) {
 
     private val featuresAdapter by lazy {
-        object : RabbitRvAdapter<RabbitMainFeatureInfo>(defaultSupportFeatures) {
-            override fun createItem(type: Int) = RabbitMainFeatureView(context)
-            override fun getItemType(data: RabbitMainFeatureInfo) = 0
+        SimpleRvAdapter(context, defaultSupportFeatures).apply {
+            registerMapping(RabbitMainFeatureInfo::class.java, RabbitMainFeatureView::class.java)
         }
     }
 

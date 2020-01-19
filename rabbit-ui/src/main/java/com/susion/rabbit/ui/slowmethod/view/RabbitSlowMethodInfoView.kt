@@ -5,8 +5,8 @@ import android.util.TypedValue
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.susion.lifeclean.common.recyclerview.AdapterItemView
 import com.susion.rabbit.base.ui.*
-import com.susion.rabbit.base.ui.adapter.RabbitAdapterItemView
 import com.susion.rabbit.ui.RabbitUi
 import com.susion.rabbit.ui.monitor.R
 import com.susion.rabbit.ui.entities.RabbitSlowMethodUiInfo
@@ -16,7 +16,7 @@ import io.reactivex.functions.Consumer
 /**
  * susionwang at 2020-01-02
  */
-class RabbitSlowMethodInfoView (context: Context) : LinearLayout(context), RabbitAdapterItemView<RabbitSlowMethodUiInfo> {
+class RabbitSlowMethodInfoView (context: Context) : LinearLayout(context), AdapterItemView<RabbitSlowMethodUiInfo> {
 
     private val tvClassName = TextView(context).apply {
         setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13f)

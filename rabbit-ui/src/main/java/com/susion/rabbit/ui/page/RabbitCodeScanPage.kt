@@ -5,12 +5,12 @@ import android.os.Environment
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
+import com.susion.lifeclean.common.recyclerview.CommonRvAdapter
 import com.susion.rabbit.base.common.FileUtils
 import com.susion.rabbit.base.common.RabbitAsync
 import com.susion.rabbit.base.entities.RabbitIoCallInfo
-import com.susion.rabbit.storage.RabbitDbStorageManager
 import com.susion.rabbit.base.ui.page.RabbitBasePage
-import com.susion.rabbit.base.ui.adapter.RabbitRvAdapter
+import com.susion.rabbit.storage.RabbitDbStorageManager
 import com.susion.rabbit.ui.entities.RabbitBlockCallList
 import com.susion.rabbit.ui.entities.RabbitUiSimpleCallInfo
 import com.susion.rabbit.ui.monitor.R
@@ -27,7 +27,8 @@ class RabbitCodeScanPage(context: Context) : RabbitBasePage(context) {
         "${Environment.getExternalStorageDirectory()}/Rabbit/blockCall.txt"
 
     private val logsAdapter by lazy {
-        object : RabbitRvAdapter<RabbitIoCallInfo>(ArrayList()) {
+
+        object : CommonRvAdapter<RabbitIoCallInfo>(ArrayList()) {
             override fun createItem(type: Int) = RabbitIoCallItemView(context).apply {
                 eventListener = object : RabbitIoCallItemView.EventListener {
                     override fun onClick(str: String) {

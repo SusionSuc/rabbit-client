@@ -3,14 +3,11 @@ package com.susion.rabbit.base.ui.view
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.ViewGroup
-import android.widget.FrameLayout
 import android.widget.LinearLayout
-import android.widget.RelativeLayout
+import com.susion.lifeclean.common.recyclerview.AdapterItemView
 import com.susion.rabbit.base.R
 import com.susion.rabbit.base.config.RabbitMainFeatureInfo
 import com.susion.rabbit.base.ui.RabbitUiKernal
-import com.susion.rabbit.base.ui.adapter.RabbitAdapterItemView
 import com.susion.rabbit.base.ui.dp2px
 import com.susion.rabbit.base.ui.getDrawable
 import com.susion.rabbit.base.ui.throttleFirstClick
@@ -21,7 +18,7 @@ import kotlinx.android.synthetic.main.rabbit_view_main_feature_view.view.*
  * susionwang at 2019-10-12
  */
 
-class RabbitMainFeatureView : LinearLayout, RabbitAdapterItemView<RabbitMainFeatureInfo> {
+class RabbitMainFeatureView : LinearLayout, AdapterItemView<RabbitMainFeatureInfo> {
 
     var clickListener: ClickListener? = null
     lateinit var mFeatureInfo: RabbitMainFeatureInfo

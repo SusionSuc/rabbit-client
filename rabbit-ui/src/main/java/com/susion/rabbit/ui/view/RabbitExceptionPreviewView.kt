@@ -4,9 +4,9 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.RelativeLayout
+import com.susion.lifeclean.common.recyclerview.AdapterItemView
 import com.susion.rabbit.base.common.rabbitTimeFormat
 import com.susion.rabbit.base.entities.RabbitExceptionInfo
-import com.susion.rabbit.base.ui.adapter.RabbitAdapterItemView
 import com.susion.rabbit.base.ui.dp2px
 import com.susion.rabbit.base.ui.getDrawable
 import com.susion.rabbit.base.ui.throttleFirstClick
@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.rabbit_view_exception_log_pre_view_item.vi
  * susionwang at 2019-09-25
  */
 class RabbitExceptionPreviewView(context: Context) : RelativeLayout(context),
-    RabbitAdapterItemView<RabbitExceptionInfo> {
+    AdapterItemView<RabbitExceptionInfo> {
 
     private lateinit var mLogInfo: RabbitExceptionInfo
 

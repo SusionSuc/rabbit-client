@@ -1,12 +1,12 @@
 package com.susion.rabbit.ui.page
 
 import android.content.Context
+import com.susion.lifeclean.common.recyclerview.SimpleRvAdapter
 import com.susion.rabbit.base.entities.RabbitExceptionInfo
-import com.susion.rabbit.ui.view.RabbitExceptionPreviewView
-import com.susion.rabbit.storage.RabbitDbStorageManager
 import com.susion.rabbit.base.ui.page.RabbitBasePage
-import com.susion.rabbit.base.ui.adapter.RabbitRvAdapter
+import com.susion.rabbit.storage.RabbitDbStorageManager
 import com.susion.rabbit.ui.monitor.R
+import com.susion.rabbit.ui.view.RabbitExceptionPreviewView
 import kotlinx.android.synthetic.main.rabbit_page_exception_list.view.*
 
 /**
@@ -18,10 +18,8 @@ class RabbitExceptionListPage(context: Context) : RabbitBasePage(context) {
     override fun getLayoutResId() = R.layout.rabbit_page_exception_list
 
     private val logsAdapter by lazy {
-        object : RabbitRvAdapter<RabbitExceptionInfo>(ArrayList()) {
-            override fun createItem(type: Int) =
-                RabbitExceptionPreviewView(context)
-            override fun getItemType(data: RabbitExceptionInfo) = 0
+        SimpleRvAdapter<RabbitExceptionInfo>(context).apply {
+            registerMapping(RabbitExceptionInfo::class.java, RabbitExceptionPreviewView::class.java)
         }
     }
 

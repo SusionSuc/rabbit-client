@@ -2,6 +2,7 @@ package com.susion.rabbit.ui.page
 
 import android.content.Context
 import android.view.ViewGroup
+import com.susion.lifeclean.common.recyclerview.SimpleRvAdapter
 import com.susion.rabbit.base.entities.RabbitBlockFrameInfo
 import com.susion.rabbit.ui.view.RabbitUiBlockPreView
 import com.susion.rabbit.storage.RabbitDbStorageManager
@@ -15,10 +16,8 @@ import kotlinx.android.synthetic.main.rabbit_page_ui_block_list.view.*
 class RabbitUiBlockListPage(context: Context) : RabbitBasePage(context) {
 
     private val logsAdapter by lazy {
-        object : com.susion.rabbit.base.ui.adapter.RabbitRvAdapter<RabbitBlockFrameInfo>(ArrayList()) {
-            override fun createItem(type: Int) =
-                RabbitUiBlockPreView(context)
-            override fun getItemType(data: RabbitBlockFrameInfo) = 0
+        SimpleRvAdapter<RabbitBlockFrameInfo>(context).apply {
+            registerMapping(RabbitBlockFrameInfo::class.java, RabbitUiBlockPreView::class.java)
         }
     }
 

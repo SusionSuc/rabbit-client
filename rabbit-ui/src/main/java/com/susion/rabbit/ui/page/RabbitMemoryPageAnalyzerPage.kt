@@ -2,9 +2,9 @@ package com.susion.rabbit.ui.page
 
 import android.content.Context
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.susion.lifeclean.common.recyclerview.SimpleRvAdapter
 import com.susion.rabbit.base.entities.RabbitMemoryInfo
 import com.susion.rabbit.base.greendao.RabbitMemoryInfoDao
-import com.susion.rabbit.base.ui.adapter.RabbitRvAdapter
 import com.susion.rabbit.base.ui.page.RabbitBasePage
 import com.susion.rabbit.base.ui.utils.RabbitUiUtils
 import com.susion.rabbit.storage.RabbitDbStorageManager
@@ -18,10 +18,8 @@ import kotlinx.android.synthetic.main.rabbbit_page_mem_analyzer_page_detail.view
  */
 class RabbitMemoryPageAnalyzerPage(context: Context) : RabbitBasePage(context) {
 
-    private val adapter = object : RabbitRvAdapter<RabbitMemoryAnalyzerPageInfo>(ArrayList()) {
-        override fun getItemType(data: RabbitMemoryAnalyzerPageInfo) = 0
-
-        override fun createItem(type: Int) = RabbitMemPageInfoView(context)
+    private val adapter = SimpleRvAdapter<RabbitMemoryAnalyzerPageInfo>(context).apply {
+        registerMapping(RabbitMemoryAnalyzerPageInfo::class.java, RabbitMemPageInfoView::class.java)
     }
 
     override fun getLayoutResId() = R.layout.rabbbit_page_mem_analyzer_page_detail

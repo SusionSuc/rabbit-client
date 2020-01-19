@@ -9,7 +9,6 @@ import com.susion.rabbit.base.entities.RabbitSlowMethodInfo
 import com.susion.rabbit.storage.RabbitDbStorageManager
 import com.susion.rabbit.tracer.RabbitPluginConfig
 import com.susion.rabbit.base.ui.page.RabbitBasePage
-import com.susion.rabbit.base.ui.adapter.RabbitRvAdapter
 import com.susion.rabbit.base.ui.getDrawable
 import com.susion.rabbit.ui.entities.RabbitSlowMethodGroupInfo
 import com.susion.rabbit.ui.slowmethod.view.RabbitSlowMethodGroupItemView
@@ -17,6 +16,7 @@ import kotlinx.android.synthetic.main.rabbit_page_slow_method_list.view.*
 import android.graphics.Color
 import android.view.View
 import com.github.mikephil.charting.formatter.PercentFormatter
+import com.susion.lifeclean.common.recyclerview.SimpleRvAdapter
 import com.susion.rabbit.ui.monitor.R
 
 /**
@@ -34,11 +34,8 @@ class RabbitSlowMethodPreviewPage(context: Context) : RabbitBasePage(context) {
         Color.parseColor("#66bb6a")
     )
 
-    private val adapter = object : RabbitRvAdapter<RabbitSlowMethodGroupInfo>(ArrayList()) {
-        override fun createItem(type: Int) =
-            RabbitSlowMethodGroupItemView(context)
-
-        override fun getItemType(data: RabbitSlowMethodGroupInfo) = 1
+    private val adapter = SimpleRvAdapter<RabbitSlowMethodGroupInfo>(context).apply {
+        registerMapping(RabbitSlowMethodGroupInfo::class.java, RabbitSlowMethodGroupItemView::class.java)
     }
 
     override fun getLayoutResId() = R.layout.rabbit_page_slow_method_list

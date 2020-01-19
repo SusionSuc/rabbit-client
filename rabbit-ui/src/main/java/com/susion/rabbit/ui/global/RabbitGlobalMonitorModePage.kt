@@ -2,11 +2,11 @@ package com.susion.rabbit.ui.global
 
 import android.content.Context
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.susion.lifeclean.common.recyclerview.SimpleRvAdapter
 import com.susion.rabbit.base.RabbitMonitorProtocol
 import com.susion.rabbit.base.RabbitSettings
 import com.susion.rabbit.base.common.RabbitAsync
 import com.susion.rabbit.base.entities.RabbitGlobalMonitorInfo
-import com.susion.rabbit.base.ui.adapter.RabbitRvAdapter
 import com.susion.rabbit.base.ui.page.RabbitBasePage
 import com.susion.rabbit.base.ui.view.RabbitSwitchButton
 import com.susion.rabbit.storage.RabbitDbStorageManager
@@ -22,11 +22,8 @@ import kotlinx.android.synthetic.main.rabbit_page_global_monitor_mode.view.*
  */
 class RabbitGlobalMonitorModePage(context: Context) : RabbitBasePage(context) {
 
-    private val adapter by lazy {
-        object : RabbitRvAdapter<RabbitGlobalModePreInfo>(ArrayList()) {
-            override fun createItem(type: Int) = RabbitGlobalMonitorPreView(context)
-            override fun getItemType(data: RabbitGlobalModePreInfo) = 0
-        }
+    private val adapter = SimpleRvAdapter<RabbitGlobalModePreInfo>(context).apply {
+        registerMapping(RabbitGlobalModePreInfo::class.java, RabbitGlobalMonitorPreView::class.java)
     }
 
     override fun getLayoutResId() = R.layout.rabbit_page_global_monitor_mode
