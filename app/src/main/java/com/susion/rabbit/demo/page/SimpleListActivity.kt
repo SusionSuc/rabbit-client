@@ -3,20 +3,17 @@ package com.susion.rabbit.demo.page
 import android.content.Context
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.susion.lifeclean.common.recyclerview.SimpleRvAdapter
 import com.susion.rabbit.demo.R
 import com.susion.rabbit.demo.RabbitBaseActivity
-import com.susion.rabbit.base.ui.adapter.RabbitRvAdapter
 import com.susion.rabbit.base.ui.view.RabbitSimpleKVItemView
 import com.susion.rabbit.base.ui.view.RabbitSimpleKvInfo
 import kotlinx.android.synthetic.main.activity_simple_list_page.*
 
 class SimpleListActivity : RabbitBaseActivity() {
 
-    private val listAdapter = object : RabbitRvAdapter<RabbitSimpleKvInfo>(ArrayList()) {
-        override fun createItem(type: Int) =
-            RabbitSimpleKVItemView(this@SimpleListActivity)
-
-        override fun getItemType(data: RabbitSimpleKvInfo) = 0
+    private val listAdapter = SimpleRvAdapter<RabbitSimpleKvInfo>(this).apply {
+        registerMapping(RabbitSimpleKvInfo::class.java, RabbitSimpleKVItemView::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

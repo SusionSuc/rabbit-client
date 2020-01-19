@@ -5,13 +5,13 @@ import android.content.Context
 import android.view.ViewGroup
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.susion.lifeclean.common.recyclerview.AdapterItemView
+import com.susion.lifeclean.common.recyclerview.CommonRvAdapter
 import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.TAG_MONITOR_UI
 import com.susion.rabbit.base.entities.RabbitBlockFrameInfo
 import com.susion.rabbit.base.entities.RabbitBlockStackTraceInfo
 import com.susion.rabbit.base.ui.page.RabbitBasePage
-import com.susion.rabbit.base.ui.adapter.RabbitAdapterItemView
-import com.susion.rabbit.base.ui.adapter.RabbitRvAdapter
 import com.susion.rabbit.base.ui.view.RabbitSimpleKVItemView
 import com.susion.rabbit.ui.monitor.R
 import com.susion.rabbit.ui.view.RabbitBlockStackTraceView
@@ -25,8 +25,8 @@ import java.util.concurrent.TimeUnit
 class RabbitUiBlockDetailPage(context: Context) : RabbitBasePage(context) {
 
     private val logsAdapter by lazy {
-        object : RabbitRvAdapter<Any>(ArrayList()) {
-            override fun createItem(type: Int): RabbitAdapterItemView<*> {
+        object : CommonRvAdapter<Any>(ArrayList()) {
+            override fun createItem(type: Int): AdapterItemView<*> {
                 return when (type) {
                     1 -> RabbitSimpleKVItemView(context)
                     else -> RabbitBlockStackTraceView(context)

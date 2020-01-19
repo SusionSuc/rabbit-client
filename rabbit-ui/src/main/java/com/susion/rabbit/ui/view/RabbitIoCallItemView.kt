@@ -5,8 +5,8 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.RelativeLayout
+import com.susion.lifeclean.common.recyclerview.AdapterItemView
 import com.susion.rabbit.base.entities.RabbitIoCallInfo
-import com.susion.rabbit.base.ui.adapter.RabbitAdapterItemView
 import com.susion.rabbit.base.ui.throttleFirstClick
 import com.susion.rabbit.base.ui.utils.RabbitUiUtils
 import com.susion.rabbit.ui.monitor.R
@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.rabbit_view_io_call_item.view.*
  * susionwang at 2019-09-25
  */
 class RabbitIoCallItemView(context: Context) : RelativeLayout(context),
-    RabbitAdapterItemView<RabbitIoCallInfo> {
+    AdapterItemView<RabbitIoCallInfo> {
 
     var eventListener:EventListener? = null
 

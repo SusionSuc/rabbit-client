@@ -2,11 +2,11 @@ package com.susion.rabbit.ui.page
 
 import android.content.Context
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.susion.lifeclean.common.recyclerview.SimpleRvAdapter
 import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.TAG_MONITOR_UI
 import com.susion.rabbit.base.entities.RabbitFPSInfo
 import com.susion.rabbit.base.greendao.RabbitFPSInfoDao
-import com.susion.rabbit.base.ui.adapter.RabbitRvAdapter
 import com.susion.rabbit.base.ui.page.RabbitBasePage
 import com.susion.rabbit.storage.RabbitDbStorageManager
 import com.susion.rabbit.ui.entities.RabbitFpsAnalyzerInfo
@@ -20,10 +20,8 @@ import kotlinx.android.synthetic.main.rabbit_page_fps_analyzer.view.*
  */
 class RabbitFpsAnalyzerListPage(context: Context) : RabbitBasePage(context) {
 
-    private val adapter = object : RabbitRvAdapter<RabbitFpsAnalyzerInfo>(ArrayList()) {
-        override fun getItemType(data: RabbitFpsAnalyzerInfo) = 0
-
-        override fun createItem(type: Int) = RabbitFpsAnalyzerPreView(context)
+    private val adapter = SimpleRvAdapter<RabbitFpsAnalyzerInfo>(context).apply {
+        registerMapping(RabbitFpsAnalyzerInfo::class.java, RabbitFpsAnalyzerPreView::class.java)
     }
 
     override fun getLayoutResId() = R.layout.rabbit_page_fps_analyzer

@@ -46,4 +46,6 @@ dependencies {
     implementation "com.jakewharton.rxbinding3:rxbinding:${uniqueVersion.rxbinding3Version}"
     implementation "com.github.PhilJay:MPAndroidChart:${uniqueVersion.mpChartVersion}"
     implementation "org.greenrobot:greendao:${uniqueVersion.greenDaoVersion}"
+    implementation "com.susion:life-clean:${uniqueVersion.lifeClean}"
+
 }

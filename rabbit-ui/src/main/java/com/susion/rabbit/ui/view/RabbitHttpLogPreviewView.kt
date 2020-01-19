@@ -3,9 +3,9 @@ package com.susion.rabbit.ui.view
 import android.content.Context
 import android.view.LayoutInflater
 import android.widget.RelativeLayout
+import com.susion.lifeclean.common.recyclerview.AdapterItemView
 import com.susion.rabbit.base.common.rabbitTimeFormat
 import com.susion.rabbit.base.entities.RabbitHttpLogInfo
-import com.susion.rabbit.base.ui.adapter.RabbitAdapterItemView
 import com.susion.rabbit.base.ui.dp2px
 import com.susion.rabbit.base.ui.getDrawable
 import com.susion.rabbit.base.ui.throttleFirstClick
@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.rabbit_view_http_log_pre_view_item.view.*
  * susionwang at 2019-09-25
  */
 class RabbitHttpLogPreviewView(context: Context) : RelativeLayout(context),
-    RabbitAdapterItemView<RabbitHttpLogInfo> {
+    AdapterItemView<RabbitHttpLogInfo> {
 
     private lateinit var mLogInfo: RabbitHttpLogInfo
 

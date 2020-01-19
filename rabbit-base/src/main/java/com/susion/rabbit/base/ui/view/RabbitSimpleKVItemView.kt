@@ -9,8 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.susion.lifeclean.common.recyclerview.AdapterItemView
 import com.susion.rabbit.base.R
-import com.susion.rabbit.base.ui.adapter.RabbitAdapterItemView
 import com.susion.rabbit.base.ui.dp2px
 import com.susion.rabbit.base.ui.getColor
 import com.susion.rabbit.base.ui.getDrawable
@@ -21,8 +21,7 @@ import com.susion.rabbit.base.ui.getDrawable
 
 class RabbitSimpleKvInfo(val key: String, val value: String, val type: Int = 1)
 
-class RabbitSimpleKVItemView : LinearLayout,
-    RabbitAdapterItemView<RabbitSimpleKvInfo> {
+class RabbitSimpleKVItemView : LinearLayout, AdapterItemView<RabbitSimpleKvInfo> {
 
     private val tvKey = TextView(context).apply {
         layoutParams = LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT).apply {

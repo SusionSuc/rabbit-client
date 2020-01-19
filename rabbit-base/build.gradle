@@ -52,5 +52,6 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxandroid:${uniqueVersion.rx2androidVersion}"
     implementation "com.jakewharton.rxbinding3:rxbinding:${uniqueVersion.rxbinding3Version}"
     implementation "com.squareup.retrofit2:retrofit:${uniqueVersion.retrofit2Version}"
+    implementation "com.susion:life-clean:${uniqueVersion.lifeClean}"
 
 }

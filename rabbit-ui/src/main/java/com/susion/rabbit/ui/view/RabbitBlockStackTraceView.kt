@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import com.susion.lifeclean.common.recyclerview.AdapterItemView
 import com.susion.rabbit.base.entities.RabbitBlockStackTraceInfo
 import com.susion.rabbit.base.ui.dp2px
 import com.susion.rabbit.base.ui.getDrawable
@@ -15,8 +16,7 @@ import java.lang.StringBuilder
  * susionwang at 2019-09-25
  */
 
-class RabbitBlockStackTraceView(context: Context) : LinearLayout(context),
-    com.susion.rabbit.base.ui.adapter.RabbitAdapterItemView<RabbitBlockStackTraceInfo> {
+class RabbitBlockStackTraceView(context: Context) : LinearLayout(context),AdapterItemView<RabbitBlockStackTraceInfo> {
 
     init {
         LayoutInflater.from(context).inflate(R.layout.rabbit_view_block_frame_item, this)
