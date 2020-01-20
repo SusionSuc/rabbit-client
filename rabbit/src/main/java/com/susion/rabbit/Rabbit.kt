@@ -25,7 +25,6 @@ import okhttp3.Interceptor
 
 /**
  * susionwang at 2019-09-23
- * 直接使用这个类中的API来操控 Rabbit
  */
 object Rabbit : RabbitProtocol {
 
@@ -136,8 +135,6 @@ object Rabbit : RabbitProtocol {
         RabbitMonitor.init(application, mConfig.monitorConfig)
     }
 
-
-
     override fun reConfig(config: RabbitConfig) {
         mConfig = config
     }
@@ -221,5 +218,4 @@ object Rabbit : RabbitProtocol {
             )
         }
     }
-
 }

@@ -94,7 +94,7 @@ internal class RabbitBlockMonitor(override var isOpen: Boolean = false) : Choreo
     }
 
 
-    fun getIdentifierByMaxCount(traceMap: Map<String, RabbitBlockStackTraceInfo>): String {
+    private fun getIdentifierByMaxCount(traceMap: Map<String, RabbitBlockStackTraceInfo>): String {
         return traceMap.values.toList().maxBy { it.collectCount }?.stackTrace.toString()
     }
 
