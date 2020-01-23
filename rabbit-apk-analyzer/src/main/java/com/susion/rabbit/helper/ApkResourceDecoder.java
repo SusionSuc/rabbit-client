@@ -80,7 +80,7 @@ public class ApkResourceDecoder {
     }
 
     public static void decodeArscFile(File file, ResTable resTable) throws IOException, AndrolibException {
-        if (file != null && FileUtil.isLegalFile(file)) {
+        if (FileUtil.isLegalFile(file)) {
             BufferedInputStream inputStream = new BufferedInputStream(new FileInputStream(file));
             try {
                 try {

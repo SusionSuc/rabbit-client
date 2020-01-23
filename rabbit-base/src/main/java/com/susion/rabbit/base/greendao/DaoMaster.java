@@ -78,10 +78,12 @@ public class DaoMaster extends AbstractDaoMaster {
         registerDaoClass(RabbitIoCallInfoDao.class);
     }
 
+    @Override
     public DaoSession newSession() {
         return new DaoSession(db, IdentityScopeType.Session, daoConfigMap);
     }
 
+    @Override
     public DaoSession newSession(IdentityScopeType type) {
         return new DaoSession(db, type, daoConfigMap);
     }
