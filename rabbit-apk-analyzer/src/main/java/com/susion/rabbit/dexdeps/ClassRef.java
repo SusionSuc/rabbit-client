@@ -29,8 +29,8 @@ public class ClassRef {
      */
     public ClassRef(String className) {
         mClassName = className;
-        mFieldRefs = new ArrayList<FieldRef>();
-        mMethodRefs = new ArrayList<MethodRef>();
+        mFieldRefs = new ArrayList<>();
+        mMethodRefs = new ArrayList<>();
     }
 
     /**
