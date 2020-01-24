@@ -77,7 +77,7 @@ internal class RabbitMemoryMonitor(override var isOpen: Boolean = false) :
             // 统计进程的内存信息 totalPss  这个API多次调用会得到相同的值。
             val memInfo =
                 mActivityManager?.getProcessMemoryInfo(intArrayOf(Process.myPid())) ?: return 0
-            if (memInfo.size > 0) {
+            if (memInfo.isNotEmpty()) {
                 // TotalPss = dalvikPss + nativePss + otherPss, in KB
                 return memInfo[0].totalPss * 1024L
             }

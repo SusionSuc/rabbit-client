@@ -30,11 +30,9 @@ object RabbitUtils {
 
     fun classInPkgList(className: String, pkgList: List<String>): Boolean {
 
-        val configList = pkgList
+        if (pkgList.isEmpty()) return true
 
-        if (configList.isEmpty()) return true
-
-        configList.forEach {
+        pkgList.forEach {
             if (className.contains(it)) {
                 return true
             }

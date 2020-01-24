@@ -1,7 +1,6 @@
 package com.susion.rabbit.gradle.core
 
 import com.susion.rabbit.gradle.core.context.TransformContext
-import org.objectweb.asm.tree.ClassNode
 
 /**
  * Represents class transformer
