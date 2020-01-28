@@ -16,17 +16,15 @@ object RabbitTransformUtils {
 
     fun print(tag: String, msg: String) {
         if (!GlobalConfig.pluginConfig.printLog) return
-        kotlin.io.print("🐰 -----> TAG : ${tag} ; $msg \n")
+        kotlin.io.print("🐰 -----> TAG : $tag ; $msg \n")
     }
 
 
     fun classInPkgList(className: String, pkgList: List<String>): Boolean {
 
-        val configList = pkgList
+        if (pkgList.isEmpty()) return true
 
-        if (configList.isEmpty()) return true
-
-        configList.forEach {
+        pkgList.forEach {
             if (className.startsWith(it)) {
                 return true
             }

@@ -38,7 +38,7 @@ class MethodCountAnalyzerTask : AnalyzerTask {
         }
 
         var totalCount = 0
-        methodGroup.forEach { s, count ->
+        methodGroup.forEach { (_, count) ->
             totalCount += count
         }
 
@@ -65,7 +65,7 @@ class MethodCountAnalyzerTask : AnalyzerTask {
             }
 
             if (!Util.isNullOrNil(className)) {
-                if (className!!.indexOf('.') == -1) {
+                if (className.indexOf('.') == -1) {
                     continue
                 }
 

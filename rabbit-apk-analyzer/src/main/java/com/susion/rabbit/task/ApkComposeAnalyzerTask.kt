@@ -18,7 +18,7 @@ class ApkComposeAnalyzerTask : AnalyzerTask {
 
         val composeList = ArrayList<ApkFileCompose>()
 
-        unZipContext.fileMap.forEach { type, fileList ->
+        unZipContext.fileMap.forEach { (type, fileList) ->
             val fileCompose = ApkFileCompose(type, 0)
             fileList.forEach {
                 fileCompose.totalSize += it.size
