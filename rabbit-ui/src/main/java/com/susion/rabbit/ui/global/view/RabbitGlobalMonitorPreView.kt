@@ -47,4 +47,5 @@ class RabbitGlobalMonitorPreView(context: Context) : LinearLayout(context),
         })
 
     }
+
 }

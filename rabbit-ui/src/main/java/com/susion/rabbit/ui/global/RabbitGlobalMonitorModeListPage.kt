@@ -15,18 +15,18 @@ import com.susion.rabbit.ui.global.entities.RabbitGlobalModePreInfo
 import com.susion.rabbit.ui.global.view.RabbitGlobalMonitorPreView
 import com.susion.rabbit.ui.monitor.R
 import com.susion.rabbit.ui.page.RabbitCurrentConfigPage
-import kotlinx.android.synthetic.main.rabbit_page_global_monitor_mode.view.*
+import kotlinx.android.synthetic.main.rabbit_page_global_monitor_mode_list.view.*
 
 /**
  * susionwang at 2019-10-29
  */
-class RabbitGlobalMonitorModePage(context: Context) : RabbitBasePage(context) {
+class RabbitGlobalMonitorModeListPage(context: Context) : RabbitBasePage(context) {
 
     private val adapter = SimpleRvAdapter<RabbitGlobalModePreInfo>(context).apply {
         registerMapping(RabbitGlobalModePreInfo::class.java, RabbitGlobalMonitorPreView::class.java)
     }
 
-    override fun getLayoutResId() = R.layout.rabbit_page_global_monitor_mode
+    override fun getLayoutResId() = R.layout.rabbit_page_global_monitor_mode_list
 
     init {
 
