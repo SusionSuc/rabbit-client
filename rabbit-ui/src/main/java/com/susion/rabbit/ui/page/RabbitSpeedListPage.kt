@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.susion.lifeclean.common.recyclerview.AdapterItemView
 import com.susion.lifeclean.common.recyclerview.CommonRvAdapter
 import com.susion.rabbit.base.entities.RabbitAppStartSpeedInfo
-import com.susion.rabbit.base.entities.RabbitAppStartSpeedTotalInfo
+import com.susion.rabbit.ui.entities.RabbitAppStartSpeedTotalInfo
 import com.susion.rabbit.base.entities.RabbitPageSpeedInfo
 import com.susion.rabbit.base.entities.RabbitPageSpeedUiInfo
 import com.susion.rabbit.base.ui.page.RabbitBasePage

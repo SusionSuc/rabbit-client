@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mGlobalDetailSRL"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/rabbit_white">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/mGlobalDetailRv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

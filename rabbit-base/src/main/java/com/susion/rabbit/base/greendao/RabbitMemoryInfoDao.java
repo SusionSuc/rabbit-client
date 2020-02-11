@@ -25,7 +25,7 @@ public class RabbitMemoryInfoDao extends AbstractDao<RabbitMemoryInfo, Long> {
      */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property Time = new Property(1, long.class, "time", false, "TIME");
+        public final static Property Time = new Property(1, Long.class, "time", false, "TIME");
         public final static Property TotalSize = new Property(2, int.class, "totalSize", false, "TOTAL_SIZE");
         public final static Property VmSize = new Property(3, int.class, "vmSize", false, "VM_SIZE");
         public final static Property NativeSize = new Property(4, int.class, "nativeSize", false, "NATIVE_SIZE");
@@ -47,7 +47,7 @@ public class RabbitMemoryInfoDao extends AbstractDao<RabbitMemoryInfo, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"RABBIT_MEMORY_INFO\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
-                "\"TIME\" INTEGER NOT NULL ," + // 1: time
+                "\"TIME\" INTEGER," + // 1: time
                 "\"TOTAL_SIZE\" INTEGER NOT NULL ," + // 2: totalSize
                 "\"VM_SIZE\" INTEGER NOT NULL ," + // 3: vmSize
                 "\"NATIVE_SIZE\" INTEGER NOT NULL ," + // 4: nativeSize
@@ -69,7 +69,11 @@ public class RabbitMemoryInfoDao extends AbstractDao<RabbitMemoryInfo, Long> {
         if (id != null) {
             stmt.bindLong(1, id);
         }
-        stmt.bindLong(2, entity.getTime());
+ 
+        Long time = entity.getTime();
+        if (time != null) {
+            stmt.bindLong(2, time);
+        }
         stmt.bindLong(3, entity.getTotalSize());
         stmt.bindLong(4, entity.getVmSize());
         stmt.bindLong(5, entity.getNativeSize());
@@ -89,7 +93,11 @@ public class RabbitMemoryInfoDao extends AbstractDao<RabbitMemoryInfo, Long> {
         if (id != null) {
             stmt.bindLong(1, id);
         }
-        stmt.bindLong(2, entity.getTime());
+ 
+        Long time = entity.getTime();
+        if (time != null) {
+            stmt.bindLong(2, time);
+        }
         stmt.bindLong(3, entity.getTotalSize());
         stmt.bindLong(4, entity.getVmSize());
         stmt.bindLong(5, entity.getNativeSize());
@@ -110,7 +118,7 @@ public class RabbitMemoryInfoDao extends AbstractDao<RabbitMemoryInfo, Long> {
     public RabbitMemoryInfo readEntity(Cursor cursor, int offset) {
         RabbitMemoryInfo entity = new RabbitMemoryInfo( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.getLong(offset + 1), // time
+            cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1), // time
             cursor.getInt(offset + 2), // totalSize
             cursor.getInt(offset + 3), // vmSize
             cursor.getInt(offset + 4), // nativeSize
@@ -123,7 +131,7 @@ public class RabbitMemoryInfoDao extends AbstractDao<RabbitMemoryInfo, Long> {
     @Override
     public void readEntity(Cursor cursor, RabbitMemoryInfo entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setTime(cursor.getLong(offset + 1));
+        entity.setTime(cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1));
         entity.setTotalSize(cursor.getInt(offset + 2));
         entity.setVmSize(cursor.getInt(offset + 3));
         entity.setNativeSize(cursor.getInt(offset + 4));

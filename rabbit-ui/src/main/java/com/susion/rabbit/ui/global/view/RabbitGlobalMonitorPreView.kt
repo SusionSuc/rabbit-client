@@ -43,7 +43,7 @@ class RabbitGlobalMonitorPreView(context: Context) : LinearLayout(context),
         }
 
         throttleFirstClick(Consumer {
-            RabbitUi.openPage(RabbitGlobalMonitorModeDetailPage::class.java, info)
+            RabbitUi.openPage(RabbitGlobalMonitorModeDetailPage::class.java, info.globalMonitorInfo)
         })
 
     }

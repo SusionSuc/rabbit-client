@@ -8,7 +8,7 @@ import org.greenrobot.greendao.annotation.Generated;
  * susionwang at 2020-01-14
  */
 @Entity
-public class RabbitGlobalMonitorInfo {
+public class RabbitGlobalMonitorInfo implements RabbitInfoProtocol{
 
     @Id(autoincrement = true)
     public Long id;
@@ -62,6 +62,11 @@ public class RabbitGlobalMonitorInfo {
 
     public Long getTime() {
         return this.time;
+    }
+
+    @Override
+    public String getPageName() {
+        return "";
     }
 
     public void setTime(Long time) {

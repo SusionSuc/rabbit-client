@@ -9,7 +9,7 @@ import org.greenrobot.greendao.annotation.Generated;
  */
 
 @Entity
-public class RabbitFPSInfo {
+public class RabbitFPSInfo implements RabbitInfoProtocol {
 
     @Id(autoincrement = true)
     public Long id;
@@ -36,7 +36,7 @@ public class RabbitFPSInfo {
 
     @Generated(hash = 1070518384)
     public RabbitFPSInfo(Long id, String pageName, int maxFps, int minFps,
-            int avgFps, Long time) {
+                         int avgFps, Long time) {
         this.id = id;
         this.pageName = pageName;
         this.maxFps = maxFps;

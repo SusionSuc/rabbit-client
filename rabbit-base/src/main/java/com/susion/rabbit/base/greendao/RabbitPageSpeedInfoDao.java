@@ -26,7 +26,7 @@ public class RabbitPageSpeedInfoDao extends AbstractDao<RabbitPageSpeedInfo, Lon
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property PageName = new Property(1, String.class, "pageName", false, "PAGE_NAME");
-        public final static Property Time = new Property(2, long.class, "time", false, "TIME");
+        public final static Property Time = new Property(2, Long.class, "time", false, "TIME");
         public final static Property CreateStartTime = new Property(3, long.class, "createStartTime", false, "CREATE_START_TIME");
         public final static Property CreateEndTime = new Property(4, long.class, "createEndTime", false, "CREATE_END_TIME");
         public final static Property InflateFinishTime = new Property(5, long.class, "inflateFinishTime", false, "INFLATE_FINISH_TIME");
@@ -50,7 +50,7 @@ public class RabbitPageSpeedInfoDao extends AbstractDao<RabbitPageSpeedInfo, Lon
         db.execSQL("CREATE TABLE " + constraint + "\"RABBIT_PAGE_SPEED_INFO\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"PAGE_NAME\" TEXT," + // 1: pageName
-                "\"TIME\" INTEGER NOT NULL ," + // 2: time
+                "\"TIME\" INTEGER," + // 2: time
                 "\"CREATE_START_TIME\" INTEGER NOT NULL ," + // 3: createStartTime
                 "\"CREATE_END_TIME\" INTEGER NOT NULL ," + // 4: createEndTime
                 "\"INFLATE_FINISH_TIME\" INTEGER NOT NULL ," + // 5: inflateFinishTime
@@ -78,7 +78,11 @@ public class RabbitPageSpeedInfoDao extends AbstractDao<RabbitPageSpeedInfo, Lon
         if (pageName != null) {
             stmt.bindString(2, pageName);
         }
-        stmt.bindLong(3, entity.getTime());
+ 
+        Long time = entity.getTime();
+        if (time != null) {
+            stmt.bindLong(3, time);
+        }
         stmt.bindLong(4, entity.getCreateStartTime());
         stmt.bindLong(5, entity.getCreateEndTime());
         stmt.bindLong(6, entity.getInflateFinishTime());
@@ -104,7 +108,11 @@ public class RabbitPageSpeedInfoDao extends AbstractDao<RabbitPageSpeedInfo, Lon
         if (pageName != null) {
             stmt.bindString(2, pageName);
         }
-        stmt.bindLong(3, entity.getTime());
+ 
+        Long time = entity.getTime();
+        if (time != null) {
+            stmt.bindLong(3, time);
+        }
         stmt.bindLong(4, entity.getCreateStartTime());
         stmt.bindLong(5, entity.getCreateEndTime());
         stmt.bindLong(6, entity.getInflateFinishTime());
@@ -127,7 +135,7 @@ public class RabbitPageSpeedInfoDao extends AbstractDao<RabbitPageSpeedInfo, Lon
         RabbitPageSpeedInfo entity = new RabbitPageSpeedInfo( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // pageName
-            cursor.getLong(offset + 2), // time
+            cursor.isNull(offset + 2) ? null : cursor.getLong(offset + 2), // time
             cursor.getLong(offset + 3), // createStartTime
             cursor.getLong(offset + 4), // createEndTime
             cursor.getLong(offset + 5), // inflateFinishTime
@@ -142,7 +150,7 @@ public class RabbitPageSpeedInfoDao extends AbstractDao<RabbitPageSpeedInfo, Lon
     public void readEntity(Cursor cursor, RabbitPageSpeedInfo entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setPageName(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setTime(cursor.getLong(offset + 2));
+        entity.setTime(cursor.isNull(offset + 2) ? null : cursor.getLong(offset + 2));
         entity.setCreateStartTime(cursor.getLong(offset + 3));
         entity.setCreateEndTime(cursor.getLong(offset + 4));
         entity.setInflateFinishTime(cursor.getLong(offset + 5));

@@ -9,7 +9,7 @@ import org.greenrobot.greendao.annotation.Id;
  */
 
 @Entity
-public class RabbitBlockFrameInfo {
+public class RabbitBlockFrameInfo implements RabbitInfoProtocol{
 
     @Id(autoincrement = true)
     public Long id;
@@ -23,6 +23,8 @@ public class RabbitBlockFrameInfo {
     public Long time;
 
     public String blockPage;
+
+    public String pageName;
 
     @Generated(hash = 17500853)
     public RabbitBlockFrameInfo(Long id, String blockFrameStrackTraceStrList,
@@ -74,6 +76,11 @@ public class RabbitBlockFrameInfo {
 
     public Long getTime() {
         return this.time;
+    }
+
+    @Override
+    public String getPageName() {
+        return pageName;
     }
 
     public void setTime(Long time) {

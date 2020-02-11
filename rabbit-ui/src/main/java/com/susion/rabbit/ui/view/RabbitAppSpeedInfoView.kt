@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.susion.lifeclean.common.recyclerview.AdapterItemView
-import com.susion.rabbit.base.entities.RabbitAppStartSpeedTotalInfo
+import com.susion.rabbit.ui.entities.RabbitAppStartSpeedTotalInfo
 import com.susion.rabbit.base.ui.throttleFirstClick
 import com.susion.rabbit.ui.RabbitUi
 import com.susion.rabbit.ui.monitor.R

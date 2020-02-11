@@ -1,95 +1,61 @@
 package com.susion.rabbit.ui.global
 
 import android.content.Context
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.susion.lifeclean.common.recyclerview.SimpleRvAdapter
-import com.susion.rabbit.base.RabbitMonitorProtocol
-import com.susion.rabbit.base.RabbitSettings
 import com.susion.rabbit.base.common.RabbitAsync
 import com.susion.rabbit.base.entities.RabbitGlobalMonitorInfo
 import com.susion.rabbit.base.ui.page.RabbitBasePage
-import com.susion.rabbit.base.ui.view.RabbitSwitchButton
-import com.susion.rabbit.storage.RabbitDbStorageManager
-import com.susion.rabbit.ui.RabbitUi
-import com.susion.rabbit.ui.global.entities.RabbitGlobalModePreInfo
-import com.susion.rabbit.ui.global.view.RabbitGlobalMonitorPreView
+import com.susion.rabbit.ui.global.entities.RabbitPageGlobalMonitorInfo
+import com.susion.rabbit.ui.global.view.RabbitPageGlobalMonitorInfoView
 import com.susion.rabbit.ui.monitor.R
-import kotlinx.android.synthetic.main.rabbit_page_global_monitor_mode_list.view.*
+import kotlinx.android.synthetic.main.rabbit_page_global_monitor_detail.view.*
 
 /**
  * susionwang at 2019-10-29
  */
 class RabbitGlobalMonitorModeDetailPage(context: Context) : RabbitBasePage(context) {
 
+    private lateinit var globalMonitorInfo: RabbitGlobalMonitorInfo
     private val adapter by lazy {
-        SimpleRvAdapter<RabbitGlobalModePreInfo>(context).apply {
-            registerMapping(RabbitGlobalMonitorInfo::class.java, RabbitGlobalMonitorPreView::class.java)
+        SimpleRvAdapter<RabbitPageGlobalMonitorInfo>(context).apply {
+            registerMapping(
+                RabbitPageGlobalMonitorInfo::class.java,
+                RabbitPageGlobalMonitorInfoView::class.java
+            )
         }
     }
 
-    override fun getLayoutResId() = R.layout.rabbit_page_global_monitor_mode_list
+    override fun getLayoutResId() = R.layout.rabbit_page_global_monitor_detail
 
-    override fun setEntryParams(params: Any) {
-        if (params !is RabbitGlobalModePreInfo) return
+    override fun setEntryParams(info: Any) {
+        if (info !is RabbitGlobalMonitorInfo) return
 
+        globalMonitorInfo = info
+
+        mGlobalDetailSRL.setOnRefreshListener {
+            loadData()
+        }
+
+        mGlobalDetailSRL.isRefreshing = true
+
+        loadData()
     }
 
     init {
 
-        setTitle("全局性能测试")
-
-        mRabbitPageGlobalMonitorModeRv.adapter = adapter
-        mRabbitPageGlobalMonitorModeRv.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-
-        mRabbitPageGlobalMonitorModeSwitchBtn.refreshUi(
-            "性能测试模式",
-            RabbitSettings.autoOpen(context, RabbitMonitorProtocol.GLOBAL_MONITOR.name)
-        )
-
-        mRabbitPageGlobalMonitorModeSwitchBtn.checkedStatusChangeListener =
-            object : RabbitSwitchButton.CheckedStatusChangeListener {
-                override fun checkedStatusChange(isChecked: Boolean) {
-                    if (isChecked) {
-                        showToast("重启应用后生效!")
-                    }
-                    RabbitUi.eventListener?.changeGlobalMonitorStatus(isChecked)
-                }
-            }
-
-        mRabbitPageGlobalMonitorModeSRL.isRefreshing = true
-
-        loadData()
-
-        mRabbitPageGlobalMonitorModeSRL.setOnRefreshListener {
-            loadData()
-        }
+        setTitle("性能测试详情")
 
     }
 
     private fun loadData() {
-        RabbitDbStorageManager.getAll(RabbitGlobalMonitorInfo::class.java) { monitorList ->
-            RabbitAsync.asyncRunWithResult({
-                ArrayList<RabbitGlobalModePreInfo>().apply {
-                    monitorList.forEach { monitorInfo ->
-                        this.add(
-                            0,
-                            RabbitGlobalMonitorDataParser.getGlobalMonitorPreInfo(monitorInfo)
-                        )
-                    }
-                }
-            }, {
-                mRabbitPageGlobalMonitorModeSRL.isRefreshing = false
-                adapter.data.clear()
-                adapter.data.addAll(it)
-                adapter.notifyDataSetChanged()
-                if (adapter.data.isEmpty()) {
-                    showEmptyView()
-                } else {
-                    hideEmptyView()
-                }
-            })
-        }
-    }
+        RabbitAsync.asyncRunWithResult({
+            RabbitGlobalMonitorDataHelper.getPageMonitorInfos(globalMonitorInfo)
+        }, {
+            adapter.data.clear()
+            adapter.data.addAll(it)
+            adapter.notifyDataSetChanged()
+            mGlobalDetailSRL.isRefreshing = false
+        })
 
+    }
 }

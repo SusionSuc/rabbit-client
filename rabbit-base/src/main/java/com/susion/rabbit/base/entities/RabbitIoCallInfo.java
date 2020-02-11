@@ -8,7 +8,7 @@ import org.greenrobot.greendao.annotation.Generated;
  * susionwang at 2020-01-08
  */
 @Entity
-public class RabbitIoCallInfo {
+public class RabbitIoCallInfo implements RabbitInfoProtocol{
 
     @Id(autoincrement = true)
     public Long id;
@@ -58,6 +58,11 @@ public class RabbitIoCallInfo {
 
     public Long getTime() {
         return this.time;
+    }
+
+    @Override
+    public String getPageName() {
+        return "";
     }
 
     public void setTime(Long time) {

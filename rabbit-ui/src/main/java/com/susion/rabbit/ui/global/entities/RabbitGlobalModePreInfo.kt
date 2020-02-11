@@ -1,5 +1,7 @@
 package com.susion.rabbit.ui.global.entities
 
+import com.susion.rabbit.base.entities.RabbitGlobalMonitorInfo
+
 /**
  * susionwang at 2020-01-15
  */
@@ -11,9 +13,10 @@ class RabbitGlobalModePreInfo(
     var appColdStartTime: Long =0,
     var applicationCreateTime:Long = 0,
     var pageAvgInflateTime: Long = 0,
-    var totalPageNumbe:Int = 0,
+    var totalPageNumber:Int = 0,
     var blockCount: Int = 0,
     var slowMethodCount: Int = 0,
     var isRunning:Boolean =false,
-    var smoothEvaluateInfo: RabbitAppSmoothEvaluateInfo = RabbitAppSmoothEvaluateInfo()
+    var smoothEvaluateInfo: RabbitAppSmoothEvaluateInfo = RabbitAppSmoothEvaluateInfo(),
+    var globalMonitorInfo: RabbitGlobalMonitorInfo
 )

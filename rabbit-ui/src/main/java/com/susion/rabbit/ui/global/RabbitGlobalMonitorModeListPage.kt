@@ -70,7 +70,7 @@ class RabbitGlobalMonitorModeListPage(context: Context) : RabbitBasePage(context
             RabbitAsync.asyncRunWithResult({
                 ArrayList<RabbitGlobalModePreInfo>().apply {
                     monitorList.forEach { monitorInfo ->
-                        this.add(0, RabbitGlobalMonitorDataParser.getGlobalMonitorPreInfo(monitorInfo))
+                        this.add(0, RabbitGlobalMonitorDataHelper.getGlobalMonitorPreInfo(monitorInfo))
                     }
                 }
             }, {

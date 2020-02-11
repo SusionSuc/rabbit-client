@@ -1,4 +1,4 @@
-package com.susion.rabbit.base.entities
+package com.susion.rabbit.ui.entities
 
 /**
  * susionwang at 2019-11-20

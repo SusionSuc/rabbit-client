@@ -10,14 +10,14 @@ import org.greenrobot.greendao.annotation.Keep;
  * 页面测速信息
  */
 @Entity
-public class RabbitPageSpeedInfo  {
+public class RabbitPageSpeedInfo  implements RabbitInfoProtocol{
 
     @Id(autoincrement = true)
     public Long id;
 
     public String pageName = "";
 
-    public long time;
+    public Long time;
 
     public long createStartTime;
 
@@ -31,8 +31,8 @@ public class RabbitPageSpeedInfo  {
 
     public String apiRequestCostString;
 
-    @Generated(hash = 216133275)
-    public RabbitPageSpeedInfo(Long id, String pageName, long time,
+    @Generated(hash = 582827660)
+    public RabbitPageSpeedInfo(Long id, String pageName, Long time,
             long createStartTime, long createEndTime, long inflateFinishTime,
             long fullDrawFinishTime, long resumeEndTime,
             String apiRequestCostString) {
@@ -82,7 +82,7 @@ public class RabbitPageSpeedInfo  {
         this.pageName = pageName;
     }
 
-    public long getTime() {
+    public Long getTime() {
         return this.time;
     }
 
@@ -136,6 +136,10 @@ public class RabbitPageSpeedInfo  {
 
     public void setApiRequestCostString(String apiRequestCostString) {
         this.apiRequestCostString = apiRequestCostString;
+    }
+
+    public void setTime(Long time) {
+        this.time = time;
     }
 
 
