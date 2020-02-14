@@ -22,10 +22,10 @@ internal class RabbitGreenDaoDbManage(val context: Context, val daoSession: DaoS
 
     fun saveObj(obj: RabbitInfoProtocol) {
         val daoImpl = daoImpl(obj.javaClass) ?: return
-        val currentTotalCount = daoImpl.queryBuilder().count()
-        if (currentTotalCount > MAX_DATA_COUNT) {
-            daoImpl.deleteAll()
-        }
+//        val currentTotalCount = daoImpl.queryBuilder().count()
+//        if (currentTotalCount > MAX_DATA_COUNT) {
+//            daoImpl.deleteAll()
+//        }
         daoImpl.save(obj)
         RabbitLog.d(TAG_STORAGE, "save data $obj")
     }

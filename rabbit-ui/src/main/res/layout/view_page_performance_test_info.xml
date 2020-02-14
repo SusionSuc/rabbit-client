@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginEnd="10dp"
+    android:background="@color/rabbit_bg_card"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="页面名称"
+            android:textColor="@color/rabbit_black"
+            android:textSize="@dimen/rabbit_font_small" />
+
+        <TextView
+            android:id="@+id/mPagePerformanceTvPageName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="MainActivity"
+            android:textColor="@color/rabbit_black"
+            android:textSize="@dimen/rabbit_font_small" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="平均FPS"
+            android:textColor="@color/rabbit_black"
+            android:textSize="@dimen/rabbit_font_small" />
+
+        <TextView
+            android:id="@+id/mPagePerformanceTvAvgFps"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="MainActivity"
+            android:textColor="@color/rabbit_black"
+            android:textSize="@dimen/rabbit_font_small" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="平均内存占用"
+            android:textColor="@color/rabbit_black"
+            android:textSize="@dimen/rabbit_font_small" />
+
+        <TextView
+            android:id="@+id/mPagePerformanceTvAvgMem"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="MainActivity"
+            android:textColor="@color/rabbit_black"
+            android:textSize="@dimen/rabbit_font_small" />
+
+    </LinearLayout>
+
+</LinearLayout>

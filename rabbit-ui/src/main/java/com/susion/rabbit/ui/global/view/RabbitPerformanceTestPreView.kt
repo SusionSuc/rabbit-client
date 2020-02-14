@@ -13,7 +13,7 @@ import com.susion.rabbit.ui.global.entities.RabbitAppPerformanceOverviewInfo
 import com.susion.rabbit.ui.global.RabbitPerformanceTestDetailPage
 import com.susion.rabbit.ui.monitor.R
 import io.reactivex.functions.Consumer
-import kotlinx.android.synthetic.main.rabbit_view_global_monitor_pre.view.*
+import kotlinx.android.synthetic.main.rabbit_view_app_performance_test_overview.view.*
 
 /**
  * susionwang at 2020-01-16
@@ -22,7 +22,7 @@ class RabbitPerformanceTestPreView(context: Context) : LinearLayout(context),
     AdapterItemView<RabbitAppPerformanceOverviewInfo> {
 
     init {
-        LayoutInflater.from(context).inflate(R.layout.rabbit_view_global_monitor_pre, this)
+        LayoutInflater.from(context).inflate(R.layout.rabbit_view_app_performance_test_overview, this)
         layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         orientation = VERTICAL
     }

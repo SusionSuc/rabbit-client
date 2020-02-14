@@ -7,6 +7,8 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
+import com.susion.rabbit.base.RabbitLog
+import com.susion.rabbit.base.TAG_MONITOR_UI
 import com.susion.rabbit.base.ui.utils.RabbitUiUtils
 import com.susion.rabbit.base.entities.RabbitMemoryInfo
 import com.susion.rabbit.storage.RabbitDbStorageManager
@@ -51,7 +53,6 @@ class RabbitMemoryGlobalAnalyzerPage(context: Context) : RabbitBasePage(context)
     private fun loadData() {
         RabbitDbStorageManager.getAll(
             RabbitMemoryInfo::class.java,
-            count = 200,
             loadResult = { memInfos ->
 
                 mRabbitMemComposePageSRL.isRefreshing = false
@@ -67,6 +68,8 @@ class RabbitMemoryGlobalAnalyzerPage(context: Context) : RabbitBasePage(context)
                 memInfos.forEachIndexed { index, memInfo ->
                     totalSizes.add(Entry(index.toFloat(), formatSizeToMB(memInfo.totalSize)))
                 }
+
+                RabbitLog.d(TAG_MONITOR_UI, "total calculate memory count : ${totalSizes.size}")
 
                 val vmSizes = ArrayList<Entry>()
                 memInfos.forEachIndexed { index, memInfo ->

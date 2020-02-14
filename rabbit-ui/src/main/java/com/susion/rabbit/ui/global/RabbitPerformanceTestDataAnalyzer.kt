@@ -1,5 +1,6 @@
 package com.susion.rabbit.ui.global
 
+import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.common.rabbitTimeFormat
 import com.susion.rabbit.base.entities.*
 import com.susion.rabbit.storage.RabbitDbStorageManager
@@ -12,6 +13,8 @@ import java.util.concurrent.TimeUnit
  * 解析全局监控数据
  */
 object RabbitPerformanceTestDataAnalyzer {
+
+    private val TAG = javaClass.simpleName
 
     fun getGlobalMonitorPreInfo(monitorInfo: RabbitAppPerformanceInfo): RabbitAppPerformanceOverviewInfo {
 
@@ -111,7 +114,7 @@ object RabbitPerformanceTestDataAnalyzer {
         }.forEach { fpsInfo ->
             val pageInfo = createInfoNotExist(pageInfoMap, fpsInfo.pageName)
             pageInfo.fpsCount++
-            pageInfo.avgFps = getNewAvgValue(pageInfo.avgFps, fpsInfo.avgFps, pageInfo.fpsCount)
+            pageInfo.avgFps = getNewAvgValue(pageInfo.avgFps.toLong(), fpsInfo.avgFps.toLong(), pageInfo.fpsCount.toLong()).toInt()
         }
 
         //mem
@@ -123,28 +126,31 @@ object RabbitPerformanceTestDataAnalyzer {
         }.forEach { memInfo ->
             val pageInfo = createInfoNotExist(pageInfoMap, memInfo.pageName)
             pageInfo.memCount++
-            val memSize = memInfo.totalSize - memInfo.nativeSize
-            pageInfo.avgMem = getNewAvgValue(pageInfo.avgMem, memSize, pageInfo.memCount)
+            val memSize = memInfo.totalSize
+            pageInfo.avgMem = getNewAvgValue(pageInfo.avgMem, memSize.toLong(), pageInfo.memCount.toLong())
+            RabbitLog.d(TAG, "${pageInfo.pageName} -> memCount : ${pageInfo.memCount}  pageInfo.avgMem : ${pageInfo.avgMem}")
         }
 
         return pageInfoMap.values.toList()
     }
 
-    private fun getNewAvgValue(lastAvg: Int, newValue: Int, num: Int): Int {
+    private fun getNewAvgValue(lastAvg: Long, newValue: Long, num: Long): Long {
         return if (num <= 1) {
             newValue
         } else {
-            ((lastAvg * (num - 1)) + newValue) / num
+            (((lastAvg * (num - 1)) + newValue) * 1.0f / num).toLong()
         }
     }
 
     private fun createInfoNotExist(
         pageInfoMap: HashMap<String, RabbitPagePerformanceInfo>,
-        pageName: String
+        pageName_: String
     ): RabbitPagePerformanceInfo {
-        if (pageInfoMap[pageName] == null) {
-            pageInfoMap[pageName] = RabbitPagePerformanceInfo()
+        if (pageInfoMap[pageName_] == null) {
+            RabbitLog.d(TAG, "create page performance info $pageName_")
+            pageInfoMap[pageName_] = RabbitPagePerformanceInfo(pageName = pageName_)
         }
-        return pageInfoMap[pageName]!!
+        return pageInfoMap[pageName_]!!
     }
+
 }
