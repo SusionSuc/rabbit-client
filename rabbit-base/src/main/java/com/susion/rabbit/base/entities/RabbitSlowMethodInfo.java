@@ -27,10 +27,10 @@ public class RabbitSlowMethodInfo implements RabbitInfoProtocol{
 
     public String pageName;
 
-    @Generated(hash = 1789569780)
+    @Generated(hash = 367496386)
     public RabbitSlowMethodInfo(Long id, Long time, String pkgName,
-            String className, String methodName, Long costTimeMs,
-            String callStack) {
+            String className, String methodName, Long costTimeMs, String callStack,
+            String pageName) {
         this.id = id;
         this.time = time;
         this.pkgName = pkgName;
@@ -38,6 +38,7 @@ public class RabbitSlowMethodInfo implements RabbitInfoProtocol{
         this.methodName = methodName;
         this.costTimeMs = costTimeMs;
         this.callStack = callStack;
+        this.pageName = pageName;
     }
 
     @Generated(hash = 1558201019)
@@ -103,6 +104,10 @@ public class RabbitSlowMethodInfo implements RabbitInfoProtocol{
 
     public void setCallStack(String callStack) {
         this.callStack = callStack;
+    }
+
+    public void setPageName(String pageName) {
+        this.pageName = pageName;
     }
 
 }

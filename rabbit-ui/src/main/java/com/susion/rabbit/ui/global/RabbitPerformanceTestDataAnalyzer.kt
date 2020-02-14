@@ -3,19 +3,19 @@ package com.susion.rabbit.ui.global
 import com.susion.rabbit.base.common.rabbitTimeFormat
 import com.susion.rabbit.base.entities.*
 import com.susion.rabbit.storage.RabbitDbStorageManager
-import com.susion.rabbit.ui.global.entities.RabbitPageGlobalMonitorInfo
-import com.susion.rabbit.ui.global.entities.RabbitGlobalModePreInfo
+import com.susion.rabbit.ui.global.entities.RabbitPagePerformanceInfo
+import com.susion.rabbit.ui.global.entities.RabbitAppPerformanceOverviewInfo
 import java.util.concurrent.TimeUnit
 
 /**
  * susionwang at 2020-01-16
  * 解析全局监控数据
  */
-object RabbitGlobalMonitorDataHelper {
+object RabbitPerformanceTestDataAnalyzer {
 
-    fun getGlobalMonitorPreInfo(monitorInfo: RabbitGlobalMonitorInfo): RabbitGlobalModePreInfo {
+    fun getGlobalMonitorPreInfo(monitorInfo: RabbitAppPerformanceInfo): RabbitAppPerformanceOverviewInfo {
 
-        val preInfo = RabbitGlobalModePreInfo(globalMonitorInfo = monitorInfo)
+        val preInfo = RabbitAppPerformanceOverviewInfo(globalMonitorInfo = monitorInfo)
 
         preInfo.isRunning = monitorInfo.isRunning
 
@@ -98,9 +98,9 @@ object RabbitGlobalMonitorDataHelper {
         return id?.toLongOrNull() != null
     }
 
-    fun getPageMonitorInfos(monitorInfo: RabbitGlobalMonitorInfo): List<RabbitPageGlobalMonitorInfo> {
+    fun getPageMonitorInfos(monitorInfo: RabbitAppPerformanceInfo): List<RabbitPagePerformanceInfo> {
 
-        val pageInfoMap = HashMap<String, RabbitPageGlobalMonitorInfo>()
+        val pageInfoMap = HashMap<String, RabbitPagePerformanceInfo>()
 
         //fps
         getIds(monitorInfo.fpsIds).mapNotNull { id ->
@@ -139,11 +139,11 @@ object RabbitGlobalMonitorDataHelper {
     }
 
     private fun createInfoNotExist(
-        pageInfoMap: HashMap<String, RabbitPageGlobalMonitorInfo>,
+        pageInfoMap: HashMap<String, RabbitPagePerformanceInfo>,
         pageName: String
-    ): RabbitPageGlobalMonitorInfo {
+    ): RabbitPagePerformanceInfo {
         if (pageInfoMap[pageName] == null) {
-            pageInfoMap[pageName] = RabbitPageGlobalMonitorInfo()
+            pageInfoMap[pageName] = RabbitPagePerformanceInfo()
         }
         return pageInfoMap[pageName]!!
     }

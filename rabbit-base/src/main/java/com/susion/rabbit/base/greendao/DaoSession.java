@@ -9,10 +9,10 @@ import org.greenrobot.greendao.identityscope.IdentityScopeType;
 import org.greenrobot.greendao.internal.DaoConfig;
 
 import com.susion.rabbit.base.entities.RabbitHttpLogInfo;
+import com.susion.rabbit.base.entities.RabbitAppPerformanceInfo;
 import com.susion.rabbit.base.entities.RabbitBlockFrameInfo;
 import com.susion.rabbit.base.entities.RabbitReportInfo;
 import com.susion.rabbit.base.entities.RabbitAppStartSpeedInfo;
-import com.susion.rabbit.base.entities.RabbitGlobalMonitorInfo;
 import com.susion.rabbit.base.entities.RabbitSlowMethodInfo;
 import com.susion.rabbit.base.entities.RabbitExceptionInfo;
 import com.susion.rabbit.base.entities.RabbitPageSpeedInfo;
@@ -21,10 +21,10 @@ import com.susion.rabbit.base.entities.RabbitFPSInfo;
 import com.susion.rabbit.base.entities.RabbitIoCallInfo;
 
 import com.susion.rabbit.base.greendao.RabbitHttpLogInfoDao;
+import com.susion.rabbit.base.greendao.RabbitAppPerformanceInfoDao;
 import com.susion.rabbit.base.greendao.RabbitBlockFrameInfoDao;
 import com.susion.rabbit.base.greendao.RabbitReportInfoDao;
 import com.susion.rabbit.base.greendao.RabbitAppStartSpeedInfoDao;
-import com.susion.rabbit.base.greendao.RabbitGlobalMonitorInfoDao;
 import com.susion.rabbit.base.greendao.RabbitSlowMethodInfoDao;
 import com.susion.rabbit.base.greendao.RabbitExceptionInfoDao;
 import com.susion.rabbit.base.greendao.RabbitPageSpeedInfoDao;
@@ -42,10 +42,10 @@ import com.susion.rabbit.base.greendao.RabbitIoCallInfoDao;
 public class DaoSession extends AbstractDaoSession {
 
     private final DaoConfig rabbitHttpLogInfoDaoConfig;
+    private final DaoConfig rabbitAppPerformanceInfoDaoConfig;
     private final DaoConfig rabbitBlockFrameInfoDaoConfig;
     private final DaoConfig rabbitReportInfoDaoConfig;
     private final DaoConfig rabbitAppStartSpeedInfoDaoConfig;
-    private final DaoConfig rabbitGlobalMonitorInfoDaoConfig;
     private final DaoConfig rabbitSlowMethodInfoDaoConfig;
     private final DaoConfig rabbitExceptionInfoDaoConfig;
     private final DaoConfig rabbitPageSpeedInfoDaoConfig;
@@ -54,10 +54,10 @@ public class DaoSession extends AbstractDaoSession {
     private final DaoConfig rabbitIoCallInfoDaoConfig;
 
     private final RabbitHttpLogInfoDao rabbitHttpLogInfoDao;
+    private final RabbitAppPerformanceInfoDao rabbitAppPerformanceInfoDao;
     private final RabbitBlockFrameInfoDao rabbitBlockFrameInfoDao;
     private final RabbitReportInfoDao rabbitReportInfoDao;
     private final RabbitAppStartSpeedInfoDao rabbitAppStartSpeedInfoDao;
-    private final RabbitGlobalMonitorInfoDao rabbitGlobalMonitorInfoDao;
     private final RabbitSlowMethodInfoDao rabbitSlowMethodInfoDao;
     private final RabbitExceptionInfoDao rabbitExceptionInfoDao;
     private final RabbitPageSpeedInfoDao rabbitPageSpeedInfoDao;
@@ -72,6 +72,9 @@ public class DaoSession extends AbstractDaoSession {
         rabbitHttpLogInfoDaoConfig = daoConfigMap.get(RabbitHttpLogInfoDao.class).clone();
         rabbitHttpLogInfoDaoConfig.initIdentityScope(type);
 
+        rabbitAppPerformanceInfoDaoConfig = daoConfigMap.get(RabbitAppPerformanceInfoDao.class).clone();
+        rabbitAppPerformanceInfoDaoConfig.initIdentityScope(type);
+
         rabbitBlockFrameInfoDaoConfig = daoConfigMap.get(RabbitBlockFrameInfoDao.class).clone();
         rabbitBlockFrameInfoDaoConfig.initIdentityScope(type);
 
@@ -80,9 +83,6 @@ public class DaoSession extends AbstractDaoSession {
 
         rabbitAppStartSpeedInfoDaoConfig = daoConfigMap.get(RabbitAppStartSpeedInfoDao.class).clone();
         rabbitAppStartSpeedInfoDaoConfig.initIdentityScope(type);
-
-        rabbitGlobalMonitorInfoDaoConfig = daoConfigMap.get(RabbitGlobalMonitorInfoDao.class).clone();
-        rabbitGlobalMonitorInfoDaoConfig.initIdentityScope(type);
 
         rabbitSlowMethodInfoDaoConfig = daoConfigMap.get(RabbitSlowMethodInfoDao.class).clone();
         rabbitSlowMethodInfoDaoConfig.initIdentityScope(type);
@@ -103,10 +103,10 @@ public class DaoSession extends AbstractDaoSession {
         rabbitIoCallInfoDaoConfig.initIdentityScope(type);
 
         rabbitHttpLogInfoDao = new RabbitHttpLogInfoDao(rabbitHttpLogInfoDaoConfig, this);
+        rabbitAppPerformanceInfoDao = new RabbitAppPerformanceInfoDao(rabbitAppPerformanceInfoDaoConfig, this);
         rabbitBlockFrameInfoDao = new RabbitBlockFrameInfoDao(rabbitBlockFrameInfoDaoConfig, this);
         rabbitReportInfoDao = new RabbitReportInfoDao(rabbitReportInfoDaoConfig, this);
         rabbitAppStartSpeedInfoDao = new RabbitAppStartSpeedInfoDao(rabbitAppStartSpeedInfoDaoConfig, this);
-        rabbitGlobalMonitorInfoDao = new RabbitGlobalMonitorInfoDao(rabbitGlobalMonitorInfoDaoConfig, this);
         rabbitSlowMethodInfoDao = new RabbitSlowMethodInfoDao(rabbitSlowMethodInfoDaoConfig, this);
         rabbitExceptionInfoDao = new RabbitExceptionInfoDao(rabbitExceptionInfoDaoConfig, this);
         rabbitPageSpeedInfoDao = new RabbitPageSpeedInfoDao(rabbitPageSpeedInfoDaoConfig, this);
@@ -115,10 +115,10 @@ public class DaoSession extends AbstractDaoSession {
         rabbitIoCallInfoDao = new RabbitIoCallInfoDao(rabbitIoCallInfoDaoConfig, this);
 
         registerDao(RabbitHttpLogInfo.class, rabbitHttpLogInfoDao);
+        registerDao(RabbitAppPerformanceInfo.class, rabbitAppPerformanceInfoDao);
         registerDao(RabbitBlockFrameInfo.class, rabbitBlockFrameInfoDao);
         registerDao(RabbitReportInfo.class, rabbitReportInfoDao);
         registerDao(RabbitAppStartSpeedInfo.class, rabbitAppStartSpeedInfoDao);
-        registerDao(RabbitGlobalMonitorInfo.class, rabbitGlobalMonitorInfoDao);
         registerDao(RabbitSlowMethodInfo.class, rabbitSlowMethodInfoDao);
         registerDao(RabbitExceptionInfo.class, rabbitExceptionInfoDao);
         registerDao(RabbitPageSpeedInfo.class, rabbitPageSpeedInfoDao);
@@ -129,10 +129,10 @@ public class DaoSession extends AbstractDaoSession {
     
     public void clear() {
         rabbitHttpLogInfoDaoConfig.clearIdentityScope();
+        rabbitAppPerformanceInfoDaoConfig.clearIdentityScope();
         rabbitBlockFrameInfoDaoConfig.clearIdentityScope();
         rabbitReportInfoDaoConfig.clearIdentityScope();
         rabbitAppStartSpeedInfoDaoConfig.clearIdentityScope();
-        rabbitGlobalMonitorInfoDaoConfig.clearIdentityScope();
         rabbitSlowMethodInfoDaoConfig.clearIdentityScope();
         rabbitExceptionInfoDaoConfig.clearIdentityScope();
         rabbitPageSpeedInfoDaoConfig.clearIdentityScope();
@@ -145,6 +145,10 @@ public class DaoSession extends AbstractDaoSession {
         return rabbitHttpLogInfoDao;
     }
 
+    public RabbitAppPerformanceInfoDao getRabbitAppPerformanceInfoDao() {
+        return rabbitAppPerformanceInfoDao;
+    }
+
     public RabbitBlockFrameInfoDao getRabbitBlockFrameInfoDao() {
         return rabbitBlockFrameInfoDao;
     }
@@ -155,10 +159,6 @@ public class DaoSession extends AbstractDaoSession {
 
     public RabbitAppStartSpeedInfoDao getRabbitAppStartSpeedInfoDao() {
         return rabbitAppStartSpeedInfoDao;
-    }
-
-    public RabbitGlobalMonitorInfoDao getRabbitGlobalMonitorInfoDao() {
-        return rabbitGlobalMonitorInfoDao;
     }
 
     public RabbitSlowMethodInfoDao getRabbitSlowMethodInfoDao() {

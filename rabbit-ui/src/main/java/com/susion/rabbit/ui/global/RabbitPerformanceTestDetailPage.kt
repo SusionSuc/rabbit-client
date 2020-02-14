@@ -3,32 +3,33 @@ package com.susion.rabbit.ui.global
 import android.content.Context
 import com.susion.lifeclean.common.recyclerview.SimpleRvAdapter
 import com.susion.rabbit.base.common.RabbitAsync
-import com.susion.rabbit.base.entities.RabbitGlobalMonitorInfo
+import com.susion.rabbit.base.entities.RabbitAppPerformanceInfo
 import com.susion.rabbit.base.ui.page.RabbitBasePage
-import com.susion.rabbit.ui.global.entities.RabbitPageGlobalMonitorInfo
-import com.susion.rabbit.ui.global.view.RabbitPageGlobalMonitorInfoView
+import com.susion.rabbit.ui.global.entities.RabbitPagePerformanceInfo
+import com.susion.rabbit.ui.global.view.RabbitPagePerformanceTestInfoView
 import com.susion.rabbit.ui.monitor.R
-import kotlinx.android.synthetic.main.rabbit_page_global_monitor_detail.view.*
+import kotlinx.android.synthetic.main.rabbit_page_performance_test_detail.view.*
 
 /**
  * susionwang at 2019-10-29
  */
-class RabbitGlobalMonitorModeDetailPage(context: Context) : RabbitBasePage(context) {
+class RabbitPerformanceTestDetailPage(context: Context) : RabbitBasePage(context) {
 
-    private lateinit var globalMonitorInfo: RabbitGlobalMonitorInfo
+    private lateinit var globalMonitorInfo: RabbitAppPerformanceInfo
     private val adapter by lazy {
-        SimpleRvAdapter<RabbitPageGlobalMonitorInfo>(context).apply {
+        SimpleRvAdapter<RabbitPagePerformanceInfo>(context).apply {
             registerMapping(
-                RabbitPageGlobalMonitorInfo::class.java,
-                RabbitPageGlobalMonitorInfoView::class.java
+                RabbitPagePerformanceInfo::class.java,
+                RabbitPagePerformanceTestInfoView::class.java
             )
         }
     }
 
-    override fun getLayoutResId() = R.layout.rabbit_page_global_monitor_detail
+    override fun getLayoutResId() = R.layout.rabbit_page_performance_test_detail
 
     override fun setEntryParams(info: Any) {
-        if (info !is RabbitGlobalMonitorInfo) return
+
+        if (info !is RabbitAppPerformanceInfo) return
 
         globalMonitorInfo = info
 
@@ -49,7 +50,7 @@ class RabbitGlobalMonitorModeDetailPage(context: Context) : RabbitBasePage(conte
 
     private fun loadData() {
         RabbitAsync.asyncRunWithResult({
-            RabbitGlobalMonitorDataHelper.getPageMonitorInfos(globalMonitorInfo)
+            RabbitPerformanceTestDataAnalyzer.getPageMonitorInfos(globalMonitorInfo)
         }, {
             adapter.data.clear()
             adapter.data.addAll(it)

@@ -1,11 +1,12 @@
 package com.susion.rabbit.ui.global.entities
 
-import com.susion.rabbit.base.entities.RabbitGlobalMonitorInfo
+import com.susion.rabbit.base.entities.RabbitAppPerformanceInfo
 
 /**
  * susionwang at 2020-01-15
+ * 应用性能概览
  */
-class RabbitGlobalModePreInfo(
+class RabbitAppPerformanceOverviewInfo(
     var recordStartTime:String = "",
     var duration:String = "",
     var avgFps: Int = 60,
@@ -18,5 +19,5 @@ class RabbitGlobalModePreInfo(
     var slowMethodCount: Int = 0,
     var isRunning:Boolean =false,
     var smoothEvaluateInfo: RabbitAppSmoothEvaluateInfo = RabbitAppSmoothEvaluateInfo(),
-    var globalMonitorInfo: RabbitGlobalMonitorInfo
+    var globalMonitorInfo: RabbitAppPerformanceInfo
 )

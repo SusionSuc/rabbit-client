@@ -3,7 +3,7 @@ package com.susion.rabbit.ui.global
 import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.TAG_MONITOR_UI
 import com.susion.rabbit.ui.global.entities.RabbitAppSmoothEvaluateInfo
-import com.susion.rabbit.ui.global.entities.RabbitGlobalModePreInfo
+import com.susion.rabbit.ui.global.entities.RabbitAppPerformanceOverviewInfo
 
 /**
  * 计算应用当前流畅值, 满分为100分。
@@ -29,7 +29,7 @@ object RabbitAppSmoothEvaluator {
     const val BLOCK = 10f
     const val SLOW_METHOD = 20f
 
-    fun evaluateSmoothScore(monitorInfo: RabbitGlobalModePreInfo): RabbitAppSmoothEvaluateInfo {
+    fun evaluateSmoothScore(monitorInfo: RabbitAppPerformanceOverviewInfo): RabbitAppSmoothEvaluateInfo {
 
         val evaluateInfo = RabbitAppSmoothEvaluateInfo()
 

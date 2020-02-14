@@ -9,8 +9,8 @@ import com.susion.lifeclean.common.recyclerview.AdapterItemView
 import com.susion.rabbit.base.ui.throttleFirstClick
 import com.susion.rabbit.base.ui.utils.RabbitUiUtils
 import com.susion.rabbit.ui.RabbitUi
-import com.susion.rabbit.ui.global.entities.RabbitGlobalModePreInfo
-import com.susion.rabbit.ui.global.RabbitGlobalMonitorModeDetailPage
+import com.susion.rabbit.ui.global.entities.RabbitAppPerformanceOverviewInfo
+import com.susion.rabbit.ui.global.RabbitPerformanceTestDetailPage
 import com.susion.rabbit.ui.monitor.R
 import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.rabbit_view_global_monitor_pre.view.*
@@ -18,8 +18,8 @@ import kotlinx.android.synthetic.main.rabbit_view_global_monitor_pre.view.*
 /**
  * susionwang at 2020-01-16
  */
-class RabbitGlobalMonitorPreView(context: Context) : LinearLayout(context),
-    AdapterItemView<RabbitGlobalModePreInfo> {
+class RabbitPerformanceTestPreView(context: Context) : LinearLayout(context),
+    AdapterItemView<RabbitAppPerformanceOverviewInfo> {
 
     init {
         LayoutInflater.from(context).inflate(R.layout.rabbit_view_global_monitor_pre, this)
@@ -27,7 +27,7 @@ class RabbitGlobalMonitorPreView(context: Context) : LinearLayout(context),
         orientation = VERTICAL
     }
 
-    override fun bindData(info: RabbitGlobalModePreInfo, position: Int) {
+    override fun bindData(info: RabbitAppPerformanceOverviewInfo, position: Int) {
         info.apply {
             mGlobalMonitorPreViewTvFps.text = avgFps.toString()
             mGlobalMonitorPreViewTvMem.text = RabbitUiUtils.formatFileSize(avgJVMMemory)
@@ -43,7 +43,7 @@ class RabbitGlobalMonitorPreView(context: Context) : LinearLayout(context),
         }
 
         throttleFirstClick(Consumer {
-            RabbitUi.openPage(RabbitGlobalMonitorModeDetailPage::class.java, info.globalMonitorInfo)
+            RabbitUi.openPage(RabbitPerformanceTestDetailPage::class.java, info.globalMonitorInfo)
         })
 
     }

@@ -5,7 +5,7 @@ package com.susion.rabbit.ui.global.entities
  *
  * 一个页面的全局监控信息
  */
-class RabbitPageGlobalMonitorInfo(
+class RabbitPagePerformanceInfo(
     var avgFps: Int = 0,
     var runTime: Int = 0,
     var avgMem: Int = 0,

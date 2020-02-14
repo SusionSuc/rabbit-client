@@ -6,27 +6,27 @@ import com.susion.lifeclean.common.recyclerview.SimpleRvAdapter
 import com.susion.rabbit.base.RabbitMonitorProtocol
 import com.susion.rabbit.base.RabbitSettings
 import com.susion.rabbit.base.common.RabbitAsync
-import com.susion.rabbit.base.entities.RabbitGlobalMonitorInfo
+import com.susion.rabbit.base.entities.RabbitAppPerformanceInfo
 import com.susion.rabbit.base.ui.page.RabbitBasePage
 import com.susion.rabbit.base.ui.view.RabbitSwitchButton
 import com.susion.rabbit.storage.RabbitDbStorageManager
 import com.susion.rabbit.ui.RabbitUi
-import com.susion.rabbit.ui.global.entities.RabbitGlobalModePreInfo
-import com.susion.rabbit.ui.global.view.RabbitGlobalMonitorPreView
+import com.susion.rabbit.ui.global.entities.RabbitAppPerformanceOverviewInfo
+import com.susion.rabbit.ui.global.view.RabbitPerformanceTestPreView
 import com.susion.rabbit.ui.monitor.R
 import com.susion.rabbit.ui.page.RabbitCurrentConfigPage
-import kotlinx.android.synthetic.main.rabbit_page_global_monitor_mode_list.view.*
+import kotlinx.android.synthetic.main.rabbit_page_performance_test_list.view.*
 
 /**
  * susionwang at 2019-10-29
  */
-class RabbitGlobalMonitorModeListPage(context: Context) : RabbitBasePage(context) {
+class RabbitPerformanceTestListPage(context: Context) : RabbitBasePage(context) {
 
-    private val adapter = SimpleRvAdapter<RabbitGlobalModePreInfo>(context).apply {
-        registerMapping(RabbitGlobalModePreInfo::class.java, RabbitGlobalMonitorPreView::class.java)
+    private val adapter = SimpleRvAdapter<RabbitAppPerformanceOverviewInfo>(context).apply {
+        registerMapping(RabbitAppPerformanceOverviewInfo::class.java, RabbitPerformanceTestPreView::class.java)
     }
 
-    override fun getLayoutResId() = R.layout.rabbit_page_global_monitor_mode_list
+    override fun getLayoutResId() = R.layout.rabbit_page_performance_test_list
 
     init {
 
@@ -66,11 +66,11 @@ class RabbitGlobalMonitorModeListPage(context: Context) : RabbitBasePage(context
     }
 
     private fun loadData() {
-        RabbitDbStorageManager.getAll(RabbitGlobalMonitorInfo::class.java) { monitorList ->
+        RabbitDbStorageManager.getAll(RabbitAppPerformanceInfo::class.java) { monitorList ->
             RabbitAsync.asyncRunWithResult({
-                ArrayList<RabbitGlobalModePreInfo>().apply {
+                ArrayList<RabbitAppPerformanceOverviewInfo>().apply {
                     monitorList.forEach { monitorInfo ->
-                        this.add(0, RabbitGlobalMonitorDataHelper.getGlobalMonitorPreInfo(monitorInfo))
+                        this.add(0, RabbitPerformanceTestDataAnalyzer.getGlobalMonitorPreInfo(monitorInfo))
                     }
                 }
             }, {
