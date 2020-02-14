@@ -8,12 +8,12 @@ import org.greenrobot.greendao.annotation.Id;
  * susionwang at 2019-12-03
  */
 @Entity
-public class RabbitMemoryInfo  {
+public class RabbitMemoryInfo  implements RabbitInfoProtocol{
 
     @Id(autoincrement = true)
     public Long id;
 
-    public long time;
+    public Long time;
 
     public int totalSize;
 
@@ -25,8 +25,8 @@ public class RabbitMemoryInfo  {
 
     public String pageName;
 
-    @Generated(hash = 1803958226)
-    public RabbitMemoryInfo(Long id, long time, int totalSize, int vmSize,
+    @Generated(hash = 377187076)
+    public RabbitMemoryInfo(Long id, Long time, int totalSize, int vmSize,
             int nativeSize, int othersSize, String pageName) {
         this.id = id;
         this.time = time;
@@ -49,7 +49,7 @@ public class RabbitMemoryInfo  {
         this.id = id;
     }
 
-    public long getTime() {
+    public Long getTime() {
         return this.time;
     }
 
@@ -95,6 +95,10 @@ public class RabbitMemoryInfo  {
 
     public void setPageName(String pageName) {
         this.pageName = pageName;
+    }
+
+    public void setTime(Long time) {
+        this.time = time;
     }
 
 

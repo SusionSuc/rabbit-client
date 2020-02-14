@@ -30,6 +30,7 @@ public class RabbitBlockFrameInfoDao extends AbstractDao<RabbitBlockFrameInfo, L
         public final static Property CostTime = new Property(3, Long.class, "costTime", false, "COST_TIME");
         public final static Property Time = new Property(4, Long.class, "time", false, "TIME");
         public final static Property BlockPage = new Property(5, String.class, "blockPage", false, "BLOCK_PAGE");
+        public final static Property PageName = new Property(6, String.class, "pageName", false, "PAGE_NAME");
     }
 
 
@@ -50,7 +51,8 @@ public class RabbitBlockFrameInfoDao extends AbstractDao<RabbitBlockFrameInfo, L
                 "\"BLOCK_IDENTIFIER\" TEXT," + // 2: blockIdentifier
                 "\"COST_TIME\" INTEGER," + // 3: costTime
                 "\"TIME\" INTEGER," + // 4: time
-                "\"BLOCK_PAGE\" TEXT);"); // 5: blockPage
+                "\"BLOCK_PAGE\" TEXT," + // 5: blockPage
+                "\"PAGE_NAME\" TEXT);"); // 6: pageName
     }
 
     /** Drops the underlying database table. */
@@ -92,6 +94,11 @@ public class RabbitBlockFrameInfoDao extends AbstractDao<RabbitBlockFrameInfo, L
         if (blockPage != null) {
             stmt.bindString(6, blockPage);
         }
+ 
+        String pageName = entity.getPageName();
+        if (pageName != null) {
+            stmt.bindString(7, pageName);
+        }
     }
 
     @Override
@@ -127,6 +134,11 @@ public class RabbitBlockFrameInfoDao extends AbstractDao<RabbitBlockFrameInfo, L
         if (blockPage != null) {
             stmt.bindString(6, blockPage);
         }
+ 
+        String pageName = entity.getPageName();
+        if (pageName != null) {
+            stmt.bindString(7, pageName);
+        }
     }
 
     @Override
@@ -142,7 +154,8 @@ public class RabbitBlockFrameInfoDao extends AbstractDao<RabbitBlockFrameInfo, L
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // blockIdentifier
             cursor.isNull(offset + 3) ? null : cursor.getLong(offset + 3), // costTime
             cursor.isNull(offset + 4) ? null : cursor.getLong(offset + 4), // time
-            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5) // blockPage
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // blockPage
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6) // pageName
         );
         return entity;
     }
@@ -155,6 +168,7 @@ public class RabbitBlockFrameInfoDao extends AbstractDao<RabbitBlockFrameInfo, L
         entity.setCostTime(cursor.isNull(offset + 3) ? null : cursor.getLong(offset + 3));
         entity.setTime(cursor.isNull(offset + 4) ? null : cursor.getLong(offset + 4));
         entity.setBlockPage(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setPageName(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
      }
     
     @Override

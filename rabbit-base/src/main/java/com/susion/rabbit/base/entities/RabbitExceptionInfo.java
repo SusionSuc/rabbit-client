@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
  */
 
 @Entity
-public class RabbitExceptionInfo {
+public class RabbitExceptionInfo implements RabbitInfoProtocol{
 
     @Id(autoincrement = true)
     public Long id;

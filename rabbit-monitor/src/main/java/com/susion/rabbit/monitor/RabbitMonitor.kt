@@ -9,7 +9,7 @@ import com.susion.rabbit.base.TAG_MONITOR
 import com.susion.rabbit.base.common.RabbitActivityLifecycleWrapper
 import com.susion.rabbit.base.config.RabbitMonitorConfig
 import com.susion.rabbit.base.entities.RabbitAppSpeedMonitorConfig
-import com.susion.rabbit.base.entities.RabbitGlobalMonitorInfo
+import com.susion.rabbit.base.entities.RabbitAppPerformanceInfo
 import com.susion.rabbit.base.ui.RabbitUiEvent
 import com.susion.rabbit.monitor.instance.*
 import com.susion.rabbit.monitor.instance.RabbitAppSpeedMonitor
@@ -36,7 +36,7 @@ object RabbitMonitor {
 
     init {
         monitorMap.apply {
-            put(RabbitMonitorProtocol.GLOBAL_MONITOR.name, RabbitGlobalModeMonitor())
+            put(RabbitMonitorProtocol.GLOBAL_MONITOR.name, RabbitGlobalMoMonitor())
             put(RabbitMonitorProtocol.APP_SPEED.name, RabbitAppSpeedMonitor())
             put(RabbitMonitorProtocol.FPS.name, RabbitFPSMonitor())
             put(RabbitMonitorProtocol.BLOCK.name, RabbitBlockMonitor())
@@ -109,10 +109,10 @@ object RabbitMonitor {
             add(RabbitMonitorProtocol.SLOW_METHOD.name)
         }
 
-        RabbitDbStorageManager.getAll(RabbitGlobalMonitorInfo::class.java){
+        RabbitDbStorageManager.getAll(RabbitAppPerformanceInfo::class.java){
             it.forEach {globalMonitorInfo->
                 globalMonitorInfo.isRunning = false
-                RabbitDbStorageManager.updateOrCreate(RabbitGlobalMonitorInfo::class.java, globalMonitorInfo,globalMonitorInfo.id)
+                RabbitDbStorageManager.updateOrCreate(RabbitAppPerformanceInfo::class.java, globalMonitorInfo,globalMonitorInfo.id)
             }
         }
     }
@@ -143,8 +143,7 @@ object RabbitMonitor {
     }
 
     fun isAutoOpen(monitor: RabbitMonitorProtocol): Boolean {
-        if (application == null) return false
-        return RabbitSettings.autoOpen(application!!, monitor.getMonitorInfo().name)
+        return RabbitSettings.autoOpen(application, monitor.getMonitorInfo().name)
     }
 
     fun getMonitorList() = ArrayList<RabbitMonitorProtocol>().apply {

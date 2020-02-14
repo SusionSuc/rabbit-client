@@ -1,6 +1,7 @@
 package com.susion.rabbit.storage
 
 import com.susion.rabbit.base.common.RabbitAsync
+import com.susion.rabbit.base.entities.RabbitInfoProtocol
 import com.susion.rabbit.base.greendao.DaoSession
 import io.reactivex.disposables.Disposable
 import org.greenrobot.greendao.Property
@@ -34,10 +35,10 @@ object RabbitDbStorageManager {
      *
      * 默认按 time 字段 降序排序。 FIX: 有点hardcode
      * */
-    fun <T : Any> getAll(
+    fun <T : RabbitInfoProtocol> getAll(
         ktClass: Class<T>,
         condition: Pair<Property, String>? = null,
-        sortField: String = "time",
+        sortField: String = RabbitInfoProtocol.PROPERTITY_TIME,
         count: Int = 0,
         orderDesc: Boolean = false,
         loadResult: (exceptionList: List<T>) -> Unit
@@ -55,10 +56,10 @@ object RabbitDbStorageManager {
         })
     }
 
-    fun <T : Any> getAllSync(
+    fun <T : RabbitInfoProtocol> getAllSync(
         ktClass: Class<T>,
         condition: Pair<Property, String>? = null,
-        sortField: String = "time",
+        sortField: String = RabbitInfoProtocol.PROPERTITY_TIME,
         count: Int = 0,
         orderDesc: Boolean = false
     ): List<T> {
@@ -71,7 +72,7 @@ object RabbitDbStorageManager {
         )
     }
 
-    fun save(obj: Any) {
+    fun save(obj: RabbitInfoProtocol) {
         val dis = RabbitAsync.asyncRun({
             greenDaoDbManage.saveObj(obj)
         }, DB_THREAD, {
@@ -80,12 +81,12 @@ object RabbitDbStorageManager {
         disposableList.add(dis)
     }
 
-    fun saveSync(obj: Any) {
+    fun saveSync(obj: RabbitInfoProtocol) {
         greenDaoDbManage.saveObj(obj)
         RabbitStorage.notifyEventListenerNewDataSave(obj)
     }
 
-    fun <T : Any> getObjSync(clazz: Class<T>, id: Long): T? {
+    fun <T : RabbitInfoProtocol> getObjSync(clazz: Class<T>, id: Long): T? {
         return greenDaoDbManage.getObjSync(clazz, id)
     }
 
@@ -99,7 +100,7 @@ object RabbitDbStorageManager {
         }, DB_THREAD)
     }
 
-    fun <T : Any> delete(clazz: Class<T>, condition: Pair<Property, String>) {
+    fun <T : RabbitInfoProtocol> delete(clazz: Class<T>, condition: Pair<Property, String>) {
         RabbitAsync.asyncRun({
             greenDaoDbManage.delete(clazz, condition.first.eq(condition.second))
         }, DB_THREAD)
@@ -109,7 +110,7 @@ object RabbitDbStorageManager {
         return greenDaoDbManage.allDataCount(clazz)
     }
 
-    fun <T : Any> distinct(
+    fun <T : RabbitInfoProtocol> distinct(
         clazz: Class<T>,
         columnName: String,
         loadResult: (exceptionList: List<String>) -> Unit
@@ -121,7 +122,11 @@ object RabbitDbStorageManager {
         })
     }
 
-    fun <T : Any> updateOrCreate(clazz: Class<T>, obj: Any, id: Long) {
+    fun <T : RabbitInfoProtocol> updateOrCreate(
+        clazz: Class<T>,
+        obj: RabbitInfoProtocol,
+        id: Long
+    ) {
         RabbitAsync.asyncRun({
             greenDaoDbManage.updateOrCreate(clazz, obj, id)
         }, DB_THREAD)

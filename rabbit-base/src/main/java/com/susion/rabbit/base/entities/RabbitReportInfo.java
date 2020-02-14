@@ -14,7 +14,7 @@ import org.greenrobot.greendao.annotation.Keep;
  * susionwang at 2019-12-05
  */
 @Entity
-public class RabbitReportInfo {
+public class RabbitReportInfo implements RabbitInfoProtocol{
 
     @Id(autoincrement = true)
     public Long id;
@@ -92,6 +92,11 @@ public class RabbitReportInfo {
 
     public Long getTime() {
         return this.time;
+    }
+
+    @Override
+    public String getPageName() {
+        return "";
     }
 
     public void setTime(Long time) {

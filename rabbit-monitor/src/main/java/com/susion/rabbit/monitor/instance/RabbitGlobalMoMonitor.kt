@@ -13,9 +13,9 @@ import com.susion.rabbit.storage.RabbitStorage
  *
  * 全局监控模式
  */
-class RabbitGlobalModeMonitor(override var isOpen: Boolean = false) : RabbitMonitorProtocol {
+class RabbitGlobalMoMonitor(override var isOpen: Boolean = false) : RabbitMonitorProtocol {
 
-    private var globalMonitorInfo: RabbitGlobalMonitorInfo? = null
+    private var globalMonitorInfo: RabbitAppPerformanceInfo? = null
     private val dataStorageListener = object : RabbitStorage.EventListener {
         override fun onStorageData(obj: Any) {
             if (globalMonitorInfo == null) return
@@ -24,12 +24,13 @@ class RabbitGlobalModeMonitor(override var isOpen: Boolean = false) : RabbitMoni
     }
 
     override fun close() {
+        saveMonitorInfo(false)
         globalMonitorInfo = null
         RabbitStorage.removeEventListener(dataStorageListener)
     }
 
     override fun open(context: Context) {
-        globalMonitorInfo = RabbitGlobalMonitorInfo()
+        globalMonitorInfo = RabbitAppPerformanceInfo()
         globalMonitorInfo?.time = System.currentTimeMillis()
         globalMonitorInfo?.endTime = System.currentTimeMillis()
         RabbitStorage.addEventListener(dataStorageListener)
@@ -63,11 +64,15 @@ class RabbitGlobalModeMonitor(override var isOpen: Boolean = false) : RabbitMoni
             }
         }
 
+        saveMonitorInfo(true)
+    }
+
+    private fun saveMonitorInfo(isRunning: Boolean = false) {
         if (globalMonitorInfo != null) {
-            globalMonitorInfo?.isRunning = true
+            globalMonitorInfo?.isRunning = isRunning
             globalMonitorInfo?.endTime = System.currentTimeMillis()
             RabbitDbStorageManager.updateOrCreate(
-                RabbitGlobalMonitorInfo::class.java,
+                RabbitAppPerformanceInfo::class.java,
                 globalMonitorInfo!!,
                 globalMonitorInfo?.id ?: 0
             )

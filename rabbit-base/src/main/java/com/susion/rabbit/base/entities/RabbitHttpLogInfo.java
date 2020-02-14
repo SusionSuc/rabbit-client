@@ -9,7 +9,7 @@ import org.greenrobot.greendao.annotation.Id;
  */
 
 @Entity
-public class RabbitHttpLogInfo  {
+public class RabbitHttpLogInfo implements RabbitInfoProtocol {
 
     @Id(autoincrement = true)
     public Long id;
@@ -141,6 +141,11 @@ public class RabbitHttpLogInfo  {
 
     public Long getTime() {
         return this.time;
+    }
+
+    @Override
+    public String getPageName() {
+        return "";
     }
 
     public void setTime(Long time) {

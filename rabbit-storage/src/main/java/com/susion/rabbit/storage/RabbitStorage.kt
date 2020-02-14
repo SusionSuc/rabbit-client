@@ -98,8 +98,8 @@ object RabbitStorage {
 
             add(
                 RabbitDaoProviderConfig(
-                    RabbitGlobalMonitorInfo::class.java as Class<Any>,
-                    daoSession.rabbitGlobalMonitorInfoDao as AbstractDao<Any, Long>
+                    RabbitAppPerformanceInfo::class.java as Class<Any>,
+                    daoSession.rabbitAppPerformanceInfoDao as AbstractDao<Any, Long>
                 )
             )
         }
@@ -138,7 +138,7 @@ object RabbitStorage {
             }
 
             RabbitMonitorProtocol.GLOBAL_MONITOR.name -> {
-                RabbitDbStorageManager.clearAllData(RabbitGlobalMonitorInfo::class.java)
+                RabbitDbStorageManager.clearAllData(RabbitAppPerformanceInfo::class.java)
             }
         }
     }

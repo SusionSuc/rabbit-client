@@ -12,7 +12,7 @@ import com.susion.rabbit.base.ui.RabbitUiKernal
 import com.susion.rabbit.base.ui.page.RabbitEntryPage
 import com.susion.rabbit.ui.monitor.R
 import com.susion.rabbit.ui.page.*
-import com.susion.rabbit.ui.global.RabbitGlobalMonitorModeListPage
+import com.susion.rabbit.ui.global.RabbitPerformanceTestListPage
 import com.susion.rabbit.ui.slowmethod.RabbitSlowMethodPreviewPage
 
 /**
@@ -55,7 +55,7 @@ object RabbitUi {
                 RabbitMainFeatureInfo(
                     "性能测试",
                     R.drawable.rabbit_icon_global_monitor,
-                    RabbitGlobalMonitorModeListPage::class.java
+                    RabbitPerformanceTestListPage::class.java
                 )
             )
             add(

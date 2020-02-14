@@ -8,7 +8,7 @@ import org.greenrobot.greendao.annotation.Generated;
  * susionwang at 2020-01-02
  */
 @Entity
-public class RabbitSlowMethodInfo {
+public class RabbitSlowMethodInfo implements RabbitInfoProtocol{
 
     @Id(autoincrement = true)
     public Long id;
@@ -25,10 +25,12 @@ public class RabbitSlowMethodInfo {
 
     public String callStack;
 
-    @Generated(hash = 1789569780)
+    public String pageName;
+
+    @Generated(hash = 367496386)
     public RabbitSlowMethodInfo(Long id, Long time, String pkgName,
-            String className, String methodName, Long costTimeMs,
-            String callStack) {
+            String className, String methodName, Long costTimeMs, String callStack,
+            String pageName) {
         this.id = id;
         this.time = time;
         this.pkgName = pkgName;
@@ -36,6 +38,7 @@ public class RabbitSlowMethodInfo {
         this.methodName = methodName;
         this.costTimeMs = costTimeMs;
         this.callStack = callStack;
+        this.pageName = pageName;
     }
 
     @Generated(hash = 1558201019)
@@ -52,6 +55,11 @@ public class RabbitSlowMethodInfo {
 
     public Long getTime() {
         return this.time;
+    }
+
+    @Override
+    public String getPageName() {
+        return pageName;
     }
 
     public void setTime(Long time) {
@@ -98,5 +106,8 @@ public class RabbitSlowMethodInfo {
         this.callStack = callStack;
     }
 
+    public void setPageName(String pageName) {
+        this.pageName = pageName;
+    }
 
 }

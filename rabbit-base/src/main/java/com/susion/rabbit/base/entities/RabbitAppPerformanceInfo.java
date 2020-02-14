@@ -3,12 +3,13 @@ package com.susion.rabbit.base.entities;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Keep;
 
 /**
  * susionwang at 2020-01-14
  */
 @Entity
-public class RabbitGlobalMonitorInfo {
+public class RabbitAppPerformanceInfo implements RabbitInfoProtocol{
 
     @Id(autoincrement = true)
     public Long id;
@@ -31,11 +32,11 @@ public class RabbitGlobalMonitorInfo {
 
     public boolean isRunning;
 
-    @Generated(hash = 1353414932)
-    public RabbitGlobalMonitorInfo(Long id, Long time, String fpsIds,
-            String memoryIds, String appStartId, String pageSpeedIds,
-            String blockIds, String slowMethodIds, Long endTime,
-            boolean isRunning) {
+    @Keep
+    public RabbitAppPerformanceInfo(Long id, Long time, String fpsIds,
+                                    String memoryIds, String appStartId, String pageSpeedIds,
+                                    String blockIds, String slowMethodIds, Long endTime,
+                                    boolean isRunning) {
         this.id = id;
         this.time = time;
         this.fpsIds = fpsIds;
@@ -48,9 +49,13 @@ public class RabbitGlobalMonitorInfo {
         this.isRunning = isRunning;
     }
 
-    @Generated(hash = 1291211931)
-    public RabbitGlobalMonitorInfo() {
+
+
+    @Generated(hash = 2095757822)
+    public RabbitAppPerformanceInfo() {
     }
+
+  
 
     public Long getId() {
         return this.id;
@@ -62,6 +67,11 @@ public class RabbitGlobalMonitorInfo {
 
     public Long getTime() {
         return this.time;
+    }
+
+    @Override
+    public String getPageName() {
+        return "";
     }
 
     public void setTime(Long time) {

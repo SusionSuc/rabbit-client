@@ -1,5 +1,7 @@
 package com.susion.rabbit.base.entities;
 
+import android.util.Log;
+
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
@@ -8,7 +10,7 @@ import org.greenrobot.greendao.annotation.Id;
  * susionwang at 2019-11-20
  */
 @Entity
-public class RabbitAppStartSpeedInfo {
+public class RabbitAppStartSpeedInfo implements RabbitInfoProtocol{
 
     @Id(autoincrement = true)
     public Long id;
@@ -47,8 +49,13 @@ public class RabbitAppStartSpeedInfo {
         this.id = id;
     }
 
-    public long getTime() {
+    public Long getTime() {
         return this.time;
+    }
+
+    @Override
+    public String getPageName() {
+        return "";
     }
 
     public void setTime(long time) {

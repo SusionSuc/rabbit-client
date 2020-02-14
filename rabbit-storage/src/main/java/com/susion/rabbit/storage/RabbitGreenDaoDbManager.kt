@@ -4,6 +4,7 @@ import android.content.Context
 import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.TAG_STORAGE
 import com.susion.rabbit.base.config.RabbitDaoProviderConfig
+import com.susion.rabbit.base.entities.RabbitInfoProtocol
 import com.susion.rabbit.base.greendao.DaoSession
 import org.greenrobot.greendao.AbstractDao
 import org.greenrobot.greendao.Property
@@ -19,17 +20,21 @@ internal class RabbitGreenDaoDbManage(val context: Context, val daoSession: DaoS
     private val MAX_DATA_COUNT = 5000 // 不允许存太多数据
     private val daoMap = HashMap<String, AbstractDao<Any, Long>>()
 
-    fun saveObj(obj: Any) {
+    fun saveObj(obj: RabbitInfoProtocol) {
         val daoImpl = daoImpl(obj.javaClass) ?: return
-        val currentTotalCount = daoImpl.queryBuilder().count()
-        if (currentTotalCount > MAX_DATA_COUNT) {
-            daoImpl.deleteAll()
-        }
+//        val currentTotalCount = daoImpl.queryBuilder().count()
+//        if (currentTotalCount > MAX_DATA_COUNT) {
+//            daoImpl.deleteAll()
+//        }
         daoImpl.save(obj)
         RabbitLog.d(TAG_STORAGE, "save data $obj")
     }
 
-    fun <T : Any> updateOrCreate(clazz: Class<T>, obj: Any, id: Long) {
+    fun <T : RabbitInfoProtocol> updateOrCreate(
+        clazz: Class<T>,
+        obj: RabbitInfoProtocol,
+        id: Long
+    ) {
         val daoImpl = daoImpl(obj.javaClass) ?: return
         val storageData = getDataById(clazz, id)
         if (storageData == null) {
@@ -39,25 +44,25 @@ internal class RabbitGreenDaoDbManage(val context: Context, val daoSession: DaoS
         }
     }
 
-    private fun <T : Any> getDataById(clazz: Class<T>, id: Long): T? {
+    private fun <T : RabbitInfoProtocol> getDataById(clazz: Class<T>, id: Long): T? {
         return daoImpl(clazz)?.loadByRowId(id) ?: null
     }
 
-    fun <T :Any> getObjSync(clazz: Class<T>, id: Long): T? {
-        return getDataById(clazz,id)
+    fun <T : RabbitInfoProtocol> getObjSync(clazz: Class<T>, id: Long): T? {
+        return getDataById(clazz, id)
     }
 
     fun <T : Any> deleteById(clazz: Class<T>, id: Long) {
         daoImpl(clazz)?.deleteByKey(id)
     }
 
-    fun <T : Any> delete(clazz: Class<T>, condition: WhereCondition) {
+    fun <T : RabbitInfoProtocol> delete(clazz: Class<T>, condition: WhereCondition) {
         getDatas(clazz, condition).forEach {
             daoImpl(clazz)?.delete(it)
         }
     }
 
-    fun <T : Any> distinct(clazz: Class<T>, columnName: String): List<String> {
+    fun <T : RabbitInfoProtocol> distinct(clazz: Class<T>, columnName: String): List<String> {
         val dao = daoImpl(clazz) ?: return emptyList()
         val distinctSQL = "SELECT DISTINCT $columnName FROM ${dao.tablename};"
         val cursor = daoSession?.database?.rawQuery(distinctSQL, null) ?: return emptyList()
@@ -72,7 +77,7 @@ internal class RabbitGreenDaoDbManage(val context: Context, val daoSession: DaoS
         return daoImpl(clazz)?.queryBuilder()?.count() ?: 0
     }
 
-    fun <T : Any> getDatas(
+    fun <T : RabbitInfoProtocol> getDatas(
         clazz: Class<T>,
         condition: WhereCondition? = null,
         sortField: String = "time",
@@ -101,7 +106,10 @@ internal class RabbitGreenDaoDbManage(val context: Context, val daoSession: DaoS
         return daoImpl(clazz)?.count() ?: 0
     }
 
-    private fun <T : Any> getProperties(dao: AbstractDao<T, Long>?, field: String): Property? {
+    private fun <T : Any> getProperties(
+        dao: AbstractDao<T, Long>?,
+        field: String
+    ): Property? {
         return dao?.properties?.find { it.name == field }
     }
 
@@ -140,7 +148,6 @@ internal class RabbitGreenDaoDbManage(val context: Context, val daoSession: DaoS
             clearAllData(it)
         }
     }
-
 
 
 }
