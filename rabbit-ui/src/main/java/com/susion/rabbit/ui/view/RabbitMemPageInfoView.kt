@@ -27,8 +27,7 @@ class RabbitMemPageInfoView(context: Context) : RelativeLayout(context),
         mFpsAnalyzerViewTvPageName.text =
             "${RabbitUtils.dropPackageName(memInfo.pageName)} -> ${memInfo.recordCount} record "
         mFpsAnalyzerViewTvPageFps.text =
-            "avg total mem -> ${memInfo.avgMem}  avg vm meme-> ${memInfo.avgVmMem} "
-
+            "avg total mem -> ${memInfo.avgMem}  avg vm mem-> ${memInfo.avgVmMem} "
     }
 
 }
