@@ -1,5 +1,7 @@
 # Rabbit使用文档
 
+>version : 1.0.0-alpha14
+
 ## 文档索引
 
 - [应用测速](./speed-monitor.md)
