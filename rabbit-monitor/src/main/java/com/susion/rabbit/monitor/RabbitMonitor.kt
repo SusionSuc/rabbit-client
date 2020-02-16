@@ -36,7 +36,7 @@ object RabbitMonitor {
 
     init {
         monitorMap.apply {
-            put(RabbitMonitorProtocol.GLOBAL_MONITOR.name, RabbitGlobalMoMonitor())
+            put(RabbitMonitorProtocol.GLOBAL_MONITOR.name, RabbitAppPerformanceMonitor())
             put(RabbitMonitorProtocol.APP_SPEED.name, RabbitAppSpeedMonitor())
             put(RabbitMonitorProtocol.FPS.name, RabbitFPSMonitor())
             put(RabbitMonitorProtocol.BLOCK.name, RabbitBlockMonitor())

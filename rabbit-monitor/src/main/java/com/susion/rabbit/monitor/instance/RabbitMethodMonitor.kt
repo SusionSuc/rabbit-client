@@ -6,6 +6,7 @@ import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.RabbitMonitorProtocol
 import com.susion.rabbit.base.TAG_MONITOR
 import com.susion.rabbit.base.entities.RabbitSlowMethodInfo
+import com.susion.rabbit.base.ui.RabbitUiKernal
 import com.susion.rabbit.monitor.RabbitMonitor
 import com.susion.rabbit.monitor.utils.RabbitMonitorUtils
 import com.susion.rabbit.storage.RabbitDbStorageManager
@@ -65,6 +66,7 @@ internal class RabbitMethodMonitor(override var isOpen: Boolean = false) : Rabbi
                 this.methodName = methodName
                 this.costTimeMs = time
                 this.time = System.currentTimeMillis()
+                this.pageName = RabbitMonitor.getCurrentPage()
                 callStack = RabbitMonitorUtils.traceToString(5, Thread.currentThread().stackTrace, 15)
             }
 

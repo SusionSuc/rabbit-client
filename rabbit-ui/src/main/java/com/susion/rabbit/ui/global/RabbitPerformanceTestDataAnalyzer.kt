@@ -4,6 +4,7 @@ import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.common.rabbitTimeFormat
 import com.susion.rabbit.base.entities.*
 import com.susion.rabbit.storage.RabbitDbStorageManager
+import com.susion.rabbit.ui.global.entities.RabbitAppPerformancePitInfo
 import com.susion.rabbit.ui.global.entities.RabbitPagePerformanceInfo
 import com.susion.rabbit.ui.global.entities.RabbitAppPerformanceOverviewInfo
 import java.util.concurrent.TimeUnit
@@ -15,6 +16,19 @@ import java.util.concurrent.TimeUnit
 object RabbitPerformanceTestDataAnalyzer {
 
     private val TAG = javaClass.simpleName
+
+    fun getGlobalMonitorSimpleInfo(monitorInfo: RabbitAppPerformanceInfo): RabbitAppPerformancePitInfo {
+        val simpleInfo = RabbitAppPerformancePitInfo(globalMonitorInfo = monitorInfo)
+
+        simpleInfo.isRunning = monitorInfo.isRunning
+
+        simpleInfo.recordStartTime = rabbitTimeFormat(monitorInfo.time)
+
+        simpleInfo.duration =
+            TimeUnit.SECONDS.convert(monitorInfo.endTime - monitorInfo.time, TimeUnit.MILLISECONDS)
+
+        return simpleInfo
+    }
 
     fun getGlobalMonitorPreInfo(monitorInfo: RabbitAppPerformanceInfo): RabbitAppPerformanceOverviewInfo {
 
@@ -95,7 +109,7 @@ object RabbitPerformanceTestDataAnalyzer {
         return getIds(ids).size
     }
 
-    private fun getIds(ids: String) = ids.split("&").filter { idIsValid(it) }
+    private fun getIds(ids: String?) = ids?.split("&")?.filter { idIsValid(it) } ?: emptyList()
 
     private fun idIsValid(id: String?): Boolean {
         return id?.toLongOrNull() != null
@@ -111,10 +125,14 @@ object RabbitPerformanceTestDataAnalyzer {
                 RabbitFPSInfo::class.java,
                 id.toLong()
             )
-        }.forEach { fpsInfo ->
+        }.filter { it.pageName.isNotEmpty() }.forEach { fpsInfo ->
             val pageInfo = createInfoNotExist(pageInfoMap, fpsInfo.pageName)
             pageInfo.fpsCount++
-            pageInfo.avgFps = getNewAvgValue(pageInfo.avgFps.toLong(), fpsInfo.avgFps.toLong(), pageInfo.fpsCount.toLong()).toInt()
+            pageInfo.avgFps = getNewAvgValue(
+                pageInfo.avgFps.toLong(),
+                fpsInfo.avgFps.toLong(),
+                pageInfo.fpsCount.toLong()
+            ).toInt()
         }
 
         //mem
@@ -123,17 +141,60 @@ object RabbitPerformanceTestDataAnalyzer {
                 RabbitMemoryInfo::class.java,
                 id.toLong()
             )
-        }.forEach { memInfo ->
+        }.filter { it.pageName.isNotEmpty() }.forEach { memInfo ->
             val pageInfo = createInfoNotExist(pageInfoMap, memInfo.pageName)
             pageInfo.memCount++
             val memSize = memInfo.totalSize
-            pageInfo.avgMem = getNewAvgValue(pageInfo.avgMem, memSize.toLong(), pageInfo.memCount.toLong())
-            RabbitLog.d(TAG, "${pageInfo.pageName} -> memCount : ${pageInfo.memCount}  pageInfo.avgMem : ${pageInfo.avgMem}")
+            pageInfo.avgMem =
+                getNewAvgValue(pageInfo.avgMem, memSize.toLong(), pageInfo.memCount.toLong())
         }
 
-        //
+        //block
+        getIds(monitorInfo.blockIds).mapNotNull { id ->
+            RabbitDbStorageManager.getObjSync(
+                RabbitBlockFrameInfo::class.java,
+                id.toLong()
+            )
+        }.filter { it.pageName.isNotEmpty() }.forEach { memInfo ->
+            createInfoNotExist(pageInfoMap, memInfo.pageName).blockCount++
+        }
+
+        //slow method
+        getIds(monitorInfo.slowMethodIds).mapNotNull { id ->
+            RabbitDbStorageManager.getObjSync(
+                RabbitSlowMethodInfo::class.java,
+                id.toLong()
+            )
+        }.filter { it.pageName.isNotEmpty() }.forEach { info ->
+            createInfoNotExist(pageInfoMap, info.pageName).slowMethodCount++
+        }
+
+        //inflate & render
+        getIds(monitorInfo.pageSpeedIds).mapNotNull { id ->
+            RabbitDbStorageManager.getObjSync(
+                RabbitPageSpeedInfo::class.java,
+                id.toLong()
+            )
+        }.filter { it.pageName.isNotEmpty() }.forEach { pageInfo ->
+            val info = createInfoNotExist(pageInfoMap, pageInfo.pageName)
+            info.pageCount++
+
+            val inflateDus = pageInfo.inflateFinishTime - pageInfo.createStartTime
+            val renderDus = pageInfo.fullDrawFinishTime - pageInfo.createStartTime
+            info.avgInlfateTime = getNewAvgValue(
+                info.avgInlfateTime.toLong(),
+                inflateDus,
+                info.pageCount.toLong()
+            ).toInt()
+            info.avgFullRenderTime = getNewAvgValue(
+                info.avgFullRenderTime.toLong(),
+                renderDus,
+                info.pageCount.toLong()
+            ).toInt()
+        }
 
         return pageInfoMap.values.toList()
+
     }
 
     private fun getNewAvgValue(lastAvg: Long, newValue: Long, num: Long): Long {

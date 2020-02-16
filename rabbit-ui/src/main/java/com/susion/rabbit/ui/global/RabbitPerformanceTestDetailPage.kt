@@ -7,7 +7,7 @@ import com.susion.rabbit.base.common.RabbitAsync
 import com.susion.rabbit.base.entities.RabbitAppPerformanceInfo
 import com.susion.rabbit.base.ui.page.RabbitBasePage
 import com.susion.rabbit.ui.global.entities.RabbitPagePerformanceInfo
-import com.susion.rabbit.ui.global.view.RabbitPagePerformanceTestInfoView
+import com.susion.rabbit.ui.global.view.RabbitPagePerformanceView
 import com.susion.rabbit.ui.monitor.R
 import kotlinx.android.synthetic.main.rabbit_page_performance_test_detail.view.*
 
@@ -21,7 +21,7 @@ class RabbitPerformanceTestDetailPage(context: Context) : RabbitBasePage(context
         SimpleRvAdapter<RabbitPagePerformanceInfo>(context).apply {
             registerMapping(
                 RabbitPagePerformanceInfo::class.java,
-                RabbitPagePerformanceTestInfoView::class.java
+                RabbitPagePerformanceView::class.java
             )
         }
     }

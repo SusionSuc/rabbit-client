@@ -22,26 +22,24 @@ public class RabbitBlockFrameInfo implements RabbitInfoProtocol{
 
     public Long time;
 
-    public String blockPage;
-
     public String pageName;
 
-    @Generated(hash = 2033356049)
+
+    @Generated(hash = 693877624)
     public RabbitBlockFrameInfo(Long id, String blockFrameStrackTraceStrList,
-            String blockIdentifier, Long costTime, Long time, String blockPage,
-            String pageName) {
+            String blockIdentifier, Long costTime, Long time, String pageName) {
         this.id = id;
         this.blockFrameStrackTraceStrList = blockFrameStrackTraceStrList;
         this.blockIdentifier = blockIdentifier;
         this.costTime = costTime;
         this.time = time;
-        this.blockPage = blockPage;
         this.pageName = pageName;
     }
 
     @Generated(hash = 2109034768)
     public RabbitBlockFrameInfo() {
     }
+
 
     public Long getId() {
         return this.id;
@@ -87,14 +85,6 @@ public class RabbitBlockFrameInfo implements RabbitInfoProtocol{
 
     public void setTime(Long time) {
         this.time = time;
-    }
-
-    public String getBlockPage() {
-        return this.blockPage;
-    }
-
-    public void setBlockPage(String blockPage) {
-        this.blockPage = blockPage;
     }
 
     public void setPageName(String pageName) {

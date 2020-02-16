@@ -79,7 +79,7 @@ internal class RabbitBlockMonitor(override var isOpen: Boolean = false) : Choreo
                 blockFrameStrackTraceStrList = Gson().toJson(blockStackTraces.values.toList())
                 blockIdentifier = getIdentifierByMaxCount(blockStackTraces)
                 time = System.currentTimeMillis()
-                blockPage = RabbitMonitor.getCurrentPage()
+                pageName = RabbitMonitor.getCurrentPage()
             }
             RabbitDbStorageManager.save(blockFrameInfo)
         }

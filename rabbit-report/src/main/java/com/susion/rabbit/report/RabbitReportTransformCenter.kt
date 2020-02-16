@@ -53,7 +53,7 @@ internal object RabbitReportTransformCenter {
                     gson.toJson(
                         RabbitSimpleBlockInfo(
                             info.costTime,
-                            info.blockPage,
+                            info.pageName,
                             info.time,
                             info.blockIdentifier
                         )
