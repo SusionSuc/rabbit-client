@@ -30,6 +30,8 @@ class RabbitPagePerformanceTestInfoView(context: Context) : LinearLayout(context
             mPagePerformanceTvPageName.text = RabbitUiUtils.dropPackageName(pageName)
             mPagePerformanceTvAvgFps.text = avgFps.toString()
             mPagePerformanceTvAvgMem.text = RabbitUiUtils.formatFileSize(avgMem)
+            mPagePerformanceTvBlockCount.text = blockCount.toString()
+            mPagePerformanceTvSlowMethodCount.text = slowMethodCount.toString()
         }
 
     }

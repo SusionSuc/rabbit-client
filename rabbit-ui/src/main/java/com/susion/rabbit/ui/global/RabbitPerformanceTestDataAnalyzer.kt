@@ -95,7 +95,7 @@ object RabbitPerformanceTestDataAnalyzer {
         return getIds(ids).size
     }
 
-    private fun getIds(ids: String) = ids.split("&").filter { idIsValid(it) }
+    private fun getIds(ids: String?) = ids?.split("&")?.filter { idIsValid(it) } ?: emptyList()
 
     private fun idIsValid(id: String?): Boolean {
         return id?.toLongOrNull() != null
@@ -111,10 +111,14 @@ object RabbitPerformanceTestDataAnalyzer {
                 RabbitFPSInfo::class.java,
                 id.toLong()
             )
-        }.forEach { fpsInfo ->
+        }.filter { it.pageName.isNotEmpty() }.forEach { fpsInfo ->
             val pageInfo = createInfoNotExist(pageInfoMap, fpsInfo.pageName)
             pageInfo.fpsCount++
-            pageInfo.avgFps = getNewAvgValue(pageInfo.avgFps.toLong(), fpsInfo.avgFps.toLong(), pageInfo.fpsCount.toLong()).toInt()
+            pageInfo.avgFps = getNewAvgValue(
+                pageInfo.avgFps.toLong(),
+                fpsInfo.avgFps.toLong(),
+                pageInfo.fpsCount.toLong()
+            ).toInt()
         }
 
         //mem
@@ -123,15 +127,33 @@ object RabbitPerformanceTestDataAnalyzer {
                 RabbitMemoryInfo::class.java,
                 id.toLong()
             )
-        }.forEach { memInfo ->
+        }.filter { it.pageName.isNotEmpty() }.forEach { memInfo ->
             val pageInfo = createInfoNotExist(pageInfoMap, memInfo.pageName)
             pageInfo.memCount++
             val memSize = memInfo.totalSize
-            pageInfo.avgMem = getNewAvgValue(pageInfo.avgMem, memSize.toLong(), pageInfo.memCount.toLong())
-            RabbitLog.d(TAG, "${pageInfo.pageName} -> memCount : ${pageInfo.memCount}  pageInfo.avgMem : ${pageInfo.avgMem}")
+            pageInfo.avgMem =
+                getNewAvgValue(pageInfo.avgMem, memSize.toLong(), pageInfo.memCount.toLong())
         }
 
-        //
+        //block
+        getIds(monitorInfo.blockIds).mapNotNull { id ->
+            RabbitDbStorageManager.getObjSync(
+                RabbitBlockFrameInfo::class.java,
+                id.toLong()
+            )
+        }.filter { it.pageName.isNotEmpty() }.forEach { memInfo ->
+            createInfoNotExist(pageInfoMap, memInfo.pageName).blockCount++
+        }
+
+        //slow method
+        getIds(monitorInfo.slowMethodIds).mapNotNull { id ->
+            RabbitDbStorageManager.getObjSync(
+                RabbitSlowMethodInfo::class.java,
+                id.toLong()
+            )
+        }.filter { it.pageName.isNotEmpty() }.forEach { memInfo ->
+            createInfoNotExist(pageInfoMap, memInfo.pageName).slowMethodCount++
+        }
 
         return pageInfoMap.values.toList()
     }
