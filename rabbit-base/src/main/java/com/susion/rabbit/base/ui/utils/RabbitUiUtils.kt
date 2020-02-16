@@ -91,10 +91,21 @@ object RabbitUiUtils {
         }
     }
 
-     fun dropPackageName(str: String): String {
+    fun dropPackageName(str: String): String {
         val strSlice = str.split(".")
         if (strSlice.size < 3) return str
         return "${strSlice[strSlice.size - 2]}.${strSlice[strSlice.size - 1]}"
+    }
+
+    fun formatTimeDuration(durations: Long): String {
+        if (durations < 60){
+            return "$durations 秒"
+        }
+
+        val min = durations / 60
+        val sec = durations % 60
+
+        return "${min}分${sec}秒"
     }
 
 }

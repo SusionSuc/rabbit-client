@@ -6,9 +6,8 @@ package com.susion.rabbit.ui.global.entities
  * 一个页面的全局监控信息
  */
 class RabbitPagePerformanceInfo(
-    var pageName:String = "",
+    var pageName: String = "",
     var avgFps: Int = 0,
-    var runTime: Int = 0,
     var avgMem: Long = 0,
     var avgInlfateTime: Int = 0,
     var avgFullRenderTime: Int = 0,
@@ -17,5 +16,6 @@ class RabbitPagePerformanceInfo(
 
     //辅助计算
     var fpsCount: Int = 0,
-    var memCount:Int = 0
+    var memCount: Int = 0,
+    var pageCount:Int = 0
 )

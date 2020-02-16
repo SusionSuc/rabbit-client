@@ -11,8 +11,8 @@ import com.susion.rabbit.base.ui.page.RabbitBasePage
 import com.susion.rabbit.base.ui.view.RabbitSwitchButton
 import com.susion.rabbit.storage.RabbitDbStorageManager
 import com.susion.rabbit.ui.RabbitUi
-import com.susion.rabbit.ui.global.entities.RabbitAppPerformanceOverviewInfo
-import com.susion.rabbit.ui.global.view.RabbitPerformanceTestPreView
+import com.susion.rabbit.ui.global.entities.RabbitAppPerformancePitInfo
+import com.susion.rabbit.ui.global.view.RabbitAppPerformancePreView
 import com.susion.rabbit.ui.monitor.R
 import com.susion.rabbit.ui.page.RabbitCurrentConfigPage
 import kotlinx.android.synthetic.main.rabbit_page_performance_test_list.view.*
@@ -22,8 +22,11 @@ import kotlinx.android.synthetic.main.rabbit_page_performance_test_list.view.*
  */
 class RabbitPerformanceTestListPage(context: Context) : RabbitBasePage(context) {
 
-    private val adapter = SimpleRvAdapter<RabbitAppPerformanceOverviewInfo>(context).apply {
-        registerMapping(RabbitAppPerformanceOverviewInfo::class.java, RabbitPerformanceTestPreView::class.java)
+    private val adapter = SimpleRvAdapter<RabbitAppPerformancePitInfo>(context).apply {
+        registerMapping(
+            RabbitAppPerformancePitInfo::class.java,
+            RabbitAppPerformancePreView::class.java
+        )
     }
 
     override fun getLayoutResId() = R.layout.rabbit_page_performance_test_list
@@ -68,9 +71,12 @@ class RabbitPerformanceTestListPage(context: Context) : RabbitBasePage(context) 
     private fun loadData() {
         RabbitDbStorageManager.getAll(RabbitAppPerformanceInfo::class.java) { monitorList ->
             RabbitAsync.asyncRunWithResult({
-                ArrayList<RabbitAppPerformanceOverviewInfo>().apply {
+                ArrayList<RabbitAppPerformancePitInfo>().apply {
                     monitorList.forEach { monitorInfo ->
-                        this.add(0, RabbitPerformanceTestDataAnalyzer.getGlobalMonitorPreInfo(monitorInfo))
+                        this.add(
+                            0,
+                            RabbitPerformanceTestDataAnalyzer.getGlobalMonitorSimpleInfo(monitorInfo)
+                        )
                     }
                 }
             }, {
@@ -78,9 +84,9 @@ class RabbitPerformanceTestListPage(context: Context) : RabbitBasePage(context) 
                 adapter.data.clear()
                 adapter.data.addAll(it)
                 adapter.notifyDataSetChanged()
-                if (adapter.data.isEmpty()){
+                if (adapter.data.isEmpty()) {
                     showEmptyView()
-                }else{
+                } else {
                     hideEmptyView()
                 }
             })

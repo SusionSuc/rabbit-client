@@ -134,4 +134,54 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="平均inflate用时"
+            android:textColor="@color/rabbit_black"
+            android:textSize="@dimen/rabbit_font_small" />
+
+        <TextView
+            android:id="@+id/mPagePerformanceTvInflateTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="0"
+            android:textColor="@color/rabbit_black"
+            android:textSize="@dimen/rabbit_font_small" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="平均render用时"
+            android:textColor="@color/rabbit_black"
+            android:textSize="@dimen/rabbit_font_small" />
+
+        <TextView
+            android:id="@+id/mPagePerformanceTvRenderTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="0"
+            android:textColor="@color/rabbit_black"
+            android:textSize="@dimen/rabbit_font_small" />
+
+    </LinearLayout>
+
 </LinearLayout>

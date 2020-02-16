@@ -17,16 +17,17 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:text="流畅指数"
             android:textColor="@color/rabbit_black"
             android:textSize="@dimen/rabbit_font_big" />
 
-
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <TextView
@@ -34,7 +35,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="100"
+                android:text="unknow"
                 android:textColor="@color/rabbit_black"
                 android:textSize="@dimen/rabbit_font_big" />
 
@@ -42,56 +43,47 @@
                 android:id="@+id/mGlobalMonitorPreViewIvStatus"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_gravity="center_vertical"
                 android:layout_marginEnd="15dp"
                 android:src="@drawable/rabbit_icon_dot2" />
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ProgressBar
+                    android:id="@+id/mGlobalMonitorPreViewPbLoading"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center" />
+
+                <TextView
+                    android:id="@+id/mGlobalMonitorPreViewTvLoad"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/rabbit_btn_card"
+                    android:textSize="@dimen/rabbit_font_middle"
+                    android:padding="3dp"
+                    android:text="加载数据"
+                    android:textColor="@color/rabbit_black" />
+
+            </FrameLayout>
 
         </LinearLayout>
 
     </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/rabbit_divider_line" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="记录开始时间"
-            android:textColor="@color/rabbit_black"
-            android:textSize="@dimen/rabbit_font_small" />
 
         <TextView
             android:id="@+id/mGlobalMonitorPreViewTvStartTime"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="MainActivity"
-            android:textColor="@color/rabbit_black"
-            android:textSize="@dimen/rabbit_font_small" />
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="监控时长"
+            android:text="记录开始时间"
             android:textColor="@color/rabbit_black"
             android:textSize="@dimen/rabbit_font_small" />
 
@@ -106,181 +98,194 @@
 
     </LinearLayout>
 
-
     <LinearLayout
+        android:id="@+id/mGlobalMonitorPreViewLlDataContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="平均FPS"
-            android:textColor="@color/rabbit_black"
-            android:textSize="@dimen/rabbit_font_small" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="5dp"
+            android:background="@color/rabbit_divider_line" />
 
-        <TextView
-            android:id="@+id/mGlobalMonitorPreViewTvFps"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="MainActivity"
-            android:textColor="@color/rabbit_black"
-            android:textSize="@dimen/rabbit_font_small" />
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="平均FPS"
+                android:textColor="@color/rabbit_black"
+                android:textSize="@dimen/rabbit_font_small" />
+
+            <TextView
+                android:id="@+id/mGlobalMonitorPreViewTvFps"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="MainActivity"
+                android:textColor="@color/rabbit_black"
+                android:textSize="@dimen/rabbit_font_small" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="平均内存占用"
+                android:textColor="@color/rabbit_black"
+                android:textSize="@dimen/rabbit_font_small" />
+
+            <TextView
+                android:id="@+id/mGlobalMonitorPreViewTvMem"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="110ms"
+                android:textColor="@color/rabbit_black"
+                android:textSize="@dimen/rabbit_font_small" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Application创建时间"
+                android:textColor="@color/rabbit_black"
+                android:textSize="@dimen/rabbit_font_small" />
+
+            <TextView
+                android:id="@+id/mGlobalMonitorPreViewTvApplicationCreate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="MainActivity"
+                android:textColor="@color/rabbit_black"
+                android:textSize="@dimen/rabbit_font_small" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="应用冷启动时间"
+                android:textColor="@color/rabbit_black"
+                android:textSize="@dimen/rabbit_font_small" />
+
+            <TextView
+                android:id="@+id/mGlobalMonitorPreViewTvColdStart"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="MainActivity"
+                android:textColor="@color/rabbit_black"
+                android:textSize="@dimen/rabbit_font_small" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="页面平均inflate时间"
+                android:textColor="@color/rabbit_black"
+                android:textSize="@dimen/rabbit_font_small" />
+
+            <TextView
+                android:id="@+id/mGlobalMonitorPreViewTvPageInflate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="110ms"
+                android:textColor="@color/rabbit_black"
+                android:textSize="@dimen/rabbit_font_small" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="卡顿次数"
+                android:textColor="@color/rabbit_black"
+                android:textSize="@dimen/rabbit_font_small" />
+
+            <TextView
+                android:id="@+id/mGlobalMonitorPreViewTvBlockCount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="110ms"
+                android:textColor="@color/rabbit_black"
+                android:textSize="@dimen/rabbit_font_small" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="慢函数数量"
+                android:textColor="@color/rabbit_black"
+                android:textSize="@dimen/rabbit_font_small" />
+
+            <TextView
+                android:id="@+id/mGlobalMonitorPreViewTvSlowMethodCount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="110ms"
+                android:textColor="@color/rabbit_black"
+                android:textSize="@dimen/rabbit_font_small" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="平均内存占用"
-            android:textColor="@color/rabbit_black"
-            android:textSize="@dimen/rabbit_font_small" />
-
-        <TextView
-            android:id="@+id/mGlobalMonitorPreViewTvMem"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="110ms"
-            android:textColor="@color/rabbit_black"
-            android:textSize="@dimen/rabbit_font_small" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Application创建时间"
-            android:textColor="@color/rabbit_black"
-            android:textSize="@dimen/rabbit_font_small" />
-
-        <TextView
-            android:id="@+id/mGlobalMonitorPreViewTvApplicationCreate"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="MainActivity"
-            android:textColor="@color/rabbit_black"
-            android:textSize="@dimen/rabbit_font_small" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="应用冷启动时间"
-            android:textColor="@color/rabbit_black"
-            android:textSize="@dimen/rabbit_font_small" />
-
-        <TextView
-            android:id="@+id/mGlobalMonitorPreViewTvColdStart"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="MainActivity"
-            android:textColor="@color/rabbit_black"
-            android:textSize="@dimen/rabbit_font_small" />
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="页面平均inflate时间"
-            android:textColor="@color/rabbit_black"
-            android:textSize="@dimen/rabbit_font_small" />
-
-        <TextView
-            android:id="@+id/mGlobalMonitorPreViewTvPageInflate"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="110ms"
-            android:textColor="@color/rabbit_black"
-            android:textSize="@dimen/rabbit_font_small" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="卡顿次数"
-            android:textColor="@color/rabbit_black"
-            android:textSize="@dimen/rabbit_font_small" />
-
-        <TextView
-            android:id="@+id/mGlobalMonitorPreViewTvBlockCount"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="110ms"
-            android:textColor="@color/rabbit_black"
-            android:textSize="@dimen/rabbit_font_small" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="慢函数数量"
-            android:textColor="@color/rabbit_black"
-            android:textSize="@dimen/rabbit_font_small" />
-
-        <TextView
-            android:id="@+id/mGlobalMonitorPreViewTvSlowMethodCount"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="110ms"
-            android:textColor="@color/rabbit_black"
-            android:textSize="@dimen/rabbit_font_small" />
-
-    </LinearLayout>
 
 </LinearLayout>

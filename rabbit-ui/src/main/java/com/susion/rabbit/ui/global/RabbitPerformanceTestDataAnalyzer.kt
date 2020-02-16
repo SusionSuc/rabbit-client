@@ -4,6 +4,7 @@ import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.common.rabbitTimeFormat
 import com.susion.rabbit.base.entities.*
 import com.susion.rabbit.storage.RabbitDbStorageManager
+import com.susion.rabbit.ui.global.entities.RabbitAppPerformancePitInfo
 import com.susion.rabbit.ui.global.entities.RabbitPagePerformanceInfo
 import com.susion.rabbit.ui.global.entities.RabbitAppPerformanceOverviewInfo
 import java.util.concurrent.TimeUnit
@@ -15,6 +16,19 @@ import java.util.concurrent.TimeUnit
 object RabbitPerformanceTestDataAnalyzer {
 
     private val TAG = javaClass.simpleName
+
+    fun getGlobalMonitorSimpleInfo(monitorInfo: RabbitAppPerformanceInfo): RabbitAppPerformancePitInfo {
+        val simpleInfo = RabbitAppPerformancePitInfo(globalMonitorInfo = monitorInfo)
+
+        simpleInfo.isRunning = monitorInfo.isRunning
+
+        simpleInfo.recordStartTime = rabbitTimeFormat(monitorInfo.time)
+
+        simpleInfo.duration =
+            TimeUnit.SECONDS.convert(monitorInfo.endTime - monitorInfo.time, TimeUnit.MILLISECONDS)
+
+        return simpleInfo
+    }
 
     fun getGlobalMonitorPreInfo(monitorInfo: RabbitAppPerformanceInfo): RabbitAppPerformanceOverviewInfo {
 
@@ -151,11 +165,36 @@ object RabbitPerformanceTestDataAnalyzer {
                 RabbitSlowMethodInfo::class.java,
                 id.toLong()
             )
-        }.filter { it.pageName.isNotEmpty() }.forEach { memInfo ->
-            createInfoNotExist(pageInfoMap, memInfo.pageName).slowMethodCount++
+        }.filter { it.pageName.isNotEmpty() }.forEach { info ->
+            createInfoNotExist(pageInfoMap, info.pageName).slowMethodCount++
+        }
+
+        //inflate & render
+        getIds(monitorInfo.pageSpeedIds).mapNotNull { id ->
+            RabbitDbStorageManager.getObjSync(
+                RabbitPageSpeedInfo::class.java,
+                id.toLong()
+            )
+        }.filter { it.pageName.isNotEmpty() }.forEach { pageInfo ->
+            val info = createInfoNotExist(pageInfoMap, pageInfo.pageName)
+            info.pageCount++
+
+            val inflateDus = pageInfo.inflateFinishTime - pageInfo.createStartTime
+            val renderDus = pageInfo.fullDrawFinishTime - pageInfo.createStartTime
+            info.avgInlfateTime = getNewAvgValue(
+                info.avgInlfateTime.toLong(),
+                inflateDus,
+                info.pageCount.toLong()
+            ).toInt()
+            info.avgFullRenderTime = getNewAvgValue(
+                info.avgFullRenderTime.toLong(),
+                renderDus,
+                info.pageCount.toLong()
+            ).toInt()
         }
 
         return pageInfoMap.values.toList()
+
     }
 
     private fun getNewAvgValue(lastAvg: Long, newValue: Long, num: Long): Long {

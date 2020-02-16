@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.view_page_performance_test_info.view.*
  * create by susionwang at 2020-02-10
  * 页面的性能测速概览
  */
-class RabbitPagePerformanceTestInfoView(context: Context) : LinearLayout(context),
+class RabbitPagePerformanceView(context: Context) : LinearLayout(context),
     AdapterItemView<RabbitPagePerformanceInfo> {
 
     init {
@@ -25,15 +25,14 @@ class RabbitPagePerformanceTestInfoView(context: Context) : LinearLayout(context
     }
 
     override fun bindData(info: RabbitPagePerformanceInfo, position: Int) {
-
         info.apply {
             mPagePerformanceTvPageName.text = RabbitUiUtils.dropPackageName(pageName)
             mPagePerformanceTvAvgFps.text = avgFps.toString()
             mPagePerformanceTvAvgMem.text = RabbitUiUtils.formatFileSize(avgMem)
             mPagePerformanceTvBlockCount.text = blockCount.toString()
             mPagePerformanceTvSlowMethodCount.text = slowMethodCount.toString()
+            mPagePerformanceTvInflateTime.text = "$avgInlfateTime ms"
+            mPagePerformanceTvRenderTime.text = "$avgFullRenderTime ms"
         }
-
     }
-
 }
