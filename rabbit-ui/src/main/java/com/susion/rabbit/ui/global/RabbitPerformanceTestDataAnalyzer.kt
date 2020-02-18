@@ -32,7 +32,7 @@ object RabbitPerformanceTestDataAnalyzer {
 
     fun getGlobalMonitorPreInfo(monitorInfo: RabbitAppPerformanceInfo): RabbitAppPerformanceOverviewInfo {
 
-        val preInfo = RabbitAppPerformanceOverviewInfo(globalMonitorInfo = monitorInfo)
+        val preInfo = RabbitAppPerformanceOverviewInfo()
 
         preInfo.isRunning = monitorInfo.isRunning
 

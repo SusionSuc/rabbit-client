@@ -27,7 +27,7 @@ class MethodCostMonitorTransform : RabbitAsmByteArrayTransformer {
         val classReader = ClassReader(bytes)
         val classWriter = ClassWriter(classReader, ClassWriter.COMPUTE_MAXS)
         val classVisitor = MethodCostClassVisitor(
-            Opcodes.ASM5,
+            Opcodes.ASM6,
             classWriter
         )
         classReader.accept(classVisitor, EXPAND_FRAMES)
