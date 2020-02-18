@@ -1,6 +1,6 @@
 # Rabbit使用文档
 
->version : 1.0.0-alpha14
+>version : 1.0.0-alpha15
 
 ## 文档索引
 

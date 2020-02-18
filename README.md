@@ -1,5 +1,5 @@
 
-![version](https://img.shields.io/badge/version-1.0.0--alpha14-brightgreen)
+![version](https://img.shields.io/badge/version-1.0.0--alpha15-brightgreen)
 ![license](https://img.shields.io/badge/license-MIT-brightgreen)
 ![androidx](https://img.shields.io/badge/support-androidx-brightgreen) 
 

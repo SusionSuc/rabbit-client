@@ -10,8 +10,8 @@ def uniqueVersion = rootProject.ext.versions
 
 android {
     signingConfigs {
-        rabit {
-            storeFile file('/Users/susionwang/Documents/code/rabbit/rabbit-client/key-store.jks')
+        rabbit {
+            storeFile file('../key-store.jks')
             storePassword 'rabbit'
             keyAlias = 'rabbit'
             keyPassword 'rabbit'
@@ -40,7 +40,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.rabit
+            signingConfig signingConfigs.rabbit
 
         }
     }
