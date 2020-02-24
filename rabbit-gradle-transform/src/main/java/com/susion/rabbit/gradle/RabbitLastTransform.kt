@@ -14,6 +14,8 @@ import java.util.concurrent.TimeUnit
 
 /**
  * susionwang at 2019-11-12
+ *
+ * 后置的transform， 需要用到[RabbitFirstTransform] 收集的一些信息
  */
 class RabbitLastTransform : Transform() {
 

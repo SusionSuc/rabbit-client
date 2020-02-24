@@ -20,7 +20,7 @@ import java.util.concurrent.ForkJoinPool
 /**
  * Represents a dInvocation of TransformInvocation
  *
- * Rabbit Transform；  提供了众多transform需要用到的上下文
+ * Rabbit Transform；提供了众多transform需要用到的上下文
  */
 internal class RabbitTransformInvocation(
     private val dInvocation: TransformInvocation,

@@ -23,7 +23,7 @@ class RabbitMonitorConfig(
     var slowMethodPeriodMs: Long = 50,
     var onlyCheckMainThreadSlowMethod: Boolean = true,
     //fps
-    var fpsCollectThresholdNs: Long = STANDARD_FRAME_NS * 10,
+    var fpsCollectThresholdNs: Long = STANDARD_FRAME_NS * 20,
     var fpsReportPeriodS: Long = 1,
     var fpsMonitorPkgList: ArrayList<String> = ArrayList()
 ) {

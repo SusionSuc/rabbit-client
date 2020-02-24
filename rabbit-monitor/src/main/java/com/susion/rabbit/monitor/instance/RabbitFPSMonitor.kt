@@ -27,7 +27,7 @@ internal class RabbitFPSMonitor(override var isOpen: Boolean = false) :
     }
 
     private var frameIntervalNs: Long = RabbitMonitorConfig.STANDARD_FRAME_NS
-    private val FPS_COLLECT_PERIOD = RabbitMonitor.mConfig.fpsCollectThresholdNs
+    private val FPS_COLLECT_PERIOD_NS = RabbitMonitor.mConfig.fpsCollectThresholdNs
     private val FPS_COLLECT_NUMBER = (TimeUnit.NANOSECONDS.convert(
         RabbitMonitor.mConfig.fpsReportPeriodS,
         TimeUnit.SECONDS
@@ -82,8 +82,9 @@ internal class RabbitFPSMonitor(override var isOpen: Boolean = false) :
         val durationNs = totalFrameNs - lastTotalFrameNs
         val collectFrame = totalFrameNumber - lastTotalFrameNumber
 
-        if (durationNs >= FPS_COLLECT_PERIOD) {
-            val fps = min(60f, collectFrame * 6f)
+        if (durationNs >= FPS_COLLECT_PERIOD_NS) {
+            val radio = TimeUnit.NANOSECONDS.convert(1, TimeUnit.SECONDS) * 1.0f / FPS_COLLECT_PERIOD_NS
+            val fps = min(60f, collectFrame * radio)
             RabbitMonitor.eventListener?.updateUi(RabbitUiEvent.MSG_UPDATE_FPS, fps)
             lastTotalFrameNs = totalFrameNs
             lastTotalFrameNumber = totalFrameNumber

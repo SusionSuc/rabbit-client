@@ -117,6 +117,8 @@ internal open class LazyChoreographerFrameUpdateMonitor {
 
     /**
      * 真正计算一帧时间的采集条件 : 主线程消息循环 && 执行了 Choreographer.doFrame()
+     *
+     * actualExecuteDoFrame : 一次消息处理可能并没有执行渲染事件
      * */
     fun endMonitorChoreographerDoFrame() {
         if (!startMonitorDoFrame || !actualExecuteDoFrame) return

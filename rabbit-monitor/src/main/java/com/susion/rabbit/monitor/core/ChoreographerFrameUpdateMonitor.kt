@@ -3,7 +3,7 @@ package com.susion.rabbit.monitor.core
 import android.view.Choreographer
 
 /**
- * 向 Choreographer pos callback。 这个操作会导致应用不断接收 [Vsync 信号]
+ * 向 Choreographer post callback。 这个操作会导致应用不断接收 [Vsync 信号]
  * */
 internal open class ChoreographerFrameUpdateMonitor {
 
