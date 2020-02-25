@@ -15,7 +15,7 @@ dependencies {
 ```
 def taskName = getGradle().getStartParameter().taskNames.toString().toLowerCase()
 def inDebug = taskName.contains("debug") //这里要改成针对当前打包系统的判断方式
-def rabbitVersion = "0.0.7.1"
+def rabbitVersion = {latest-version}
 def rabbitDepen = "com.susion:rabbit-noop:$rabbitVersion"
 
 if(inDebug){
