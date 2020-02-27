@@ -15,7 +15,7 @@ buildscript {
         maven { url 'https://jitpack.io' }
     }
     dependencies {
-        classpath 'com.susion:rabbit-gradle-transform:1.0.0-alpha15'
+        classpath 'com.susion:rabbit-gradle-transform:1.0.0-alpha18'
         classpath 'com.android.tools.build:gradle:3.5.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2' // add plugin
