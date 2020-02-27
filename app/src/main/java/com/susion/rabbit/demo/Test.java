@@ -1,5 +1,11 @@
 package com.susion.rabbit.demo;
 
+import android.os.Handler;
+import android.os.Message;
+
+import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
+
 /**
  * susionwang at 2020-01-02
  */
@@ -9,6 +15,16 @@ public class Test {
 
         return 0;
     }
+
+    private int a = 1;
+
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            a = 2;
+        }
+    };
 
 
     public static void testStaticFun() {

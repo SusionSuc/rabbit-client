@@ -9,7 +9,8 @@ class Config(
     val apkPath: String = "",
     var maxImageSizeKB: Long = 30,
     val classMappingFilePath: String = "",
-    val methodGroup: List<MethodGroupInfo> = ArrayList()
+    val methodGroup: List<MethodGroupInfo> = ArrayList(),
+    val uploadPath:String = ""
 ) {
 
     fun isValid(): Boolean {

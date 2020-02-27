@@ -17,6 +17,7 @@
 .settings/*
 
 **/.settings/
+**/bin/*
 
 .idea/
 

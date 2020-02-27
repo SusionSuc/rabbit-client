@@ -38,7 +38,7 @@ class MethodCountAnalyzerTask : AnalyzerTask {
         }
 
         var totalCount = 0
-        methodGroup.forEach { s, count ->
+        methodGroup.forEach { (_, count) ->
             totalCount += count
         }
 
@@ -65,7 +65,7 @@ class MethodCountAnalyzerTask : AnalyzerTask {
             }
 
             if (!Util.isNullOrNil(className)) {
-                if (className!!.indexOf('.') == -1) {
+                if (className.indexOf('.') == -1) {
                     continue
                 }
 
@@ -89,7 +89,7 @@ class MethodCountAnalyzerTask : AnalyzerTask {
     /*
      *  parse the descriptor of class to normal dot-split class name (XXX.XXX.XXX)
      */
-    fun getNormalClassName(name: String): String {
+    private fun getNormalClassName(name: String): String {
         if (!Util.isNullOrNil(name)) {
             var className = Output.descriptorToDot(name)
             if (className.endsWith("[]")) {                                                //enum or array

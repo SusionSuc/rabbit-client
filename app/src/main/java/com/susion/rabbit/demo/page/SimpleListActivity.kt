@@ -2,18 +2,26 @@ package com.susion.rabbit.demo.page
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.susion.lifeclean.common.recyclerview.SimpleRvAdapter
 import com.susion.rabbit.demo.R
 import com.susion.rabbit.demo.RabbitBaseActivity
 import com.susion.rabbit.base.ui.view.RabbitSimpleKVItemView
 import com.susion.rabbit.base.ui.view.RabbitSimpleKvInfo
+import com.susion.rabbit.demo.Test
 import kotlinx.android.synthetic.main.activity_simple_list_page.*
 
 class SimpleListActivity : RabbitBaseActivity() {
 
     private val listAdapter = SimpleRvAdapter<RabbitSimpleKvInfo>(this).apply {
         registerMapping(RabbitSimpleKvInfo::class.java, RabbitSimpleKVItemView::class.java)
+    }
+
+    private val a = 1
+
+    private val handler = object : Handler() {
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,6 +40,14 @@ class SimpleListActivity : RabbitBaseActivity() {
 
         getSharedPreferences("test", Context.MODE_PRIVATE).edit().putBoolean("111", true).commit()
 
+
+        val handler = object :Handler(){
+
+        }
+
+        val test = object :Test(){
+
+        }
     }
 
     private fun getData(): List<RabbitSimpleKvInfo> {

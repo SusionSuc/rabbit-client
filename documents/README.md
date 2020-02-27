@@ -2,6 +2,8 @@
 
 >version : 1.0.0-alpha15
 
+**目前仅支持迁移到androidx的项目**
+
 ## 文档索引
 
 - [应用测速](./speed-monitor.md)

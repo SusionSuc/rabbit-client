@@ -2,10 +2,14 @@ package com.susion.rabbit
 
 import com.google.gson.Gson
 import com.susion.rabbit.base.AnalyzerTask
+import com.susion.rabbit.entities.RabbitReportInfo
 import com.susion.rabbit.helper.FileUtil
 import com.susion.rabbit.task.*
+import okhttp3.*
 import java.io.File
-import java.lang.StringBuilder
+import java.util.*
+import java.util.concurrent.TimeUnit
+import kotlin.collections.ArrayList
 import kotlin.system.exitProcess
 
 /**
@@ -51,7 +55,9 @@ object ApkAnalyzer {
 
         writeResult(jsonStr.toString(), File(unzipResult.unZipDir).parentFile)
 
+        uploadResult(globalConfig.uploadPath, jsonStr.toString())
     }
+
 
     private fun loadConfig(filePath: String): Config? {
         try {
@@ -77,6 +83,52 @@ object ApkAnalyzer {
         }
 
         resultFile.writeText(resultStr)
+
+        print("分析结果生成成功! --> apk-analyzer-result.json")
     }
+
+    private fun uploadResult(uploadPath: String, resultStr: String) {
+
+        val okHttpClient = OkHttpClient.Builder()
+            .connectTimeout(15, TimeUnit.SECONDS)
+            .readTimeout(15, TimeUnit.SECONDS)
+            .protocols(Collections.unmodifiableList(listOf(Protocol.HTTP_1_1)))
+            .build()
+
+        val reportInfo = RabbitReportInfo(info_str = resultStr)
+
+        //构建请求
+        val trackRequest = Request.Builder()
+            .url(uploadPath)
+            .post(getRequestBody(Gson().toJson(reportInfo)))
+            .build()
+
+        //请求服务器
+        try {
+            val resp = okHttpClient.newCall(trackRequest).execute()
+            val code = resp.code()
+            resp.body()?.close()
+            if (code in 200..299) {
+                print("日志上传成功!")
+            } else {
+                print("日志上传失败!")
+            }
+        } catch (e: Exception) {
+            print("日志上传 exception : ${e.message}")
+        }
+    }
+
+    private fun getRequestBody(content: String): RequestBody {
+        return RequestBody.create(
+            MediaType.parse("application/json; charset=utf-8"),
+            Gson().toJson(InnerRequestBody(getBase64Encode(content.toByteArray())))
+        )
+    }
+
+    private fun getBase64Encode(byteArray: ByteArray): String {
+        return Base64.getEncoder().encodeToString(byteArray).trim()
+    }
+
+    private class InnerRequestBody(val content: String)
 
 }
