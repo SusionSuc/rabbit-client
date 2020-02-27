@@ -122,18 +122,11 @@ internal class RabbitAppSpeedMonitor(override var isOpen: Boolean = false) :
                     pageSpeedInfo.resumeEndTime = time
                 }
 
-                override fun activityDrawFinish(activity: Any, time: Long) {
-                    if (activity !is Activity){
-                        RabbitLog.d(
-                            TAG_MONITOR,
-                            "error ! draw finish obj not is activity"
-                        )
-                        return
-                    }
-                    val drawFinishActivity = activity as Activity
+                override fun activityDrawFinish(activitySimpleName: String, time: Long) {
+                    RabbitLog.d(TAG_MONITOR, "$activitySimpleName -> activityDrawFinish")
                     savePageSpeedInfoToLocal(time)
                     if (entryActivityName.isNotEmpty() && appSpeedCanRecord) {
-                        saveApplicationStartInfoToLocal(time, drawFinishActivity.javaClass.simpleName)
+                        saveApplicationStartInfoToLocal(time, activitySimpleName)
                     }
                 }
 

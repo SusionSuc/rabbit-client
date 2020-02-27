@@ -14,7 +14,7 @@ object RabbitTracerEventNotifier {
 
     interface TracerEvent {
         fun applicationCreateTime(attachBaseContextTime:Long, createEndTime:Long){}
-        fun activityDrawFinish(activity:Any, time: Long){}
+        fun activityDrawFinish(activityName:String, time: Long){}
         fun activityCreateEnd(activity: Any, time: Long){}
         fun activityCreateStart(activity: Any, time: Long){}
         fun activityResumeEnd(activity: Any, time: Long){}

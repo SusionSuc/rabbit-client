@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.susion.rabbit.base.RabbitLog;
 import com.susion.rabbit.tracer.RabbitTracerEventNotifier;
 
 import java.util.ArrayList;
@@ -26,6 +27,8 @@ import java.util.List;
  * 3. 页面渲染耗时
  */
 public class ActivitySpeedMonitor extends FrameLayout {
+
+    public String activityName = "UnDefined";
 
     public ActivitySpeedMonitor(@NonNull Context context) {
         super(context);
@@ -46,7 +49,8 @@ public class ActivitySpeedMonitor extends FrameLayout {
     @Override
     protected void dispatchDraw(Canvas canvas) {
         super.dispatchDraw(canvas);
-        RabbitTracerEventNotifier.appSpeedNotifier.activityDrawFinish(getContext(), System.currentTimeMillis());
+        RabbitTracerEventNotifier.appSpeedNotifier.activityDrawFinish(activityName, System.currentTimeMillis());
+
     }
 
     public static void wrapperViewOnActivityCreateEnd(Activity activity) {
@@ -56,6 +60,7 @@ public class ActivitySpeedMonitor extends FrameLayout {
         if (contentView != null && contentView.getChildCount() >= 1 && contentView instanceof FrameLayout) {
             View realAcContent = contentView.getChildAt(0);
             ActivitySpeedMonitor monitorWrapperView = new ActivitySpeedMonitor(contentView.getContext());
+            monitorWrapperView.activityName = activity.getClass().getSimpleName();
             contentView.addView(monitorWrapperView,0);
             replaceParent(realAcContent, contentView, monitorWrapperView);
 
