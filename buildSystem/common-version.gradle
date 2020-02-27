@@ -6,7 +6,7 @@ rootProject.ext {
             minSdkVersion                : 21,
             compileSdkVersion            : 28,
             targetSdkVersion             : 28,
-            buildToolsVersion            : "28.0.3",
+            buildToolsVersion            : "29.0.3",
             kotlinStdlibJdk7Version      : "1.3.21",
             loggingInterceptorVersion    : "3.10.0",
             archLifecycleVersion         : "1.1.0",
@@ -29,24 +29,25 @@ rootProject.ext {
             lifeClean                    : "1.0.1"
     ]
 
-    def androidXVersion = "1.0.0"
+    def androidXVersion = "1.1.0"
     def archLifeVersion = "2.0.0"
 
     androidXDependencies = [
-            core            : "androidx.core:core:${androidXVersion}",
-            coreUtils       : "androidx.legacy:legacy-support-core-utils:${androidXVersion}",
-            coreUi          : "androidx.legacy:legacy-support-core-ui:${androidXVersion}",
-            media           : "androidx.media:media:${androidXVersion}",
-            fragment        : "androidx.fragment:fragment:${androidXVersion}",
-            annotations     : "androidx.annotation:annotation:${androidXVersion}",
-            appcompat       : "androidx.appcompat:appcompat:${androidXVersion}",
-            cardView        : "androidx.cardview:cardview:${androidXVersion}",
-            recyclerView    : "androidx.recyclerview:recyclerview:${androidXVersion}",
-            multidex        : 'androidx.multidex:multidex:2.0.0',
-            constraintlayout: 'androidx.constraintlayout:constraintlayout:1.1.3',
-            lifeRuntime     : "androidx.lifecycle:lifecycle-runtime:${archLifeVersion}",
-            lifeExtensions  : "androidx.lifecycle:lifecycle-extensions:${archLifeVersion}",
-            lifeViewModel   : "androidx.lifecycle:lifecycle-viewmodel:${archLifeVersion}",
-            lifeLiveData    : "androidx.lifecycle:lifecycle-livedata:${archLifeVersion}"
+            core              : "androidx.core:core:${androidXVersion}",
+            coreUtils         : "androidx.legacy:legacy-support-core-utils:${androidXVersion}",
+            coreUi            : "androidx.legacy:legacy-support-core-ui:${androidXVersion}",
+            media             : "androidx.media:media:${androidXVersion}",
+            fragment          : "androidx.fragment:fragment:${androidXVersion}",
+            annotations       : "androidx.annotation:annotation:${androidXVersion}",
+            appcompat         : "androidx.appcompat:appcompat:${androidXVersion}",
+            cardView          : "androidx.cardview:cardview:${androidXVersion}",
+            recyclerView      : "androidx.recyclerview:recyclerview:${androidXVersion}",
+            multidex          : 'androidx.multidex:multidex:2.0.0',
+            constraintlayout  : 'androidx.constraintlayout:constraintlayout:1.1.3',
+            swipeRefreshLayout: 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0',
+            lifeRuntime       : "androidx.lifecycle:lifecycle-runtime:${archLifeVersion}",
+            lifeExtensions    : "androidx.lifecycle:lifecycle-extensions:${archLifeVersion}",
+            lifeViewModel     : "androidx.lifecycle:lifecycle-viewmodel:${archLifeVersion}",
+            lifeLiveData      : "androidx.lifecycle:lifecycle-livedata:${archLifeVersion}"
     ]
 }

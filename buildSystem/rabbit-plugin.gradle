@@ -1,7 +1,7 @@
 //debug 模式下才使用rabbit
 def taskName = getGradle().getStartParameter().taskNames.toString().toLowerCase()
 def inDebug = taskName.contains("debug")
-def version = "1.0.0-alpha6"
+def version = "1.0.0-alpha15"
 def rabbit = "com.susion:rabbit-noop:$version"
 
 if (inDebug) {

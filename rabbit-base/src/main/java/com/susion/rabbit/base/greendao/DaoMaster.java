@@ -22,6 +22,7 @@ public class DaoMaster extends AbstractDaoMaster {
     /** Creates underlying database table using DAOs. */
     public static void createAllTables(Database db, boolean ifNotExists) {
         RabbitHttpLogInfoDao.createTable(db, ifNotExists);
+        RabbitAppPerformanceInfoDao.createTable(db, ifNotExists);
         RabbitBlockFrameInfoDao.createTable(db, ifNotExists);
         RabbitReportInfoDao.createTable(db, ifNotExists);
         RabbitAppStartSpeedInfoDao.createTable(db, ifNotExists);
@@ -31,12 +32,12 @@ public class DaoMaster extends AbstractDaoMaster {
         RabbitMemoryInfoDao.createTable(db, ifNotExists);
         RabbitFPSInfoDao.createTable(db, ifNotExists);
         RabbitIoCallInfoDao.createTable(db, ifNotExists);
-        RabbitAppPerformanceInfoDao.createTable(db, ifNotExists);
     }
 
     /** Drops underlying database table using DAOs. */
     public static void dropAllTables(Database db, boolean ifExists) {
         RabbitHttpLogInfoDao.dropTable(db, ifExists);
+        RabbitAppPerformanceInfoDao.dropTable(db, ifExists);
         RabbitBlockFrameInfoDao.dropTable(db, ifExists);
         RabbitReportInfoDao.dropTable(db, ifExists);
         RabbitAppStartSpeedInfoDao.dropTable(db, ifExists);
@@ -46,7 +47,6 @@ public class DaoMaster extends AbstractDaoMaster {
         RabbitMemoryInfoDao.dropTable(db, ifExists);
         RabbitFPSInfoDao.dropTable(db, ifExists);
         RabbitIoCallInfoDao.dropTable(db, ifExists);
-        RabbitAppPerformanceInfoDao.dropTable(db, ifExists);
     }
 
     /**
@@ -66,6 +66,7 @@ public class DaoMaster extends AbstractDaoMaster {
     public DaoMaster(Database db) {
         super(db, SCHEMA_VERSION);
         registerDaoClass(RabbitHttpLogInfoDao.class);
+        registerDaoClass(RabbitAppPerformanceInfoDao.class);
         registerDaoClass(RabbitBlockFrameInfoDao.class);
         registerDaoClass(RabbitReportInfoDao.class);
         registerDaoClass(RabbitAppStartSpeedInfoDao.class);
@@ -75,7 +76,6 @@ public class DaoMaster extends AbstractDaoMaster {
         registerDaoClass(RabbitMemoryInfoDao.class);
         registerDaoClass(RabbitFPSInfoDao.class);
         registerDaoClass(RabbitIoCallInfoDao.class);
-        registerDaoClass(RabbitAppPerformanceInfoDao.class);
     }
 
     public DaoSession newSession() {

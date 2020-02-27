@@ -34,10 +34,10 @@ dependencies {
     implementation project(':rabbit-base')
     implementation project(':rabbit-gradle-interface')
 
-    implementation rootProject.ext.androidXDependencies.cardView
     implementation rootProject.ext.androidXDependencies.recyclerView
     implementation rootProject.ext.androidXDependencies.appcompat
     implementation rootProject.ext.androidXDependencies.lifeExtensions
+    implementation rootProject.ext.androidXDependencies.swipeRefreshLayout
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${uniqueVersion.kotlinStdlibJdk7Version}"
     implementation "io.reactivex.rxjava2:rxjava:${uniqueVersion.rx2javaVersion}"

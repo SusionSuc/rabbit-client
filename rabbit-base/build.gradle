@@ -46,6 +46,8 @@ dependencies {
     implementation rootProject.ext.androidXDependencies.appcompat
     implementation rootProject.ext.androidXDependencies.recyclerView
     implementation rootProject.ext.androidXDependencies.lifeExtensions
+    implementation rootProject.ext.androidXDependencies.swipeRefreshLayout
+
     implementation "org.greenrobot:greendao:${uniqueVersion.greenDaoVersion}"
     implementation "com.google.code.gson:gson:${uniqueVersion.gsonVersion}"
     implementation "io.reactivex.rxjava2:rxjava:${uniqueVersion.rx2javaVersion}"
@@ -53,5 +55,4 @@ dependencies {
     implementation "com.jakewharton.rxbinding3:rxbinding:${uniqueVersion.rxbinding3Version}"
     implementation "com.squareup.retrofit2:retrofit:${uniqueVersion.retrofit2Version}"
     implementation "com.susion:life-clean:${uniqueVersion.lifeClean}"
-
 }

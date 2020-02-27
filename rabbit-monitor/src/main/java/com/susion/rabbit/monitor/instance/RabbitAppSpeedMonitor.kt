@@ -1,5 +1,6 @@
 package com.susion.rabbit.monitor.instance
 
+import android.app.Activity
 import android.content.Context
 import com.google.gson.Gson
 import com.susion.rabbit.base.RabbitLog
@@ -97,6 +98,7 @@ internal class RabbitAppSpeedMonitor(override var isOpen: Boolean = false) :
                     appSpeedInfo.createStartTime = attachBaseContextTime
                     appSpeedInfo.createEndTime = createEndTime
                     appSpeedInfo.fullShowCostTime = 0
+                    RabbitLog.d(TAG_MONITOR, " --> applicationCreateTime  ${createEndTime - attachBaseContextTime}")
                     if (entryActivityName.isEmpty()) {
                         appSpeedCanRecord = false
                         RabbitDbStorageManager.save(appSpeedInfo)
@@ -121,9 +123,17 @@ internal class RabbitAppSpeedMonitor(override var isOpen: Boolean = false) :
                 }
 
                 override fun activityDrawFinish(activity: Any, time: Long) {
+                    if (activity !is Activity){
+                        RabbitLog.d(
+                            TAG_MONITOR,
+                            "error ! draw finish obj not is activity"
+                        )
+                        return
+                    }
+                    val drawFinishActivity = activity as Activity
                     savePageSpeedInfoToLocal(time)
                     if (entryActivityName.isNotEmpty() && appSpeedCanRecord) {
-                        saveApplicationStartInfoToLocal(time, activity.javaClass.simpleName)
+                        saveApplicationStartInfoToLocal(time, drawFinishActivity.javaClass.simpleName)
                     }
                 }
 
@@ -198,10 +208,8 @@ internal class RabbitAppSpeedMonitor(override var isOpen: Boolean = false) :
                     appSpeedInfo.time = System.currentTimeMillis()
                     appSpeedInfo.createStartTime = attachBaseContextTime
                     appSpeedInfo.createEndTime = createEndTime
-                    if (!RabbitMonitor.isAutoOpen(this@RabbitAppSpeedMonitor)) {
-                        RabbitDbStorageManager.save(appSpeedInfo)
-                        RabbitLog.d(TAG_MONITOR, "monitorApplicationStart")
-                    }
+                    RabbitDbStorageManager.save(appSpeedInfo)
+                    RabbitLog.d(TAG_MONITOR, "monitorApplicationStart")
                 }
             }
     }
