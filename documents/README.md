@@ -1,6 +1,6 @@
 # Rabbit使用文档
 
->version : 1.0.0-alpha18
+>version : 1.0.1
 
 **目前仅支持迁移到androidx的项目**
 
