@@ -19,7 +19,7 @@ interface RabbitProtocol {
 
     fun getCurrentActivity(): Activity?
 
-    fun isAutoOpen(): Boolean
+    fun isAutoOpen(context: Context): Boolean
 
     fun changeAutoOpenStatus(context: Context, autoOpen: Boolean)
 

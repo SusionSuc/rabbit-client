@@ -180,7 +180,7 @@ object Rabbit : RabbitProtocol {
         RabbitMonitor.saveCrash(e, Thread.currentThread())
     }
 
-    override fun isAutoOpen() = RabbitSettings.autoOpenRabbit(application)
+    override fun isAutoOpen(context: Context) = RabbitSettings.autoOpenRabbit(context)
 
     override fun changeAutoOpenStatus(context: Context, autoOpen: Boolean) {
         RabbitSettings.autoOpenRabbit(context, autoOpen)

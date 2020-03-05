@@ -77,7 +77,7 @@ object Rabbit : RabbitProtocol {
         RabbitSettings.autoOpenRabbit(context, autoOpen)
     }
 
-    override fun isAutoOpen() = RabbitSettings.autoOpenRabbit(application)
+    override fun isAutoOpen(context: Context) = RabbitSettings.autoOpenRabbit(context)
 
     override fun getNetInterceptor(): Interceptor {
         return Interceptor { chain -> chain.proceed(chain.request()) }
