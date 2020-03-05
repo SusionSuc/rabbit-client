@@ -24,7 +24,9 @@ object Rabbit : RabbitProtocol {
 
     lateinit var application: Application
 
-    override fun init(config: RabbitConfig) {
+    override fun init(app: Application, config: RabbitConfig) {
+
+        application = app
 
         try {
             if (!RabbitUtils.isMainProcess(application)) return
@@ -71,8 +73,8 @@ object Rabbit : RabbitProtocol {
         RabbitUiKernal.openPage(pageClass, params)
     }
 
-    override fun changeAutoOpenStatus(autoOpen: Boolean) {
-        RabbitSettings.autoOpenRabbit(application, autoOpen)
+    override fun changeAutoOpenStatus(context: Context, autoOpen: Boolean) {
+        RabbitSettings.autoOpenRabbit(context, autoOpen)
     }
 
     override fun isAutoOpen() = RabbitSettings.autoOpenRabbit(application)
@@ -85,5 +87,5 @@ object Rabbit : RabbitProtocol {
     }
 
     override fun getCurrentActivity() = RabbitUiKernal.appCurrentActivity?.get()
-    
+
 }

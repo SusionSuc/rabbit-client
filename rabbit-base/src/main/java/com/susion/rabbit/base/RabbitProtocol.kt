@@ -1,6 +1,8 @@
 package com.susion.rabbit.base
 
 import android.app.Activity
+import android.app.Application
+import android.content.Context
 import android.view.View
 import com.susion.rabbit.base.config.RabbitConfig
 import okhttp3.Interceptor
@@ -11,17 +13,17 @@ import okhttp3.Interceptor
  */
 interface RabbitProtocol {
 
-    fun init(config: RabbitConfig)
+    fun init(application: Application, config: RabbitConfig)
 
     fun reConfig(config: RabbitConfig)
 
-    fun getCurrentActivity():Activity?
+    fun getCurrentActivity(): Activity?
 
-    fun isAutoOpen():Boolean
+    fun isAutoOpen(): Boolean
 
-    fun changeAutoOpenStatus(autoOpen:Boolean)
+    fun changeAutoOpenStatus(context: Context, autoOpen: Boolean)
 
-    fun saveCrashLog(e:Throwable)
+    fun saveCrashLog(e: Throwable)
 
     fun getNetInterceptor(): Interceptor
 

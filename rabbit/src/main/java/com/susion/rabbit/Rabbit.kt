@@ -2,6 +2,7 @@ package com.susion.rabbit
 
 import android.app.Activity
 import android.app.Application
+import android.content.Context
 import android.view.View
 import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.RabbitMonitorProtocol
@@ -32,7 +33,9 @@ object Rabbit : RabbitProtocol {
     lateinit var application: Application
     private var isInit = false
 
-    override fun init(config: RabbitConfig) {
+    override fun init(app: Application, config: RabbitConfig) {
+
+        application = app
 
         try {
             if (!RabbitUtils.isMainProcess(application)) return
@@ -179,8 +182,8 @@ object Rabbit : RabbitProtocol {
 
     override fun isAutoOpen() = RabbitSettings.autoOpenRabbit(application)
 
-    override fun changeAutoOpenStatus(autoOpen: Boolean) {
-        RabbitSettings.autoOpenRabbit(application, autoOpen)
+    override fun changeAutoOpenStatus(context: Context, autoOpen: Boolean) {
+        RabbitSettings.autoOpenRabbit(context, autoOpen)
     }
 
     override fun openPage(pageClass: Class<out View>?, params: Any?) {

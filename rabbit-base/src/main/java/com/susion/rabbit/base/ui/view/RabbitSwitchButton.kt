@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.rabbit_view_switch_btn.view.*
 /**
  * susionwang at 2019-10-18
  */
-class RabbitSwitchButton : RelativeLayout {
+open class RabbitSwitchButton : RelativeLayout {
 
     var checkedStatusChangeListener: CheckedStatusChangeListener? = null
 

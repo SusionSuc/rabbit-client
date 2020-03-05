@@ -63,7 +63,7 @@ class MyApplication : Application() {
 //        rabbitConfig.reportConfig.notReportDataFormat.addAll(hashSetOf(RabbitExceptionInfo::class.java))
 
 
-        Rabbit.init(rabbitConfig)
+        Rabbit.init(this,rabbitConfig)
 
     }
 
