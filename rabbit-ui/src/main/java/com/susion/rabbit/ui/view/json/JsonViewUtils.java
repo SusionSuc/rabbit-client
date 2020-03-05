@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 /**
  * Created by yuyuhang on 2017/11/30.
  */
-public class Utils {
+public class JsonViewUtils {
 
     private static Pattern urlPattern = Pattern.compile("^((https|http|ftp|rtsp|mms)?://)"
             + "?(([0-9a-z_!~*'().&=+$%-]+: )?[0-9a-z_!~*'().&=+$%-]+@)?" //ftp的user@

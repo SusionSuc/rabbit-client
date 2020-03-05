@@ -1,9 +1,11 @@
 package com.susion.rabbit.monitor.instance
 
 import android.content.Context
+import android.os.Looper
 import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.monitor.RabbitMonitor
 import com.susion.rabbit.base.RabbitMonitorProtocol
+import com.susion.rabbit.base.common.RabbitUtils
 import com.susion.rabbit.base.common.toastInThread
 import com.susion.rabbit.base.entities.RabbitExceptionInfo
 import com.susion.rabbit.storage.RabbitDbStorageManager
@@ -40,8 +42,11 @@ internal class RabbitExceptionMonitor(override var isOpen: Boolean = false) :
         Thread.sleep(1000) // 把toast给弹出来
         val exceptionInfo = translateThrowableToExceptionInfo(e, Thread.currentThread().name)
         RabbitDbStorageManager.saveSync(exceptionInfo)
-        Thread.sleep(1500)
-        defaultExceptionHandler?.uncaughtException(thread, e)
+        //main thead 下崩溃
+        if (RabbitUtils.isMainThread(thread.id)) {
+            Thread.sleep(1500)
+            defaultExceptionHandler?.uncaughtException(thread, e)
+        }
     }
 
     private fun translateThrowableToExceptionInfo(

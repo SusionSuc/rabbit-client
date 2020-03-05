@@ -116,7 +116,7 @@ public class JsonViewerAdapter extends BaseJsonViewerAdapter<JsonViewerAdapter.J
      * @param hierarchy
      */
     private void handleJsonObject(String key, Object value, JsonItemView itemView, boolean appendComma, int hierarchy) {
-        SpannableStringBuilder keyBuilder = new SpannableStringBuilder(Utils.getHierarchyStr(hierarchy));
+        SpannableStringBuilder keyBuilder = new SpannableStringBuilder(JsonViewUtils.getHierarchyStr(hierarchy));
         keyBuilder.append("\"").append(key).append("\"").append(":");
         keyBuilder.setSpan(new ForegroundColorSpan(KEY_COLOR), 0, keyBuilder.length() - 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         keyBuilder.setSpan(new ForegroundColorSpan(BRACES_COLOR), keyBuilder.length() - 1, keyBuilder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -135,7 +135,7 @@ public class JsonViewerAdapter extends BaseJsonViewerAdapter<JsonViewerAdapter.J
      * @param hierarchy   缩进层级
      */
     private void handleJsonArray(Object value, JsonItemView itemView, boolean appendComma, int hierarchy) {
-        itemView.showLeft(new SpannableStringBuilder(Utils.getHierarchyStr(hierarchy)));
+        itemView.showLeft(new SpannableStringBuilder(JsonViewUtils.getHierarchyStr(hierarchy)));
 
         handleValue(value, itemView, appendComma, hierarchy);
     }
@@ -170,7 +170,7 @@ public class JsonViewerAdapter extends BaseJsonViewerAdapter<JsonViewerAdapter.J
         } else if (value instanceof String) {
             itemView.hideIcon();
             valueBuilder.append("\"").append(value.toString()).append("\"");
-            if (Utils.isUrl(value.toString())) {
+            if (JsonViewUtils.isUrl(value.toString())) {
                 valueBuilder.setSpan(new ForegroundColorSpan(TEXT_COLOR), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 valueBuilder.setSpan(new ForegroundColorSpan(URL_COLOR), 1, valueBuilder.length() - 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 valueBuilder.setSpan(new ForegroundColorSpan(TEXT_COLOR), valueBuilder.length() - 1, valueBuilder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -229,7 +229,7 @@ public class JsonViewerAdapter extends BaseJsonViewerAdapter<JsonViewerAdapter.J
 
                 JsonItemView childItemView = new JsonItemView(itemView.getContext());
                 childItemView.setRightColor(BRACES_COLOR);
-                StringBuilder builder = new StringBuilder(Utils.getHierarchyStr(hierarchy - 1));
+                StringBuilder builder = new StringBuilder(JsonViewUtils.getHierarchyStr(hierarchy - 1));
                 builder.append(isJsonArray ? "]" : "}").append(appendComma ? "," : "");
                 childItemView.showRight(builder);
                 itemView.addViewNoInvalidate(childItemView);

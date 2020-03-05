@@ -2,6 +2,7 @@ package com.susion.rabbit.base.common
 
 import android.app.ActivityManager
 import android.content.Context
+import android.os.Looper
 
 /**
  * susionwang at 2019-12-13
@@ -44,6 +45,10 @@ object RabbitUtils {
         val strSlice = className.split(".")
         if (strSlice.size < 2) return className
         return "${strSlice[strSlice.size - 2]}.${strSlice[strSlice.size - 1]}"
+    }
+
+    fun isMainThread(threadId: Long) :Boolean{
+        return Looper.getMainLooper().thread.id == threadId
     }
 
 }

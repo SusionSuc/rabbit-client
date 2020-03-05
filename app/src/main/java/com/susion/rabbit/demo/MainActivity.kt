@@ -53,7 +53,11 @@ class MainActivity : RabbitBaseActivity() {
         }
 
         mBlockTv.setOnClickListener {
-            Thread.sleep(2000)
+//            Thread.sleep(2000)
+
+            Thread(Runnable {
+                val  a = 1 /0;
+            }, "test").start()
         }
 
         mSimpleListRv.setOnClickListener {

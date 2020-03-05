@@ -9,7 +9,7 @@ import com.susion.rabbit.demo.R
 import com.susion.rabbit.demo.RabbitBaseActivity
 import com.susion.rabbit.base.ui.view.RabbitSimpleKVItemView
 import com.susion.rabbit.base.ui.view.RabbitSimpleKvInfo
-import com.susion.rabbit.demo.Test
+import com.susion.rabbit.demo.test.Test
 import kotlinx.android.synthetic.main.activity_simple_list_page.*
 
 class SimpleListActivity : RabbitBaseActivity() {
@@ -45,7 +45,7 @@ class SimpleListActivity : RabbitBaseActivity() {
 
         }
 
-        val test = object :Test(){
+        val test = object : Test(){
 
         }
     }
