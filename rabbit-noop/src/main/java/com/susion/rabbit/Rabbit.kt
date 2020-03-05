@@ -7,6 +7,7 @@ import android.content.Context
 import android.view.View
 import com.susion.rabbit.base.RabbitProtocol
 import com.susion.rabbit.base.RabbitSettings
+import com.susion.rabbit.base.common.RabbitUtils
 import com.susion.rabbit.base.config.RabbitConfig
 import com.susion.rabbit.base.ui.RabbitUiKernal
 import com.susion.rabbit.base.ui.page.RabbitEntryPage
@@ -26,7 +27,7 @@ object Rabbit : RabbitProtocol {
     override fun init(config: RabbitConfig) {
 
         try {
-            if (!isMainProcess(application)) return
+            if (!RabbitUtils.isMainProcess(application)) return
         } catch (e: Throwable) {
             return
         }
@@ -84,25 +85,5 @@ object Rabbit : RabbitProtocol {
     }
 
     override fun getCurrentActivity() = RabbitUiKernal.appCurrentActivity?.get()
-
-
-    private fun isMainProcess(context: Context): Boolean {
-        return context.packageName == getCurrentProcessName(
-            context
-        )
-    }
-
-    private fun getCurrentProcessName(context: Context): String {
-        val pid = android.os.Process.myPid()
-        var processName = ""
-        val manager =
-            context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-        for (process in manager.runningAppProcesses) {
-            if (process.pid == pid) {
-                processName = process.processName
-            }
-        }
-        return processName
-    }
-
+    
 }

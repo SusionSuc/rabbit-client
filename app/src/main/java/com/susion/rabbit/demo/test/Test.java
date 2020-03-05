@@ -2,6 +2,7 @@ package com.susion.rabbit.demo.test;
 
 import android.os.Handler;
 import android.os.Message;
+import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
@@ -27,6 +28,8 @@ public class Test {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             a = 2;
+
+            Toast
         }
     };
 
@@ -35,6 +38,8 @@ public class Test {
         int a = 0;
         int b = 1;
         int c = a + b;
+
+        Handler
     }
 
     public static void asyncMethod() throws Exception {

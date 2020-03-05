@@ -10,10 +10,8 @@ import android.os.Looper
  */
 object RabbitUtils {
 
-    fun isMainProcess(context: Context): Boolean {
-        return context.packageName == getCurrentProcessName(
-            context
-        )
+    fun isMainProcess(context: Context?): Boolean {
+        return context != null && context.packageName == getCurrentProcessName(context)
     }
 
     private fun getCurrentProcessName(context: Context): String {
