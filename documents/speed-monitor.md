@@ -17,7 +17,6 @@
 
 >应用build.gradle
 ```
-apply plugin: 'rabbit-tracer-transform'
 
 rabbitConfig {
     

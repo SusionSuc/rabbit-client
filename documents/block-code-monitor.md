@@ -18,7 +18,7 @@ rabbitConfig {
     enableBlockCodeCheck = true //默认是关闭的
 
     //阻塞代码扫描范围
-    blockCodePkg = ['com.susion.rabbit.demo']
+    blockCodePkgs = ['com.susion.rabbit.demo']
 }
 ```
 

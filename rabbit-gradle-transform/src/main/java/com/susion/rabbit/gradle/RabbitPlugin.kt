@@ -19,6 +19,10 @@ class RabbitPlugin : Plugin<Project> {
         val config = project.extensions.create("rabbitConfig", RabbitConfigExtension::class.java)
 
         project.afterEvaluate {
+            //如果配置的检测包的范围，则自动打开对应开关
+            config.enableBlockCodeCheck = config.customBlockCodeCheckList.isNotEmpty()
+            config.enableMethodCostCheck = config.methodMonitorPkgs.isNotEmpty()
+
             GlobalConfig.pluginConfig = config
             GlobalConfig.ioMethodCall.clear()
         }
