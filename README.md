@@ -51,12 +51,6 @@
 
 # [使用文档](./documents/README.md)
 
-# 使用问题讨论
-
->提issue回复可能比较慢，对rabbit使用有问题加一下下面的微信群, 也欢迎入群一起讨论性能优化问题:
-
-![](discussGroup.jpeg)
-
 # 实现原理
 
 实现原理相关文章见:[Rabbit实现原理剖析](https://github.com/SusionSuc/AdvancedAndroid/blob/master/Rabbit%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/README.md)
@@ -70,3 +64,18 @@
 # License
 
 Rabbit is under the MIT license. See the [LICENSE](./LICENSE) file for details
+
+
+# 体验包
+
+[点击下载](localRepo/rabbit-demo.apk)
+
+>推荐安装命令`adb install -t rabbit-demo.apk`
+
+
+# 使用问题讨论
+
+>提issue回复可能比较慢，对rabbit使用有问题加一下下面的微信群, 也欢迎入群一起讨论性能优化问题:
+
+![](discussGroup.jpeg)
+
