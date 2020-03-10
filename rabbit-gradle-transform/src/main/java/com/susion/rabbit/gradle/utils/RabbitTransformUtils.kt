@@ -22,7 +22,7 @@ object RabbitTransformUtils {
 
     fun classInPkgList(className: String, pkgList: List<String>): Boolean {
 
-        if (pkgList.isEmpty()) return true
+        if (pkgList.isEmpty()) return false
 
         pkgList.forEach {
             if (className.startsWith(it)) {
