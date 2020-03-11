@@ -58,3 +58,24 @@ class RabbitConfig(
 可以点击rabbit主面板右上角的火箭(🚀)按钮,然后点击**查看当前配置**:
 
 ![](./pic/current-config.jpg)
+
+# 监控开关配置
+
+## 通过代码配置
+
+可以通过代码来配置`rabbit`各项监控的打开与否:
+
+```
+val autoOpenMonitors = hashSetOf(RabbitMonitorProtocol.NET.name, RabbitMonitorProtocol.EXCEPTION.name)
+
+rabbitConfig.monitorConfig.autoOpenMonitors.addAll(autoOpenMonitors)
+
+Rabbit.config(rabbitConfig)
+```
+>上面配置会自动打开**网络日志监控**和**异常日志监控**功能
+
+## UI配置
+
+当然也可以在UI浮窗中配置各项功能打开与否。点击**监控配置**即可看到具体功能配置页面:
+
+![](./pic/config-page.jpg)

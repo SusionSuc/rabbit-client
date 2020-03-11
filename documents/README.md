@@ -23,33 +23,14 @@
 
 ## 快速使用
 
->根目录`build.gradle`
-```
-dependencies {
-    classpath "com.susion:rabbit-gradle-transform:${latest-version}"
-}
-```
+`rabbit`的功能没有经过线上验证, 因此目前只能在`debug`下使用, 可以通过下面的方式来安全引入`rabbit` : [noop包接入](./noop-document.md)
 
->应用build.gradle
-```
-apply plugin: 'rabbit-tracer' //引入插件, release包不要引入
+### 初始化与配置
 
-dependencies {
-    implementation "com.susion:rabbit:${latest-version}"
-    debugImplementation "com.squareup.leakcanary:leakcanary-android:$2.0-beta-5" //如果使用leakcanary的话，需要引入leakcanary
-} 
-```
-
-`rabbit`的功能没有经过线上验证, 因此目前只能在`debug`下使用, 可以通过下面的方式来安全引入`rabbit`:
-
-[noop包接入](./noop-document.md)
-
-### 配置rabbit
-
-#### 功能配置
+#### 初始化
 
 ```
-Rabbit.init(config)
+Rabbit.init(application, config)
 ```
 
 相关支持配置见:[RabbitConfig](https://github.com/SusionSuc/rabbit-client/blob/master/rabbit-base/src/main/java/com/susion/rabbit/base/config/RabbitConfig.kt)。各项配置具体含义会在每个功能的文档中做详细的介绍。
@@ -64,6 +45,8 @@ rabbitConfig {
     printLog = true // 编译时打印插桩log
 }
 ```
+
+**更多配置选项见各个功能的具体使用文档**
 
 ### 打开rabbit
 
@@ -84,26 +67,6 @@ fun open(requestPermission: Boolean = true, activity: Activity)
 
 **可以通过再次点击`rabbit`浮标来关闭`rabbit`浮窗。**
 
-### 监控开关配置
-
-#### 通过代码配置
-
-可以通过代码来配置`rabbit`各项监控的打开与否:
-
-```
-val autoOpenMonitors = hashSetOf(RabbitMonitorProtocol.NET.name, RabbitMonitorProtocol.EXCEPTION.name)
-
-rabbitConfig.monitorConfig.autoOpenMonitors.addAll(autoOpenMonitors)
-
-Rabbit.config(rabbitConfig)
-```
->上面配置会自动打开**网络日志监控**和**异常日志监控**功能
-
-#### UI配置
-
-当然也可以在UI浮窗中配置各项功能打开与否。点击**监控配置**即可看到具体功能配置页面:
-
-![](./pic/config-page.jpg)
 
 
 
