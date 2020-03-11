@@ -75,5 +75,5 @@ Rabbit is under the MIT license. See the [LICENSE](./LICENSE) file for details
 
 >提issue回复可能比较慢，对rabbit使用有问题加一下下面的微信群, 也欢迎入群一起讨论性能优化问题:
 
-![](discussGroup.jpeg)
+![](documents/discussGroup.jpeg)
 
