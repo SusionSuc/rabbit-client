@@ -75,6 +75,7 @@ object RabbitMonitor {
             val autoOpen = RabbitSettings.autoOpen(application, it.getMonitorInfo().name)
             if (autoOpen) {
                 it.open(application)
+                mConfig.autoOpenMonitors.add(it.getMonitorInfo().name)
                 RabbitLog.d(TAG_MONITOR, "monitor auto open : ${it.getMonitorInfo().name} ")
             }
         }
