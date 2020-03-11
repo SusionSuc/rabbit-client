@@ -70,8 +70,6 @@ Rabbit is under the MIT license. See the [LICENSE](./LICENSE) file for details
 
 [点击下载](localRepo/rabbit-demo.apk)
 
->推荐安装命令`adb install -t rabbit-demo.apk`
-
 
 # 使用问题讨论
 

@@ -45,13 +45,12 @@ class RabbitConfig(
     methodMonitorPkgs = ['com.susion.rabbit.demo', 'com.susion.rabbit.demo.page']
 
     //阻塞代码扫描范围
-    blockCodePkg = ['com.susion.rabbit.demo']
+    blockCodePkgs = ['com.susion.rabbit.demo']
 
     //自定义阻塞代码点
     customBlockCodeCheckList = ['com/susion/rabbit/demo/MainActivity.fakeBlockCode()V']
 }
 ```
-
 
 # 快速查看rabbit当前配置
 
