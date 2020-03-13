@@ -27,6 +27,7 @@ import okhttp3.Interceptor
 /**
  * susionwang at 2019-09-23
  */
+
 object Rabbit : RabbitProtocol {
 
     private var mConfig = RabbitConfig()

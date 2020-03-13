@@ -31,6 +31,7 @@ class MethodCostClassVisitor(api: Int, cv: ClassVisitor) : ClassVisitor(api, cv)
             className,
             GlobalConfig.pluginConfig.methodMonitorPkgs
         )
+
     }
 
     override fun visitMethod(

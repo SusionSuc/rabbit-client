@@ -67,7 +67,7 @@ internal class RabbitMethodMonitor(override var isOpen: Boolean = false) : Rabbi
                 this.costTimeMs = time
                 this.time = System.currentTimeMillis()
                 this.pageName = RabbitMonitor.getCurrentPage()
-                callStack = RabbitMonitorUtils.traceToString(5, Thread.currentThread().stackTrace, 15)
+                callStack = RabbitMonitorUtils.traceToString(3, Throwable().stackTrace, 15)
             }
 
             RabbitDbStorageManager.save(slowMethod)

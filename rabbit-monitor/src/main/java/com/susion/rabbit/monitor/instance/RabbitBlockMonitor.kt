@@ -89,10 +89,10 @@ internal class RabbitBlockMonitor(override var isOpen: Boolean = false) : Choreo
         blockStackTraces.clear()
     }
 
+    //在某个线程不断地获取主线程堆栈要暂停主线程的运行
     private fun getUiThreadStackTrace(): String {
         return RabbitMonitorUtils.traceToString(0, Looper.getMainLooper().thread.stackTrace)
     }
-
 
     private fun getIdentifierByMaxCount(traceMap: Map<String, RabbitBlockStackTraceInfo>): String {
         return traceMap.values.toList().maxBy { it.collectCount }?.stackTrace.toString()
