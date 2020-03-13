@@ -42,10 +42,6 @@ public class ActivitySpeedMonitor extends FrameLayout {
         super(context, attrs, defStyleAttr);
     }
 
-    public ActivitySpeedMonitor(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-    }
-
     @Override
     protected void dispatchDraw(Canvas canvas) {
         super.dispatchDraw(canvas);
