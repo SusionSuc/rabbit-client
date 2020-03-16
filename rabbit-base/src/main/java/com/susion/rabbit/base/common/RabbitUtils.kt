@@ -14,7 +14,7 @@ object RabbitUtils {
         return context != null && context.packageName == getCurrentProcessName(context)
     }
 
-    private fun getCurrentProcessName(context: Context): String {
+    fun getCurrentProcessName(context: Context): String {
         val pid = android.os.Process.myPid()
         var processName = ""
         val manager =

@@ -46,6 +46,7 @@ object RabbitMonitor {
             put(RabbitMonitorProtocol.USE_TIME.name, RabbitAppUseTimeMonitor())
             put(RabbitMonitorProtocol.SLOW_METHOD.name, RabbitMethodMonitor())
             put(RabbitMonitorProtocol.BLOCK_CALL.name, RabbitIoCallMonitor())
+            put(RabbitMonitorProtocol.ANR.name, RabbitAnrMonitor())
         }
     }
 
@@ -97,7 +98,8 @@ object RabbitMonitor {
 
     //全局监控模式的特殊处理
     private fun initGlobalMonitorMode() {
-        val autoOpen = RabbitSettings.autoOpen(application, RabbitMonitorProtocol.GLOBAL_MONITOR.name)
+        val autoOpen =
+            RabbitSettings.autoOpen(application, RabbitMonitorProtocol.GLOBAL_MONITOR.name)
         if (!autoOpen) return
 
         eventListener?.updateUi(RabbitUiEvent.CHANGE_GLOBAL_MONITOR_STATUS, true)
@@ -110,10 +112,14 @@ object RabbitMonitor {
             add(RabbitMonitorProtocol.SLOW_METHOD.name)
         }
 
-        RabbitDbStorageManager.getAll(RabbitAppPerformanceInfo::class.java){
-            it.forEach {globalMonitorInfo->
+        RabbitDbStorageManager.getAll(RabbitAppPerformanceInfo::class.java) {
+            it.forEach { globalMonitorInfo ->
                 globalMonitorInfo.isRunning = false
-                RabbitDbStorageManager.updateOrCreate(RabbitAppPerformanceInfo::class.java, globalMonitorInfo,globalMonitorInfo.id)
+                RabbitDbStorageManager.updateOrCreate(
+                    RabbitAppPerformanceInfo::class.java,
+                    globalMonitorInfo,
+                    globalMonitorInfo.id
+                )
             }
         }
     }

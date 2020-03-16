@@ -64,7 +64,9 @@ interface RabbitMonitorProtocol {
         //阻塞调用
         val BLOCK_CALL = MonitorInfo("code_scan", "代码扫描")
 
-        val GLOBAL_MONITOR = MonitorInfo("global_mode", "性能测试g",showInExternal = false)
+        val GLOBAL_MONITOR = MonitorInfo("global_mode", "性能测试", showInExternal = false)
+
+        val ANR = MonitorInfo("anr", "ANR监控")
 
     }
 

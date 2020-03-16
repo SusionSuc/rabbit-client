@@ -135,6 +135,14 @@ object RabbitUi {
                     RabbitMemoryGlobalAnalyzerPage::class.java
                 )
             )
+
+            add(
+                RabbitMainFeatureInfo(
+                    "ANR",
+                    R.drawable.rabbit_icon_anr,
+                    RabbitMemoryGlobalAnalyzerPage::class.java
+                )
+            )
         }
     }
 
