@@ -1,6 +1,6 @@
 package com.susion.rabbit.base.common
 
-import com.susion.rabbit.base.COMMON_TAG
+import com.susion.rabbit.base.TAG_COMMON
 import com.susion.rabbit.base.RabbitLog
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -30,7 +30,7 @@ object RabbitAsync {
                 finishCallback()
             }, {
                 finishCallback()
-                RabbitLog.e(COMMON_TAG, "asyncRun error ${it.message}")
+                RabbitLog.e(TAG_COMMON, "asyncRun error ${it.message}")
             })
     }
 
@@ -50,7 +50,7 @@ object RabbitAsync {
             .subscribe({
                 completeCallBack(it)
             }, {
-                RabbitLog.e(COMMON_TAG, "asyncRun error ${it.message}")
+                RabbitLog.e(TAG_COMMON, "asyncRun error ${it.message}")
             })
     }
 
@@ -71,7 +71,7 @@ object RabbitAsync {
             .subscribe({
                 completeCallBack(it)
             }, {
-                RabbitLog.e(COMMON_TAG, "asyncRun error ${it.message}")
+                RabbitLog.e(TAG_COMMON, "asyncRun error ${it.message}")
             })
     }
 
@@ -92,7 +92,7 @@ object RabbitAsync {
                 finishCallback()
             }, {
                 finishCallback()
-                RabbitLog.e(COMMON_TAG, "asyncRun  error ${it.message}")
+                RabbitLog.e(TAG_COMMON, "asyncRun  error ${it.message}")
             })
     }
 

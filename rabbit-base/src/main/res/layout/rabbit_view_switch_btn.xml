@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"/>
 
 
-    <androidx.appcompat.widget.SwitchCompat
+    <Switch
         android:id="@+id/mRabbitSwitchBtnSc"
         android:theme="@style/MySwitchTheme"
         android:layout_centerVertical="true"

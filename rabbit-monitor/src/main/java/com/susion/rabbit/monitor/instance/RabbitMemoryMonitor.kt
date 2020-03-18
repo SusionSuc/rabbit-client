@@ -31,7 +31,6 @@ internal class RabbitMemoryMonitor(override var isOpen: Boolean = false) :
             val memInfo = getMemoryInfo()
             RabbitDbStorageManager.save(memInfo)
             val eventType = RabbitUiEvent.MSG_UPDATE_MEMORY_VALUE
-            RabbitLog.d(TAG_MONITOR, "memory total size : ${memInfo.totalSize}")
             val memoryStr = "${RabbitUiUtils.formatFileSize(memInfo.totalSize.toLong())} "
             RabbitMonitor.eventListener?.updateUi(eventType, memoryStr)
             memoryRefreshHandler?.postDelayed(this, MEMORY_COLLECT_PERIOD)

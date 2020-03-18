@@ -10,10 +10,12 @@ import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.TAG_REPORT
 import com.susion.rabbit.base.common.DeviceUtils
 import com.susion.rabbit.base.common.RabbitAsync
+import com.susion.rabbit.base.common.RabbitUtils
 import com.susion.rabbit.base.entities.RabbitDeviceInfo
 import com.susion.rabbit.base.entities.RabbitReportInfo
 import com.susion.rabbit.base.config.RabbitReportConfig
 import com.susion.rabbit.storage.RabbitDbStorageManager
+import okhttp3.internal.Util
 import java.util.concurrent.Executors
 
 /**
@@ -129,13 +131,6 @@ object RabbitReport {
 
     private fun getDeviceInfo(application: Application): RabbitDeviceInfo {
         val roomInfo = com.susion.rabbit.base.common.RomUtils.getRomInfo()
-        val supportCpuAbi = StringBuilder()
-        Build.SUPPORTED_ABIS.forEachIndexed { index, abi ->
-            if (index != 0) {
-                supportCpuAbi.append("/")
-            }
-            supportCpuAbi.append(abi)
-        }
         return RabbitDeviceInfo().apply {
             deviceName = DeviceUtils.getDeviceName()
             deviceId = DeviceUtils.getDeviceId(application)
@@ -144,7 +139,7 @@ object RabbitReport {
             rom = "${roomInfo.name}/${roomInfo.version}"
             appVersionCode = "${DeviceUtils.getAppVersionCode(application)}"
             isRoot = DeviceUtils.isDeviceRooted()
-            supportAbi = supportCpuAbi.toString()
+            supportAbi = RabbitUtils.getAbiList()
             manufacturer = Build.MANUFACTURER
         }
     }

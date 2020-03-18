@@ -1,6 +1,8 @@
 package com.susion.rabbit.demo
 
 import android.app.Application
+import android.content.Context
+import androidx.multidex.MultiDex
 import com.google.gson.Gson
 import com.susion.rabbit.Rabbit
 import com.susion.rabbit.base.RabbitMonitorProtocol
@@ -15,6 +17,11 @@ import com.susion.rabbit.base.entities.RabbitAppSpeedMonitorConfig
  * susionwang at 2019-12-12
  */
 class MyApplication : Application() {
+
+    override fun attachBaseContext(base: Context?) {
+        super.attachBaseContext(base)
+        MultiDex.install(this)
+    }
 
     override fun onCreate() {
         super.onCreate()

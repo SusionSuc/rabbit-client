@@ -2,7 +2,19 @@ package com.susion.rabbit.base.common
 
 import android.app.ActivityManager
 import android.content.Context
+import android.os.Build
 import android.os.Looper
+import android.text.TextUtils
+import com.susion.rabbit.base.RabbitLog
+import com.susion.rabbit.base.TAG_MONITOR
+import com.susion.rabbit.base.entities.RabbitAnrInfo
+import java.io.BufferedReader
+import java.io.File
+import java.io.FileReader
+import java.text.SimpleDateFormat
+import java.util.*
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 
 /**
  * susionwang at 2019-12-13
@@ -45,8 +57,22 @@ object RabbitUtils {
         return "${strSlice[strSlice.size - 2]}.${strSlice[strSlice.size - 1]}"
     }
 
-    fun isMainThread(threadId: Long) :Boolean{
+    fun isMainThread(threadId: Long): Boolean {
         return Looper.getMainLooper().thread.id == threadId
+    }
+
+    fun getAbiList(): String {
+        if (Build.VERSION.SDK_INT >= 21) {
+            return TextUtils.join(",", Build.SUPPORTED_ABIS)
+        } else {
+            val abi = Build.CPU_ABI
+            val abi2 = Build.CPU_ABI2
+            return if (TextUtils.isEmpty(abi2)) {
+                abi
+            } else {
+                "$abi,$abi2"
+            }
+        }
     }
 
 }

@@ -15,9 +15,13 @@ import com.susion.rabbit.demo.net.DevToolsTestApiModel
 import com.susion.rabbit.Rabbit
 import com.susion.rabbit.base.entities.RabbitFPSInfo
 import com.susion.rabbit.base.ui.dp2px
+import com.susion.rabbit.base.ui.throttleFirstClick
 import com.susion.rabbit.demo.page.SimpleListActivity
+import com.susion.rabbit.monitor.instance.RabbitANRLowVersionMonitor
+import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.activity_main.*
 
+//随意的测试代码
 class MainActivity : RabbitBaseActivity() {
 
     private val objList = ArrayList<Any>()
@@ -47,6 +51,13 @@ class MainActivity : RabbitBaseActivity() {
                 objList.add(View(this))
             }
         }
+
+        mAnrTv.throttleFirstClick(Consumer {
+            while (true){
+                Thread.sleep(1000)
+            }
+//            RabbitANRLowVersionMonitor().parseAnrFile("data/anr/traces.txt")
+        })
 
         mSlowMethodTv.setOnClickListener {
             startActivity(Intent(this, MethodCostTraceActivity::class.java))
@@ -83,7 +94,7 @@ class MainActivity : RabbitBaseActivity() {
     }
 
 
-    fun fakeBlockCode() {
+    private fun fakeBlockCode() {
 
     }
 
@@ -114,14 +125,14 @@ class MainActivity : RabbitBaseActivity() {
         return 3
     }
 
-    fun testRtn1():Int{
+    fun testRtn1(): Int {
         val a = 1
         val b = 2
         fakeBlockCode()
         return a + b
     }
 
-    fun testRtn2():RabbitFPSInfo{
+    fun testRtn2(): RabbitFPSInfo {
         val a = 1
         val b = 2
         fakeBlockCode()

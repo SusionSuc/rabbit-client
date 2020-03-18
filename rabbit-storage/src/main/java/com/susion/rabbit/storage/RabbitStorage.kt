@@ -102,6 +102,13 @@ object RabbitStorage {
                     daoSession.rabbitAppPerformanceInfoDao as AbstractDao<Any, Long>
                 )
             )
+
+            add(
+                RabbitDaoProviderConfig(
+                    RabbitAnrInfo::class.java as Class<Any>,
+                    daoSession.rabbitAnrInfoDao as AbstractDao<Any, Long>
+                )
+            )
         }
         return daoProvider
     }

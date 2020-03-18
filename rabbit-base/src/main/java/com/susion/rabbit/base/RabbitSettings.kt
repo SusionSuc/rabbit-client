@@ -8,7 +8,7 @@ import android.content.SharedPreferences
  */
 object RabbitSettings {
 
-    private val SP_NAME = "dev_tools"
+    private val SP_NAME = "rabbit_sp"
     private val AUTO_OPEN_RABBIT = "auto_open"
 
     fun autoOpenRabbit(context: Context, autoOpen: Boolean) {

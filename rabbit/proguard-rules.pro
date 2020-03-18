@@ -19,3 +19,10 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+-dontwarn com.squareup.haha.guava.**
+-dontwarn com.squareup.haha.perflib.**
+-dontwarn com.squareup.haha.trove.**
+-dontwarn com.squareup.leakcanary.**
+-keep class com.squareup.haha.** { *; }
+-keep class com.squareup.leakcanary.** { *; }
+-dontwarn android.app.Notification

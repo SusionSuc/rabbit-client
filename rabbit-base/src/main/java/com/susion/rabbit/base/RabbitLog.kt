@@ -11,7 +11,7 @@ val TAG_REPORT = "rabbit-report-log"
 val TAG_MONITOR = "rabbit-monitor-log"
 val TAG_MONITOR_UI = "rabbit-monitor-ui-log"
 val TAG_UI = "rabbit-ui-log"
-val COMMON_TAG = "rabbit-log"
+val TAG_COMMON = "rabbit-log"
 
 object RabbitLog {
 
@@ -25,7 +25,7 @@ object RabbitLog {
 
     fun d(logStr: String) {
         if (isEnable) {
-            Log.d(COMMON_TAG, logStr)
+            Log.d(TAG_COMMON, logStr)
         }
     }
 
@@ -37,7 +37,7 @@ object RabbitLog {
 
     fun e(logStr: String) {
         if (isEnable) {
-            Log.e(COMMON_TAG, logStr)
+            Log.e(TAG_COMMON, logStr)
         }
     }
 

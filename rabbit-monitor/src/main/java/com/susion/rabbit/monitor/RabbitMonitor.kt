@@ -2,10 +2,8 @@ package com.susion.rabbit.monitor
 
 import android.app.Activity
 import android.app.Application
-import com.susion.rabbit.base.RabbitLog
-import com.susion.rabbit.base.RabbitSettings
-import com.susion.rabbit.base.RabbitMonitorProtocol
-import com.susion.rabbit.base.TAG_MONITOR
+import android.os.Build
+import com.susion.rabbit.base.*
 import com.susion.rabbit.base.common.RabbitActivityLifecycleWrapper
 import com.susion.rabbit.base.config.RabbitMonitorConfig
 import com.susion.rabbit.base.entities.RabbitAppSpeedMonitorConfig
@@ -46,7 +44,14 @@ object RabbitMonitor {
             put(RabbitMonitorProtocol.USE_TIME.name, RabbitAppUseTimeMonitor())
             put(RabbitMonitorProtocol.SLOW_METHOD.name, RabbitMethodMonitor())
             put(RabbitMonitorProtocol.BLOCK_CALL.name, RabbitIoCallMonitor())
-            put(RabbitMonitorProtocol.ANR.name, RabbitAnrMonitor())
+
+            if (Build.VERSION.SDK_INT >= 21) {
+                RabbitLog.d(TAG_COMMON, "use high version anr monitor")
+                put(RabbitMonitorProtocol.ANR.name, RabbitANRHighVersionMonitor())
+            }else{
+                RabbitLog.d(TAG_COMMON, "use low version anr monitor")
+                put(RabbitMonitorProtocol.ANR.name, RabbitANRLowVersionMonitor())
+            }
         }
     }
 

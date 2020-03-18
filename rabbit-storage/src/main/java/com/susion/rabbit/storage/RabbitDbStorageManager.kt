@@ -37,7 +37,7 @@ object RabbitDbStorageManager {
      * */
     fun <T : RabbitInfoProtocol> getAll(
         ktClass: Class<T>,
-        condition: Pair<Property, String>? = null,
+        condition: Pair<Property, Any>? = null,
         sortField: String = RabbitInfoProtocol.PROPERTITY_TIME,
         count: Int = 0,
         orderDesc: Boolean = false,

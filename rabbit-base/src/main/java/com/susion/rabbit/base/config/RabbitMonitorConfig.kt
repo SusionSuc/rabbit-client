@@ -25,7 +25,9 @@ class RabbitMonitorConfig(
     //fps
     var fpsCollectThresholdNs: Long = STANDARD_FRAME_NS * 20,
     var fpsReportPeriodS: Long = 1,
-    var fpsMonitorPkgList: ArrayList<String> = ArrayList()
+    var fpsMonitorPkgList: ArrayList<String> = ArrayList(),
+    //anr
+    var anrCheckPeroidMs:Int = 150000
 ) {
     companion object {
         var STANDARD_FRAME_NS = 16666666L
