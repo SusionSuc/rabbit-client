@@ -27,7 +27,7 @@ object RabbitMonitor {
     lateinit var application: Application
     private var isInit = false
     var mConfig: RabbitMonitorConfig = RabbitMonitorConfig()
-    var eventListener: UiEventListener? = null
+    var uiEventListener: UIEventListener? = null
     private val monitorMap = LinkedHashMap<String, RabbitMonitorProtocol>()
     private var appCurrentActivity: WeakReference<Activity?>? = null    //当前应用正在展示的Activity
     private var pageChangeListeners = HashSet<PageChangeListener>()
@@ -107,7 +107,8 @@ object RabbitMonitor {
             RabbitSettings.autoOpen(application, RabbitMonitorProtocol.GLOBAL_MONITOR.name)
         if (!autoOpen) return
 
-        eventListener?.updateUi(RabbitUiEvent.CHANGE_GLOBAL_MONITOR_STATUS, true)
+        uiEventListener?.updateUi(RabbitUiEvent.CHANGE_GLOBAL_MONITOR_STATUS, true)
+        
         //直接打开需要监控的组件
         mConfig.autoOpenMonitors.apply {
             add(RabbitMonitorProtocol.FPS.name)
@@ -203,7 +204,7 @@ object RabbitMonitor {
         }
     }
 
-    interface UiEventListener {
+    interface UIEventListener {
         fun updateUi(type: Int, value: Any)
     }
 

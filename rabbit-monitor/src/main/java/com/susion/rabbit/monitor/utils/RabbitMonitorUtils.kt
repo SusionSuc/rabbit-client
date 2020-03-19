@@ -17,30 +17,6 @@ import java.util.regex.Pattern
  */
 object RabbitMonitorUtils {
 
-    fun traceToString(
-        skipStackCount: Int,
-        stackArray: Array<StackTraceElement>,
-        maxLineCount: Int = 20
-    ): String {
-        if (stackArray.isEmpty()) {
-            return "[]"
-        }
-
-        val b = StringBuilder()
-        for (i in 0 until stackArray.size - skipStackCount) {
-            if (i <= skipStackCount) {
-                continue
-            }
-            b.append(stackArray[i])
-            b.append("\n")
-            if (i > maxLineCount) {
-                break
-            }
-        }
-
-        return b.toString()
-    }
-
     /*
      * "\n\n----- pid %d at %04d-%02d-%02d %02d:%02d:%02d -----\n"
      * "Cmd line: %s\n"
@@ -128,5 +104,6 @@ object RabbitMonitorUtils {
 
         return anrSB.toString()
     }
+
 
 }

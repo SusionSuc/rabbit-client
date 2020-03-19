@@ -3,16 +3,14 @@ package com.susion.rabbit.ui.page
 import android.annotation.SuppressLint
 import android.content.Context
 import android.view.ViewGroup
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import com.susion.lifeclean.common.recyclerview.AdapterItemView
-import com.susion.lifeclean.common.recyclerview.CommonRvAdapter
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.susion.lifeclean.common.recyclerview.SimpleRvAdapter
 import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.TAG_MONITOR_UI
+import com.susion.rabbit.base.common.RabbitUtils
 import com.susion.rabbit.base.entities.RabbitBlockFrameInfo
 import com.susion.rabbit.base.entities.RabbitBlockStackTraceInfo
 import com.susion.rabbit.base.ui.page.RabbitBasePage
-import com.susion.rabbit.base.ui.view.RabbitSimpleKVItemView
 import com.susion.rabbit.ui.monitor.R
 import com.susion.rabbit.ui.view.RabbitBlockStackTraceView
 import kotlinx.android.synthetic.main.rabbit_page_ui_block.view.*
@@ -22,23 +20,14 @@ import java.util.concurrent.TimeUnit
  * susionwang at 2019-10-21
  */
 
-class RabbitUiBlockDetailPage(context: Context) : RabbitBasePage(context) {
+class RabbitBlockDetailPage(context: Context) : RabbitBasePage(context) {
 
     private val logsAdapter by lazy {
-        object : CommonRvAdapter<Any>(ArrayList()) {
-            override fun createItem(type: Int): AdapterItemView<*> {
-                return when (type) {
-                    1 -> RabbitSimpleKVItemView(context)
-                    else -> RabbitBlockStackTraceView(context)
-                }
-            }
-
-            override fun getItemType(data: Any): Int {
-                return when (data) {
-                    is com.susion.rabbit.base.ui.view.RabbitSimpleKvInfo -> 1
-                    else -> 2
-                }
-            }
+        SimpleRvAdapter<RabbitBlockStackTraceInfo>(context).apply {
+            registerMapping(
+                RabbitBlockStackTraceInfo::class.java,
+                RabbitBlockStackTraceView::class.java
+            )
         }
     }
 
@@ -55,27 +44,17 @@ class RabbitUiBlockDetailPage(context: Context) : RabbitBasePage(context) {
         if (blockInfo !is RabbitBlockFrameInfo) return
 
         try {
-            val traceList = getStackTraceList(blockInfo)
+            val traceList = RabbitUtils.getStackTraceList(blockInfo.blockFrameStrackTraceStrList)
             logsAdapter.data.addAll(traceList.sortedByDescending { it.collectCount })
             mRabbitBlockDetailRv.adapter = logsAdapter
-            mRabbitBlockDetailRv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
-                context,
-                androidx.recyclerview.widget.LinearLayoutManager.VERTICAL,
-                false
-            )
+            mRabbitBlockDetailRv.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             mRabbitBlockDetailTvCostTime.text =
                 "卡顿时长 : ${translateToMs(blockInfo.costTime)} Ms ; 抓取主线程堆栈 : ${traceList.size} 次"
         } catch (e: Exception) {
             RabbitLog.d(TAG_MONITOR_UI, "block frame gson transform error")
         }
     }
-
-    private fun getStackTraceList(blockInfo: RabbitBlockFrameInfo) =
-        Gson().fromJson<List<RabbitBlockStackTraceInfo>>(
-            blockInfo.blockFrameStrackTraceStrList,
-            object : TypeToken<List<RabbitBlockStackTraceInfo>>() {}.type
-        )
-
 
     private fun translateToMs(ns: Long): Long {
         return TimeUnit.MILLISECONDS.convert(ns, TimeUnit.NANOSECONDS)

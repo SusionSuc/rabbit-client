@@ -1,7 +1,6 @@
 package com.susion.rabbit.demo
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
@@ -12,19 +11,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
-import com.susion.rabbit.demo.net.DevToolsTestApiModel
 import com.susion.rabbit.Rabbit
-import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.entities.RabbitFPSInfo
 import com.susion.rabbit.base.ui.dp2px
 import com.susion.rabbit.base.ui.throttleFirstClick
+import com.susion.rabbit.demo.net.DevToolsTestApiModel
 import com.susion.rabbit.demo.page.SimpleListActivity
-import com.susion.rabbit.monitor.instance.RabbitANRLowVersionMonitor
 import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.activity_main.*
-import java.io.BufferedReader
-import java.io.FileReader
-import java.io.IOException
 
 //随意的测试代码
 class MainActivity : RabbitBaseActivity() {
@@ -58,9 +52,10 @@ class MainActivity : RabbitBaseActivity() {
         }
 
         mAnrTv.throttleFirstClick(Consumer {
-            while (true) {
-                Thread.sleep(1000)
-            }
+//            while (true) {
+//
+//            }
+            Thread.sleep(10000)
 //            RabbitANRLowVersionMonitor().parseAnrFile("data/anr/traces.txt")
         })
 

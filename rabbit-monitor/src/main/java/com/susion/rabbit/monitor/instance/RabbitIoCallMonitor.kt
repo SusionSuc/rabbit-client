@@ -12,7 +12,7 @@ import com.susion.rabbit.tracer.RabbitScanIoOpHelper
 /**
  * susionwang at 2020-01-08
  */
-class RabbitIoCallMonitor(override var isOpen: Boolean = false) : RabbitMonitorProtocol {
+internal class RabbitIoCallMonitor(override var isOpen: Boolean = false) : RabbitMonitorProtocol {
 
     override fun open(context: Context) {
         RabbitDbStorageManager.clearAllData(RabbitIoCallInfo::class.java)

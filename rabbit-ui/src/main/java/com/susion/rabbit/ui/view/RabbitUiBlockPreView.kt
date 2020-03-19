@@ -11,7 +11,7 @@ import com.susion.rabbit.base.entities.RabbitBlockFrameInfo
 import com.susion.rabbit.base.ui.throttleFirstClick
 import com.susion.rabbit.ui.RabbitUi
 import com.susion.rabbit.ui.monitor.R
-import com.susion.rabbit.ui.page.RabbitUiBlockDetailPage
+import com.susion.rabbit.ui.page.RabbitBlockDetailPage
 import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.rabbit_view_ui_block_item.view.*
 
@@ -36,7 +36,7 @@ class RabbitUiBlockPreView(context: Context) : RelativeLayout(context),
         mRabbitUiBlockItemViewTvLine2.text = "${blockInfo.blockIdentifier}"
 
         throttleFirstClick(Consumer {
-            RabbitUi.openPage(RabbitUiBlockDetailPage::class.java, blockInfo)
+            RabbitUi.openPage(RabbitBlockDetailPage::class.java, blockInfo)
         })
 
     }

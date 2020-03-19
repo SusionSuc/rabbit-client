@@ -1,6 +1,7 @@
 package com.susion.rabbit.base.config
 
 import com.susion.rabbit.base.entities.RabbitAppSpeedMonitorConfig
+import java.util.concurrent.TimeUnit
 
 /**
  * susionwang at 2020-01-03
@@ -27,7 +28,8 @@ class RabbitMonitorConfig(
     var fpsReportPeriodS: Long = 1,
     var fpsMonitorPkgList: ArrayList<String> = ArrayList(),
     //anr
-    var anrCheckPeroidMs:Int = 150000
+    var anrCheckPeriodNs:Long = TimeUnit.NANOSECONDS.convert(5, TimeUnit.SECONDS),
+    var anrStackCollectPeriodNs:Long = STANDARD_FRAME_NS
 ) {
     companion object {
         var STANDARD_FRAME_NS = 16666666L

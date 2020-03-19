@@ -1,9 +1,11 @@
 package com.susion.rabbit.ui.view
 
 import android.content.Context
+import android.os.Build
 import android.view.LayoutInflater
 import android.widget.RelativeLayout
 import com.susion.lifeclean.common.recyclerview.AdapterItemView
+import com.susion.rabbit.base.common.RabbitUtils
 import com.susion.rabbit.base.common.rabbitTimeFormat
 import com.susion.rabbit.base.entities.RabbitAnrInfo
 import com.susion.rabbit.base.ui.dp2px
@@ -30,7 +32,12 @@ class RabbitAnrItemView(context: Context) : RelativeLayout(context), AdapterItem
 
     override fun bindData(data: RabbitAnrInfo, position: Int) {
         mAnrItemViewTvLine1.text = "${data.pageName}  ${rabbitTimeFormat(data.time)}"
-        mAnrItemViewTvLine2.text = data.stackStr
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            mAnrItemViewTvLine2.text = RabbitUtils.getBlockStackIdentifierByMaxCount(RabbitUtils.getStackTraceList(data.stackStr))
+        }else{
+            mAnrItemViewTvLine2.text = data.stackStr
+        }
 
         throttleFirstClick(Consumer {
             RabbitUi.openPage(RabbitANRDetailPage::class.java, data)

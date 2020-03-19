@@ -32,7 +32,7 @@ internal class RabbitMemoryMonitor(override var isOpen: Boolean = false) :
             RabbitDbStorageManager.save(memInfo)
             val eventType = RabbitUiEvent.MSG_UPDATE_MEMORY_VALUE
             val memoryStr = "${RabbitUiUtils.formatFileSize(memInfo.totalSize.toLong())} "
-            RabbitMonitor.eventListener?.updateUi(eventType, memoryStr)
+            RabbitMonitor.uiEventListener?.updateUi(eventType, memoryStr)
             memoryRefreshHandler?.postDelayed(this, MEMORY_COLLECT_PERIOD)
         }
     }
@@ -54,7 +54,7 @@ internal class RabbitMemoryMonitor(override var isOpen: Boolean = false) :
     override fun close() {
         monitorThread?.quitSafely()
         monitorThread = null
-        RabbitMonitor.eventListener?.updateUi(
+        RabbitMonitor.uiEventListener?.updateUi(
             RabbitUiEvent.MSG_UPDATE_MEMORY_VALUE,
             ""
         )

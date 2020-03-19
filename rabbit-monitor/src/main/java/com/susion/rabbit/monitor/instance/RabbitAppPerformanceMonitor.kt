@@ -10,7 +10,7 @@ import com.susion.rabbit.storage.RabbitStorage
  * susionwang at 2020-01-14
  * 全局性能监控模式
  */
-class RabbitAppPerformanceMonitor(override var isOpen: Boolean = false) : RabbitMonitorProtocol {
+internal class RabbitAppPerformanceMonitor(override var isOpen: Boolean = false) : RabbitMonitorProtocol {
 
     private var appPerformanceInfo: RabbitAppPerformanceInfo? = null
     private val dataStorageListener = object : RabbitStorage.EventListener {

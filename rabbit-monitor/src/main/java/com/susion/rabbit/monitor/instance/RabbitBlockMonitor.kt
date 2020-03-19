@@ -8,8 +8,11 @@ import com.google.gson.Gson
 import com.susion.rabbit.monitor.RabbitMonitor
 import com.susion.rabbit.monitor.core.ChoreographerFrameUpdateMonitor
 import com.susion.rabbit.base.RabbitMonitorProtocol
+import com.susion.rabbit.base.common.RabbitUtils
 import com.susion.rabbit.base.common.toastInThread
+import com.susion.rabbit.base.entities.RabbitBlockFrameInfo
 import com.susion.rabbit.base.entities.RabbitBlockStackTraceInfo
+import com.susion.rabbit.base.ui.utils.RabbitUiUtils
 import com.susion.rabbit.monitor.utils.RabbitMonitorUtils
 import com.susion.rabbit.storage.RabbitDbStorageManager
 import java.util.concurrent.TimeUnit
@@ -17,8 +20,8 @@ import java.util.concurrent.TimeUnit
 /**
  * 监控应用卡顿
  * */
-internal class RabbitBlockMonitor(override var isOpen: Boolean = false) : ChoreographerFrameUpdateMonitor.FrameUpdateListener,
-    RabbitMonitorProtocol {
+internal open class RabbitBlockMonitor(override var isOpen: Boolean = false) :
+    ChoreographerFrameUpdateMonitor.FrameUpdateListener, RabbitMonitorProtocol {
 
     private var stackCollectHandler: Handler? = null
     private var blockStackTraces = HashMap<String, RabbitBlockStackTraceInfo>()
@@ -32,23 +35,26 @@ internal class RabbitBlockMonitor(override var isOpen: Boolean = false) : Choreo
 
     private var monitorThread: HandlerThread? = null
     private val frameTracer = ChoreographerFrameUpdateMonitor()
+    private var collectCount = 0
+
 
     //采集一次主线程堆栈, 【随机的， 因此并不一定是卡顿点, 不过抓住卡顿点的概率很大】
     private val blockStackCollectTask = object : Runnable {
         override fun run() {
-            val stackTrace =
-                RabbitBlockStackTraceInfo(getUiThreadStackTrace())
-            val mapKey = stackTrace.getMapKey()
-            val info = blockStackTraces[mapKey]
-            if (info == null) {
-                blockStackTraces[mapKey] = stackTrace
-            } else {
-                info.collectCount++
+            collectCount++
+            if (collectCount > 1) {
+                val stackTrace = RabbitBlockStackTraceInfo(getUiThreadStackTrace())
+                val mapKey = stackTrace.getMapKey()
+                val info = blockStackTraces[mapKey]
+                if (info == null) {
+                    blockStackTraces[mapKey] = stackTrace
+                } else {
+                    info.collectCount++
+                }
             }
             stackCollectHandler?.postDelayed(this, stackCollectPeriod)
         }
     }
-
 
     override fun open(context: Context) {
         monitorThread = HandlerThread("rabbit_block_monitor")
@@ -73,11 +79,12 @@ internal class RabbitBlockMonitor(override var isOpen: Boolean = false) : Choreo
         stackCollectHandler?.removeCallbacks(blockStackCollectTask)
         if (frameCostNs > blockThreshold && blockStackTraces.isNotEmpty()) {
             toastInThread("检测到卡顿!!", RabbitMonitor.application)
-            val blockFrameInfo = com.susion.rabbit.base.entities.RabbitBlockFrameInfo()
+            val blockFrameInfo = RabbitBlockFrameInfo()
+            val traceList = blockStackTraces.values.toList()
             blockFrameInfo.apply {
                 costTime = frameCostNs
-                blockFrameStrackTraceStrList = Gson().toJson(blockStackTraces.values.toList())
-                blockIdentifier = getIdentifierByMaxCount(blockStackTraces)
+                blockFrameStrackTraceStrList = Gson().toJson(traceList)
+                blockIdentifier = RabbitUtils.getBlockStackIdentifierByMaxCount(traceList)
                 time = System.currentTimeMillis()
                 pageName = RabbitMonitor.getCurrentPage()
             }
@@ -91,11 +98,7 @@ internal class RabbitBlockMonitor(override var isOpen: Boolean = false) : Choreo
 
     //在某个线程不断地获取主线程堆栈要暂停主线程的运行
     private fun getUiThreadStackTrace(): String {
-        return RabbitMonitorUtils.traceToString(0, Looper.getMainLooper().thread.stackTrace)
-    }
-
-    private fun getIdentifierByMaxCount(traceMap: Map<String, RabbitBlockStackTraceInfo>): String {
-        return traceMap.values.toList().maxBy { it.collectCount }?.stackTrace.toString()
+        return RabbitUtils.traceToString(0, Looper.getMainLooper().thread.stackTrace)
     }
 
 }

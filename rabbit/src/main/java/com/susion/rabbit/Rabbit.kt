@@ -79,7 +79,7 @@ object Rabbit : RabbitProtocol {
     private fun configMonitor() {
         //加载 gradle plugin init
         RabbitPluginConfig.loadConfig()
-        RabbitMonitor.eventListener = object : RabbitMonitor.UiEventListener {
+        RabbitMonitor.uiEventListener = object : RabbitMonitor.UIEventListener {
             override fun updateUi(type: Int, value: Any) {
                 RabbitUi.refreshFloatingViewUi(type, value)
             }

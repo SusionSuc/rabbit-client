@@ -1,42 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/rabbit_white"
-    android:orientation="vertical">
+    android:background="@color/rabbit_white">
+
+    <ScrollView
+        android:id="@+id/mAnrDetailLowVersionContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/mAnrDetailTvTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:lineSpacingMultiplier="1.5"
+                android:paddingStart="10dp"
+                android:textColor="@color/rabbit_black"
+                android:textSize="@dimen/rabbit_font_big" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/rabbit_divider_line" />
+
+            <TextView
+                android:id="@+id/mAnrDetailTvStackStr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:lineSpacingMultiplier="1.5"
+                android:paddingStart="10dp"
+                android:textColor="@color/rabbit_black"
+                android:textSize="@dimen/rabbit_font_middle" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
 
     <LinearLayout
+        android:id="@+id/mAnrDetailHighVersionContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/rabbit_bg_f5"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/mAnrDetailTvTitle"
+            android:id="@+id/mAnrDetailHighVersionTvTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:paddingStart="10dp"
-            android:textColor="@color/rabbit_black"
-            android:textSize="@dimen/rabbit_font_big" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/rabbit_divider_line" />
-
-        <TextView
-            android:id="@+id/mAnrDetailTvStackStr"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:paddingStart="10dp"
+            android:background="@color/rabbit_bg_card"
             android:lineSpacingMultiplier="1.5"
+            android:padding="5dp"
             android:textColor="@color/rabbit_black"
-            android:textSize="@dimen/rabbit_font_middle" />
+            android:textSize="17dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/mAnrDetailHighVersionStackRv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 
-
-</ScrollView>
+</FrameLayout>

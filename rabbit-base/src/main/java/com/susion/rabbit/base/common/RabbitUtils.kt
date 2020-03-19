@@ -5,9 +5,12 @@ import android.content.Context
 import android.os.Build
 import android.os.Looper
 import android.text.TextUtils
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.TAG_MONITOR
 import com.susion.rabbit.base.entities.RabbitAnrInfo
+import com.susion.rabbit.base.entities.RabbitBlockStackTraceInfo
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
@@ -74,5 +77,40 @@ object RabbitUtils {
             }
         }
     }
+
+
+    fun traceToString(
+        skipStackCount: Int,
+        stackArray: Array<StackTraceElement>,
+        maxLineCount: Int = 20
+    ): String {
+        if (stackArray.isEmpty()) {
+            return "[]"
+        }
+
+        val b = StringBuilder()
+        for (i in 0 until stackArray.size - skipStackCount) {
+            if (i <= skipStackCount) {
+                continue
+            }
+            b.append(stackArray[i])
+            b.append("\n")
+            if (i > maxLineCount) {
+                break
+            }
+        }
+
+        return b.toString()
+    }
+
+    fun getBlockStackIdentifierByMaxCount(traceList: List<RabbitBlockStackTraceInfo>): String {
+        return traceList.maxBy { it.collectCount }?.stackTrace.toString()
+    }
+
+    fun getStackTraceList(stackStr: String): List<RabbitBlockStackTraceInfo> =
+        Gson().fromJson(
+            stackStr,
+            object : TypeToken<List<RabbitBlockStackTraceInfo>>() {}.type
+        )
 
 }

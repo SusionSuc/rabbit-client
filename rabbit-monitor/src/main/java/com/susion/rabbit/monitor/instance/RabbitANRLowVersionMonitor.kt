@@ -1,39 +1,30 @@
 package com.susion.rabbit.monitor.instance
 
 import android.content.Context
-import android.os.Build
 import android.os.FileObserver
 import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.RabbitMonitorProtocol
 import com.susion.rabbit.base.TAG_MONITOR
 import com.susion.rabbit.base.common.RabbitAsync
-import com.susion.rabbit.base.common.RabbitUtils
 import com.susion.rabbit.base.entities.RabbitAnrInfo
 import com.susion.rabbit.base.greendao.RabbitAnrInfoDao
-import com.susion.rabbit.base.greendao.RabbitPageSpeedInfoDao
 import com.susion.rabbit.monitor.RabbitMonitor
 import com.susion.rabbit.monitor.utils.RabbitMonitorUtils
 import com.susion.rabbit.storage.RabbitDbStorageManager
-import java.io.BufferedReader
 import java.io.File
-import java.io.FileReader
-import java.text.SimpleDateFormat
-import java.util.*
-import java.util.regex.Matcher
-import java.util.regex.Pattern
-import kotlin.math.abs
 
 /**
  * susionwang at 2020-03-16
  *
  * android 21以下 通过 监控 /data/anr/trace.txt 来感知 anr 产生
  *
- * 每次新产生的anr信息都会覆盖文件原来的信息。
+ * 系统每次新产生的anr信息都会覆盖文件原来的信息。
  *
  * 不会在anr上报时立即存储anr信息，会找其他恰当的时机来同步anr数据, 这样可以保证数据的完整、不丢失数据。
  */
-class RabbitANRLowVersionMonitor(override var isOpen: Boolean = false) : RabbitMonitorProtocol {
+internal class RabbitANRLowVersionMonitor(override var isOpen: Boolean = false) : RabbitMonitorProtocol {
 
+    private val calculatePeriodMS = 15000
     private var lastTime: Long = 0
     private val traceFileObserver by lazy {
         object : FileObserver("data/anr/", CLOSE_WRITE) {
@@ -80,7 +71,7 @@ class RabbitANRLowVersionMonitor(override var isOpen: Boolean = false) : RabbitM
         val anrInfo = RabbitAnrInfo()
         val anrTime = System.currentTimeMillis()
 
-        if (anrTime - lastTime < RabbitMonitor.mConfig.anrCheckPeroidMs) {
+        if (anrTime - lastTime < calculatePeriodMS) {
             return
         }
 
@@ -88,7 +79,7 @@ class RabbitANRLowVersionMonitor(override var isOpen: Boolean = false) : RabbitM
 
         RabbitMonitorUtils.fillSimpleAnrInfo(anrInfo, File(filepath))
 
-        RabbitLog.d(TAG_MONITOR, "采集anr信息成功 save to db")
+        RabbitLog.d(TAG_MONITOR, "采集anr信息成功 ! save to db")
 
         RabbitDbStorageManager.saveSync(anrInfo)
 

@@ -53,7 +53,7 @@ internal class RabbitFPSMonitor(override var isOpen: Boolean = false) :
     override fun close() {
         frameTracer.removeFrameUpdateListener(this)
         frameTracer.stopMonitor()
-        RabbitMonitor.eventListener?.updateUi(RabbitUiEvent.MSG_UPDATE_FPS, 0f)
+        RabbitMonitor.uiEventListener?.updateUi(RabbitUiEvent.MSG_UPDATE_FPS, 0f)
         RabbitMonitor.removePageChangeListener(pageShowedListener)
         isOpen = false
     }
@@ -85,7 +85,7 @@ internal class RabbitFPSMonitor(override var isOpen: Boolean = false) :
         if (durationNs >= FPS_COLLECT_PERIOD_NS) {
             val radio = TimeUnit.NANOSECONDS.convert(1, TimeUnit.SECONDS) * 1.0f / FPS_COLLECT_PERIOD_NS
             val fps = min(60f, collectFrame * radio)
-            RabbitMonitor.eventListener?.updateUi(RabbitUiEvent.MSG_UPDATE_FPS, fps)
+            RabbitMonitor.uiEventListener?.updateUi(RabbitUiEvent.MSG_UPDATE_FPS, fps)
             lastTotalFrameNs = totalFrameNs
             lastTotalFrameNumber = totalFrameNumber
             fpsList.add(fps.toInt())
@@ -103,7 +103,7 @@ internal class RabbitFPSMonitor(override var isOpen: Boolean = false) :
         val currentPageName = RabbitMonitor.getCurrentPage()
         val monitorPkgList = RabbitMonitor.mConfig.fpsMonitorPkgList
         if (monitorPkgList.isNotEmpty() && !RabbitUtils.classInPkgList(currentPageName,monitorPkgList))return
-        RabbitLog.d(TAG_MONITOR, "saveFpsInfo ---> current page name : $currentPageName")
+//        RabbitLog.d(TAG_MONITOR, "saveFpsInfo ---> current page name : $currentPageName")
         val fpsInfo = RabbitFPSInfo()
         fpsInfo.maxFps = fpsList.max() ?: 0
         fpsInfo.minFps = fpsList.min() ?: 0
