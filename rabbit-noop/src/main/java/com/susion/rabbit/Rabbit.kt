@@ -1,7 +1,6 @@
 package com.susion.rabbit
 
 import android.app.Activity
-import android.app.ActivityManager
 import android.app.Application
 import android.content.Context
 import android.view.View

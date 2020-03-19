@@ -3,6 +3,7 @@ package com.susion.rabbit.monitor.utils
 import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.TAG_MONITOR
 import com.susion.rabbit.base.entities.RabbitAnrInfo
+import com.susion.rabbit.monitor.RabbitMonitor
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
@@ -57,6 +58,7 @@ object RabbitMonitorUtils {
 
         anrInfo.invalid = false
         anrInfo.filePath = file.absolutePath
+        anrInfo.pageName = RabbitMonitor.getCurrentPage()
 
         RabbitLog.d(
             TAG_MONITOR,
@@ -99,10 +101,12 @@ object RabbitMonitorUtils {
         var matcher: Matcher
         val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US)
         val anrSB = StringBuilder()
+        var invalidPidAnr = false
         BufferedReader(FileReader(File(anr.filePath))).use { br ->
             while (true) {
                 line = br.readLine() ?: break
-                if (line.startsWith("----- pid ")) {
+                RabbitLog.d(TAG_MONITOR, line)
+                if (!invalidPidAnr && line.startsWith("----- pid ")) {
                     //1. 获取进程pid和日志时间
                     matcher = patPidTime.matcher(line)
                     if (!matcher.find() || matcher.groupCount() != 2) {
@@ -113,11 +117,12 @@ object RabbitMonitorUtils {
                     if (dLogTime.time != anr.time.toLong()) {
                         return ""
                     }
-
                     RabbitLog.d(TAG_MONITOR, "匹配到anr信息! ---> time : $dLogTime")
+                    invalidPidAnr = true
                 }
 
                 anrSB.append(line)
+                anrSB.append("\n")
             }
         }
 

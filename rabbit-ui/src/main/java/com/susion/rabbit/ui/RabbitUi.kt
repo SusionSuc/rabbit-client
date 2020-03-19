@@ -140,7 +140,7 @@ object RabbitUi {
                 RabbitMainFeatureInfo(
                     "ANR",
                     R.drawable.rabbit_icon_anr,
-                    RabbitMemoryGlobalAnalyzerPage::class.java
+                    RabbitANRListPage::class.java
                 )
             )
         }

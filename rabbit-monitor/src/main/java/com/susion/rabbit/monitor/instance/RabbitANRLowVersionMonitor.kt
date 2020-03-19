@@ -97,11 +97,11 @@ class RabbitANRLowVersionMonitor(override var isOpen: Boolean = false) : RabbitM
     private fun syncAnrRecord() {
         RabbitLog.d(TAG_MONITOR, "syncAnrRecord---> ")
         RabbitDbStorageManager.getAll(RabbitAnrInfo::class.java,
+            condition = Pair(RabbitAnrInfoDao.Properties.Invalid, false),
             orderDesc = true,
             loadResult = { anrList ->
                 RabbitLog.d(TAG_MONITOR, " syncAnrRecord anr size : ${anrList.size}")
                 for (anr in anrList) {
-                    if (anr.invalid) continue
                     anr.stackStr = RabbitMonitorUtils.getAnrStack(anr)
                     if (anr.stackStr.isNotEmpty()) {
                         anr.invalid = true

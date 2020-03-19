@@ -2,16 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/rabbit_white">
+    android:background="@color/rabbit_white"
+    android:orientation="vertical">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/mExceptionLogListSPL"
+        android:id="@+id/mAnrListSPL"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/mExceptionLogRv"
+            android:id="@+id/mAnrListRv"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

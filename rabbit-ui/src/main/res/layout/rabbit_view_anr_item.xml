@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:orientation="horizontal"
+    tools:parentTag="RelativeLayout">
+
+    <ImageView
+        android:id="@+id/mAnrItemViewIvDot"
+        android:layout_marginStart="10dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/rabbit_icon_dot_anr"
+        android:layout_width="15dp"
+        android:layout_height="15dp"/>
+
+    <LinearLayout
+        android:layout_toEndOf="@+id/mAnrItemViewIvDot"
+        android:id="@+id/log_detail"
+        android:layout_marginStart="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/mAnrItemViewTvLine1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/rabbit_black"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textSize="@dimen/rabbit_font_small" />
+
+        <TextView
+            android:id="@+id/mAnrItemViewTvLine2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="@color/rabbit_black"
+            android:textSize="@dimen/rabbit_font_middle" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_toEndOf="@+id/mAnrItemViewIvDot"
+        android:layout_alignParentBottom="true"
+        android:background="@color/rabbit_divider_line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"/>
+
+</merge>

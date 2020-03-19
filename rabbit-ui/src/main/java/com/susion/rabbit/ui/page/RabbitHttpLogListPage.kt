@@ -2,6 +2,7 @@ package com.susion.rabbit.ui.page
 
 import android.content.Context
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.susion.lifeclean.common.recyclerview.SimpleRvAdapter
 import com.susion.rabbit.base.entities.RabbitHttpLogInfo
 import com.susion.rabbit.ui.view.RabbitHttpLogPreviewView
@@ -26,11 +27,13 @@ class RabbitHttpLogListPage(context: Context) : RabbitBasePage(context) {
         layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         setTitle("网络日志")
         mHttpLogRv.adapter = logsAdapter
-        mHttpLogRv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
+        mHttpLogRv.layoutManager = LinearLayoutManager(
             context,
-            androidx.recyclerview.widget.LinearLayoutManager.VERTICAL,
+            LinearLayoutManager.VERTICAL,
             false
         )
+
+        mHttpLogListSPL.isRefreshing = true
         loadData()
 
         mHttpLogListSPL.setOnRefreshListener {
