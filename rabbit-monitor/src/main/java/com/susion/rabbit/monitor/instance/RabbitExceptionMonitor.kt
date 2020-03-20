@@ -14,6 +14,9 @@ import java.io.StringWriter
 
 /**
  * susionwang at 2019-12-12
+ *
+ * 1. 通过 [Thread.setDefaultUncaughtExceptionHandler] 捕获Java层异常
+ *
  */
 internal class RabbitExceptionMonitor(override var isOpen: Boolean = false) :
     RabbitMonitorProtocol {
