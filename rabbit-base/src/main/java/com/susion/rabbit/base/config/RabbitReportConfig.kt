@@ -16,14 +16,19 @@ class RabbitReportConfig(
     var emitterSleepCount: Int = 1, // 点位不够时，发射器等待的次数
     var emitterFailedRetryCount: Int = 2, //点位发射失败重试次数
     var fpsReportPeriodS: Long = 10,
-    var notReportDataNames:ArrayList<String> = ArrayList(), //仅在设置中显示
+    var notReportDataNames: ArrayList<String> = ArrayList(), //仅在设置中显示
     @Transient var dataReportListener: DataReportListener? = null //监听数据上报
 ) {
     interface DataReportListener {
-        fun onPrepareReportData(data: Any, currentUseTime: Long = 0)
+
+        /**
+         * @return 返回false则终止这个数据的上报
+         * */
+        fun onPrepareReportData(data: Any, currentUseTime: Long = 0): Boolean
     }
 
     companion object {
         const val UNDEFINE_REPORT_PATH = "undefine"
     }
+
 }

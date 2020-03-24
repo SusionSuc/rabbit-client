@@ -72,6 +72,9 @@ class MyApplication : Application() {
 
         Rabbit.init(this,rabbitConfig)
 
+
+
+
     }
 
     private fun loadMonitorSpeedConfig(): RabbitAppSpeedMonitorConfig {

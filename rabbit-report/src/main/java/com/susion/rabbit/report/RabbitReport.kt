@@ -11,9 +11,11 @@ import com.susion.rabbit.base.TAG_REPORT
 import com.susion.rabbit.base.common.DeviceUtils
 import com.susion.rabbit.base.common.RabbitAsync
 import com.susion.rabbit.base.common.RabbitUtils
+import com.susion.rabbit.base.common.RomUtils
 import com.susion.rabbit.base.entities.RabbitDeviceInfo
 import com.susion.rabbit.base.entities.RabbitReportInfo
 import com.susion.rabbit.base.config.RabbitReportConfig
+import com.susion.rabbit.base.greendao.RabbitReportInfoDao
 import com.susion.rabbit.storage.RabbitDbStorageManager
 import okhttp3.internal.Util
 import java.util.concurrent.Executors
@@ -76,7 +78,7 @@ object RabbitReport {
                 RabbitDbStorageManager.delete(
                     RabbitReportInfo::class.java,
                     condition = Pair(
-                        com.susion.rabbit.base.greendao.RabbitReportInfoDao.Properties.Time,
+                        RabbitReportInfoDao.Properties.Time,
                         pointInfo.time.toString()
                     )
                 )
@@ -99,7 +101,7 @@ object RabbitReport {
     fun report(info: Any, useTime: Long = 0) {
 
         //暴露给外界的数据上报接口
-        mConfig.dataReportListener?.onPrepareReportData(info, useTime)
+        if (mConfig.dataReportListener?.onPrepareReportData(info, useTime) == false) return
 
         if (!mConfig.enable) return
 
@@ -130,7 +132,7 @@ object RabbitReport {
     }
 
     private fun getDeviceInfo(application: Application): RabbitDeviceInfo {
-        val roomInfo = com.susion.rabbit.base.common.RomUtils.getRomInfo()
+        val roomInfo = RomUtils.getRomInfo()
         return RabbitDeviceInfo().apply {
             deviceName = DeviceUtils.getDeviceName()
             deviceId = DeviceUtils.getDeviceId(application)

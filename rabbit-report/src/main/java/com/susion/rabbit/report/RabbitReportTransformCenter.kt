@@ -35,6 +35,7 @@ internal object RabbitReportTransformCenter {
             is RabbitFPSInfo -> "fps_info"
             is RabbitExceptionInfo -> "exception_info"
             is RabbitSlowMethodInfo -> "slow_method"
+            is RabbitAnrInfo -> "anr"
             else -> "undefine"
         }
     }

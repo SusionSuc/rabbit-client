@@ -12,11 +12,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import com.susion.rabbit.Rabbit
+import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.entities.RabbitFPSInfo
 import com.susion.rabbit.base.ui.dp2px
 import com.susion.rabbit.base.ui.throttleFirstClick
 import com.susion.rabbit.demo.net.DevToolsTestApiModel
 import com.susion.rabbit.demo.page.SimpleListActivity
+import com.susion.rabbit.native_crash.RabbitNativeCrashCaptor
 import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -24,7 +26,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : RabbitBaseActivity() {
 
     private val objList = ArrayList<Any>()
-    private val TAG = javaClass.simpleName
+    private val TAG = "rabbit_test_main"
     private val PERMISSIONS_STORAGE =
         arrayOf(
             Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -74,6 +76,8 @@ class MainActivity : RabbitBaseActivity() {
         fakeBlockCode()
 
         sampleRequestNet()
+
+        loadNatvieLib()
 
     }
 
@@ -140,5 +144,9 @@ class MainActivity : RabbitBaseActivity() {
         return RabbitFPSInfo()
     }
 
+    fun loadNatvieLib(){
+
+        RabbitNativeCrashCaptor().init()
+    }
 
 }
