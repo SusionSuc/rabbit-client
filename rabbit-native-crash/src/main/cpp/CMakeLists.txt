@@ -12,9 +12,6 @@ cmake_minimum_required(VERSION 3.4.1)
 
 project (rabbit-crash)
 
-# 设置头文件路径
-include_directories(${PROJECT_SOURCE_DIR}/include)
-
 message("src dir -> ${PROJECT_SOURCE_DIR}")
 
 # 设置库文件的输出路径（LIBRARY_OUTPUT_PATH是全局变量）
@@ -33,6 +30,8 @@ add_library( # Sets the name of the library.
         SHARED
 
         # Provides a relative path to your source file(s).
+        crash/spi.cpp
+        crash/crash_handler.cpp
         crash/crash_entry.cpp)
 
 # Searches for a specified prebuilt library and stores the path as a

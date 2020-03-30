@@ -8,9 +8,10 @@ import android.text.TextUtils
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.susion.rabbit.base.RabbitLog
+import com.susion.rabbit.base.RabbitMonitorProtocol
 import com.susion.rabbit.base.TAG_MONITOR
-import com.susion.rabbit.base.entities.RabbitAnrInfo
-import com.susion.rabbit.base.entities.RabbitBlockStackTraceInfo
+import com.susion.rabbit.base.entities.*
+import com.susion.rabbit.base.greendao.RabbitGlobalMonitorInfoDao
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
@@ -113,4 +114,23 @@ object RabbitUtils {
             object : TypeToken<List<RabbitBlockStackTraceInfo>>() {}.type
         )
 
+
+    /**
+     * 把功能的名字转换为对应存储数据对象
+     * */
+    fun nameToInfoClass(name: String): Class<*> {
+        return when (name) {
+            RabbitMonitorProtocol.BLOCK.name -> RabbitBlockFrameInfo::class.java
+            RabbitMonitorProtocol.APP_SPEED.name -> RabbitAppStartSpeedInfo::class.java
+            RabbitMonitorProtocol.FPS.name -> RabbitFPSInfo::class.java
+            RabbitMonitorProtocol.MEMORY.name -> RabbitMemoryInfo::class.java
+            RabbitMonitorProtocol.EXCEPTION.name -> RabbitExceptionInfo::class.java
+            RabbitMonitorProtocol.NET.name -> RabbitHttpLogInfo::class.java
+            RabbitMonitorProtocol.SLOW_METHOD.name -> RabbitSlowMethodInfo::class.java
+            RabbitMonitorProtocol.BLOCK_CALL.name -> RabbitBlockFrameInfo::class.java
+            RabbitMonitorProtocol.GLOBAL_MONITOR.name -> RabbitAppPerformanceInfo::class.java
+            RabbitMonitorProtocol.ANR.name -> RabbitAnrInfo::class.java
+            else -> RabbitFPSInfo::class.java
+        }
+    }
 }

@@ -17,15 +17,10 @@ import org.greenrobot.greendao.query.WhereCondition
  */
 internal class RabbitGreenDaoDbManage(val context: Context, val daoSession: DaoSession? = null) {
 
-    private val MAX_DATA_COUNT = 5000 // 不允许存太多数据
     private val daoMap = HashMap<String, AbstractDao<Any, Long>>()
 
     fun saveObj(obj: RabbitInfoProtocol) {
         val daoImpl = daoImpl(obj.javaClass) ?: return
-//        val currentTotalCount = daoImpl.queryBuilder().count()
-//        if (currentTotalCount > MAX_DATA_COUNT) {
-//            daoImpl.deleteAll()
-//        }
         daoImpl.save(obj)
         RabbitLog.d(TAG_STORAGE, "save data $obj")
     }
@@ -142,12 +137,6 @@ internal class RabbitGreenDaoDbManage(val context: Context, val daoSession: DaoS
         return null
     }
 
-    fun clearOldSessionData() {
-        val dataClass = RabbitStorage.mConfig.storageInOnSessionData
-        dataClass.forEach {
-            clearAllData(it)
-        }
-    }
 
 
 }

@@ -2,6 +2,8 @@
 #include <cstdio>
 #include <cstdlib>
 #include "android/log.h"
+#include "spi.h"
+#include "crash_handler.h"
 
 //
 // Created by susion wang on 2020-03-24.
@@ -11,10 +13,22 @@ using namespace std;
 
 static const char *className = "com/susion/rabbit/native_crash/RabbitNativeCrashCaptor";
 
-static jstring init_native_crash_captor(JNIEnv* env, jobject obj) {
-    return env->NewStringUTF("hello world rabbit native crash");
+static jstring init_native_crash_captor(JNIEnv *env, jobject obj) {
+
+    LOG_D("call -> init_native_crash_captor");
+
+    int result = register_crash_signal_handler(env, obj);
+
+    if (result == ERROR_CODE_INT) {
+        return env->NewStringUTF("init native crash captor failed!");
+    }
+
+//    test_crash(0);
+
+    return env->NewStringUTF("init native crash captor success!");
 }
 
+//jin方法映射表
 static JNINativeMethod native_methods[] = {
         {"nativeInitCaptor", "(Ljava/lang/String;)Ljava/lang/String;", (void *) init_native_crash_captor}
 };
@@ -24,25 +38,25 @@ JNIEXPORT jint JNI_OnLoad(JavaVM *vm, void *reserved) {
 
     JNIEnv *env;
 
-    jint result = -1;
-
-    if (vm == nullptr) return result;
+    if (vm == nullptr) return ERROR_CODE_INT;
 
     if (vm->GetEnv((void **) &env, JNI_VERSION_1_6) != JNI_OK) {
-        return result;
+        return ERROR_CODE_INT;
     }
 
-    if (env == nullptr) return result;
+    if (env == nullptr) return ERROR_CODE_INT;
 
     jclass cls = env->FindClass(className);
 
-    if (cls == nullptr) return result;
+    if (cls == nullptr) return ERROR_CODE_INT;
 
     jint native_methods_count = sizeof(native_methods) / sizeof(native_methods[0]);
 
     env->RegisterNatives(cls, native_methods, native_methods_count);
 
-//    __android_log_print("")
+    LOG_D("register native method success!");
+
+    init_java_callback_thread(env);
 
     return JNI_VERSION_1_6;
 

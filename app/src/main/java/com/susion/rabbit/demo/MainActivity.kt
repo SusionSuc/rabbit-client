@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import com.susion.rabbit.Rabbit
 import com.susion.rabbit.base.RabbitLog
+import com.susion.rabbit.base.common.DeviceUtils
 import com.susion.rabbit.base.entities.RabbitFPSInfo
 import com.susion.rabbit.base.ui.dp2px
 import com.susion.rabbit.base.ui.throttleFirstClick
@@ -54,11 +55,7 @@ class MainActivity : RabbitBaseActivity() {
         }
 
         mAnrTv.throttleFirstClick(Consumer {
-//            while (true) {
-//
-//            }
-            Thread.sleep(10000)
-//            RabbitANRLowVersionMonitor().parseAnrFile("data/anr/traces.txt")
+            Thread.sleep(15000)
         })
 
         mSlowMethodTv.setOnClickListener {
@@ -73,11 +70,11 @@ class MainActivity : RabbitBaseActivity() {
             startActivity(Intent(this, SimpleListActivity::class.java))
         }
 
-        fakeBlockCode()
+        logDeviceInfo()
 
         sampleRequestNet()
 
-        loadNatvieLib()
+        loadNativeLib()
 
     }
 
@@ -99,8 +96,13 @@ class MainActivity : RabbitBaseActivity() {
     }
 
 
-    private fun fakeBlockCode() {
-
+    private fun logDeviceInfo() {
+        RabbitLog.d(TAG, "phone brand : ${Build.BRAND}")
+        RabbitLog.d(TAG, "phone product : ${Build.PRODUCT}")
+        RabbitLog.d(TAG, "phone model : ${Build.MODEL}")
+        RabbitLog.d(TAG, "phone hardware : ${Build.HARDWARE}")
+        RabbitLog.d(TAG, "cpu name : ${DeviceUtils.getCpuName()}")
+        RabbitLog.d(TAG, "device name : ${DeviceUtils.getDeviceName()}")
     }
 
     private val netRequestFinishView by lazy {
@@ -126,27 +128,26 @@ class MainActivity : RabbitBaseActivity() {
     fun testRtn0(): Int {
         val a = 1
         val b = 2
-        fakeBlockCode()
+        logDeviceInfo()
         return 3
     }
 
     fun testRtn1(): Int {
         val a = 1
         val b = 2
-        fakeBlockCode()
+        logDeviceInfo()
         return a + b
     }
 
     fun testRtn2(): RabbitFPSInfo {
         val a = 1
         val b = 2
-        fakeBlockCode()
+        logDeviceInfo()
         return RabbitFPSInfo()
     }
 
-    fun loadNatvieLib(){
-
-        RabbitNativeCrashCaptor().init()
+    private fun loadNativeLib() {
+//        RabbitNativeCrashCaptor().init()
     }
 
 }

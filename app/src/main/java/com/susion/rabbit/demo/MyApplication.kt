@@ -29,13 +29,15 @@ class MyApplication : Application() {
         val rabbitConfig = RabbitConfig()
 
         // 自定义UI面板入口
-        rabbitConfig.uiConfig.entryFeatures.addAll(arrayListOf(
-            RabbitMainFeatureInfo(
-                "业务面板",
-                R.drawable.rabbit_icon_business,
-                CustomBusinessPage::class.java
+        rabbitConfig.uiConfig.entryFeatures.addAll(
+            arrayListOf(
+                RabbitMainFeatureInfo(
+                    "业务面板",
+                    R.drawable.rabbit_icon_business,
+                    CustomBusinessPage::class.java
+                )
             )
-        ))
+        )
 
         //监控开关配置
         rabbitConfig.monitorConfig.autoOpenMonitors.addAll(
@@ -60,20 +62,23 @@ class MyApplication : Application() {
         rabbitConfig.reportConfig.emitterSleepCount = 3
         rabbitConfig.reportConfig.batchReportPointCount = 5
         rabbitConfig.reportConfig.emitterFailedRetryCount = 2
-        rabbitConfig.reportConfig.dataReportListener = object :RabbitReportConfig.DataReportListener{
-            override fun onPrepareReportData(data: Any, currentUseTime: Long) {
-
+        rabbitConfig.reportConfig.dataReportListener =
+            object : RabbitReportConfig.DataReportListener {
+                override fun onPrepareReportData(data: Any, currentUseTime: Long): Boolean {
+                    return false
+                }
             }
-        }
 
 //        rabbitConfig.reportConfig.fpsReportPeriodS = 2
 //        rabbitConfig.reportConfig.notReportDataFormat.addAll(hashSetOf(RabbitExceptionInfo::class.java))
 
 
-        Rabbit.init(this,rabbitConfig)
+        //最大数据存储限制
+        rabbitConfig.storageConfig.dataMaxSaveCountLimit[RabbitMonitorProtocol.NET.name] = 100
+        rabbitConfig.storageConfig.dataMaxSaveCountLimit[RabbitMonitorProtocol.EXCEPTION.name] = 100
+        rabbitConfig.storageConfig.dataMaxSaveCountLimit[RabbitMonitorProtocol.BLOCK.name] = 100
 
-
-
+        Rabbit.init(this, rabbitConfig)
 
     }
 

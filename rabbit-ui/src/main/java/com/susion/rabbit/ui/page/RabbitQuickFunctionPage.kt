@@ -25,7 +25,8 @@ class RabbitQuickFunctionPage(context: Context) : RabbitBasePage(context) {
     }
 
     private fun initQuickClear() {
-        val monitors = RabbitUi.mConfig.monitorList.filter { it.getMonitorInfo().dataCanClear }.map { it.getMonitorInfo().name }
+        val monitors = RabbitUi.mConfig.monitorList.filter { it.getMonitorInfo().dataCanClear }
+            .map { it.getMonitorInfo().name }
         val stringAdapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, monitors)
         mRabbitQuickPageSpinnerMonitors.adapter = stringAdapter
         mRabbitQuickPageClearDataBtn.setOnClickListener {
