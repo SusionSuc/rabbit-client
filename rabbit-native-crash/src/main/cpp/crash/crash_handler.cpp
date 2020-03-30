@@ -33,12 +33,24 @@ static CrashSignalInfo support_crash_infos[] =
 
 //native code crash 回调
 sig_atomic_t has_capture_crash = 0;
+static pthread_mutex_t crash_mutex = PTHREAD_MUTEX_INITIALIZER;
+
+
+int signal_crash_queue(siginfo_t *si) {
+    if (SIGABRT == si->si_signo || SI_FROMUSER(si)) {
+        if (0 != syscall(SYS_rt_tgsigqueueinfo, getpid(), gettid(), si->si_signo, si))
+            return 1;
+    }
+
+    return 0;
+}
 
 static void crash_handler(int sig, siginfo_t *si, void *uc) {
 
+    pthread_mutex_lock(&crash_mutex);
+
     if (has_capture_crash) {
-        LOG_D("已经捕获到 native crash!");
-        return;
+        goto exit;
     }
 
     has_capture_crash = 1;
@@ -46,12 +58,22 @@ static void crash_handler(int sig, siginfo_t *si, void *uc) {
 
     notify_crash_to_java();
 
-    //退出程序
-//    _exit(1);
+    if (0 != signal_crash_queue(si)) {
+        goto exit;
+    }
+
+    pthread_mutex_unlock(&crash_mutex);
+    return;
+
+    exit:
+    pthread_mutex_unlock(&crash_mutex);
+    _exit(1);
 }
 
 //注册native crash 回调
 int register_crash_signal_handler(JNIEnv *env, jobject javaApiObj) {
+
+    LOG_D("register_crash_signal_handler()");
 
     //1. 分配处理 native crash 的函数堆栈 (紧急情况下使用)
     stack_t dump_stack;

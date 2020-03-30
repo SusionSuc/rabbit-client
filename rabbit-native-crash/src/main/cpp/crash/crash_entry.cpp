@@ -14,8 +14,7 @@ using namespace std;
 static const char *className = "com/susion/rabbit/native_crash/RabbitNativeCrashCaptor";
 
 static jstring init_native_crash_captor(JNIEnv *env, jobject obj) {
-
-    LOG_D("call -> init_native_crash_captor");
+    LOG_D("init_native_crash_captor()");
 
     int result = register_crash_signal_handler(env, obj);
 
@@ -23,7 +22,7 @@ static jstring init_native_crash_captor(JNIEnv *env, jobject obj) {
         return env->NewStringUTF("init native crash captor failed!");
     }
 
-//    test_crash(0);
+    test_crash(0);
 
     return env->NewStringUTF("init native crash captor success!");
 }
@@ -35,6 +34,7 @@ static JNINativeMethod native_methods[] = {
 
 //动态注册jni方法，so加载完成后，后自动调用这个方法
 JNIEXPORT jint JNI_OnLoad(JavaVM *vm, void *reserved) {
+    LOG_D("JNI_OnLoad()");
 
     JNIEnv *env;
 
@@ -56,7 +56,7 @@ JNIEXPORT jint JNI_OnLoad(JavaVM *vm, void *reserved) {
 
     LOG_D("register native method success!");
 
-    init_java_callback_thread(env);
+    init_java_callback_thread(vm);
 
     return JNI_VERSION_1_6;
 

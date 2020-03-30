@@ -147,7 +147,7 @@ class MainActivity : RabbitBaseActivity() {
     }
 
     private fun loadNativeLib() {
-//        RabbitNativeCrashCaptor().init()
+        RabbitNativeCrashCaptor().init()
     }
 
 }
