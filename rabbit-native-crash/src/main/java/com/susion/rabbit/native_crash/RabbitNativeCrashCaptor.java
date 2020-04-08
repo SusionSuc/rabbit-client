@@ -20,8 +20,7 @@ public class RabbitNativeCrashCaptor {
     }
 
     public static void onCaptureNativeCrash() {
-        RabbitLog.d(TAG_NATIVE, "接收到Native回调! current thread : "+Thread.currentThread().getName());
-        android.os.Process.killProcess(android.os.Process.myPid());
+        RabbitLog.d(TAG_NATIVE, "receive native crash callback in java thread ! -> current thread : "+Thread.currentThread().getName());
     }
 
     native String nativeInitCaptor(String version);

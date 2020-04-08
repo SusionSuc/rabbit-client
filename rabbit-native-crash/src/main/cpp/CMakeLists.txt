@@ -30,8 +30,8 @@ add_library( # Sets the name of the library.
         SHARED
 
         # Provides a relative path to your source file(s).
-        crash/spi.cpp
-        crash/crash_handler.cpp
+        crash/crash_dump.cpp
+        crash/crash_register.cpp
         crash/crash_entry.cpp)
 
 # Searches for a specified prebuilt library and stores the path as a

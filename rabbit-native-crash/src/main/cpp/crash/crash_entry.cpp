@@ -2,8 +2,8 @@
 #include <cstdio>
 #include <cstdlib>
 #include "android/log.h"
-#include "spi.h"
-#include "crash_handler.h"
+#include "crash_dump.h"
+#include "crash_register.h"
 
 //
 // Created by susion wang on 2020-03-24.
@@ -13,8 +13,20 @@ using namespace std;
 
 static const char *className = "com/susion/rabbit/native_crash/RabbitNativeCrashCaptor";
 
+//崩溃测试
+void test_crash(int type) {
+
+    int *a = nullptr;
+
+    *a = type; // crash!
+    (*a)++;
+    type = *a;
+
+    return;
+
+}
+
 static jstring init_native_crash_captor(JNIEnv *env, jobject obj) {
-    LOG_D("init_native_crash_captor()");
 
     int result = register_crash_signal_handler(env, obj);
 
@@ -56,7 +68,7 @@ JNIEXPORT jint JNI_OnLoad(JavaVM *vm, void *reserved) {
 
     LOG_D("register native method success!");
 
-    init_java_callback_thread(vm);
+    init_dump_thread(vm);
 
     return JNI_VERSION_1_6;
 

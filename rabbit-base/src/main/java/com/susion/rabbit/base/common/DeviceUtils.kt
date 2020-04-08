@@ -260,21 +260,16 @@ object DeviceUtils {
             val fr = FileReader("/proc/cpuinfo")
             val br = BufferedReader(fr)
             var line: String
-            try {
-                while (true) {
-                    line = br.readLine() ?: break
-                    val result = line.toLowerCase()
-                    val array = result.split(":\\s+".toRegex(), 2).toTypedArray()
-                    RabbitLog.d(TAG, line)
-                    if (array[0].startsWith("hardware")) {
-                        cpuName = array[1]
-                        break
-                    }
+            while (true) {
+                line = br.readLine() ?: break
+                val result = line.toLowerCase()
+                val array = result.split(":\\s+".toRegex(), 2).toTypedArray()
+                RabbitLog.d(TAG, line)
+                if (array[0].startsWith("hardware")) {
+                    cpuName = array[1]
+                    break
                 }
-            } catch (e: IOException) {
-                RabbitLog.d(TAG, e.toString())
             }
-
         } catch (e: IOException) {
             RabbitLog.d(TAG, e.toString())
         }

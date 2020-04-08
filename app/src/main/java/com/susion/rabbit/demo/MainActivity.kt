@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import com.susion.rabbit.Rabbit
 import com.susion.rabbit.base.RabbitLog
+import com.susion.rabbit.base.TAG_NATIVE
 import com.susion.rabbit.base.common.DeviceUtils
 import com.susion.rabbit.base.entities.RabbitFPSInfo
 import com.susion.rabbit.base.ui.dp2px
@@ -22,6 +23,7 @@ import com.susion.rabbit.demo.page.SimpleListActivity
 import com.susion.rabbit.native_crash.RabbitNativeCrashCaptor
 import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.activity_main.*
+import java.lang.Exception
 
 //随意的测试代码
 class MainActivity : RabbitBaseActivity() {
@@ -147,7 +149,12 @@ class MainActivity : RabbitBaseActivity() {
     }
 
     private fun loadNativeLib() {
-        RabbitNativeCrashCaptor().init()
+        try {
+            RabbitNativeCrashCaptor().init()
+        }catch (e:Exception){
+            RabbitLog.d(TAG_NATIVE, "native crash!")
+        }
+
     }
 
 }

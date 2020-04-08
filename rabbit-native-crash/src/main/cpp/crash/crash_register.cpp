@@ -2,14 +2,15 @@
 // Created by susion wang on 2020-03-25.
 //
 
-#include "crash_handler.h"
+#include "crash_register.h"
 #include <csignal>
-#include "spi.h"
+#include "crash_dump.h"
 #include "malloc.h"
 #include <sys/syscall.h>
 #include <cstring>
 #include <unistd.h>
 #include <pthread.h>
+#include "stdlib.h"
 
 #define DUMP_FUNCTION_STACK_SIZE  (1024*128)
 
@@ -35,28 +36,28 @@ static CrashSignalInfo support_crash_infos[] =
 sig_atomic_t has_capture_crash = 0;
 static pthread_mutex_t crash_mutex = PTHREAD_MUTEX_INITIALIZER;
 
-
+//清空当前进程的信号队列
 int signal_crash_queue(siginfo_t *si) {
     if (SIGABRT == si->si_signo || SI_FROMUSER(si)) {
         if (0 != syscall(SYS_rt_tgsigqueueinfo, getpid(), gettid(), si->si_signo, si))
             return 1;
     }
-
     return 0;
 }
 
+//native崩溃时会回调这个函数
 static void crash_handler(int sig, siginfo_t *si, void *uc) {
 
     pthread_mutex_lock(&crash_mutex);
 
     if (has_capture_crash) {
+        LOG_D("repeat capture crash!");
         goto exit;
     }
 
     has_capture_crash = 1;
-    LOG_D("捕获到native crash!");
 
-    notify_crash_to_java();
+    start_dump_crash(sig, si, uc);
 
     if (0 != signal_crash_queue(si)) {
         goto exit;
@@ -67,6 +68,7 @@ static void crash_handler(int sig, siginfo_t *si, void *uc) {
 
     exit:
     pthread_mutex_unlock(&crash_mutex);
+    LOG_D("终止进程!");
     _exit(1);
 }
 
