@@ -74,6 +74,14 @@ Rabbit is under the MIT license. See the [LICENSE](./LICENSE) file for details
 
 # 使用问题讨论
 
->提issue回复可能比较慢，对rabbit使用有问题欢迎加入微信群。(由于有很多发小广告的,二维码就不贴了，可以加我微信(SusionSuc)我拉你入群)
+提issue回复可能比较慢，对rabbit使用有问题欢迎加入微信群。
+
+>由于有很多发小广告的,二维码就不贴了，可以加我微信(SusionSuc)我拉你入群
+
+
+# 开发中的功能
+
+1. anr捕获
+2. native crash 捕获
 
 
