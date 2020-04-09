@@ -5,9 +5,10 @@
 #include <jni.h>
 #include <sys/types.h>
 #include <pthread.h>
-#include "crash_dump.h"
+#include "dump.h"
 #include <sys/eventfd.h>
 #include <unistd.h>
+#include "common.h"
 
 //在新的线程中回调java方法
 static pthread_t dump_thread;

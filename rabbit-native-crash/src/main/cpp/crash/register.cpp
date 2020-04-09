@@ -2,15 +2,16 @@
 // Created by susion wang on 2020-03-25.
 //
 
-#include "crash_register.h"
+#include "register.h"
 #include <csignal>
-#include "crash_dump.h"
+#include "dump.h"
 #include "malloc.h"
 #include <sys/syscall.h>
 #include <cstring>
 #include <unistd.h>
 #include <pthread.h>
 #include "stdlib.h"
+#include "common.h"
 
 #define DUMP_FUNCTION_STACK_SIZE  (1024*128)
 

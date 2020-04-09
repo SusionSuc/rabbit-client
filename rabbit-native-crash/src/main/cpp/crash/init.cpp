@@ -2,8 +2,10 @@
 #include <cstdio>
 #include <cstdlib>
 #include "android/log.h"
-#include "crash_dump.h"
-#include "crash_register.h"
+#include "dump.h"
+#include "register.h"
+#include "unwind.h"
+#include "common.h"
 
 //
 // Created by susion wang on 2020-03-24.
@@ -67,6 +69,8 @@ JNIEXPORT jint JNI_OnLoad(JavaVM *vm, void *reserved) {
     env->RegisterNatives(cls, native_methods, native_methods_count);
 
     LOG_D("register native method success!");
+
+    init_unwind();
 
     init_dump_thread(vm);
 

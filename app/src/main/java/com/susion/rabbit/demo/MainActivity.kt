@@ -76,7 +76,8 @@ class MainActivity : RabbitBaseActivity() {
 
         sampleRequestNet()
 
-        loadNativeLib()
+//        loadNativeLib()
+
 
     }
 
@@ -151,7 +152,7 @@ class MainActivity : RabbitBaseActivity() {
     private fun loadNativeLib() {
         try {
             RabbitNativeCrashCaptor().init()
-        }catch (e:Exception){
+        } catch (e: Exception) {
             RabbitLog.d(TAG_NATIVE, "native crash!")
         }
 

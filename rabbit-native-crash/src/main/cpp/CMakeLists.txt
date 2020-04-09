@@ -30,9 +30,10 @@ add_library( # Sets the name of the library.
         SHARED
 
         # Provides a relative path to your source file(s).
-        crash/crash_dump.cpp
-        crash/crash_register.cpp
-        crash/crash_entry.cpp)
+        crash/unwind.cpp
+        crash/dump.cpp
+        crash/register.cpp
+        crash/init.cpp)
 
 # Searches for a specified prebuilt library and stores the path as a
 # variable. Because CMake includes system libraries in the search path by

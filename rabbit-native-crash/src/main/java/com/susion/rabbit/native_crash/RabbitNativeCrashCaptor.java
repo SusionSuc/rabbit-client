@@ -1,5 +1,7 @@
 package com.susion.rabbit.native_crash;
 
+import android.os.Build;
+
 import com.susion.rabbit.base.RabbitLog;
 
 import static com.susion.rabbit.base.RabbitLogKt.TAG_NATIVE;
@@ -10,6 +12,11 @@ import static com.susion.rabbit.base.RabbitLogKt.TAG_NATIVE;
 public class RabbitNativeCrashCaptor {
 
     public void init() {
+        if (Build.VERSION.SDK_INT < 21) {
+            RabbitLog.d(TAG_NATIVE, "current system version not support capture native crash!");
+            return;
+        }
+
         System.loadLibrary("rabbit-crash");
         try {
             String nativeString = nativeInitCaptor("1.0");
@@ -20,7 +27,7 @@ public class RabbitNativeCrashCaptor {
     }
 
     public static void onCaptureNativeCrash() {
-        RabbitLog.d(TAG_NATIVE, "receive native crash callback in java thread ! -> current thread : "+Thread.currentThread().getName());
+        RabbitLog.d(TAG_NATIVE, "receive native crash callback in java thread ! -> current thread : " + Thread.currentThread().getName());
     }
 
     native String nativeInitCaptor(String version);

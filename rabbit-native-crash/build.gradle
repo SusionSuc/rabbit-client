@@ -2,7 +2,6 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply from: '../buildsystem/common-version.gradle'
-apply from: '../buildsystem/publish.gradle'
 def uniqueVersion = rootProject.ext.versions
 
 android {

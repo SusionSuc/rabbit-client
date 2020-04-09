@@ -12,10 +12,6 @@ static char *JAVA_CRASH_CALLBACK_METHOD_NAME = const_cast<char *>("onCaptureNati
 static char *JAVA_CRASH_CALLBACK_METHOD_SIGNATURE = const_cast<char *>("()V");
 static char *JAVA_CLASS_NAME = const_cast<char *>("com/susion/rabbit/native_crash/RabbitNativeCrashCaptor");
 
-#define LOG_D(...)  __android_log_print(ANDROID_LOG_DEBUG,"rabbit-native",__VA_ARGS__)
-
-#define ERROR_CODE_INT -1
-#define SUCCESS_CODE_INT 1
 
 #ifdef __cplusplus
 extern "C" {
