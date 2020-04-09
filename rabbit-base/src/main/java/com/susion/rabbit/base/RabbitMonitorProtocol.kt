@@ -33,7 +33,7 @@ interface RabbitMonitorProtocol {
             "内存监控"
         )
 
-        //内存监控
+        //应用流量使用健康
         val TRAFFIC = MonitorInfo(
             "traffic",
             "流量监控"

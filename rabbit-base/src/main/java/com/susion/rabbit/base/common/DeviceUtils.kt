@@ -9,6 +9,7 @@ import android.telephony.TelephonyManager
 import android.text.TextUtils
 import android.util.Log
 import androidx.core.content.ContextCompat
+import com.susion.rabbit.base.RabbitLog
 import java.io.*
 import java.util.*
 
@@ -34,7 +35,7 @@ object DeviceUtils {
             input.close()
         } catch (ex: IOException) {
             Log.e(
-                DeviceUtils.TAG,
+                TAG,
                 "Unable to read sysprop $propName",
                 ex
             )
@@ -44,11 +45,7 @@ object DeviceUtils {
                 try {
                     input.close()
                 } catch (e: IOException) {
-                    Log.e(
-                        DeviceUtils.TAG,
-                        "Exception while closing InputStream",
-                        e
-                    )
+                    Log.e(TAG, "Exception while closing InputStream", e)
                 }
 
             }
@@ -174,7 +171,7 @@ object DeviceUtils {
      * @param context
      * @return
      */
-    fun getAndroidId(context: Context): String {
+    private fun getAndroidId(context: Context): String {
         return Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
     }
 
@@ -253,6 +250,31 @@ object DeviceUtils {
                 formater.format("%.2f GB", size / 1024f / 1024f / 1024f).toString()
             }
         }
+    }
+
+    fun getCpuName(): String {
+
+        var cpuName = ""
+
+        try {
+            val fr = FileReader("/proc/cpuinfo")
+            val br = BufferedReader(fr)
+            var line: String
+            while (true) {
+                line = br.readLine() ?: break
+                val result = line.toLowerCase()
+                val array = result.split(":\\s+".toRegex(), 2).toTypedArray()
+                RabbitLog.d(TAG, line)
+                if (array[0].startsWith("hardware")) {
+                    cpuName = array[1]
+                    break
+                }
+            }
+        } catch (e: IOException) {
+            RabbitLog.d(TAG, e.toString())
+        }
+
+        return if (cpuName.isNotEmpty()) cpuName else Build.HARDWARE
     }
 
 }

@@ -94,6 +94,7 @@ internal class RabbitFPSMonitor(override var isOpen: Boolean = false) :
         if (totalFrameNumber > FPS_COLLECT_NUMBER && totalFrameNumber % FPS_COLLECT_NUMBER == 0L) {
             saveFpsInfo()
         }
+
     }
 
     //持久化fps采集的信息

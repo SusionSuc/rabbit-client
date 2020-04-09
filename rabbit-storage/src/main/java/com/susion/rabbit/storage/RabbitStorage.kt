@@ -22,14 +22,15 @@ object RabbitStorage {
         application = application_
         mConfig = config
         mConfig.daoProvider.addAll(getFixedDaoProvider())
-        mConfig.storageInOnSessionData.forEach {
-            mConfig.oneSessionValidDatas.add(it.simpleName)
+        mConfig.storageInOneSessionData.forEach {
+            mConfig.oneSessionValidDatas.add(it)
         }
-        RabbitDbStorageManager.clearOldSessionData()
+        RabbitDbStorageManager.clearData(mConfig)
     }
 
     private fun getFixedDaoProvider(): List<RabbitDaoProviderConfig> {
-        val daoSession = DaoMaster(DaoMaster.DevOpenHelper(application, DB_NAME).writableDb).newSession()
+        val daoSession =
+            DaoMaster(DaoMaster.DevOpenHelper(application, DB_NAME).writableDb).newSession()
         RabbitDbStorageManager.daoSession = daoSession
         val daoProvider = ArrayList<RabbitDaoProviderConfig>().apply {
             add(
@@ -147,6 +148,10 @@ object RabbitStorage {
             RabbitMonitorProtocol.GLOBAL_MONITOR.name -> {
                 RabbitDbStorageManager.clearAllData(RabbitAppPerformanceInfo::class.java)
             }
+
+            RabbitMonitorProtocol.BLOCK.name -> {
+                RabbitDbStorageManager.clearAllData(RabbitBlockFrameInfo::class.java)
+            }
         }
     }
 
@@ -158,6 +163,7 @@ object RabbitStorage {
         clearDataByMonitorName(RabbitMonitorProtocol.NET.name)
         clearDataByMonitorName(RabbitMonitorProtocol.BLOCK_CALL.name)
         clearDataByMonitorName(RabbitMonitorProtocol.GLOBAL_MONITOR.name)
+        RabbitDbStorageManager.clearAllData(RabbitBlockFrameInfo::class.java)
     }
 
     fun addEventListener(eventListener: EventListener) {
@@ -166,6 +172,10 @@ object RabbitStorage {
 
     fun removeEventListener(eventListener: EventListener) {
         eventListeners.remove(eventListener)
+    }
+
+    fun <T : Any> clearAllData(clazz: Class<T>) {
+        RabbitDbStorageManager.clearAllData(clazz)
     }
 
     internal fun notifyEventListenerNewDataSave(obj: Any) {

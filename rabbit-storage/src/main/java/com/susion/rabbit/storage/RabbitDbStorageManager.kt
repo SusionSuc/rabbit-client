@@ -1,6 +1,8 @@
 package com.susion.rabbit.storage
 
 import com.susion.rabbit.base.common.RabbitAsync
+import com.susion.rabbit.base.common.RabbitUtils
+import com.susion.rabbit.base.config.RabbitStorageConfig
 import com.susion.rabbit.base.entities.RabbitInfoProtocol
 import com.susion.rabbit.base.greendao.DaoSession
 import io.reactivex.disposables.Disposable
@@ -9,6 +11,7 @@ import java.util.concurrent.LinkedBlockingDeque
 import java.util.concurrent.ThreadFactory
 import java.util.concurrent.ThreadPoolExecutor
 import java.util.concurrent.TimeUnit
+import java.util.function.BiConsumer
 
 /**
  * susionwang at 2019-10-12
@@ -132,16 +135,24 @@ object RabbitDbStorageManager {
         }, DB_THREAD)
     }
 
+    fun clearData(config: RabbitStorageConfig) {
+        //one session 存在的数据
+        RabbitAsync.asyncRun({
+            config.storageInOneSessionData.forEach {
+                greenDaoDbManage.clearAllData(RabbitUtils.nameToInfoClass(it))
+            }
+        }, DB_THREAD)
+
+        //超出最大限制的数据
+        for (info in config.dataMaxSaveCountLimit.entries) {
+
+        }
+    }
+
     fun destroy() {
         disposableList.forEach {
             it.dispose()
         }
-    }
-
-    fun clearOldSessionData() {
-        RabbitAsync.asyncRun({
-            greenDaoDbManage.clearOldSessionData()
-        }, DB_THREAD)
     }
 
 }

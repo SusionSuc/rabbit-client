@@ -3,7 +3,7 @@ rootProject.ext {
             versionCode                  : 1000000,
             versionName                  : "1.0.0",
             applicationId                : "com.susion.rabbit.demo",
-            minSdkVersion                : 18,
+            minSdkVersion                : 19,
             compileSdkVersion            : 28,
             targetSdkVersion             : 28,
             buildToolsVersion            : "29.0.3",
@@ -26,7 +26,7 @@ rootProject.ext {
             autoServiceVersion           : "1.0-rc4",
             mpChartVersion               : "v3.1.0",
             leakCanaryVersion            : "2.2",
-            lifeClean                    : "1.0.4"
+            lifeClean                    : "1.0.6"
     ]
 
     def androidXVersion = "1.1.0"

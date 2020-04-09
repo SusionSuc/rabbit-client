@@ -12,19 +12,24 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import com.susion.rabbit.Rabbit
+import com.susion.rabbit.base.RabbitLog
+import com.susion.rabbit.base.TAG_NATIVE
+import com.susion.rabbit.base.common.DeviceUtils
 import com.susion.rabbit.base.entities.RabbitFPSInfo
 import com.susion.rabbit.base.ui.dp2px
 import com.susion.rabbit.base.ui.throttleFirstClick
 import com.susion.rabbit.demo.net.DevToolsTestApiModel
 import com.susion.rabbit.demo.page.SimpleListActivity
+import com.susion.rabbit.native_crash.RabbitNativeCrashCaptor
 import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.activity_main.*
+import java.lang.Exception
 
 //随意的测试代码
 class MainActivity : RabbitBaseActivity() {
 
     private val objList = ArrayList<Any>()
-    private val TAG = javaClass.simpleName
+    private val TAG = "rabbit_test_main"
     private val PERMISSIONS_STORAGE =
         arrayOf(
             Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -52,11 +57,7 @@ class MainActivity : RabbitBaseActivity() {
         }
 
         mAnrTv.throttleFirstClick(Consumer {
-//            while (true) {
-//
-//            }
-            Thread.sleep(10000)
-//            RabbitANRLowVersionMonitor().parseAnrFile("data/anr/traces.txt")
+            Thread.sleep(15000)
         })
 
         mSlowMethodTv.setOnClickListener {
@@ -71,9 +72,12 @@ class MainActivity : RabbitBaseActivity() {
             startActivity(Intent(this, SimpleListActivity::class.java))
         }
 
-        fakeBlockCode()
+        logDeviceInfo()
 
         sampleRequestNet()
+
+//        loadNativeLib()
+
 
     }
 
@@ -95,8 +99,13 @@ class MainActivity : RabbitBaseActivity() {
     }
 
 
-    private fun fakeBlockCode() {
-
+    private fun logDeviceInfo() {
+        RabbitLog.d(TAG, "phone brand : ${Build.BRAND}")
+        RabbitLog.d(TAG, "phone product : ${Build.PRODUCT}")
+        RabbitLog.d(TAG, "phone model : ${Build.MODEL}")
+        RabbitLog.d(TAG, "phone hardware : ${Build.HARDWARE}")
+        RabbitLog.d(TAG, "cpu name : ${DeviceUtils.getCpuName()}")
+        RabbitLog.d(TAG, "device name : ${DeviceUtils.getDeviceName()}")
     }
 
     private val netRequestFinishView by lazy {
@@ -122,23 +131,31 @@ class MainActivity : RabbitBaseActivity() {
     fun testRtn0(): Int {
         val a = 1
         val b = 2
-        fakeBlockCode()
+        logDeviceInfo()
         return 3
     }
 
     fun testRtn1(): Int {
         val a = 1
         val b = 2
-        fakeBlockCode()
+        logDeviceInfo()
         return a + b
     }
 
     fun testRtn2(): RabbitFPSInfo {
         val a = 1
         val b = 2
-        fakeBlockCode()
+        logDeviceInfo()
         return RabbitFPSInfo()
     }
 
+    private fun loadNativeLib() {
+        try {
+            RabbitNativeCrashCaptor().init()
+        } catch (e: Exception) {
+            RabbitLog.d(TAG_NATIVE, "native crash!")
+        }
+
+    }
 
 }

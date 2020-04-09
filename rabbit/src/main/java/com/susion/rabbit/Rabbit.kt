@@ -99,7 +99,7 @@ object Rabbit : RabbitProtocol {
         val uiConfig = mConfig.uiConfig
         uiConfig.monitorList = RabbitMonitor.getMonitorList()
         uiConfig.entryFeatures.addAll(RabbitUi.defaultSupportFeatures(application))
-        uiConfig.customConfigList.addAll(getCustomConfigs())
+        uiConfig.customConfigList.addAll(getDefaultCustomConfigs())
         RabbitUi.eventListener = object : RabbitUi.EventListener {
 
             override fun closeAllMonitor() {
@@ -196,7 +196,7 @@ object Rabbit : RabbitProtocol {
     /**
      * 自定义的开关配置
      * */
-    private fun getCustomConfigs(): List<RabbitCustomConfigProtocol> {
+    private fun getDefaultCustomConfigs(): List<RabbitCustomConfigProtocol> {
         return ArrayList<RabbitCustomConfigProtocol>().apply {
             add(
                 RabbitCustomConfigProtocol(
