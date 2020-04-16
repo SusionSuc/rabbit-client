@@ -31,8 +31,7 @@ internal class RabbitANRHighVersionMonitor(override var isOpen: Boolean = false)
     private var stackCollectHandler: Handler? = null
     private var blockStackTraces = HashMap<String, RabbitBlockStackTraceInfo>()
     private val stackCollectPeriod = RabbitMonitor.mConfig.anrStackCollectPeriodNs
-    private val stackPostDelayTime =
-        TimeUnit.MILLISECONDS.convert(stackCollectPeriod, TimeUnit.NANOSECONDS)
+    private val stackPostDelayTime = TimeUnit.MILLISECONDS.convert(stackCollectPeriod, TimeUnit.NANOSECONDS)
     private val anrCheckPeriodNs = RabbitMonitor.mConfig.anrCheckPeriodNs
     private var collectCount = 0
 
@@ -74,7 +73,7 @@ internal class RabbitANRHighVersionMonitor(override var isOpen: Boolean = false)
     }
 
     override fun open(context: Context) {
-        monitorThread = HandlerThread("rabbit_block_monitor")
+        monitorThread = HandlerThread("rabbit_anr_monitor")
         monitorThread!!.start()
         stackCollectHandler = Handler(monitorThread!!.looper)
 

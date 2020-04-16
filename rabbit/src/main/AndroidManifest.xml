@@ -2,11 +2,6 @@
     package="com.susion.rabbit">
 
     <application>
-<!--        <provider-->
-<!--            android:name=".RabbitApplicationProvider"-->
-<!--            android:authorities="${applicationId}.rabbit-installer"-->
-<!--            android:exported="false"-->
-<!--            android:multiprocess="true"/>-->
     </application>
 
 </manifest>
