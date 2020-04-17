@@ -11,7 +11,7 @@ import com.susion.rabbit.base.common.toastInThread
 import com.susion.rabbit.base.entities.RabbitBlockFrameInfo
 import com.susion.rabbit.base.entities.RabbitBlockStackTraceInfo
 import com.susion.rabbit.monitor.RabbitMonitor
-import com.susion.rabbit.monitor.core.ChoregrapherMonitorCenter
+import com.susion.rabbit.monitor.core.ChoreographerMonitorCenter
 import com.susion.rabbit.monitor.core.ChoreographerFrameUpdateMonitor
 import com.susion.rabbit.storage.RabbitDbStorageManager
 import java.util.concurrent.TimeUnit
@@ -58,13 +58,13 @@ internal open class RabbitBlockMonitor(override var isOpen: Boolean = false) :
         monitorThread!!.start()
         stackCollectHandler = Handler(monitorThread!!.looper)
 
-        ChoregrapherMonitorCenter.addSimpleFrameUpdateListener(this)
+        ChoreographerMonitorCenter.addSimpleFrameUpdateListener(this)
         isOpen = true
     }
 
     override fun close() {
         monitorThread?.quitSafely()
-        ChoregrapherMonitorCenter.removeSimpleFrameUpdateListener(this)
+        ChoreographerMonitorCenter.removeSimpleFrameUpdateListener(this)
         isOpen = false
     }
 

@@ -1,17 +1,15 @@
 package com.susion.rabbit.monitor.instance
 
 import android.content.Context
-import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.monitor.RabbitMonitor
 import com.susion.rabbit.monitor.core.LazyChoreographerFrameUpdateMonitor
 import com.susion.rabbit.base.RabbitMonitorProtocol
-import com.susion.rabbit.base.TAG_MONITOR
 import com.susion.rabbit.base.common.RabbitUtils
 import com.susion.rabbit.base.config.RabbitMonitorConfig
 import com.susion.rabbit.base.entities.RabbitFPSInfo
 import com.susion.rabbit.storage.RabbitDbStorageManager
 import com.susion.rabbit.base.ui.RabbitUiEvent
-import com.susion.rabbit.monitor.core.ChoregrapherMonitorCenter
+import com.susion.rabbit.monitor.core.ChoreographerMonitorCenter
 import java.util.concurrent.TimeUnit
 import kotlin.math.min
 
@@ -41,13 +39,13 @@ internal class RabbitFPSMonitor(override var isOpen: Boolean = false) :
     }
 
     override fun open(context: Context) {
-        ChoregrapherMonitorCenter.addDetailedFrameUpdateListener(this)
+        ChoreographerMonitorCenter.addDetailedFrameUpdateListener(this)
         RabbitMonitor.addPageChangeListener(pageShowedListener)
         isOpen = true
     }
 
     override fun close() {
-        ChoregrapherMonitorCenter.removeDetailedFrameUpdateListener(this)
+        ChoreographerMonitorCenter.removeDetailedFrameUpdateListener(this)
         RabbitMonitor.uiEventListener?.updateUi(RabbitUiEvent.MSG_UPDATE_FPS, 0f)
         RabbitMonitor.removePageChangeListener(pageShowedListener)
         isOpen = false
