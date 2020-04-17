@@ -11,8 +11,8 @@ import com.susion.rabbit.base.common.RabbitUtils
 import com.susion.rabbit.base.entities.RabbitAnrInfo
 import com.susion.rabbit.base.entities.RabbitBlockStackTraceInfo
 import com.susion.rabbit.monitor.RabbitMonitor
+import com.susion.rabbit.monitor.core.ChoregrapherMonitorCenter
 import com.susion.rabbit.monitor.core.ChoreographerFrameUpdateMonitor
-import com.susion.rabbit.monitor.utils.RabbitMonitorUtils
 import com.susion.rabbit.storage.RabbitDbStorageManager
 import java.util.concurrent.TimeUnit
 
@@ -27,11 +27,11 @@ internal class RabbitANRHighVersionMonitor(override var isOpen: Boolean = false)
     RabbitMonitorProtocol, ChoreographerFrameUpdateMonitor.FrameUpdateListener {
 
     private var monitorThread: HandlerThread? = null
-    private val frameTracer = ChoreographerFrameUpdateMonitor()
     private var stackCollectHandler: Handler? = null
     private var blockStackTraces = HashMap<String, RabbitBlockStackTraceInfo>()
     private val stackCollectPeriod = RabbitMonitor.mConfig.anrStackCollectPeriodNs
-    private val stackPostDelayTime = TimeUnit.MILLISECONDS.convert(stackCollectPeriod, TimeUnit.NANOSECONDS)
+    private val stackPostDelayTime =
+        TimeUnit.MILLISECONDS.convert(stackCollectPeriod, TimeUnit.NANOSECONDS)
     private val anrCheckPeriodNs = RabbitMonitor.mConfig.anrCheckPeriodNs
     private var collectCount = 0
 
@@ -77,15 +77,13 @@ internal class RabbitANRHighVersionMonitor(override var isOpen: Boolean = false)
         monitorThread!!.start()
         stackCollectHandler = Handler(monitorThread!!.looper)
 
-        frameTracer.addFrameUpdateListener(this)
-        frameTracer.startMonitorFrame()
+        ChoregrapherMonitorCenter.addSimpleFrameUpdateListener(this)
         isOpen = true
     }
 
     override fun close() {
         monitorThread?.quitSafely()
-        frameTracer.removeFrameUpdateListener(this)
-        frameTracer.stopMonitorFrame()
+        ChoregrapherMonitorCenter.removeSimpleFrameUpdateListener(this)
         isOpen = false
     }
 

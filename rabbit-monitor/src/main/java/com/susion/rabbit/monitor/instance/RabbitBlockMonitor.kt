@@ -5,15 +5,14 @@ import android.os.Handler
 import android.os.HandlerThread
 import android.os.Looper
 import com.google.gson.Gson
-import com.susion.rabbit.monitor.RabbitMonitor
-import com.susion.rabbit.monitor.core.ChoreographerFrameUpdateMonitor
 import com.susion.rabbit.base.RabbitMonitorProtocol
 import com.susion.rabbit.base.common.RabbitUtils
 import com.susion.rabbit.base.common.toastInThread
 import com.susion.rabbit.base.entities.RabbitBlockFrameInfo
 import com.susion.rabbit.base.entities.RabbitBlockStackTraceInfo
-import com.susion.rabbit.base.ui.utils.RabbitUiUtils
-import com.susion.rabbit.monitor.utils.RabbitMonitorUtils
+import com.susion.rabbit.monitor.RabbitMonitor
+import com.susion.rabbit.monitor.core.ChoregrapherMonitorCenter
+import com.susion.rabbit.monitor.core.ChoreographerFrameUpdateMonitor
 import com.susion.rabbit.storage.RabbitDbStorageManager
 import java.util.concurrent.TimeUnit
 
@@ -34,9 +33,7 @@ internal open class RabbitBlockMonitor(override var isOpen: Boolean = false) :
     private val blockThreshold = RabbitMonitor.mConfig.blockThresholdNs
 
     private var monitorThread: HandlerThread? = null
-    private val frameTracer = ChoreographerFrameUpdateMonitor()
     private var collectCount = 0
-
 
     //采集一次主线程堆栈, 【随机的， 因此并不一定是卡顿点, 不过抓住卡顿点的概率很大】
     private val blockStackCollectTask = object : Runnable {
@@ -61,15 +58,13 @@ internal open class RabbitBlockMonitor(override var isOpen: Boolean = false) :
         monitorThread!!.start()
         stackCollectHandler = Handler(monitorThread!!.looper)
 
-        frameTracer.addFrameUpdateListener(this)
-        frameTracer.startMonitorFrame()
+        ChoregrapherMonitorCenter.addSimpleFrameUpdateListener(this)
         isOpen = true
     }
 
     override fun close() {
         monitorThread?.quitSafely()
-        frameTracer.removeFrameUpdateListener(this)
-        frameTracer.stopMonitorFrame()
+        ChoregrapherMonitorCenter.removeSimpleFrameUpdateListener(this)
         isOpen = false
     }
 

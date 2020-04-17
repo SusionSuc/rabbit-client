@@ -203,6 +203,8 @@ internal open class LazyChoreographerFrameUpdateMonitor {
         frameListeners.remove(listener)
     }
 
+    fun getCurrentListenerSize() = frameListeners.size
+
     interface FrameUpdateListener {
         fun doFrame(
             frameCostNs: Long,

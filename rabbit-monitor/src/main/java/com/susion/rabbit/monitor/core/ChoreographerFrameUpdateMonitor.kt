@@ -46,4 +46,6 @@ internal open class ChoreographerFrameUpdateMonitor {
         mFrameListeners.remove(listener)
     }
 
+    fun getCurrentListenerSize() = mFrameListeners.size
+
 }
