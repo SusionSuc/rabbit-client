@@ -20,7 +20,6 @@ import java.util.List;
 
 /**
  * susionwang at 2019-11-15
- * <p>
  * Activity 页面测试组件
  * 1. onCreate 执行耗时
  * 2. onCreate -> onResume 耗时
@@ -52,14 +51,14 @@ public class ActivitySpeedMonitor extends FrameLayout {
     public static void wrapperViewOnActivityCreateEnd(Activity activity) {
         RabbitTracerEventNotifier.appSpeedNotifier.activityCreateEnd(activity, System.currentTimeMillis());
         ViewGroup contentView = activity.findViewById(android.R.id.content);
-        //这里存在问题，强制取第0个View，可能会导致渲染完成时机取的不正确
+
         if (contentView != null && contentView.getChildCount() >= 1 && contentView instanceof FrameLayout) {
             View realAcContent = contentView.getChildAt(0);
             ActivitySpeedMonitor monitorWrapperView = new ActivitySpeedMonitor(contentView.getContext());
             monitorWrapperView.activityName = activity.getClass().getSimpleName();
             contentView.addView(monitorWrapperView,0);
 
-            //把原来的ac的根布局包上一层
+            //把activity的根布局包上一层
             contentView.removeView(realAcContent);
             monitorWrapperView.addView(realAcContent);
 
