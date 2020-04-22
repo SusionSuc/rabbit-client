@@ -56,6 +56,12 @@ class MainActivity : RabbitBaseActivity() {
             }
         }
 
+//        Thread(Runnable {
+//            Thread.sleep(2000)
+////            mGenerateObjTv.layoutParams = ViewGroup.LayoutParams(200, 200)
+//            mGenerateObjTv.setText("对象")
+//        }).start()
+
         mAnrTv.throttleFirstClick(Consumer {
             Thread.sleep(15000)
         })
@@ -77,7 +83,6 @@ class MainActivity : RabbitBaseActivity() {
         sampleRequestNet()
 
 //        loadNativeLib()
-
 
     }
 

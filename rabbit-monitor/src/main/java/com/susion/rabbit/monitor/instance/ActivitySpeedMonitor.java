@@ -58,15 +58,20 @@ public class ActivitySpeedMonitor extends FrameLayout {
             ActivitySpeedMonitor monitorWrapperView = new ActivitySpeedMonitor(contentView.getContext());
             monitorWrapperView.activityName = activity.getClass().getSimpleName();
             contentView.addView(monitorWrapperView,0);
-            replaceParent(realAcContent, contentView, monitorWrapperView);
+
+            //把原来的ac的根布局包上一层
+            contentView.removeView(realAcContent);
+            monitorWrapperView.addView(realAcContent);
 
             final int childCount = contentView.getChildCount();
             if (childCount > 1) {
                 List<View>  oldChilds = new ArrayList<>();
                 for (int i = 1; i < childCount; i++) {
                     View child = contentView.getChildAt(i);
-                    oldChilds.add(child);
-                    contentView.removeView(child);
+                    if (child != null){
+                        oldChilds.add(child);
+                        contentView.removeView(child);
+                    }
                 }
 
                 for (int i=0; i < oldChilds.size(); i++){
@@ -82,11 +87,6 @@ public class ActivitySpeedMonitor extends FrameLayout {
 
     public static void activityResumeEnd(Activity activity) {
         RabbitTracerEventNotifier.appSpeedNotifier.activityResumeEnd(activity, System.currentTimeMillis());
-    }
-
-    public static void replaceParent(View view, ViewGroup oldParent, ViewGroup newParent) {
-        oldParent.removeView(view);
-        newParent.addView(view);
     }
 
 }
