@@ -97,10 +97,6 @@ internal class RabbitGreenDaoDbManage(val context: Context, val daoSession: DaoS
         return queryBuilder?.build()?.list() ?: emptyList()
     }
 
-    fun <T : Any> getDataCount(clazz: Class<T>): Long {
-        return daoImpl(clazz)?.count() ?: 0
-    }
-
     private fun <T : Any> getProperties(
         dao: AbstractDao<T, Long>?,
         field: String

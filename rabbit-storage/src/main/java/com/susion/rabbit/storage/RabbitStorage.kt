@@ -22,9 +22,6 @@ object RabbitStorage {
         application = application_
         mConfig = config
         mConfig.daoProvider.addAll(getFixedDaoProvider())
-        mConfig.storageInOneSessionData.forEach {
-            mConfig.oneSessionValidDatas.add(it)
-        }
         RabbitDbStorageManager.clearData(mConfig)
     }
 
@@ -32,7 +29,7 @@ object RabbitStorage {
         val daoSession =
             DaoMaster(DaoMaster.DevOpenHelper(application, DB_NAME).writableDb).newSession()
         RabbitDbStorageManager.daoSession = daoSession
-        val daoProvider = ArrayList<RabbitDaoProviderConfig>().apply {
+        return ArrayList<RabbitDaoProviderConfig>().apply {
             add(
                 RabbitDaoProviderConfig(
                     RabbitBlockFrameInfo::class.java as Class<Any>,
@@ -111,7 +108,6 @@ object RabbitStorage {
                 )
             )
         }
-        return daoProvider
     }
 
     interface EventListener {
@@ -163,7 +159,7 @@ object RabbitStorage {
         clearDataByMonitorName(RabbitMonitorProtocol.NET.name)
         clearDataByMonitorName(RabbitMonitorProtocol.BLOCK_CALL.name)
         clearDataByMonitorName(RabbitMonitorProtocol.GLOBAL_MONITOR.name)
-        RabbitDbStorageManager.clearAllData(RabbitBlockFrameInfo::class.java)
+        clearDataByMonitorName(RabbitMonitorProtocol.BLOCK.name)
     }
 
     fun addEventListener(eventListener: EventListener) {
@@ -183,5 +179,5 @@ object RabbitStorage {
             it.onStorageData(obj)
         }
     }
-
+    
 }

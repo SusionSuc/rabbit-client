@@ -145,7 +145,11 @@ object RabbitDbStorageManager {
 
         //超出最大限制的数据
         for (info in config.dataMaxSaveCountLimit.entries) {
-
+            val jclass = RabbitUtils.nameToInfoClass(info.key)
+            val currentCount = greenDaoDbManage.allDataCount(jclass)
+            if (currentCount > info.value){
+                greenDaoDbManage.clearAllData(jclass)
+            }
         }
     }
 
