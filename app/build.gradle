@@ -55,6 +55,7 @@ dependencies {
     debugApi project(':rabbit')
     releaseApi project(':rabbit-noop')
     implementation project(":rabbit-native-crash")
+    implementation project(":rabbit-native-jvmti")
 //    implementation rootProject.ext.rabbitDependence
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])

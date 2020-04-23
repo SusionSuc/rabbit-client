@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
+import com.susion.jvmti.RabbitJvmTi
 import com.susion.rabbit.Rabbit
 import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.TAG_NATIVE
@@ -56,12 +57,6 @@ class MainActivity : RabbitBaseActivity() {
             }
         }
 
-//        Thread(Runnable {
-//            Thread.sleep(2000)
-////            mGenerateObjTv.layoutParams = ViewGroup.LayoutParams(200, 200)
-//            mGenerateObjTv.setText("对象")
-//        }).start()
-
         mAnrTv.throttleFirstClick(Consumer {
             Thread.sleep(15000)
         })
@@ -84,7 +79,14 @@ class MainActivity : RabbitBaseActivity() {
 
 //        loadNativeLib()
 
+        Thread(Runnable {
+            Thread.sleep(2000)
+//            mGenerateObjTv.layoutParams = ViewGroup.LayoutParams(200, 200)
+            mGenerateObjTv.setText("对象")
+        }, "rabbit-test-thread").start()
+
     }
+
 
     private fun requestPermission() {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {

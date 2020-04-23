@@ -25,3 +25,5 @@ localRepo/apk-analyzer
 localRepo/rabbitTransform
 
 .project
+
+**/.cxx

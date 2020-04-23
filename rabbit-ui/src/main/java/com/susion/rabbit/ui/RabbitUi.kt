@@ -143,6 +143,14 @@ object RabbitUi {
                     RabbitANRListPage::class.java
                 )
             )
+
+            add(
+                RabbitMainFeatureInfo(
+                    "线程分析",
+                    R.drawable.rabbit_icon_thread,
+                    RabbitANRListPage::class.java
+                )
+            )
         }
     }
 
