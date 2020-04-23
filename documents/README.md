@@ -15,6 +15,7 @@
 - [异常与内存泄漏捕获](./exception-leak.md)
 - [apk包分析](./app-analyzer.md)
 - [接入自定义业务面板](./custom-page.md)
+- [数据存储](./storage.md)
 - [数据上报](./data-report.md)
 - [noop包接入](./noop-document.md)
 - [rabbit配置相关](./rabbit-config.md)

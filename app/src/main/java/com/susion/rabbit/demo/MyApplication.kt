@@ -78,6 +78,9 @@ class MyApplication : Application() {
         rabbitConfig.storageConfig.dataMaxSaveCountLimit[RabbitMonitorProtocol.EXCEPTION.name] = 100
         rabbitConfig.storageConfig.dataMaxSaveCountLimit[RabbitMonitorProtocol.BLOCK.name] = 100
 
+        rabbitConfig.storageConfig.storageInOneSessionData.add(RabbitMonitorProtocol.FPS.name)
+        rabbitConfig.storageConfig.storageInOneSessionData.add(RabbitMonitorProtocol.NET.name)
+
         Rabbit.init(this, rabbitConfig)
 
     }

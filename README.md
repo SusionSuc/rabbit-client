@@ -21,7 +21,6 @@
 
 编译时插桩，准确的统计每一个函数的耗时，并显示运行时调用堆栈。
 
-
 ### 网络请求监控
 
 监控App网络请求,可以很方便的查看返回的`json`数据
@@ -66,11 +65,9 @@
 
 Rabbit is under the MIT license. See the [LICENSE](./LICENSE) file for details
 
-
 # 体验包
 
 [点击下载](localRepo/rabbit-demo.apk)
-
 
 # 使用问题讨论
 
@@ -78,10 +75,10 @@ Rabbit is under the MIT license. See the [LICENSE](./LICENSE) file for details
 
 >由于有很多发小广告的,二维码就不贴了，可以加我微信(SusionSuc)我拉你入群
 
-
 # 开发中的功能
 
-1. anr捕获
-2. native crash 捕获
+1. anr捕获 [alpha]
+2. native crash 捕获 [developing]
+3. 线程监控 [developing]
 
 

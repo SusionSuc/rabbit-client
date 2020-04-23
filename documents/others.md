@@ -13,31 +13,6 @@ val COMMON_TAG = "rabbit-log"
 
 logcat中过滤相应的TAG即可查看相应模块的日志
 
-
-## rabbit数据存储相关
-
-可以通过配置让`rabbit`相关监控数据只在一次应用session中有效:
-
-```
-rabbitConfig.storageConfig.storageInOnSessionData.storageInOnSessionData.addAll(
-    ArrayList<Class<Any>>().apply {
-        add(RabbitHttpLogInfo::class.java as Class<Any>)
-    })
-```
-
-设置网络数据只在一个应用`sesiion`中有效。
-
->rabbit默认下面数据只会在一个session中有效:
-
-```
-storageInOnSessionData.addAll(ArrayList<Class<Any>>().apply {
-    add(RabbitHttpLogInfo::class.java as Class<Any>)
-    add(RabbitMemoryInfo::class.java as Class<Any>)
-    add(RabbitFPSInfo::class.java as Class<Any>)
-})
-```
-
-
 # 关于rabbit
 
 ## 后续开发计划
