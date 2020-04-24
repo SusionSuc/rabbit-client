@@ -1,0 +1,8 @@
+//
+// Created by susion wang on 2020-04-24.
+//
+
+#ifndef RABBIT_CLIENT_JVMTI_HANDLER_H
+#define RABBIT_CLIENT_JVMTI_HANDLER_H
+
+#endif //RABBIT_CLIENT_JVMTI_HANDLER_H

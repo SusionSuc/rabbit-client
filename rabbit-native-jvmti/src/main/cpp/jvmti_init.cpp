@@ -5,6 +5,12 @@
 #include "jvmti.h"
 #include "common.h"
 #include "jvmti_thread.h"
+#include "jvmti_handler.h"
+
+//jin方法映射表
+static JNINativeMethod native_methods[] = {
+        {"nativeInitCaptor", "(android/os/Handler;)Ljava/lang/String;", (void *) init_native_crash_captor}
+};
 
 jvmtiEnv *create_jvmti_env(JavaVM *vm) {
     jvmtiEnv *jvmti_env;
