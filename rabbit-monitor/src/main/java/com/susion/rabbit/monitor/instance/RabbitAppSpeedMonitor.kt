@@ -1,6 +1,5 @@
 package com.susion.rabbit.monitor.instance
 
-import android.app.Activity
 import android.content.Context
 import com.google.gson.Gson
 import com.susion.rabbit.base.RabbitLog
@@ -8,7 +7,7 @@ import com.susion.rabbit.monitor.RabbitMonitor
 import com.susion.rabbit.base.RabbitMonitorProtocol
 import com.susion.rabbit.base.TAG_MONITOR
 import com.susion.rabbit.base.entities.*
-import com.susion.rabbit.storage.RabbitDbStorageManager
+import com.susion.rabbit.storage.RabbitStorage
 import com.susion.rabbit.tracer.RabbitTracerEventNotifier
 
 /**
@@ -101,7 +100,7 @@ internal class RabbitAppSpeedMonitor(override var isOpen: Boolean = false) :
                     RabbitLog.d(TAG_MONITOR, " --> applicationCreateTime  ${createEndTime - attachBaseContextTime}")
                     if (entryActivityName.isEmpty()) {
                         appSpeedCanRecord = false
-                        RabbitDbStorageManager.save(appSpeedInfo)
+                        RabbitStorage.save(appSpeedInfo)
                     }
                 }
 
@@ -153,12 +152,12 @@ internal class RabbitAppSpeedMonitor(override var isOpen: Boolean = false) :
                             pageSpeedCanRecord = false
                             pageSpeedInfo.fullDrawFinishTime = drawFinishTime
                             pageSpeedInfo.apiRequestCostString = Gson().toJson(apiStatus).toString()
-                            RabbitDbStorageManager.save(pageSpeedInfo)
+                            RabbitStorage.save(pageSpeedInfo)
                         }
                     } else {
                         pageSpeedCanRecord = false
                         pageSpeedInfo.fullDrawFinishTime = drawFinishTime
-                        RabbitDbStorageManager.save(pageSpeedInfo)
+                        RabbitStorage.save(pageSpeedInfo)
                     }
                 }
             }
@@ -201,7 +200,7 @@ internal class RabbitAppSpeedMonitor(override var isOpen: Boolean = false) :
                     appSpeedInfo.time = System.currentTimeMillis()
                     appSpeedInfo.createStartTime = attachBaseContextTime
                     appSpeedInfo.createEndTime = createEndTime
-                    RabbitDbStorageManager.save(appSpeedInfo)
+                    RabbitStorage.save(appSpeedInfo)
                     RabbitLog.d(TAG_MONITOR, "monitorApplicationStart")
                 }
             }
@@ -216,13 +215,13 @@ internal class RabbitAppSpeedMonitor(override var isOpen: Boolean = false) :
             if (apiStatus.allApiRequestFinish()) {
                 appSpeedCanRecord = false
                 appSpeedInfo.fullShowCostTime = pageDrawFinishTime - appSpeedInfo.createStartTime
-                RabbitDbStorageManager.save(appSpeedInfo)
+                RabbitStorage.save(appSpeedInfo)
                 RabbitLog.d(TAG_MONITOR, "saveApplicationStartInfoToLocal")
             }
         } else {
             appSpeedCanRecord = false
             appSpeedInfo.fullShowCostTime = pageDrawFinishTime - appSpeedInfo.createStartTime
-            RabbitDbStorageManager.save(appSpeedInfo)
+            RabbitStorage.save(appSpeedInfo)
             RabbitLog.d(TAG_MONITOR, "saveApplicationStartInfoToLocal")
         }
     }

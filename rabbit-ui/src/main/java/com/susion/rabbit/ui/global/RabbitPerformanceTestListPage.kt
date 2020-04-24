@@ -9,7 +9,7 @@ import com.susion.rabbit.base.common.RabbitAsync
 import com.susion.rabbit.base.entities.RabbitAppPerformanceInfo
 import com.susion.rabbit.base.ui.page.RabbitBasePage
 import com.susion.rabbit.base.ui.view.RabbitSwitchButton
-import com.susion.rabbit.storage.RabbitDbStorageManager
+import com.susion.rabbit.storage.RabbitStorage
 import com.susion.rabbit.ui.RabbitUi
 import com.susion.rabbit.ui.global.entities.RabbitAppPerformancePitInfo
 import com.susion.rabbit.ui.global.view.RabbitAppPerformancePreView
@@ -69,7 +69,7 @@ class RabbitPerformanceTestListPage(context: Context) : RabbitBasePage(context) 
     }
 
     private fun loadData() {
-        RabbitDbStorageManager.getAll(RabbitAppPerformanceInfo::class.java) { monitorList ->
+        RabbitStorage.getAll(RabbitAppPerformanceInfo::class.java) { monitorList ->
             RabbitAsync.asyncRunWithResult({
                 ArrayList<RabbitAppPerformancePitInfo>().apply {
                     monitorList.forEach { monitorInfo ->

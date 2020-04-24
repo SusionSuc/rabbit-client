@@ -6,7 +6,7 @@ import com.susion.lifeclean.common.recyclerview.SimpleRvAdapter
 import com.susion.rabbit.base.entities.RabbitAnrInfo
 import com.susion.rabbit.base.greendao.RabbitAnrInfoDao
 import com.susion.rabbit.base.ui.page.RabbitBasePage
-import com.susion.rabbit.storage.RabbitDbStorageManager
+import com.susion.rabbit.storage.RabbitStorage
 import com.susion.rabbit.ui.monitor.R
 import com.susion.rabbit.ui.view.RabbitAnrItemView
 import kotlinx.android.synthetic.main.rabbit_page_anr_list.view.*
@@ -42,7 +42,7 @@ class RabbitANRListPage(context: Context) : RabbitBasePage(context) {
     }
 
     private fun loadData() {
-        RabbitDbStorageManager.getAll(
+        RabbitStorage.getAll(
             RabbitAnrInfo::class.java,
             condition = Pair(RabbitAnrInfoDao.Properties.Invalid, true),
             orderDesc = true

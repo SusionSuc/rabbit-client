@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import com.susion.lifeclean.common.recyclerview.SimpleRvAdapter
 import com.susion.rabbit.base.entities.RabbitBlockFrameInfo
 import com.susion.rabbit.ui.view.RabbitUiBlockPreView
-import com.susion.rabbit.storage.RabbitDbStorageManager
+import com.susion.rabbit.storage.RabbitStorage
 import com.susion.rabbit.base.ui.page.RabbitBasePage
 import com.susion.rabbit.ui.monitor.R
 import kotlinx.android.synthetic.main.rabbit_page_ui_block_list.view.*
@@ -41,7 +41,7 @@ class RabbitUiBlockListPage(context: Context) : RabbitBasePage(context) {
     }
 
     private fun loadData() {
-        RabbitDbStorageManager.getAll(RabbitBlockFrameInfo::class.java, orderDesc = true) {
+        RabbitStorage.getAll(RabbitBlockFrameInfo::class.java, orderDesc = true) {
             mUiBlockPageSRL.isRefreshing = false
 
             if (it.isEmpty()){

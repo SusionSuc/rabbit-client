@@ -11,7 +11,7 @@ import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.TAG_MONITOR_UI
 import com.susion.rabbit.base.ui.utils.RabbitUiUtils
 import com.susion.rabbit.base.entities.RabbitMemoryInfo
-import com.susion.rabbit.storage.RabbitDbStorageManager
+import com.susion.rabbit.storage.RabbitStorage
 import com.susion.rabbit.base.ui.page.RabbitBasePage
 import com.susion.rabbit.base.ui.dp2px
 import com.susion.rabbit.base.ui.getColor
@@ -51,7 +51,7 @@ class RabbitMemoryGlobalAnalyzerPage(context: Context) : RabbitBasePage(context)
     }
 
     private fun loadData() {
-        RabbitDbStorageManager.getAll(
+        RabbitStorage.getAll(
             RabbitMemoryInfo::class.java,
             loadResult = { memInfos ->
 

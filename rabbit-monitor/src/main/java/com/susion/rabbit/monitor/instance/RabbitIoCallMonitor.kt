@@ -6,7 +6,7 @@ import com.susion.rabbit.base.RabbitMonitorProtocol
 import com.susion.rabbit.base.TAG_MONITOR
 import com.susion.rabbit.base.common.RabbitAsync
 import com.susion.rabbit.base.entities.RabbitIoCallInfo
-import com.susion.rabbit.storage.RabbitDbStorageManager
+import com.susion.rabbit.storage.RabbitStorage
 import com.susion.rabbit.tracer.RabbitScanIoOpHelper
 
 /**
@@ -15,7 +15,7 @@ import com.susion.rabbit.tracer.RabbitScanIoOpHelper
 internal class RabbitIoCallMonitor(override var isOpen: Boolean = false) : RabbitMonitorProtocol {
 
     override fun open(context: Context) {
-        RabbitDbStorageManager.clearAllData(RabbitIoCallInfo::class.java)
+        RabbitStorage.clear(RabbitIoCallInfo::class.java)
         RabbitAsync.asyncRun({
             val ioCallList = RabbitScanIoOpHelper.loadIoCallToDb()
             RabbitLog.d(TAG_MONITOR, "success load io call : ${ioCallList.size}")
@@ -25,7 +25,7 @@ internal class RabbitIoCallMonitor(override var isOpen: Boolean = false) : Rabbi
                     becalledStr = it.split("&").lastOrNull() ?: ""
                     time = System.currentTimeMillis()
                 }
-                RabbitDbStorageManager.save(ioCallInfo)
+                RabbitStorage.save(ioCallInfo)
             }
         })
     }

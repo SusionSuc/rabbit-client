@@ -13,7 +13,7 @@ import com.susion.rabbit.base.entities.RabbitBlockStackTraceInfo
 import com.susion.rabbit.monitor.RabbitMonitor
 import com.susion.rabbit.monitor.core.ChoreographerMonitorCenter
 import com.susion.rabbit.monitor.core.ChoreographerFrameUpdateMonitor
-import com.susion.rabbit.storage.RabbitDbStorageManager
+import com.susion.rabbit.storage.RabbitStorage
 import java.util.concurrent.TimeUnit
 
 /**
@@ -51,7 +51,7 @@ internal class RabbitANRHighVersionMonitor(override var isOpen: Boolean = false)
                     pageName = RabbitMonitor.getCurrentPage()
                     invalid = true
                 }
-                RabbitDbStorageManager.save(anrInfo)
+                RabbitStorage.save(anrInfo)
                 stackCollectHandler?.removeCallbacks(this)
             } else {
                 stackCollectHandler?.postDelayed(this, stackPostDelayTime)

@@ -3,7 +3,6 @@ package com.susion.rabbit.monitor.instance
 import android.content.Context
 import com.susion.rabbit.base.RabbitMonitorProtocol
 import com.susion.rabbit.base.entities.*
-import com.susion.rabbit.storage.RabbitDbStorageManager
 import com.susion.rabbit.storage.RabbitStorage
 
 /**
@@ -64,7 +63,7 @@ internal class RabbitAppPerformanceMonitor(override var isOpen: Boolean = false)
         if (appPerformanceInfo != null) {
             appPerformanceInfo?.isRunning = isRunning
             appPerformanceInfo?.endTime = System.currentTimeMillis()
-            RabbitDbStorageManager.updateOrCreate(
+            RabbitStorage.updateOrCreate(
                 RabbitAppPerformanceInfo::class.java,
                 appPerformanceInfo!!,
                 appPerformanceInfo?.id ?: 0

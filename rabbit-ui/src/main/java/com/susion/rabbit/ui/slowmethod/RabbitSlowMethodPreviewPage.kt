@@ -6,7 +6,7 @@ import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.susion.rabbit.base.entities.RabbitSlowMethodInfo
-import com.susion.rabbit.storage.RabbitDbStorageManager
+import com.susion.rabbit.storage.RabbitStorage
 import com.susion.rabbit.tracer.RabbitPluginConfig
 import com.susion.rabbit.base.ui.page.RabbitBasePage
 import com.susion.rabbit.base.ui.getDrawable
@@ -69,7 +69,7 @@ class RabbitSlowMethodPreviewPage(context: Context) : RabbitBasePage(context) {
 
         val methodCountMap = HashMap<String, Int>()
 
-        RabbitDbStorageManager.getAll(RabbitSlowMethodInfo::class.java, loadResult = {
+        RabbitStorage.getAll(RabbitSlowMethodInfo::class.java, loadResult = {
 
             if (it.isEmpty()) {
                 showEmptyView()

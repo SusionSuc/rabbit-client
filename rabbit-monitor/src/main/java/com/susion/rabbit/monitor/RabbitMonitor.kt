@@ -14,7 +14,7 @@ import com.susion.rabbit.monitor.instance.RabbitAppSpeedMonitor
 import com.susion.rabbit.monitor.instance.RabbitBlockMonitor
 import com.susion.rabbit.monitor.instance.RabbitFPSMonitor
 import com.susion.rabbit.monitor.instance.RabbitMemoryMonitor
-import com.susion.rabbit.storage.RabbitDbStorageManager
+import com.susion.rabbit.storage.RabbitStorage
 import okhttp3.Interceptor
 import java.lang.ref.WeakReference
 
@@ -118,10 +118,10 @@ object RabbitMonitor {
             add(RabbitMonitorProtocol.SLOW_METHOD.name)
         }
 
-        RabbitDbStorageManager.getAll(RabbitAppPerformanceInfo::class.java) {
+        RabbitStorage.getAll(RabbitAppPerformanceInfo::class.java) {
             it.forEach { globalMonitorInfo ->
                 globalMonitorInfo.isRunning = false
-                RabbitDbStorageManager.updateOrCreate(
+                RabbitStorage.updateOrCreate(
                     RabbitAppPerformanceInfo::class.java,
                     globalMonitorInfo,
                     globalMonitorInfo.id

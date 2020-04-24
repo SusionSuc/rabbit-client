@@ -13,7 +13,7 @@ import com.susion.rabbit.base.TAG_MONITOR
 import com.susion.rabbit.base.entities.RabbitMemoryInfo
 import com.susion.rabbit.base.ui.RabbitUiEvent
 import com.susion.rabbit.base.ui.utils.RabbitUiUtils
-import com.susion.rabbit.storage.RabbitDbStorageManager
+import com.susion.rabbit.storage.RabbitStorage
 
 /**
  * susionwang at 2019-12-03
@@ -29,7 +29,7 @@ internal class RabbitMemoryMonitor(override var isOpen: Boolean = false) :
     private val memoryCollectRunnable = object : Runnable {
         override fun run() {
             val memInfo = getMemoryInfo()
-            RabbitDbStorageManager.save(memInfo)
+            RabbitStorage.save(memInfo)
             val eventType = RabbitUiEvent.MSG_UPDATE_MEMORY_VALUE
             val memoryStr = "${RabbitUiUtils.formatFileSize(memInfo.totalSize.toLong())} "
             RabbitMonitor.uiEventListener?.updateUi(eventType, memoryStr)

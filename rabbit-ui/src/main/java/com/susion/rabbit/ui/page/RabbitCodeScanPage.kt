@@ -10,7 +10,7 @@ import com.susion.rabbit.base.common.FileUtils
 import com.susion.rabbit.base.common.RabbitAsync
 import com.susion.rabbit.base.entities.RabbitIoCallInfo
 import com.susion.rabbit.base.ui.page.RabbitBasePage
-import com.susion.rabbit.storage.RabbitDbStorageManager
+import com.susion.rabbit.storage.RabbitStorage
 import com.susion.rabbit.ui.entities.RabbitBlockCallList
 import com.susion.rabbit.ui.entities.RabbitUiSimpleCallInfo
 import com.susion.rabbit.ui.monitor.R
@@ -73,7 +73,7 @@ class RabbitCodeScanPage(context: Context) : RabbitBasePage(context) {
     }
 
     private fun loadData() {
-        RabbitDbStorageManager.getAll(RabbitIoCallInfo::class.java) {
+        RabbitStorage.getAll(RabbitIoCallInfo::class.java) {
             if (it.isEmpty()) {
                 showEmptyView()
             } else {

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.susion.lifeclean.common.recyclerview.SimpleRvAdapter
 import com.susion.rabbit.base.entities.RabbitHttpLogInfo
 import com.susion.rabbit.ui.view.RabbitHttpLogPreviewView
-import com.susion.rabbit.storage.RabbitDbStorageManager
+import com.susion.rabbit.storage.RabbitStorage
 import com.susion.rabbit.base.ui.page.RabbitBasePage
 import com.susion.rabbit.ui.monitor.R
 import kotlinx.android.synthetic.main.rabbit_page_http_log_list.view.*
@@ -43,7 +43,7 @@ class RabbitHttpLogListPage(context: Context) : RabbitBasePage(context) {
     }
 
     private fun loadData() {
-        RabbitDbStorageManager.getAll(RabbitHttpLogInfo::class.java, orderDesc = true) {
+        RabbitStorage.getAll(RabbitHttpLogInfo::class.java, orderDesc = true) {
             mHttpLogListSPL.isRefreshing = false
             if (it.isNotEmpty()) {
                 hideEmptyView()

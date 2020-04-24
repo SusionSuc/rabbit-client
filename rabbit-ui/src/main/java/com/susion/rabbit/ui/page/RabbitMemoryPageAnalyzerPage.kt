@@ -7,7 +7,7 @@ import com.susion.rabbit.base.entities.RabbitMemoryInfo
 import com.susion.rabbit.base.greendao.RabbitMemoryInfoDao
 import com.susion.rabbit.base.ui.page.RabbitBasePage
 import com.susion.rabbit.base.ui.utils.RabbitUiUtils
-import com.susion.rabbit.storage.RabbitDbStorageManager
+import com.susion.rabbit.storage.RabbitStorage
 import com.susion.rabbit.ui.entities.RabbitMemoryAnalyzerPageInfo
 import com.susion.rabbit.ui.monitor.R
 import com.susion.rabbit.ui.view.RabbitMemPageInfoView
@@ -40,7 +40,7 @@ class RabbitMemoryPageAnalyzerPage(context: Context) : RabbitBasePage(context) {
     }
 
     private fun loadData() {
-        RabbitDbStorageManager.distinct(
+        RabbitStorage.distinct(
             RabbitMemoryInfo::class.java,
             RabbitMemoryInfoDao.Properties.PageName.columnName
         ) { pages ->
@@ -64,7 +64,7 @@ class RabbitMemoryPageAnalyzerPage(context: Context) : RabbitBasePage(context) {
     }
 
     private fun loadMemAnalyzerInfoByPage(pageName: String): RabbitMemoryAnalyzerPageInfo {
-        val mems = RabbitDbStorageManager.getAllSync(
+        val mems = RabbitStorage.getAllSync(
             RabbitMemoryInfo::class.java,
             Pair(RabbitMemoryInfoDao.Properties.PageName, pageName)
         )

@@ -7,7 +7,7 @@ import com.susion.rabbit.base.RabbitMonitorProtocol
 import com.susion.rabbit.base.common.RabbitUtils
 import com.susion.rabbit.base.config.RabbitMonitorConfig
 import com.susion.rabbit.base.entities.RabbitFPSInfo
-import com.susion.rabbit.storage.RabbitDbStorageManager
+import com.susion.rabbit.storage.RabbitStorage
 import com.susion.rabbit.base.ui.RabbitUiEvent
 import com.susion.rabbit.monitor.core.ChoreographerMonitorCenter
 import java.util.concurrent.TimeUnit
@@ -109,7 +109,7 @@ internal class RabbitFPSMonitor(override var isOpen: Boolean = false) :
         fpsInfo.avgFps = fpsList.average().toInt()
         fpsInfo.pageName = currentPageName
         fpsInfo.time = System.currentTimeMillis()
-        RabbitDbStorageManager.save(fpsInfo)
+        RabbitStorage.save(fpsInfo)
         fpsList.clear()
     }
 

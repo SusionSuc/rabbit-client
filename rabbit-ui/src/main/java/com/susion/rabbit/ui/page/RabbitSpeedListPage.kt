@@ -9,7 +9,7 @@ import com.susion.rabbit.ui.entities.RabbitAppStartSpeedTotalInfo
 import com.susion.rabbit.base.entities.RabbitPageSpeedInfo
 import com.susion.rabbit.base.entities.RabbitPageSpeedUiInfo
 import com.susion.rabbit.base.ui.page.RabbitBasePage
-import com.susion.rabbit.storage.RabbitDbStorageManager
+import com.susion.rabbit.storage.RabbitStorage
 import com.susion.rabbit.ui.monitor.R
 import com.susion.rabbit.ui.view.RabbitAppSpeedInfoView
 import com.susion.rabbit.ui.view.RabbitPageSpeedUiItemView
@@ -56,7 +56,7 @@ class RabbitSpeedListPage(context: Context) : RabbitBasePage(context) {
 
     private fun loadData() {
 
-        RabbitDbStorageManager.getAll(RabbitAppStartSpeedInfo::class.java) { speedInfos ->
+        RabbitStorage.getAll(RabbitAppStartSpeedInfo::class.java) { speedInfos ->
 
             val info = RabbitAppStartSpeedTotalInfo().apply {
                 avgOnCreateTime =
@@ -66,7 +66,7 @@ class RabbitSpeedListPage(context: Context) : RabbitBasePage(context) {
                 count = speedInfos.size.toString()
             }
 
-            RabbitDbStorageManager.getAll(RabbitPageSpeedInfo::class.java) {
+            RabbitStorage.getAll(RabbitPageSpeedInfo::class.java) {
                 mUiBlockPageSRL.isRefreshing = false
 
                 val pageSpeedMap = LinkedHashMap<String, RabbitPageSpeedUiInfo>()

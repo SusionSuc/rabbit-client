@@ -7,7 +7,7 @@ import com.susion.lifeclean.common.recyclerview.SimpleRvAdapter
 import com.susion.rabbit.base.entities.RabbitSlowMethodInfo
 import com.susion.rabbit.base.ui.getDrawable
 import com.susion.rabbit.base.ui.page.RabbitBasePage
-import com.susion.rabbit.storage.RabbitDbStorageManager
+import com.susion.rabbit.storage.RabbitStorage
 import com.susion.rabbit.ui.entities.RabbitSlowMethodUiInfo
 import com.susion.rabbit.ui.monitor.R
 import com.susion.rabbit.ui.slowmethod.view.RabbitSlowMethodInfoView
@@ -42,7 +42,7 @@ class RabbitSlowMethodPkgListPage(context: Context) : RabbitBasePage(context) {
 
         val uiMethodInfo = LinkedHashMap<String, RabbitSlowMethodUiInfo>()
 
-        RabbitDbStorageManager.getAll(
+        RabbitStorage.getAll(
             RabbitSlowMethodInfo::class.java,
             loadResult = {
 

@@ -18,7 +18,7 @@ import com.susion.rabbit.base.entities.RabbitPageApiInfo
 import com.susion.rabbit.base.entities.RabbitPageSpeedInfo
 import com.susion.rabbit.base.entities.RabbitPageSpeedUiInfo
 import com.susion.rabbit.base.greendao.RabbitPageSpeedInfoDao
-import com.susion.rabbit.storage.RabbitDbStorageManager
+import com.susion.rabbit.storage.RabbitStorage
 import com.susion.rabbit.base.ui.page.RabbitBasePage
 import com.susion.rabbit.base.ui.dp2px
 import com.susion.rabbit.base.ui.getColor
@@ -41,7 +41,7 @@ class RabbitSpeedPageDetailPage(context: Context) : RabbitBasePage(context) {
         setTitle("页面测速详情")
         initChart(mRabbitSpeedDetailChart)
         mRabbitSpeedDetailTvPageSRL.setOnRefreshListener {
-            RabbitDbStorageManager.getAll(
+            RabbitStorage.getAll(
                 RabbitPageSpeedInfo::class.java,
                 condition = Pair(RabbitPageSpeedInfoDao.Properties.PageName, pageName)
             ) {

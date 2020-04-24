@@ -8,8 +8,7 @@ import com.susion.rabbit.base.TAG_MONITOR
 import com.susion.rabbit.base.common.RabbitUtils
 import com.susion.rabbit.base.entities.RabbitSlowMethodInfo
 import com.susion.rabbit.monitor.RabbitMonitor
-import com.susion.rabbit.monitor.utils.RabbitMonitorUtils
-import com.susion.rabbit.storage.RabbitDbStorageManager
+import com.susion.rabbit.storage.RabbitStorage
 import com.susion.rabbit.tracer.RabbitTracerEventNotifier
 
 /**
@@ -70,7 +69,7 @@ internal class RabbitMethodMonitor(override var isOpen: Boolean = false) : Rabbi
                 callStack = RabbitUtils.traceToString(3, Throwable().stackTrace, 15)
             }
 
-            RabbitDbStorageManager.save(slowMethod)
+            RabbitStorage.save(slowMethod)
         }
     }
 

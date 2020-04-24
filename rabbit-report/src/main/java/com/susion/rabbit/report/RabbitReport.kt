@@ -16,8 +16,7 @@ import com.susion.rabbit.base.entities.RabbitDeviceInfo
 import com.susion.rabbit.base.entities.RabbitReportInfo
 import com.susion.rabbit.base.config.RabbitReportConfig
 import com.susion.rabbit.base.greendao.RabbitReportInfoDao
-import com.susion.rabbit.storage.RabbitDbStorageManager
-import okhttp3.internal.Util
+import com.susion.rabbit.storage.RabbitStorage
 import java.util.concurrent.Executors
 
 /**
@@ -43,7 +42,7 @@ object RabbitReport {
             when (msg.what) {
                 LOAD_POINT_TO_EMITER_QUEUE -> {
                     val loadDataCount = RabbitReportDataEmitterTask.EMITER_QUEUE_MAX_SIZE / 2
-                    RabbitDbStorageManager.getAll(
+                    RabbitStorage.getAll(
                         RabbitReportInfo::class.java,
                         count = loadDataCount,
                         sortField = "time",
@@ -75,7 +74,7 @@ object RabbitReport {
 
         dataEmitterTask.eventListener = object : RabbitReportDataEmitterTask.EventListener {
             override fun successEmitterPoint(pointInfo: RabbitReportInfo) {
-                RabbitDbStorageManager.delete(
+                RabbitStorage.delete(
                     RabbitReportInfo::class.java,
                     condition = Pair(
                         RabbitReportInfoDao.Properties.Time,
@@ -86,7 +85,7 @@ object RabbitReport {
 
             override fun pointQueueIsEmpty() {
                 val currentDbPointCount =
-                    RabbitDbStorageManager.dataCount(RabbitReportInfo::class.java)
+                    RabbitStorage.totalCount(RabbitReportInfo::class.java)
                 RabbitLog.d(TAG_REPORT, "pointQueueIsEmpty db point : $currentDbPointCount")
                 if (currentDbPointCount > 0) {
                     mHandler.sendEmptyMessage(LOAD_POINT_TO_EMITER_QUEUE)
@@ -116,7 +115,7 @@ object RabbitReport {
 
         RabbitLog.d(TAG_REPORT, "report  ${reportInfo.type} data  use time : $useTime")
 
-        RabbitDbStorageManager.save(reportInfo)
+        RabbitStorage.save(reportInfo)
 
         dataEmitterTask.addPoint(reportInfo)
 

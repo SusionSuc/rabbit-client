@@ -10,7 +10,7 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.susion.rabbit.base.entities.RabbitFPSInfo
 import com.susion.rabbit.base.ui.utils.RabbitUiUtils
 import com.susion.rabbit.base.greendao.RabbitFPSInfoDao
-import com.susion.rabbit.storage.RabbitDbStorageManager
+import com.susion.rabbit.storage.RabbitStorage
 import com.susion.rabbit.base.ui.page.RabbitBasePage
 import com.susion.rabbit.base.ui.dp2px
 import com.susion.rabbit.base.ui.getColor
@@ -42,7 +42,7 @@ class RabbitFpsAnalyzerDetailPage(context: Context) : RabbitBasePage(context) {
 
     private fun loadData(pageName: String) {
 
-        RabbitDbStorageManager.getAll(
+        RabbitStorage.getAll(
             RabbitFPSInfo::class.java,
             Pair(RabbitFPSInfoDao.Properties.PageName, pageName),
             loadResult = { fpses ->

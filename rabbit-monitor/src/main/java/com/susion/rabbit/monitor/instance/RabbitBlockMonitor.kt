@@ -13,7 +13,7 @@ import com.susion.rabbit.base.entities.RabbitBlockStackTraceInfo
 import com.susion.rabbit.monitor.RabbitMonitor
 import com.susion.rabbit.monitor.core.ChoreographerMonitorCenter
 import com.susion.rabbit.monitor.core.ChoreographerFrameUpdateMonitor
-import com.susion.rabbit.storage.RabbitDbStorageManager
+import com.susion.rabbit.storage.RabbitStorage
 import java.util.concurrent.TimeUnit
 
 /**
@@ -83,7 +83,7 @@ internal open class RabbitBlockMonitor(override var isOpen: Boolean = false) :
                 time = System.currentTimeMillis()
                 pageName = RabbitMonitor.getCurrentPage()
             }
-            RabbitDbStorageManager.save(blockFrameInfo)
+            RabbitStorage.save(blockFrameInfo)
         }
 
         stackCollectHandler?.postDelayed(blockStackCollectTask, stackCollectPeriod)

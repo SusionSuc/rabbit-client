@@ -3,7 +3,7 @@ package com.susion.rabbit.ui.global
 import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.common.rabbitTimeFormat
 import com.susion.rabbit.base.entities.*
-import com.susion.rabbit.storage.RabbitDbStorageManager
+import com.susion.rabbit.storage.RabbitStorage
 import com.susion.rabbit.ui.global.entities.RabbitAppPerformancePitInfo
 import com.susion.rabbit.ui.global.entities.RabbitPagePerformanceInfo
 import com.susion.rabbit.ui.global.entities.RabbitAppPerformanceOverviewInfo
@@ -47,7 +47,7 @@ object RabbitPerformanceTestDataAnalyzer {
         preInfo.avgJVMMemory = getAvgTotalMemory(monitorInfo.memoryIds)
 
         if (idIsValid(monitorInfo.appStartId)) {
-            val appStartInfo = RabbitDbStorageManager.getObjSync(
+            val appStartInfo = RabbitStorage.querySync(
                 RabbitAppStartSpeedInfo::class.java,
                 monitorInfo.appStartId.toLong()
             )
@@ -75,7 +75,7 @@ object RabbitPerformanceTestDataAnalyzer {
         if (ids == null) return 0
         return getIds(ids)
             .mapNotNull { id ->
-                RabbitDbStorageManager.getObjSync(
+                RabbitStorage.querySync(
                     RabbitFPSInfo::class.java,
                     id.toLong()
                 )
@@ -86,7 +86,7 @@ object RabbitPerformanceTestDataAnalyzer {
         if (ids == null) return 0L
         return getIds(ids)
             .mapNotNull { id ->
-                RabbitDbStorageManager.getObjSync(
+                RabbitStorage.querySync(
                     RabbitMemoryInfo::class.java,
                     id.toLong()
                 )
@@ -97,7 +97,7 @@ object RabbitPerformanceTestDataAnalyzer {
         if (ids == null) return 0L
         return getIds(ids)
             .mapNotNull { id ->
-                RabbitDbStorageManager.getObjSync(
+                RabbitStorage.querySync(
                     RabbitPageSpeedInfo::class.java,
                     id.toLong()
                 )
@@ -121,7 +121,7 @@ object RabbitPerformanceTestDataAnalyzer {
 
         //fps
         getIds(monitorInfo.fpsIds).mapNotNull { id ->
-            RabbitDbStorageManager.getObjSync(
+            RabbitStorage.querySync(
                 RabbitFPSInfo::class.java,
                 id.toLong()
             )
@@ -137,7 +137,7 @@ object RabbitPerformanceTestDataAnalyzer {
 
         //mem
         getIds(monitorInfo.memoryIds).mapNotNull { id ->
-            RabbitDbStorageManager.getObjSync(
+            RabbitStorage.querySync(
                 RabbitMemoryInfo::class.java,
                 id.toLong()
             )
@@ -151,7 +151,7 @@ object RabbitPerformanceTestDataAnalyzer {
 
         //block
         getIds(monitorInfo.blockIds).mapNotNull { id ->
-            RabbitDbStorageManager.getObjSync(
+            RabbitStorage.querySync(
                 RabbitBlockFrameInfo::class.java,
                 id.toLong()
             )
@@ -161,7 +161,7 @@ object RabbitPerformanceTestDataAnalyzer {
 
         //slow method
         getIds(monitorInfo.slowMethodIds).mapNotNull { id ->
-            RabbitDbStorageManager.getObjSync(
+            RabbitStorage.querySync(
                 RabbitSlowMethodInfo::class.java,
                 id.toLong()
             )
@@ -171,7 +171,7 @@ object RabbitPerformanceTestDataAnalyzer {
 
         //inflate & render
         getIds(monitorInfo.pageSpeedIds).mapNotNull { id ->
-            RabbitDbStorageManager.getObjSync(
+            RabbitStorage.querySync(
                 RabbitPageSpeedInfo::class.java,
                 id.toLong()
             )

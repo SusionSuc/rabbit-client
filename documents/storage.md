@@ -35,4 +35,4 @@ rabbitConfig.storageConfig.daoProvider.addAll(ArrayList<RabbitDaoProviderConfig>
 
 ## 数据操作API
 
-`rabbit`数据操作的API位于`RabbitDbStorageManager`中,具体功能可以参考这个类。
+`rabbit`数据操作的API位于`RabbitStorage`中,具体功能可以参考这个类。

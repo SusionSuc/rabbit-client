@@ -6,7 +6,7 @@ import com.susion.rabbit.monitor.RabbitMonitor
 import com.susion.rabbit.base.RabbitMonitorProtocol
 import com.susion.rabbit.base.TAG_MONITOR
 import com.susion.rabbit.monitor.utils.RabbitHttpResponseParser
-import com.susion.rabbit.storage.RabbitDbStorageManager
+import com.susion.rabbit.storage.RabbitStorage
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
@@ -39,7 +39,7 @@ internal class RabbitNetMonitor(override var isOpen: Boolean = false) : RabbitMo
 
         }catch (e:Exception){
 
-            RabbitDbStorageManager.save(RabbitHttpResponseParser.createExceptionLog(request, e))
+            RabbitStorage.save(RabbitHttpResponseParser.createExceptionLog(request, e))
 
             throw e
         }
@@ -50,7 +50,7 @@ internal class RabbitNetMonitor(override var isOpen: Boolean = false) : RabbitMo
             val logInfo = RabbitHttpResponseParser.parserResponse(request, response, startNs)
 
             if (logInfo.isvalid()) {
-                RabbitDbStorageManager.save(logInfo)
+                RabbitStorage.save(logInfo)
             }
 
         } catch (e: Exception) {

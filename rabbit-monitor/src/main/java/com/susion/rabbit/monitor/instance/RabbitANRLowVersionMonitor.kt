@@ -10,7 +10,7 @@ import com.susion.rabbit.base.entities.RabbitAnrInfo
 import com.susion.rabbit.base.greendao.RabbitAnrInfoDao
 import com.susion.rabbit.monitor.RabbitMonitor
 import com.susion.rabbit.monitor.utils.RabbitMonitorUtils
-import com.susion.rabbit.storage.RabbitDbStorageManager
+import com.susion.rabbit.storage.RabbitStorage
 import java.io.File
 
 /**
@@ -81,13 +81,13 @@ internal class RabbitANRLowVersionMonitor(override var isOpen: Boolean = false) 
 
         RabbitLog.d(TAG_MONITOR, "采集anr信息成功 ! save to db")
 
-        RabbitDbStorageManager.saveSync(anrInfo)
+        RabbitStorage.saveSync(anrInfo)
 
     }
 
     private fun syncAnrRecord() {
         RabbitLog.d(TAG_MONITOR, "syncAnrRecord---> ")
-        RabbitDbStorageManager.getAll(RabbitAnrInfo::class.java,
+        RabbitStorage.getAll(RabbitAnrInfo::class.java,
             condition = Pair(RabbitAnrInfoDao.Properties.Invalid, false),
             orderDesc = true,
             loadResult = { anrList ->
@@ -97,13 +97,13 @@ internal class RabbitANRLowVersionMonitor(override var isOpen: Boolean = false) 
                     if (anr.stackStr.isNotEmpty()) {
                         anr.invalid = true
                         RabbitLog.d(TAG_MONITOR, "回溯 ANR -> ${anr.time}")
-                        RabbitDbStorageManager.updateOrCreate(
+                        RabbitStorage.updateOrCreate(
                             RabbitAnrInfo::class.java,
                             anr,
                             anr.id
                         )
                     } else {
-                        RabbitDbStorageManager.delete(RabbitAnrInfo::class.java, anr.id)
+                        RabbitStorage.delete(RabbitAnrInfo::class.java, anr.id)
                         RabbitLog.d(TAG_MONITOR, "删除无效的ANR记录 -> ${anr.time}")
                     }
                 }

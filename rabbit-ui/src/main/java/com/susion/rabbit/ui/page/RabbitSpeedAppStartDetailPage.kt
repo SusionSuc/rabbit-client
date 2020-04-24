@@ -8,7 +8,7 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.susion.rabbit.base.entities.RabbitAppStartSpeedInfo
-import com.susion.rabbit.storage.RabbitDbStorageManager
+import com.susion.rabbit.storage.RabbitStorage
 import com.susion.rabbit.base.ui.page.RabbitBasePage
 import com.susion.rabbit.base.ui.dp2px
 import com.susion.rabbit.base.ui.getColor
@@ -47,7 +47,7 @@ class RabbitSpeedAppStartDetailPage(context: Context) : RabbitBasePage(context) 
             xAxis.isEnabled = false
         }
 
-        RabbitDbStorageManager.getAll(RabbitAppStartSpeedInfo::class.java) { speedInfos ->
+        RabbitStorage.getAll(RabbitAppStartSpeedInfo::class.java) { speedInfos ->
 
             val onCreateCostList =
                 speedInfos.map { it.createEndTime - it.createStartTime }.filter { it != 0L }
