@@ -77,8 +77,8 @@ Rabbit is under the MIT license. See the [LICENSE](./LICENSE) file for details
 
 # 开发中的功能
 
-1. anr捕获 [alpha]
-2. native crash 捕获 [developing]
-3. 线程监控 [developing]
+1. anr捕获 (in alpha)
+2. native crash 捕获 (in developing)
+3. 线程监控 (in developing)
 
 
