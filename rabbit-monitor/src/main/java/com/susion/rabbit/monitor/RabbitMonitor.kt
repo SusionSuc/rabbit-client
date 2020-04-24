@@ -44,6 +44,7 @@ object RabbitMonitor {
             put(RabbitMonitorProtocol.USE_TIME.name, RabbitAppUseTimeMonitor())
             put(RabbitMonitorProtocol.SLOW_METHOD.name, RabbitMethodMonitor())
             put(RabbitMonitorProtocol.BLOCK_CALL.name, RabbitIoCallMonitor())
+            put(RabbitMonitorProtocol.THREAD.name, RabbitThreadMonitor())
 
             if (Build.VERSION.SDK_INT >= 21) {
                 RabbitLog.d(TAG_COMMON, "use high version anr monitor")

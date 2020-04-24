@@ -35,6 +35,7 @@ dependencies {
     implementation project(':rabbit-report')
     implementation project(':rabbit-base')
     implementation project(':rabbit-storage')
+    implementation project(':rabbit-native-jvmti')
 
     implementation rootProject.ext.androidXDependencies.appcompat
     implementation rootProject.ext.androidXDependencies.lifeExtensions

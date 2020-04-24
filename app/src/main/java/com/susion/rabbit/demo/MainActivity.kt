@@ -11,7 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
-import com.susion.jvmti.RabbitJvmTi
 import com.susion.rabbit.Rabbit
 import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.TAG_NATIVE

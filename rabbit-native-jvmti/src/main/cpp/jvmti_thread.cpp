@@ -4,6 +4,7 @@
 
 #include "jvmti_thread.h"
 #include "common.h"
+#include "jvmti_handler.h"
 
 //getName()
 static char *GET_NAME_METHOD_NAME = const_cast<char *>("getName");
@@ -28,7 +29,7 @@ int get_thread_priority( JNIEnv *jni_env,jthread thread){
     return jni_env->CallIntMethod(thread, method_id);
 }
 
-jlong get_thread_id( JNIEnv *jni_env,jthread thread){
+jlong get_thread_id(JNIEnv *jni_env,jthread thread){
     jclass thread_class = jni_env->GetObjectClass(thread);
     jmethodID  method_id = jni_env->GetMethodID(thread_class,GET_ID_METHOD_NAME, GET_ID_METHOD_SIGNATURE);
     return jni_env->CallLongMethod(thread, method_id);
@@ -36,6 +37,7 @@ jlong get_thread_id( JNIEnv *jni_env,jthread thread){
 
 void on_thread_start(jvmtiEnv *jvmti_env, JNIEnv *jni_env, jthread thread) {
     LOG_D("thread start -> id : %d; name : %s ; priority : %d", get_thread_id(jni_env, thread), get_thread_name(jni_env, thread), get_thread_priority(jni_env, thread));
+    notifyMessage(jni_env, "thread start!");
 }
 
 void on_thread_stop(jvmtiEnv *jvmti_env, JNIEnv *jni_env, jthread thread) {

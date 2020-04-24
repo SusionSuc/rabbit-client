@@ -8,8 +8,9 @@
 #include "jvmti_handler.h"
 
 //jin方法映射表
+static const char *className = "com/susion/rabbit/jvmti/RabbitJvmTi";
 static JNINativeMethod native_methods[] = {
-        {"nativeInitCaptor", "(android/os/Handler;)Ljava/lang/String;", (void *) init_native_crash_captor}
+        {"registerCommunityHandler", "(Lcom/susion/rabbit/jvmti/NativeCommunityHandler;)V", (void *) register_community_handler}
 };
 
 jvmtiEnv *create_jvmti_env(JavaVM *vm) {
@@ -48,5 +49,34 @@ extern "C" JNIEXPORT jint JNICALL Agent_OnAttach(JavaVM *vm, char *options, void
     enable_event_notification(jvmti_env, JVMTI_ENABLE, JVMTI_EVENT_THREAD_END);
 
     return JNI_OK;
+
+}
+
+
+//动态注册jni方法，so加载完成后，后自动调用这个方法
+JNIEXPORT jint JNI_OnLoad(JavaVM *vm, void *reserved) {
+    LOG_D("JNI_OnLoad()");
+
+    JNIEnv *env;
+
+    if (vm == nullptr) return ERROR_CODE_INT;
+
+    if (vm->GetEnv((void **) &env, JNI_VERSION_1_6) != JNI_OK) {
+        return ERROR_CODE_INT;
+    }
+
+    if (env == nullptr) return ERROR_CODE_INT;
+
+    jclass cls = env->FindClass(className);
+
+    if (cls == nullptr) return ERROR_CODE_INT;
+
+    jint native_methods_count = sizeof(native_methods) / sizeof(native_methods[0]);
+
+    env->RegisterNatives(cls, native_methods, native_methods_count);
+
+    LOG_D("register native method success!");
+
+    return JNI_VERSION_1_6;
 
 }

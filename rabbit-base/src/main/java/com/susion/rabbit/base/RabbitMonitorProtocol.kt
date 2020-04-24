@@ -68,6 +68,8 @@ interface RabbitMonitorProtocol {
 
         val ANR = MonitorInfo("anr", "ANR监控")
 
+        val THREAD = MonitorInfo("thread", "线程分析")
+
     }
 
     class MonitorInfo(

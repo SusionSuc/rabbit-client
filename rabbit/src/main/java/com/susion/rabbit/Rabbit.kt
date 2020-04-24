@@ -4,7 +4,7 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.view.View
-import com.susion.jvmti.RabbitJvmTi
+import com.susion.rabbit.jvmti.RabbitJvmTi
 import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.RabbitMonitorProtocol
 import com.susion.rabbit.base.RabbitProtocol
@@ -134,7 +134,6 @@ object Rabbit : RabbitProtocol {
     }
 
     private fun initAllComponent() {
-        RabbitJvmTi.init(application)
         RabbitStorage.init(application, mConfig.storageConfig)
         RabbitReport.init(application, mConfig.reportConfig)
         RabbitUi.init(application, mConfig.uiConfig)

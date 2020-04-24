@@ -26,6 +26,13 @@ object RabbitLog {
     }
 
     @JvmStatic
+    fun d(tag: String, suffix: String, logStr: String) {
+        if (isEnable) {
+            Log.d("$tag$suffix", logStr)
+        }
+    }
+
+    @JvmStatic
     fun d(logStr: String) {
         if (isEnable) {
             Log.d(TAG_COMMON, logStr)
