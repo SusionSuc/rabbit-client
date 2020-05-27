@@ -37,18 +37,17 @@ object Rabbit : RabbitProtocol {
 
     override fun init(app: Application, config: RabbitConfig) {
 
-        application = app
-
         try {
-            if (!RabbitUtils.isMainProcess(application)) return
+            if (!RabbitUtils.isMainProcess(app)) return
         } catch (e: Throwable) {
             RabbitLog.d("init error :${e.message}")
             return
         }
 
+        application = app
         mConfig = config
 
-        if (!mConfig.enable) {
+        if (!mConfig.enable || isInit) {
             return
         }
 
