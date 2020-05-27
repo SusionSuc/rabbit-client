@@ -46,7 +46,7 @@ internal object ChoreographerMonitorCenter {
     fun removeDetailedFrameUpdateListener(listener: LazyChoreographerFrameUpdateMonitor.FrameUpdateListener) {
         detailedFrameUpdateMonitor.removeFrameUpdateListener(listener)
         if (detailedFrameUpdateMonitor.getCurrentListenerSize() == 0) {
-            detailedFrameUpdateMonitor.startMonitor()
+            detailedFrameUpdateMonitor.stopMonitor()
             RabbitLog.d(TAG_MONITOR, "stop detailedFrameUpdateMonitor")
         }
     }

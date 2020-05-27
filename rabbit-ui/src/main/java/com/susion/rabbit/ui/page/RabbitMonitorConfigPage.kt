@@ -1,4 +1,4 @@
-package com.susion.rabbit.ui
+package com.susion.rabbit.ui.page
 
 import android.content.Context
 import android.view.ViewGroup
@@ -6,6 +6,7 @@ import com.susion.rabbit.base.RabbitSettings
 import com.susion.rabbit.base.ui.page.RabbitBasePage
 import com.susion.rabbit.base.ui.dp2px
 import com.susion.rabbit.base.ui.view.RabbitSwitchButton
+import com.susion.rabbit.ui.RabbitUi
 import com.susion.rabbit.ui.monitor.R
 import kotlinx.android.synthetic.main.rabbit_page_config.view.*
 
