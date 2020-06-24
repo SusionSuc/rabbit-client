@@ -1,11 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply from: '../buildsystem/common-version.gradle'
 apply from: '../buildsystem/rabbit-plugin.gradle'
 apply plugin: 'kotlin-kapt'
-
-def uniqueVersion = rootProject.ext.versions
 
 
 android {
@@ -17,13 +14,13 @@ android {
             keyPassword 'rabbit'
         }
     }
-    compileSdkVersion uniqueVersion.compileSdkVersion
-    buildToolsVersion uniqueVersion.buildToolsVersion
+    compileSdkVersion BuildInfo.compileSdkVersion
+    buildToolsVersion BuildInfo.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion uniqueVersion.minSdkVersion
-        targetSdkVersion uniqueVersion.targetSdkVersion
-        applicationId uniqueVersion.applicationId
+        minSdkVersion BuildInfo.minSdkVersion
+        targetSdkVersion BuildInfo.targetSdkVersion
+        applicationId BuildInfo.applicationId
 
         versionCode 1
         versionName "1.0"
@@ -59,16 +56,16 @@ dependencies {
 //    implementation rootProject.ext.rabbitDependence
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${uniqueVersion.kotlinStdlibJdk7Version}"
-    implementation rootProject.ext.androidXDependencies.recyclerView
-    implementation rootProject.ext.androidXDependencies.appcompat
-    implementation "org.greenrobot:greendao:${uniqueVersion.greenDaoVersion}"
-    implementation "com.squareup.retrofit2:retrofit:${uniqueVersion.retrofit2Version}"
-    implementation "com.google.code.gson:gson:${uniqueVersion.gsonVersion}"
-    implementation "io.reactivex.rxjava2:rxjava:${uniqueVersion.rx2javaVersion}"
-    implementation "io.reactivex.rxjava2:rxandroid:${uniqueVersion.rx2androidVersion}"
-    implementation "com.squareup.retrofit2:converter-gson:${uniqueVersion.retrofit2ConvertJson}"
-    implementation "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:${uniqueVersion.retrofit2RxJavaAdapterVersion}"
-    implementation "com.susion:life-clean:${uniqueVersion.lifeClean}"
+    implementation LibDepen.kotlinStdlibJdk7Version
+    implementation AndroidXDepen.recyclerView
+    implementation AndroidXDepen.appcompat
+    implementation LibDepen.greenDao
+    implementation LibDepen.retrofit2
+    implementation LibDepen.gson
+    implementation LibDepen.rxjava2
+    implementation LibDepen.rxandroid2
+    implementation LibDepen.retrofit2ConvertJson
+    implementation LibDepen.retrofit2RxJavaAdapter
+    implementation LibDepen.lifeClean
 
 }

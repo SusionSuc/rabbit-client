@@ -1,18 +1,16 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply from: '../buildsystem/common-version.gradle'
 apply from: '../buildsystem/publish.gradle'
 
-def uniqueVersion = rootProject.ext.versions
 
 android {
-    compileSdkVersion uniqueVersion.compileSdkVersion
-    buildToolsVersion uniqueVersion.buildToolsVersion
+    compileSdkVersion BuildInfo.compileSdkVersion
+    buildToolsVersion BuildInfo.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion uniqueVersion.minSdkVersion
-        targetSdkVersion uniqueVersion.targetSdkVersion
+        minSdkVersion BuildInfo.minSdkVersion
+        targetSdkVersion BuildInfo.targetSdkVersion
     }
 
     compileOptions {
@@ -38,11 +36,11 @@ dependencies {
     api project(':rabbit-storage')
     api project(':rabbit-native-jvmti')
 
-    implementation rootProject.ext.androidXDependencies.appcompat
-    implementation rootProject.ext.androidXDependencies.lifeExtensions
+    implementation AndroidXDepen.appcompat
+    implementation AndroidXDepen.lifeExtensions
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${uniqueVersion.kotlinStdlibJdk7Version}"
-    debugApi "com.squareup.leakcanary:leakcanary-android:${uniqueVersion.leakCanaryVersion}"
-    implementation "com.squareup.retrofit2:retrofit:${uniqueVersion.retrofit2Version}"
+    implementation LibDepen.kotlinStdlibJdk7Version
+    debugApi LibDepen.leakCanary
+    implementation LibDepen.retrofit2
 
 }

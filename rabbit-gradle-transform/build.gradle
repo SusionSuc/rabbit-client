@@ -1,12 +1,8 @@
-apply from: '../buildsystem/common-version.gradle'
 apply plugin: 'java'
 apply plugin: 'kotlin'
 apply plugin: 'maven'
 apply plugin: 'kotlin-kapt'
 apply from: '../buildsystem/publish.gradle'
-
-
-def uniqueVersion = rootProject.ext.versions
 
 compileKotlin {
     kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8
@@ -21,15 +17,15 @@ dependencies {
     api project(':rabbit-gradle-interface')
 
     implementation gradleApi()
-    implementation "com.android.tools.build:gradle:3.5.0"
-    implementation "com.google.auto.service:auto-service:${uniqueVersion.autoServiceVersion}"
-    kapt "com.google.auto.service:auto-service:${uniqueVersion.autoServiceVersion}"
+    implementation LibDepen.buildGradle
+    implementation LibDepen.autoService
+    kapt LibDepen.autoService
 
-    implementation "org.ow2.asm:asm:${uniqueVersion.asmVersion}"
-    implementation "org.ow2.asm:asm-analysis:${uniqueVersion.asmVersion}"
-    implementation "org.ow2.asm:asm-commons:${uniqueVersion.asmVersion}"
-    implementation "org.ow2.asm:asm-tree:${uniqueVersion.asmVersion}"
-    implementation "org.ow2.asm:asm-util:${uniqueVersion.asmVersion}"
+    implementation LibDepen.asm
+    implementation LibDepen.asmAnalysis
+    implementation LibDepen.asmCommons
+    implementation LibDepen.asmTree
+    implementation LibDepen.asmUtils
 }
 
 

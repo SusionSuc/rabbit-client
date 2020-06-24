@@ -1,16 +1,14 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply from: '../buildsystem/common-version.gradle'
-def uniqueVersion = rootProject.ext.versions
 
 android {
-    compileSdkVersion uniqueVersion.compileSdkVersion
-    buildToolsVersion uniqueVersion.buildToolsVersion
+    compileSdkVersion BuildInfo.compileSdkVersion
+    buildToolsVersion BuildInfo.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion uniqueVersion.minSdkVersion
-        targetSdkVersion uniqueVersion.targetSdkVersion
+        minSdkVersion BuildInfo.minSdkVersion
+        targetSdkVersion BuildInfo.targetSdkVersion
         versionCode 1
         versionName "1.0"
 
@@ -44,5 +42,5 @@ android {
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(":rabbit-base")
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${uniqueVersion.kotlinStdlibJdk7Version}"
+    implementation LibDepen.kotlinStdlibJdk7Version
 }

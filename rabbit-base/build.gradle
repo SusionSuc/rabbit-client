@@ -1,20 +1,18 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply from: '../buildsystem/common-version.gradle'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'org.greenrobot.greendao' // apply plugin
 apply from: '../buildsystem/publish.gradle'
 
-def uniqueVersion = rootProject.ext.versions
 
 android {
-    compileSdkVersion uniqueVersion.compileSdkVersion
-    buildToolsVersion uniqueVersion.buildToolsVersion
+    compileSdkVersion BuildInfo.compileSdkVersion
+    buildToolsVersion BuildInfo.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion uniqueVersion.minSdkVersion
-        targetSdkVersion uniqueVersion.targetSdkVersion
+        minSdkVersion BuildInfo.minSdkVersion
+        targetSdkVersion BuildInfo.targetSdkVersion
     }
 
     buildTypes {
@@ -42,17 +40,17 @@ greendao {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${uniqueVersion.kotlinStdlibJdk7Version}"
-    implementation rootProject.ext.androidXDependencies.appcompat
-    implementation rootProject.ext.androidXDependencies.recyclerView
-    implementation rootProject.ext.androidXDependencies.lifeExtensions
-    implementation rootProject.ext.androidXDependencies.swipeRefreshLayout
+    implementation LibDepen.kotlinStdlibJdk7Version
+    implementation AndroidXDepen.appcompat
+    implementation AndroidXDepen.recyclerView
+    implementation AndroidXDepen.lifeExtensions
+    implementation AndroidXDepen.swipeRefreshLayout
 
-    implementation "org.greenrobot:greendao:${uniqueVersion.greenDaoVersion}"
-    implementation "com.google.code.gson:gson:${uniqueVersion.gsonVersion}"
-    implementation "io.reactivex.rxjava2:rxjava:${uniqueVersion.rx2javaVersion}"
-    implementation "io.reactivex.rxjava2:rxandroid:${uniqueVersion.rx2androidVersion}"
-    implementation "com.jakewharton.rxbinding3:rxbinding:${uniqueVersion.rxbinding3Version}"
-    implementation "com.squareup.retrofit2:retrofit:${uniqueVersion.retrofit2Version}"
-    implementation "com.susion:life-clean:${uniqueVersion.lifeClean}"
+    implementation LibDepen.greenDao
+    implementation LibDepen.gson
+    implementation LibDepen.rxjava2
+    implementation LibDepen.rxandroid2
+    implementation LibDepen.rxbinding3
+    implementation LibDepen.retrofit2
+    implementation LibDepen.lifeClean
 }

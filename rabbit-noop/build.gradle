@@ -1,18 +1,15 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply from: '../buildsystem/common-version.gradle'
 apply from: '../buildsystem/publish.gradle'
 
-def uniqueVersion = rootProject.ext.versions
-
 android {
-    compileSdkVersion uniqueVersion.compileSdkVersion
-    buildToolsVersion uniqueVersion.buildToolsVersion
+    compileSdkVersion BuildInfo.compileSdkVersion
+    buildToolsVersion BuildInfo.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion uniqueVersion.minSdkVersion
-        targetSdkVersion uniqueVersion.targetSdkVersion
+        minSdkVersion BuildInfo.minSdkVersion
+        targetSdkVersion BuildInfo.targetSdkVersion
     }
 
     compileOptions {
@@ -33,8 +30,9 @@ dependencies {
 
     api project(':rabbit-base')
     api project(':rabbit-storage')
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${uniqueVersion.kotlinStdlibJdk7Version}"
-    implementation "org.greenrobot:greendao:${uniqueVersion.greenDaoVersion}"
-    implementation rootProject.ext.androidXDependencies.appcompat
-    implementation "com.squareup.retrofit2:retrofit:${uniqueVersion.retrofit2Version}"
+    implementation LibDepen.kotlinStdlibJdk7Version
+    implementation LibDepen.greenDao
+    implementation AndroidXDepen.appcompat
+    implementation LibDepen.retrofit2
+
 }
