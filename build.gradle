@@ -5,7 +5,7 @@ buildscript {
     repositories {
         flatDir {
             name 'localRepo'
-            dir "localRepo/rabbitTransform"
+            dir "localRepo/dynamicDependence"
         }
         mavenLocal()
         google()
@@ -16,6 +16,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.susion:rabbit-gradle-transform:1.0.1'
+        classpath 'com.susion:dynamic-dependence:1.0.0'
         classpath 'com.android.tools.build:gradle:3.5.3'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2' // add plugin

@@ -1,0 +1,34 @@
+apply plugin: 'java'
+apply plugin: 'kotlin'
+apply plugin: 'maven'
+apply plugin: 'kotlin-kapt'
+
+compileKotlin {
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8
+}
+
+compileTestKotlin {
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8
+}
+
+dependencies {
+    api fileTree(include: ['*.jar'], dir: 'libs')
+
+    implementation gradleApi()
+    implementation LibDepen.buildGradle
+    implementation LibDepen.gson
+
+}
+
+
+group 'com.susion.dependence'
+version '1.0.0'
+
+uploadArchives {
+    repositories {
+        flatDir {
+            name "../localRepo"
+            dir "../localRepo/dynamicDependence"
+        }
+    }
+}

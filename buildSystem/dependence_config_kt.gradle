@@ -1,0 +1,23 @@
+//print(" ----> script execute \n")
+
+//
+//beforeEvaluate {
+//    print(" ----> beforeEvaluate\n")
+//}
+//
+//afterEvaluate {
+//
+//    print(" ----> afterEvaluate\n")
+//
+//    rootProject.allprojects { p ->
+//        print(" ----> root project allprojects  ${p.name}\n")
+//
+//        if (p.name == "app") {
+//            print(" ----> config app project \n")
+//            project(":" + p.name) { subP ->
+//                subP.dependencies.add("implementation", project(":rabbit"))
+//            }
+//        }
+//    }
+//
+//}

@@ -1,6 +1,7 @@
 package com.susion.rabbit.demo
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
@@ -11,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
+import com.onething.xylive.XYLiveSDK
 import com.susion.rabbit.Rabbit
 import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.TAG_NATIVE
@@ -23,6 +25,7 @@ import com.susion.rabbit.demo.page.SimpleListActivity
 import com.susion.rabbit.native_crash.RabbitNativeCrashCaptor
 import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.activity_main.*
+import java.io.File
 import java.lang.Exception
 
 //随意的测试代码
@@ -76,6 +79,7 @@ class MainActivity : RabbitBaseActivity() {
 
         sampleRequestNet()
 
+
 //        loadNativeLib()
 
         Thread(Runnable {
@@ -83,6 +87,19 @@ class MainActivity : RabbitBaseActivity() {
 //            mGenerateObjTv.layoutParams = ViewGroup.LayoutParams(200, 200)
             mGenerateObjTv.setText("对象")
         }, "rabbit-test-thread").start()
+
+
+
+//        val soFile = File("${dataDir.path}/lib", "libxylivesdk.so")
+//
+//        val newSoFile = File(filesDir, "libxylivesdk.so")
+//
+//        FileUtils.copy(soFile, newSoFile)
+////
+//        Log.d(TAG, "newSoFile.pat : ${newSoFile.path}")
+//        System.load(newSoFile.path)
+//
+//        Log.d(TAG, "error code : ${ XYLiveSDK.init()}  ")
 
     }
 

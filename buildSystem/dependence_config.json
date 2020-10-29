@@ -1,0 +1,14 @@
+{
+  "module_list": [
+    {
+      "name": "app",
+      "dependence_list": [
+        {
+          "method": "implementation",
+          "type": "project",
+          "path": "rabbit"
+        }
+      ]
+    }
+  ]
+}

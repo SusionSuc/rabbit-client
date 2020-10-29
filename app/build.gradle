@@ -1,9 +1,17 @@
+import AndroidXDepen
+import BuildInfo
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply from: '../buildsystem/rabbit-plugin.gradle'
+apply from: '../buildSystem/rabbit-plugin.gradle'
+apply from: '../buildSystem/dependence_config_kt.gradle'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'dynamic-dependence'
 
+dynamicDependence {
+    config_file_path = "buildSystem/dependence_config.json"
+}
 
 android {
     signingConfigs {
@@ -25,7 +33,18 @@ android {
         versionCode 1
         versionName "1.0"
         multiDexEnabled true //Add this
+
+        ndk {
+            abiFilters 'armeabi-v7a'
+        }
     }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
 
     buildTypes {
 
@@ -49,8 +68,8 @@ android {
 
 dependencies {
 
-    debugApi project(':rabbit')
-    releaseApi project(':rabbit-noop')
+//    debugApi project(':rabbit')
+//    releaseApi project(':rabbit-noop')
     implementation project(":rabbit-native-crash")
     implementation project(":rabbit-native-jvmti")
 //    implementation rootProject.ext.rabbitDependence
