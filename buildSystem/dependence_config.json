@@ -7,6 +7,11 @@
           "method": "implementation",
           "type": "project",
           "path": "rabbit"
+        },
+        {
+          "method": "implementation",
+          "type": "maven",
+          "path": "androidx.recyclerview:recyclerview:1.1.0"
         }
       ]
     }

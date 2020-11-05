@@ -9,9 +9,29 @@ import org.gradle.api.Project
 class DependencePlugin : Plugin<Project> {
 
     override fun apply(project: Project) {
+
+        Helper.printE("dependence plugin apply at module : ${project.name}")
+
         val config = project.extensions.create("dynamicDependence", ConfigExtension::class.java)
+
         project.afterEvaluate {
-            DependenceConfigurator().configProjectDependence(project.rootProject, config)
+
+            val rootProject = project.rootProject
+
+            Helper.printE("rootProject Evaluate finish")
+
+            val configurator = DependenceConfigurator()
+            val configInfo =
+                configurator.parseConfigInfo(rootProject, config) ?: return@afterEvaluate
+
+            if (config.globalEnable) {
+                configurator.configModules(rootProject, configInfo)
+            } else {
+                configurator.configModule(
+                    configurator.getModule(rootProject, project.name),
+                    configurator.findModuleDependenceFromConfig(project.name, configInfo)
+                )
+            }
         }
     }
 

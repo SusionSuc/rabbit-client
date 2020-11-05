@@ -10,7 +10,8 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'dynamic-dependence'
 
 dynamicDependence {
-    config_file_path = "buildSystem/dependence_config.json"
+    configFilePath = "buildSystem/dependence_config.json"
+    globalEnable = false
 }
 
 android {
@@ -77,7 +78,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation LibDepen.kotlinStdlibJdk7Version
     implementation AndroidXDepen.recyclerView
-    implementation AndroidXDepen.appcompat
+//    implementation AndroidXDepen.appcompat
     implementation LibDepen.greenDao
     implementation LibDepen.retrofit2
     implementation LibDepen.gson

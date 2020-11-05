@@ -12,6 +12,7 @@ class DependenceInfo(
         const val METHOD_IMPLEMENTATION = "implementation"
 
         const val TYPE_PROJECT = "project"
+        const val TYPE_MAVEN = "maven"
 
     }
 }
