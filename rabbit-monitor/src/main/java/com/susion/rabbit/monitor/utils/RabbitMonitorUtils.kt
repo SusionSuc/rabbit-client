@@ -1,5 +1,7 @@
 package com.susion.rabbit.monitor.utils
 
+import android.content.Context
+import android.view.View
 import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.TAG_MONITOR
 import com.susion.rabbit.base.entities.RabbitAnrInfo
@@ -7,6 +9,7 @@ import com.susion.rabbit.monitor.RabbitMonitor
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
+import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.regex.Matcher
@@ -105,5 +108,27 @@ object RabbitMonitorUtils {
         return anrSB.toString()
     }
 
+    /**
+     * 根据view id反查view id name
+     */
+    internal fun findViewIDNameByView(context: Context, view: View): String? {
+        if (view.id == View.NO_ID) {
+            return null
+        }
+        var viewName: String? = null
+        try {
+            viewName = context.resources.getResourceEntryName(view.id)
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+        }
+        return viewName
+    }
+
+    /**
+     * 根据view获取activity name
+     */
+    internal fun findActivityNameByView(view: View): String {
+        return view.context::class.java.name
+    }
 
 }

@@ -29,7 +29,9 @@ class RabbitMonitorConfig(
     var fpsMonitorPkgList: ArrayList<String> = ArrayList(),
     //anr
     var anrCheckPeriodNs: Long = TimeUnit.NANOSECONDS.convert(5, TimeUnit.SECONDS),
-    var anrStackCollectPeriodNs: Long = STANDARD_FRAME_NS
+    var anrStackCollectPeriodNs: Long = STANDARD_FRAME_NS,
+    //largeImage 单位为kb
+    var largeImageMemoryThreshold: Long = 800
 ) {
     companion object {
         var STANDARD_FRAME_NS = 16666666L
