@@ -59,8 +59,6 @@
 
 如果你对`rabbit`比较感兴趣，或者发现`rabbit`还有一些功能不够完善，欢迎提`pr`参与到rabbit的开发中!
 
->个人微信:SusionSuc
-
 # License
 
 Rabbit is under the MIT license. See the [LICENSE](./LICENSE) file for details
