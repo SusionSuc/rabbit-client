@@ -68,4 +68,6 @@ dependencies {
     implementation LibDepen.retrofit2RxJavaAdapter
     implementation LibDepen.lifeClean
 
+    implementation 'io.github.windysha:bypassHiddenApiRestriction:1.1.0'
+
 }

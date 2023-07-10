@@ -100,13 +100,12 @@ object RabbitUiKernal {
     fun init(application_: Application, entryPage: RabbitPageProtocol?) {
         application = application_
         mEntryPage = entryPage
-        application.registerActivityLifecycleCallbacks(object :
-            SimpleActivityLifecycleWrapper() {
-            override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
+        application.registerActivityLifecycleCallbacks(object : SimpleActivityLifecycleWrapper() {
+            override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
                 appCurrentActivity = WeakReference(activity)
             }
 
-            override fun onActivityResumed(activity: Activity?) {
+            override fun onActivityResumed(activity: Activity) {
                 appCurrentActivity = WeakReference(activity)
             }
         })
@@ -161,7 +160,7 @@ object RabbitUiKernal {
         }
 
         if (newedView == null) {
-            for (surInt in pageClass.superclass.interfaces) {
+            for (surInt in pageClass.superclass!!.interfaces) {
                 if (surInt == RabbitPageProtocol::class.java) {
                     newedView = pageClass.getConstructor(Context::class.java)
                         .newInstance(application)

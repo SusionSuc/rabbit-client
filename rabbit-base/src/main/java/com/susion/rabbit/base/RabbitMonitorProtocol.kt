@@ -70,6 +70,8 @@ interface RabbitMonitorProtocol {
 
         val THREAD = MonitorInfo("thread", "线程分析")
 
+        val MESSAGE_QUEUE = MonitorInfo("message", "主线程消息队列监控")
+
     }
 
     class MonitorInfo(

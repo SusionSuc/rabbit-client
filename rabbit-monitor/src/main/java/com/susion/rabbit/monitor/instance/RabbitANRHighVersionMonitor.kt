@@ -23,8 +23,7 @@ import java.util.concurrent.TimeUnit
  *
  * 开启一个子线程来监控主线程是否发生ANR
  */
-internal class RabbitANRHighVersionMonitor(override var isOpen: Boolean = false) :
-    RabbitMonitorProtocol, ChoreographerFrameUpdateMonitor.FrameUpdateListener {
+internal class RabbitANRHighVersionMonitor(override var isOpen: Boolean = false) : RabbitMonitorProtocol, ChoreographerFrameUpdateMonitor.FrameUpdateListener {
 
     private var monitorThread: HandlerThread? = null
     private var stackCollectHandler: Handler? = null

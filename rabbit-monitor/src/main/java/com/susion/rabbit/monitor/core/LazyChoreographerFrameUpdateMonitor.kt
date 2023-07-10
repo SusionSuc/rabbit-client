@@ -13,17 +13,13 @@ import java.lang.reflect.Method
  */
 internal open class LazyChoreographerFrameUpdateMonitor {
 
-    //主线程消息循环
-    private val mainThreadLooperMonitor by lazy {
-        UIThreadLooperMonitor()
-    }
     private val looperListener = object :
-        UIThreadLooperMonitor.LooperHandleEventListener {
-        override fun onMessageLooperStartHandleMessage() {
+        MainThreadLooperMonitor.MainLooperMessageDispatchListener {
+        override fun onMessageLooperStartHandleMessage(msgStr: String) {
             startMonitorChoreographerDoFrame()
         }
 
-        override fun onMessageLooperStopHandleMessage() {
+        override fun onMessageLooperStopHandleMessage(msgStr: String) {
             endMonitorChoreographerDoFrame()
         }
     }
@@ -95,13 +91,11 @@ internal open class LazyChoreographerFrameUpdateMonitor {
     }
 
     fun startMonitor(){
-        mainThreadLooperMonitor.enable = true
-        mainThreadLooperMonitor.addLooperHandleEventListener(looperListener)
+        MainThreadLooperMonitor.addMessageDispatchListener(looperListener)
     }
 
     fun stopMonitor(){
-        mainThreadLooperMonitor.enable = false
-        mainThreadLooperMonitor.removeLooperHandleEventListener(looperListener)
+        MainThreadLooperMonitor.removeMessageDispatchListener(looperListener)
     }
 
     fun startMonitorChoreographerDoFrame() {

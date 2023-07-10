@@ -18,7 +18,7 @@ buildscript {
         classpath 'com.susion:rabbit-gradle-transform:1.0.1'
         classpath 'com.android.tools.build:gradle:3.5.3'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2' // add plugin
+        classpath 'org.greenrobot:greendao-gradle-plugin:3.3.0' // add plugin
         classpath 'com.novoda:bintray-release:0.9.1'
     }
 }

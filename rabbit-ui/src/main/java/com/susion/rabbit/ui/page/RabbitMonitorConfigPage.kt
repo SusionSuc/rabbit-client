@@ -30,17 +30,11 @@ class RabbitMonitorConfigPage(context: Context) : RabbitBasePage(context) {
                     LayoutParams(LayoutParams.MATCH_PARENT, dp2px(60f))
                 }
                 mConfigPageRootViewLl.addView(switchBtn)
-                switchBtn.checkedStatusChangeListener =
-                    object : RabbitSwitchButton.CheckedStatusChangeListener {
-                        override fun checkedStatusChange(isChecked: Boolean) {
-                            RabbitUi.eventListener?.toggleMonitorStatus(monitor, isChecked)
-                            RabbitSettings.setAutoOpenFlag(
-                                context,
-                                monitorInfo.name,
-                                isChecked
-                            )
-                        }
+                switchBtn.checkedStatusChangeListener = object : RabbitSwitchButton.CheckedStatusChangeListener {
+                    override fun checkedStatusChange(isChecked: Boolean) {
+                        RabbitUi.eventListener?.toggleMonitorStatus(monitor, isChecked)
                     }
+                }
                 switchBtn.refreshUi(
                     monitorInfo.znName,
                     RabbitSettings.autoOpen(context, monitorInfo.name)

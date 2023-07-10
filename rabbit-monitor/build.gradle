@@ -33,6 +33,7 @@ dependencies {
     implementation project(':rabbit-base')
     implementation project(':rabbit-storage')
     implementation project(':rabbit-native-jvmti')
+    implementation project(':free-android')
 
     implementation AndroidXDepen.appcompat
     implementation AndroidXDepen.lifeExtensions
@@ -47,5 +48,4 @@ dependencies {
     implementation LibDepen.gson
     implementation LibDepen.rxbinding3
     implementation LibDepen.greenDao
-
 }
