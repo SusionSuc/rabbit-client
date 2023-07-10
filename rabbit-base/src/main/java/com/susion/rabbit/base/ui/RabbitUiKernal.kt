@@ -1,5 +1,6 @@
 package com.susion.rabbit.base.ui
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Application
 import android.content.Context
@@ -15,6 +16,7 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ProcessLifecycleOwner
 import com.susion.rabbit.base.R
+import com.susion.rabbit.base.ui.page.RabbitBasePage
 import com.susion.rabbit.base.ui.utils.SimpleActivityLifecycleWrapper
 import com.susion.rabbit.base.ui.view.RabbitFloatingView
 import java.lang.ref.WeakReference
@@ -271,5 +273,9 @@ object RabbitUiKernal {
     }
 
     fun pageIsShow() = pageShowStatus == PAGE_SHOWING
+
+    fun getCurrentPage():RabbitBasePage? {
+        return pageList.last() as? RabbitBasePage
+    }
 
 }

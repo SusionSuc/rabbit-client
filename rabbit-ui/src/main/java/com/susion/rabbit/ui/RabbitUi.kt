@@ -46,6 +46,16 @@ object RabbitUi {
 
     fun defaultSupportFeatures(application: Application): ArrayList<RabbitMainFeatureInfo> {
         return ArrayList<RabbitMainFeatureInfo>().apply {
+
+            add(
+                RabbitMainFeatureInfo(
+                    "监控配置",
+                    RabbitMainFeatureInfo.TYPE_CONFIG,
+                    R.drawable.rabbit_icon_feature_setting,
+                    RabbitMonitorConfigPage::class.java
+                )
+            )
+
             add(
                 RabbitMainFeatureInfo(
                     "性能测试",
@@ -162,19 +172,21 @@ object RabbitUi {
 
             add(
                 RabbitMainFeatureInfo(
-                    "监控配置",
+                    "优化配置",
                     RabbitMainFeatureInfo.TYPE_CONFIG,
-                    R.drawable.rabbit_icon_feature_setting,
-                    RabbitMonitorConfigPage::class.java
+                    R.drawable.rabbit_icon_quick_function,
+                    RabbitOptimizerPage::class.java
                 )
             )
 
             add(
                 RabbitMainFeatureInfo(
-                    "优化配置",
-                    RabbitMainFeatureInfo.TYPE_CONFIG,
+                    "消息优先级提升",
+                    RabbitMainFeatureInfo.TYPE_OPTIMIZER,
                     R.drawable.rabbit_icon_quick_function,
-                    RabbitOptimizerPage::class.java
+                    action = {
+                        RabbitUiKernal.getCurrentPage()?.showToast("前往 优化配置 打开开关即可生效！")
+                    }
                 )
             )
         }
@@ -183,8 +195,7 @@ object RabbitUi {
     /**
      * delegate RabbitUiKernal
      * */
-    fun openPage(pageClass: Class<out View>?, params: Any? = null) =
-        RabbitUiKernal.openPage(pageClass, params)
+    fun openPage(pageClass: Class<out View>?, params: Any? = null) = RabbitUiKernal.openPage(pageClass, params)
 
     fun hideAllPage() = RabbitUiKernal.hideAllPage()
 

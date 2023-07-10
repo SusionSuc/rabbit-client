@@ -1,13 +1,13 @@
-package com.susion.rabbit.monitor.core
+package com.susion.rabbit.base.core
 
 import android.os.Build
 import android.os.Looper
 import android.os.Message
 import android.util.Printer
 import androidx.annotation.UiThread
+import com.susion.rabbit.base.reflect.RabbitReflectHelper
 import com.susion.rabbit.free.android.LooperMessageObserver
 import com.susion.rabbit.free.android.LooperUtil
-import com.susion.rabbit.monitor.utils.RabbitReflectHelper
 
 /**
  * susionwang at 2019-10-17

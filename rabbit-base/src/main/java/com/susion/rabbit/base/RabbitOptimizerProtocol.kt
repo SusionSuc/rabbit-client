@@ -10,11 +10,10 @@ interface RabbitOptimizerProtocol {
 
     companion object {
         //消息优化
-        val APP_SPEED = OprimizerInfo(
-            "message_upgrade_priority",
-            "消息提优"
+        val MESSAGE_PRIORITY_UPGRADE = OprimizerInfo(
+            "message_priority_upgrade",
+            "消息优先级提升"
         )
-
     }
 
 

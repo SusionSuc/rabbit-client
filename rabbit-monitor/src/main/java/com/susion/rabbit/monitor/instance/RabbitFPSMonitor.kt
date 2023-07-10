@@ -2,14 +2,14 @@ package com.susion.rabbit.monitor.instance
 
 import android.content.Context
 import com.susion.rabbit.monitor.RabbitMonitor
-import com.susion.rabbit.monitor.core.LazyChoreographerFrameUpdateMonitor
+import com.susion.rabbit.base.core.LazyChoreographerFrameUpdateMonitor
 import com.susion.rabbit.base.RabbitMonitorProtocol
 import com.susion.rabbit.base.common.RabbitUtils
 import com.susion.rabbit.base.config.RabbitMonitorConfig
 import com.susion.rabbit.base.entities.RabbitFPSInfo
 import com.susion.rabbit.storage.RabbitStorage
 import com.susion.rabbit.base.ui.RabbitUiEvent
-import com.susion.rabbit.monitor.core.ChoreographerMonitorCenter
+import com.susion.rabbit.base.core.ChoreographerMonitorCenter
 import java.util.concurrent.TimeUnit
 import kotlin.math.min
 

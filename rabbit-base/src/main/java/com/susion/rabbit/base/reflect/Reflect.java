@@ -1,4 +1,4 @@
-package com.susion.rabbit.monitor.reflect;
+package com.susion.rabbit.base.reflect;
 
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Constructor;

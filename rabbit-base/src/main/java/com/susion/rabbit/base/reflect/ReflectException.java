@@ -1,4 +1,4 @@
-package com.susion.rabbit.monitor.reflect;
+package com.susion.rabbit.base.reflect;
 
 /**
  * wangpengcheng.wpc create at 2023/7/4

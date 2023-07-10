@@ -1,9 +1,9 @@
-package com.susion.rabbit.monitor.core
+package com.susion.rabbit.base.core
 
 import android.view.Choreographer
 import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.TAG_MONITOR
-import com.susion.rabbit.monitor.utils.RabbitReflectHelper
+import com.susion.rabbit.base.reflect.RabbitReflectHelper
 import java.lang.reflect.Method
 
 /**
@@ -11,7 +11,7 @@ import java.lang.reflect.Method
  *
  * 向[Choreographer]中插入3种callback, 监控一帧不同类型的事件运行时间
  */
-internal open class LazyChoreographerFrameUpdateMonitor {
+open class LazyChoreographerFrameUpdateMonitor {
 
     private val looperListener = object :
         MainThreadLooperMonitor.MainLooperMessageDispatchListener {

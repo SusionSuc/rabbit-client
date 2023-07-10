@@ -1,11 +1,11 @@
-package com.susion.rabbit.monitor.core
+package com.susion.rabbit.base.core
 
 import android.view.Choreographer
 
 /**
  * 向 Choreographer post callback。 这个操作会导致应用不断接收 [Vsync 信号]
  * */
-internal open class ChoreographerFrameUpdateMonitor {
+open class ChoreographerFrameUpdateMonitor {
 
     private var isStart = false
     private val frameCallback = object : Choreographer.FrameCallback {

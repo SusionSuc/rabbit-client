@@ -4,8 +4,8 @@ import android.content.Context
 import android.os.Message
 import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.RabbitMonitorProtocol
-import com.susion.rabbit.monitor.core.MainThreadEnv
-import com.susion.rabbit.monitor.core.MainThreadLooperMonitor
+import com.susion.rabbit.base.core.MainThreadEnv
+import com.susion.rabbit.base.core.MainThreadLooperMonitor
 
 
 /**

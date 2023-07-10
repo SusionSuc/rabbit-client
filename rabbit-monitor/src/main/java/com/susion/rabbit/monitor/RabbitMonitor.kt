@@ -9,7 +9,7 @@ import com.susion.rabbit.base.config.RabbitMonitorConfig
 import com.susion.rabbit.base.entities.RabbitAppSpeedMonitorConfig
 import com.susion.rabbit.base.entities.RabbitAppPerformanceInfo
 import com.susion.rabbit.base.ui.RabbitUiEvent
-import com.susion.rabbit.monitor.core.MainThreadLooperMonitor
+import com.susion.rabbit.base.core.MainThreadLooperMonitor
 import com.susion.rabbit.monitor.instance.*
 import com.susion.rabbit.monitor.instance.RabbitAppSpeedMonitor
 import com.susion.rabbit.monitor.instance.RabbitBlockMonitor
@@ -46,7 +46,6 @@ object RabbitMonitor {
             put(RabbitMonitorProtocol.SLOW_METHOD.name, RabbitMethodMonitor())
             put(RabbitMonitorProtocol.BLOCK_CALL.name, RabbitIoCallMonitor())
             put(RabbitMonitorProtocol.THREAD.name, RabbitThreadMonitor())
-            put(RabbitMonitorProtocol.MESSAGE_QUEUE.name, RabbitMainMessageQueueMonitor())
 
             if (Build.VERSION.SDK_INT >= 21) {
                 RabbitLog.d(TAG_COMMON, "use high version anr monitor")

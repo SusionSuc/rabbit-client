@@ -37,9 +37,21 @@ class RabbitEntryPage(
             list.add(featureInfo)
         }
         val newFeatures = ArrayList<Any>()
-        categoryFeaturesMap.forEach { entry ->
-            newFeatures.add(RabbitEntryTitleInfo(entry.key))
-            newFeatures.addAll(entry.value)
+        categoryFeaturesMap[RabbitMainFeatureInfo.TYPE_CONFIG]?.let {
+            newFeatures.add(RabbitEntryTitleInfo(RabbitMainFeatureInfo.TYPE_CONFIG))
+            newFeatures.addAll(it)
+        }
+        categoryFeaturesMap[RabbitMainFeatureInfo.TYPE_MONITOR]?.let {
+            newFeatures.add(RabbitEntryTitleInfo(RabbitMainFeatureInfo.TYPE_MONITOR))
+            newFeatures.addAll(it)
+        }
+        categoryFeaturesMap[RabbitMainFeatureInfo.TYPE_OPTIMIZER]?.let {
+            newFeatures.add(RabbitEntryTitleInfo(RabbitMainFeatureInfo.TYPE_OPTIMIZER))
+            newFeatures.addAll(it)
+        }
+        categoryFeaturesMap[RabbitMainFeatureInfo.TYPE_BUSINESS]?.let {
+            newFeatures.add(RabbitEntryTitleInfo(RabbitMainFeatureInfo.TYPE_BUSINESS))
+            newFeatures.addAll(it)
         }
         SimpleRvAdapter(context, newFeatures).apply {
             registerMapping(RabbitMainFeatureInfo::class.java, RabbitMainFeatureView::class.java)
@@ -66,10 +78,9 @@ class RabbitEntryPage(
     }
 
     private val refreshView = SwipeRefreshLayout(context).apply {
-        layoutParams =
-            LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT).apply {
-                topMargin = ACTION_BAR_HEIGHT
-            }
+        layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT).apply {
+            topMargin = ACTION_BAR_HEIGHT
+        }
     }
 
 

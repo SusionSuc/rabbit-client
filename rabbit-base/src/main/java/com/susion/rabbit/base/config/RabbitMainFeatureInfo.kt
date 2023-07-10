@@ -10,7 +10,7 @@ class RabbitMainFeatureInfo(
     val name: String,
     val type: String,
     @DrawableRes val icon: Int,
-    val pageClass: Class<out View>?,
+    val pageClass: Class<out View>? = null,
     val action: () -> Unit = {}
 ) {
     companion object {

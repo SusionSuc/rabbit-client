@@ -4,13 +4,13 @@ import android.content.Context
 import android.os.Message
 import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.RabbitOptimizerProtocol
-import com.susion.rabbit.monitor.core.MainThreadEnv
-import com.susion.rabbit.monitor.core.MainThreadLooperMonitor
+import com.susion.rabbit.base.core.MainThreadEnv
+import com.susion.rabbit.base.core.MainThreadLooperMonitor
 
 /**
  * wangpengcheng.wpc create at 2023/7/5
  * */
-class RabbiLooperMessageUpgradeOptimizer(override var isOpen: Boolean) : RabbitOptimizerProtocol {
+class RabbiLooperMessageUpgradeOptimizer(override var isOpen: Boolean = false) : RabbitOptimizerProtocol {
 
     private val LIFECYCLE_MSG_WHAT = 159
     private val TARGET_PAUSE = 4
@@ -44,7 +44,7 @@ class RabbiLooperMessageUpgradeOptimizer(override var isOpen: Boolean) : RabbitO
     }
 
     override fun getOptimizerInfo(): RabbitOptimizerProtocol.OprimizerInfo {
-        return RabbitOptimizerProtocol.APP_SPEED
+        return RabbitOptimizerProtocol.MESSAGE_PRIORITY_UPGRADE
     }
 
     /**
@@ -110,7 +110,6 @@ class RabbiLooperMessageUpgradeOptimizer(override var isOpen: Boolean) : RabbitO
 //                }
 //            }
         }
-
-
     }
+
 }

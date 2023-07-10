@@ -20,6 +20,7 @@ import com.susion.rabbit.base.ui.RabbitUiEvent
 import com.susion.rabbit.base.ui.RabbitUiKernal
 import com.susion.rabbit.base.ui.utils.FloatingViewPermissionHelper
 import com.susion.rabbit.monitor.RabbitMonitor
+import com.susion.rabbit.optimizer.RabbitOptimizer
 import com.susion.rabbit.report.RabbitReport
 import com.susion.rabbit.storage.RabbitStorage
 import com.susion.rabbit.tracer.RabbitPluginConfig
@@ -99,6 +100,7 @@ object Rabbit : RabbitProtocol {
     private fun configUi(): RabbitUiConfig {
         val uiConfig = mConfig.uiConfig
         uiConfig.monitorList = RabbitMonitor.getMonitorList()
+        uiConfig.optimizerList = RabbitOptimizer.getOptimizerList()
         uiConfig.entryFeatures.addAll(0, RabbitUi.defaultSupportFeatures(application))
         uiConfig.customConfigList.addAll(getDefaultCustomConfigs())
         RabbitUi.eventListener = object : RabbitUi.EventListener {

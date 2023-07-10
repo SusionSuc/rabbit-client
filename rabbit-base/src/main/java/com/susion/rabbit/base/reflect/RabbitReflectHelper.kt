@@ -1,4 +1,4 @@
-package com.susion.rabbit.monitor.utils
+package com.susion.rabbit.base.reflect
 
 import java.lang.reflect.Method
 

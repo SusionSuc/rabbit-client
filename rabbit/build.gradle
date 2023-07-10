@@ -35,6 +35,7 @@ dependencies {
     api project(':rabbit-ui')
     api project(':rabbit-storage')
     api project(':rabbit-native-jvmti')
+    api project(':rabbit-optimizer')
 
     implementation AndroidXDepen.appcompat
     implementation AndroidXDepen.lifeExtensions

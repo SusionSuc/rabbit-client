@@ -27,6 +27,5 @@ android {
 
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
-    api project(":rabbit-monitor")
     api project(":rabbit-base")
 }
