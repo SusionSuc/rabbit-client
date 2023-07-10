@@ -45,7 +45,9 @@ internal class RabbitMemoryMonitor(override var isOpen: Boolean = false) :
         mActivityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as? ActivityManager
         monitorThread = HandlerThread("rabbit_memory_monitor_thread")
         monitorThread?.start()
-        memoryRefreshHandler = Handler(monitorThread?.looper)
+        monitorThread?.looper?.let {
+            memoryRefreshHandler = Handler(it)
+        }
         memoryRefreshHandler?.postDelayed(memoryCollectRunnable, MEMORY_COLLECT_PERIOD)
         isOpen = true
         RabbitLog.d(TAG_MONITOR, "max memory : ${RabbitUiUtils.formatFileSize(Runtime.getRuntime().maxMemory())}")

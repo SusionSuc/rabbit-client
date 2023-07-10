@@ -5,6 +5,8 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Message
 import android.util.Log
 import android.view.Gravity
 import android.view.View
@@ -70,6 +72,15 @@ class MainActivity : RabbitBaseActivity() {
 
         mSimpleListRv.setOnClickListener {
             startActivity(Intent(this, SimpleListActivity::class.java))
+        }
+
+        mLaunchOptimizeTv.setOnClickListener {view->
+            view.post {
+                view.post {
+                    Thread.sleep(3000)
+                }
+                startActivity(Intent(this, RabbitLaunchCatonActivity::class.java))
+            }
         }
 
         logDeviceInfo()
@@ -162,6 +173,15 @@ class MainActivity : RabbitBaseActivity() {
             RabbitLog.d(TAG_NATIVE, "native crash!")
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        RabbitLog.d("main activity on Pause")
     }
 
 }

@@ -1,4 +1,5 @@
 include ':app', ':rabbit-ui', ':rabbit-gradle-transform', ':rabbit-gradle-interface', ':rabbit-apk-analyzer', ':rabbit-native-crash', ':rabbit-native-jvmti'
 include ':rabbit-report', ':rabbit-storage', ':rabbit-base', ':rabbit-monitor', ':rabbit', ':rabbit-noop'
+include ':fake-android',':free-android'
+include ':rabbit-optimizer'
 rootProject.name = 'rabbit'
-

@@ -20,7 +20,7 @@ class RabbitThreadMonitor(override var isOpen: Boolean = false) : RabbitMonitorP
     }
     private val monitorHandler by lazy {
         object : NativeCommunityHandler(monitorThread.looper) {
-            override fun handleMessage(msg: Message?) {
+            override fun handleMessage(msg: Message) {
                 super.handleMessage(msg)
                 RabbitLog.d(TAG_MONITOR, TAG_SUFFIX, "receive message !!")
             }

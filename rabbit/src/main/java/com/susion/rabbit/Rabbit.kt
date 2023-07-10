@@ -7,6 +7,7 @@ import android.view.View
 import com.susion.rabbit.jvmti.RabbitJvmTi
 import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.RabbitMonitorProtocol
+import com.susion.rabbit.base.RabbitOptimizerProtocol
 import com.susion.rabbit.base.RabbitProtocol
 import com.susion.rabbit.base.RabbitSettings
 import com.susion.rabbit.base.common.RabbitUtils
@@ -19,6 +20,7 @@ import com.susion.rabbit.base.ui.RabbitUiEvent
 import com.susion.rabbit.base.ui.RabbitUiKernal
 import com.susion.rabbit.base.ui.utils.FloatingViewPermissionHelper
 import com.susion.rabbit.monitor.RabbitMonitor
+import com.susion.rabbit.optimizer.RabbitOptimizer
 import com.susion.rabbit.report.RabbitReport
 import com.susion.rabbit.storage.RabbitStorage
 import com.susion.rabbit.tracer.RabbitPluginConfig
@@ -98,7 +100,8 @@ object Rabbit : RabbitProtocol {
     private fun configUi(): RabbitUiConfig {
         val uiConfig = mConfig.uiConfig
         uiConfig.monitorList = RabbitMonitor.getMonitorList()
-        uiConfig.entryFeatures.addAll(RabbitUi.defaultSupportFeatures(application))
+        uiConfig.optimizerList = RabbitOptimizer.getOptimizerList()
+        uiConfig.entryFeatures.addAll(0, RabbitUi.defaultSupportFeatures(application))
         uiConfig.customConfigList.addAll(getDefaultCustomConfigs())
         RabbitUi.eventListener = object : RabbitUi.EventListener {
 
@@ -112,10 +115,7 @@ object Rabbit : RabbitProtocol {
                 val monitorName = RabbitMonitorProtocol.GLOBAL_MONITOR.name
                 RabbitSettings.setAutoOpenFlag(application, monitorName, open)
                 if (!open) {
-                    RabbitUi.refreshFloatingViewUi(
-                        RabbitUiEvent.CHANGE_GLOBAL_MONITOR_STATUS,
-                        false
-                    )
+                    RabbitUi.refreshFloatingViewUi(RabbitUiEvent.CHANGE_GLOBAL_MONITOR_STATUS, false)
                     RabbitMonitor.closeMonitor(monitorName)
                 }
             }
@@ -124,9 +124,14 @@ object Rabbit : RabbitProtocol {
                 val monitorName = monitor.getMonitorInfo().name
                 if (open) {
                     RabbitMonitor.openMonitor(monitorName)
+                    RabbitSettings.setAutoOpenFlag(application, monitorName, open)
                 } else {
                     RabbitMonitor.closeMonitor(monitorName)
                 }
+            }
+
+            override fun toggleOptimizerStatus(optimizer: RabbitOptimizerProtocol, open: Boolean) {
+
             }
         }
         return uiConfig

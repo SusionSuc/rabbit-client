@@ -1,9 +1,9 @@
-package com.susion.rabbit.monitor.core
+package com.susion.rabbit.base.core
 
 import android.view.Choreographer
 import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.TAG_MONITOR
-import com.susion.rabbit.monitor.utils.RabbitReflectHelper
+import com.susion.rabbit.base.reflect.RabbitReflectHelper
 import java.lang.reflect.Method
 
 /**
@@ -11,19 +11,15 @@ import java.lang.reflect.Method
  *
  * 向[Choreographer]中插入3种callback, 监控一帧不同类型的事件运行时间
  */
-internal open class LazyChoreographerFrameUpdateMonitor {
+open class LazyChoreographerFrameUpdateMonitor {
 
-    //主线程消息循环
-    private val mainThreadLooperMonitor by lazy {
-        UIThreadLooperMonitor()
-    }
     private val looperListener = object :
-        UIThreadLooperMonitor.LooperHandleEventListener {
-        override fun onMessageLooperStartHandleMessage() {
+        MainThreadLooperMonitor.MainLooperMessageDispatchListener {
+        override fun onMessageLooperStartHandleMessage(msgStr: String) {
             startMonitorChoreographerDoFrame()
         }
 
-        override fun onMessageLooperStopHandleMessage() {
+        override fun onMessageLooperStopHandleMessage(msgStr: String) {
             endMonitorChoreographerDoFrame()
         }
     }
@@ -95,13 +91,11 @@ internal open class LazyChoreographerFrameUpdateMonitor {
     }
 
     fun startMonitor(){
-        mainThreadLooperMonitor.enable = true
-        mainThreadLooperMonitor.addLooperHandleEventListener(looperListener)
+        MainThreadLooperMonitor.addMessageDispatchListener(looperListener)
     }
 
     fun stopMonitor(){
-        mainThreadLooperMonitor.enable = false
-        mainThreadLooperMonitor.removeLooperHandleEventListener(looperListener)
+        MainThreadLooperMonitor.removeMessageDispatchListener(looperListener)
     }
 
     fun startMonitorChoreographerDoFrame() {

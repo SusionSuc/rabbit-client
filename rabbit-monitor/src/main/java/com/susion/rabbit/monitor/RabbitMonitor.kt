@@ -9,6 +9,7 @@ import com.susion.rabbit.base.config.RabbitMonitorConfig
 import com.susion.rabbit.base.entities.RabbitAppSpeedMonitorConfig
 import com.susion.rabbit.base.entities.RabbitAppPerformanceInfo
 import com.susion.rabbit.base.ui.RabbitUiEvent
+import com.susion.rabbit.base.core.MainThreadLooperMonitor
 import com.susion.rabbit.monitor.instance.*
 import com.susion.rabbit.monitor.instance.RabbitAppSpeedMonitor
 import com.susion.rabbit.monitor.instance.RabbitBlockMonitor
@@ -65,18 +66,16 @@ object RabbitMonitor {
 
         mConfig.autoOpenMonitors.add(RabbitMonitorProtocol.USE_TIME.name)
 
+        MainThreadLooperMonitor.init()
+
         initGlobalMonitorMode() //全局监控模式的特殊处理
 
         application.registerActivityLifecycleCallbacks(object : RabbitActivityLifecycleWrapper() {
-            override fun onActivityResumed(activity: Activity?) {
+            override fun onActivityResumed(activity: Activity) {
                 appCurrentActivity = WeakReference(activity)
                 pageChangeListeners.forEach { it.onPageShow() }
             }
         })
-
-        mConfig.autoOpenMonitors.forEach {
-            RabbitSettings.setAutoOpenFlag(application, it, true)
-        }
 
         monitorMap.values.forEach {
             val autoOpen = RabbitSettings.autoOpen(application, it.getMonitorInfo().name)
@@ -104,8 +103,7 @@ object RabbitMonitor {
 
     //全局监控模式的特殊处理
     private fun initGlobalMonitorMode() {
-        val autoOpen =
-            RabbitSettings.autoOpen(application, RabbitMonitorProtocol.GLOBAL_MONITOR.name)
+        val autoOpen = RabbitSettings.autoOpen(application, RabbitMonitorProtocol.GLOBAL_MONITOR.name)
         if (!autoOpen) return
 
         uiEventListener?.updateUi(RabbitUiEvent.CHANGE_GLOBAL_MONITOR_STATUS, true)
@@ -117,6 +115,11 @@ object RabbitMonitor {
             add(RabbitMonitorProtocol.APP_SPEED.name)
             add(RabbitMonitorProtocol.BLOCK.name)
             add(RabbitMonitorProtocol.SLOW_METHOD.name)
+        }
+
+        //同步到配置
+        mConfig.autoOpenMonitors.forEach {
+            RabbitSettings.setAutoOpenFlag(application, it, true)
         }
 
         RabbitStorage.getAll(RabbitAppPerformanceInfo::class.java) {

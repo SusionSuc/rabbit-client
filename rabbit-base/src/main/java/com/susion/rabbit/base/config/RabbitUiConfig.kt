@@ -1,6 +1,7 @@
 package com.susion.rabbit.base.config
 
 import com.susion.rabbit.base.RabbitMonitorProtocol
+import com.susion.rabbit.base.RabbitOptimizerProtocol
 
 /**
  * susionwang at 2020-01-03
@@ -11,5 +12,7 @@ class RabbitUiConfig(
     //添加一些自定义的开关
     val customConfigList: ArrayList<RabbitCustomConfigProtocol> = ArrayList(),
     // 显示在配置页的监控列表,外部不要做配置
-    var monitorList: List<RabbitMonitorProtocol> = ArrayList()
+    var monitorList: List<RabbitMonitorProtocol> = ArrayList(),
+    //优化列表
+    var optimizerList:List<RabbitOptimizerProtocol> = ArrayList()
 )

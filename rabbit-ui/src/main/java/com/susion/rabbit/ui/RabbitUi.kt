@@ -5,6 +5,7 @@ import android.content.ComponentName
 import android.content.Intent
 import android.view.View
 import com.susion.rabbit.base.RabbitMonitorProtocol
+import com.susion.rabbit.base.RabbitOptimizerProtocol
 import com.susion.rabbit.base.config.RabbitConfig
 import com.susion.rabbit.base.config.RabbitMainFeatureInfo
 import com.susion.rabbit.base.config.RabbitUiConfig
@@ -37,6 +38,7 @@ object RabbitUi {
 
     interface EventListener {
         fun toggleMonitorStatus(monitor: RabbitMonitorProtocol, open: Boolean)
+        fun toggleOptimizerStatus(optimizer:RabbitOptimizerProtocol, open: Boolean)
         fun getGlobalConfig(): RabbitConfig
         fun changeGlobalMonitorStatus(open: Boolean)
         fun closeAllMonitor()
@@ -44,16 +46,20 @@ object RabbitUi {
 
     fun defaultSupportFeatures(application: Application): ArrayList<RabbitMainFeatureInfo> {
         return ArrayList<RabbitMainFeatureInfo>().apply {
+
             add(
                 RabbitMainFeatureInfo(
                     "监控配置",
+                    RabbitMainFeatureInfo.TYPE_CONFIG,
                     R.drawable.rabbit_icon_feature_setting,
                     RabbitMonitorConfigPage::class.java
                 )
             )
+
             add(
                 RabbitMainFeatureInfo(
                     "性能测试",
+                    RabbitMainFeatureInfo.TYPE_MONITOR,
                     R.drawable.rabbit_icon_global_monitor,
                     RabbitPerformanceTestListPage::class.java
                 )
@@ -61,19 +67,23 @@ object RabbitUi {
             add(
                 RabbitMainFeatureInfo(
                     "网络日志",
+                    RabbitMainFeatureInfo.TYPE_MONITOR,
                     R.drawable.rabbit_icon_http,
                     RabbitHttpLogListPage::class.java
                 )
             )
             add(
                 RabbitMainFeatureInfo(
-                    "异常日志", R.drawable.rabbit_icon_exception,
+                    "异常日志",
+                    RabbitMainFeatureInfo.TYPE_MONITOR,
+                    R.drawable.rabbit_icon_exception,
                     RabbitExceptionListPage::class.java
                 )
             )
             add(
                 RabbitMainFeatureInfo(
                     "卡顿日志",
+                    RabbitMainFeatureInfo.TYPE_MONITOR,
                     R.drawable.rabbit_icon_block,
                     RabbitUiBlockListPage::class.java
                 )
@@ -82,6 +92,7 @@ object RabbitUi {
             add(
                 RabbitMainFeatureInfo(
                     "应用测速",
+                    RabbitMainFeatureInfo.TYPE_MONITOR,
                     R.drawable.rabbit_icon_speed,
                     RabbitSpeedListPage::class.java
                 )
@@ -90,6 +101,7 @@ object RabbitUi {
             add(
                 RabbitMainFeatureInfo(
                     "内存泄漏",
+                    RabbitMainFeatureInfo.TYPE_MONITOR,
                     R.drawable.rabbit_icon_memory_leak,
                     null
                 ) {
@@ -107,6 +119,7 @@ object RabbitUi {
             add(
                 RabbitMainFeatureInfo(
                     "慢函数",
+                    RabbitMainFeatureInfo.TYPE_MONITOR,
                     R.drawable.rabbit_icon_slow_method,
                     RabbitSlowMethodPreviewPage::class.java
                 )
@@ -115,6 +128,7 @@ object RabbitUi {
             add(
                 RabbitMainFeatureInfo(
                     "代码扫描",
+                    RabbitMainFeatureInfo.TYPE_MONITOR,
                     R.drawable.rabbit_icon_io_call,
                     RabbitCodeScanPage::class.java
                 )
@@ -123,6 +137,7 @@ object RabbitUi {
             add(
                 RabbitMainFeatureInfo(
                     "FPS分析",
+                    RabbitMainFeatureInfo.TYPE_MONITOR,
                     R.drawable.rabbit_icon_fps,
                     RabbitFpsAnalyzerListPage::class.java
                 )
@@ -131,6 +146,7 @@ object RabbitUi {
             add(
                 RabbitMainFeatureInfo(
                     "内存分析",
+                    RabbitMainFeatureInfo.TYPE_MONITOR,
                     R.drawable.rabbit_icon_memory_compose,
                     RabbitMemoryGlobalAnalyzerPage::class.java
                 )
@@ -139,6 +155,7 @@ object RabbitUi {
             add(
                 RabbitMainFeatureInfo(
                     "ANR",
+                    RabbitMainFeatureInfo.TYPE_MONITOR,
                     R.drawable.rabbit_icon_anr,
                     RabbitANRListPage::class.java
                 )
@@ -147,8 +164,29 @@ object RabbitUi {
             add(
                 RabbitMainFeatureInfo(
                     "线程分析",
+                    RabbitMainFeatureInfo.TYPE_MONITOR,
                     R.drawable.rabbit_icon_thread,
                     RabbitANRListPage::class.java
+                )
+            )
+
+            add(
+                RabbitMainFeatureInfo(
+                    "优化配置",
+                    RabbitMainFeatureInfo.TYPE_CONFIG,
+                    R.drawable.rabbit_icon_quick_function,
+                    RabbitOptimizerPage::class.java
+                )
+            )
+
+            add(
+                RabbitMainFeatureInfo(
+                    "消息优先级提升",
+                    RabbitMainFeatureInfo.TYPE_OPTIMIZER,
+                    R.drawable.rabbit_icon_quick_function,
+                    action = {
+                        RabbitUiKernal.getCurrentPage()?.showToast("前往 优化配置 打开开关即可生效！")
+                    }
                 )
             )
         }
@@ -157,8 +195,7 @@ object RabbitUi {
     /**
      * delegate RabbitUiKernal
      * */
-    fun openPage(pageClass: Class<out View>?, params: Any? = null) =
-        RabbitUiKernal.openPage(pageClass, params)
+    fun openPage(pageClass: Class<out View>?, params: Any? = null) = RabbitUiKernal.openPage(pageClass, params)
 
     fun hideAllPage() = RabbitUiKernal.hideAllPage()
 

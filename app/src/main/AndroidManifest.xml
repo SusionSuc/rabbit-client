@@ -19,6 +19,9 @@
         <activity android:name=".MethodCostTraceActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
+        <activity android:name=".RabbitLaunchCatonActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
         <activity
             android:name=".page.SimpleListActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />

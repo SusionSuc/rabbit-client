@@ -11,8 +11,8 @@ import com.susion.rabbit.base.common.RabbitUtils
 import com.susion.rabbit.base.entities.RabbitAnrInfo
 import com.susion.rabbit.base.entities.RabbitBlockStackTraceInfo
 import com.susion.rabbit.monitor.RabbitMonitor
-import com.susion.rabbit.monitor.core.ChoreographerMonitorCenter
-import com.susion.rabbit.monitor.core.ChoreographerFrameUpdateMonitor
+import com.susion.rabbit.base.core.ChoreographerMonitorCenter
+import com.susion.rabbit.base.core.ChoreographerFrameUpdateMonitor
 import com.susion.rabbit.storage.RabbitStorage
 import java.util.concurrent.TimeUnit
 
@@ -23,8 +23,7 @@ import java.util.concurrent.TimeUnit
  *
  * 开启一个子线程来监控主线程是否发生ANR
  */
-internal class RabbitANRHighVersionMonitor(override var isOpen: Boolean = false) :
-    RabbitMonitorProtocol, ChoreographerFrameUpdateMonitor.FrameUpdateListener {
+internal class RabbitANRHighVersionMonitor(override var isOpen: Boolean = false) : RabbitMonitorProtocol, ChoreographerFrameUpdateMonitor.FrameUpdateListener {
 
     private var monitorThread: HandlerThread? = null
     private var stackCollectHandler: Handler? = null

@@ -2,6 +2,7 @@ package com.susion.rabbit.demo
 
 import android.app.Application
 import android.content.Context
+import android.os.Build
 import androidx.multidex.MultiDex
 import com.google.gson.Gson
 import com.susion.rabbit.Rabbit
@@ -12,6 +13,9 @@ import com.susion.rabbit.demo.page.CustomBusinessPage
 import com.susion.rabbit.base.config.RabbitMainFeatureInfo
 import com.susion.rabbit.base.config.RabbitReportConfig
 import com.susion.rabbit.base.entities.RabbitAppSpeedMonitorConfig
+import com.susion.rabbit.ui.monitor.R
+import com.susion.rabbit.ui.page.RabbitMonitorConfigPage
+import com.wind.hiddenapi.bypass.HiddenApiBypass
 
 /**
  * susionwang at 2019-12-12
@@ -21,6 +25,9 @@ class MyApplication : Application() {
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
         MultiDex.install(this)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            HiddenApiBypass.startBypass();
+        }
     }
 
     override fun onCreate() {
@@ -33,6 +40,7 @@ class MyApplication : Application() {
             arrayListOf(
                 RabbitMainFeatureInfo(
                     "业务面板",
+                    RabbitMainFeatureInfo.TYPE_BUSINESS,
                     R.drawable.rabbit_icon_business,
                     CustomBusinessPage::class.java
                 )

@@ -11,16 +11,15 @@ import com.susion.rabbit.base.common.toastInThread
 import com.susion.rabbit.base.entities.RabbitBlockFrameInfo
 import com.susion.rabbit.base.entities.RabbitBlockStackTraceInfo
 import com.susion.rabbit.monitor.RabbitMonitor
-import com.susion.rabbit.monitor.core.ChoreographerMonitorCenter
-import com.susion.rabbit.monitor.core.ChoreographerFrameUpdateMonitor
+import com.susion.rabbit.base.core.ChoreographerMonitorCenter
+import com.susion.rabbit.base.core.ChoreographerFrameUpdateMonitor
 import com.susion.rabbit.storage.RabbitStorage
 import java.util.concurrent.TimeUnit
 
 /**
  * 监控应用卡顿
  * */
-internal open class RabbitBlockMonitor(override var isOpen: Boolean = false) :
-    ChoreographerFrameUpdateMonitor.FrameUpdateListener, RabbitMonitorProtocol {
+internal open class RabbitBlockMonitor(override var isOpen: Boolean = false) : ChoreographerFrameUpdateMonitor.FrameUpdateListener, RabbitMonitorProtocol {
 
     private var stackCollectHandler: Handler? = null
     private var blockStackTraces = HashMap<String, RabbitBlockStackTraceInfo>()
@@ -57,7 +56,6 @@ internal open class RabbitBlockMonitor(override var isOpen: Boolean = false) :
         monitorThread = HandlerThread("rabbit_block_monitor")
         monitorThread!!.start()
         stackCollectHandler = Handler(monitorThread!!.looper)
-
         ChoreographerMonitorCenter.addSimpleFrameUpdateListener(this)
         isOpen = true
     }

@@ -6,11 +6,12 @@ import android.content.Context
 import android.content.res.Resources
 import android.graphics.Color
 import android.os.Build
-import androidx.annotation.ColorInt
-import androidx.core.content.ContextCompat
+import android.util.TypedValue
 import android.view.View
 import android.view.Window
-import java.util.*
+import androidx.annotation.ColorInt
+import androidx.core.content.ContextCompat
+import java.util.Formatter
 
 /**
  * susionwang at 2019-09-23
@@ -71,7 +72,7 @@ object RabbitUiUtils {
     fun copyStrToClipBoard(context: Context, str: String) {
         val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         val clipData = ClipData.newPlainText(null, str)
-        clipboard.primaryClip = clipData
+        clipboard.setPrimaryClip(clipData)
     }
 
     fun formatFileSize(size: Long): String {
@@ -108,4 +109,21 @@ object RabbitUiUtils {
         return "${min}分${sec}秒"
     }
 
+    fun sp2px(context: Context, sp: Float): Float {
+        return TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_SP,
+            sp,
+            context.resources.displayMetrics
+        )
+    }
+
+    fun dip2Px(context: Context, dipValue: Float): Float {
+        val scale = context.resources.displayMetrics.density
+        return dipValue * scale + 0.5f
+    }
+
+    fun px2dip(context: Context, pxValue: Float): Int {
+        val scale = context.resources.displayMetrics.density
+        return (pxValue / scale + 0.5f).toInt()
+    }
 }

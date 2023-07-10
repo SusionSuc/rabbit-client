@@ -53,4 +53,6 @@ dependencies {
     implementation LibDepen.rxbinding3
     implementation LibDepen.retrofit2
     implementation LibDepen.lifeClean
+
+    implementation project(':free-android')
 }

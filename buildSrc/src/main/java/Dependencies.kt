@@ -3,8 +3,8 @@ object BuildInfo {
     const val versionName = "1.0.0"
     const val applicationId = "com.susion.rabbit.demo"
     const val minSdkVersion = 19
-    const val compileSdkVersion = 28
-    const val targetSdkVersion = 28
+    const val compileSdkVersion = 29
+    const val targetSdkVersion = 29
     const val buildToolsVersion = "29.0.3"
 }
 
@@ -18,7 +18,7 @@ object LibDepen {
     const val retrofit2RxJavaAdapter = "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0"
     const val retrofit2ConvertJson = "com.squareup.retrofit2:converter-gson:2.4.0"
     const val glide = "com.github.bumptech.glide:glide:4.10.0"
-    const val greenDao = "org.greenrobot:greendao:3.2.2"
+    const val greenDao = "org.greenrobot:greendao:3.3.0"
     const val autoService = "com.google.auto.service:auto-service:1.0-rc4"
     const val mpAndroidChart = "com.github.PhilJay:MPAndroidChart:v3.1.0"
     const val leakCanary = "com.squareup.leakcanary:leakcanary-android:2.2"

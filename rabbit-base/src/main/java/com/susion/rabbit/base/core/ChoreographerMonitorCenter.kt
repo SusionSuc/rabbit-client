@@ -1,4 +1,4 @@
-package com.susion.rabbit.monitor.core
+package com.susion.rabbit.base.core
 
 import com.susion.rabbit.base.RabbitLog
 import com.susion.rabbit.base.TAG_MONITOR
@@ -7,7 +7,7 @@ import com.susion.rabbit.base.TAG_MONITOR
  * susionwang at 2020-04-17
  * 重复利用 Choreographer Monitor
  */
-internal object ChoreographerMonitorCenter {
+object ChoreographerMonitorCenter {
 
     private val detailedFrameUpdateMonitor by lazy {
         LazyChoreographerFrameUpdateMonitor().apply {
